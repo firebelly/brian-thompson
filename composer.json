@@ -43,7 +43,7 @@
     "wpackagist-plugin/limit-login-attempts" : "*",
     "wpackagist-plugin/wordpress-importer" : "*",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
-    "wpackagist-plugin/cmb2": ">=2.0.2",
+    "wpackagist-plugin/cmb2": ">=2.2.1",
     "wpackagist-plugin/wp-facebook-open-graph-protocol": ">=2.0.11",
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/regenerate-thumbnails": "2.2.6"
