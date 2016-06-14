@@ -93,19 +93,3 @@ function simplify_tinymce($settings) {
   return $settings;
 }
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
-
-
-function hack_in_admin_styling() {
-  echo <<<HTML
-  <style>
-    .cmb2-text-medium {
-      width: 100% !important;
-    }
-    .cmb-group-name {
-      padding-left: 0 !important;
-      font-weight: bold !important;
-    }
-  </style>
-HTML;
-}
-add_action('admin_head', __NAMESPACE__ . '\hack_in_admin_styling');

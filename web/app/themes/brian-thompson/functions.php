@@ -26,8 +26,16 @@ $firebelly_includes = [
   'lib/ajax.php',                      // AJAX functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
   'lib/cmb2-custom-fields.php',        // Custom CMB2
-  'lib/page-meta-boxes.php',           // Various tweaks for multiple post types
-  'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
+  'lib/page-meta.php',                 // General Page Meta/Admin Functions, Filters, Hooks
+  'lib/about-meta.php',                // About Page Meta/Admin Functions, Filters, Hooks
+  'lib/services-meta.php',             // Services Page Meta/Admin Functions, Filters, Hooks
+  'lib/process-meta.php',              // Process Page Meta/Admin Functions, Filters, Hooks
+  'lib/contact-meta.php',              // Contact Page Meta/Admin Functions, Filters, Hooks
+  'lib/appointments-meta.php',         // Appointments Page Meta/Admin Functions, Filters, Hooks
+  'lib/portals-meta.php',              // Portals Page Meta/Admin Functions, Filters, Hooks
+  'lib/footer-meta.php',               // Footer Page Meta/Admin Functions, Filters, Hooks
+  'lib/post-meta-boxes.php',           // Post Meta/Admin Functions, Filters, Hooks
+  'lib/site_options.php',              // Site Options
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
