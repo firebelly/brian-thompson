@@ -49,3 +49,30 @@ function register_metaboxes() {
 
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
+
+function get_steps() {
+  $steps = get_post_meta( get_the_ID(), '_cmb2_steps', true );
+  $output = '';
+
+
+
+  $output .= '<ul class="steps">';
+  $i=1;
+  foreach ( (array) $steps as $key => $step ) {
+
+    $title = $excerpt = $full = '';
+
+    $step_num = '<h4>Step '.$i.'</h4>';
+    if ( isset( $step['title'] ) )
+      $title = '<h4>'.esc_html( $step['title'] ).'</h4>';
+    if ( isset( $step['description'] ) )
+      $description = '<div class="description">'.apply_filters('the_content', $step['description'] ).'</div>';
+
+    $output .= '<li class="step">'.$step_num.$title.$description.'</li>';
+
+    $i++;
+  }
+  $output .= '</ul>';
+
+  return $output;
+}
