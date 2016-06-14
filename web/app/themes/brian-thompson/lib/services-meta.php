@@ -57,3 +57,27 @@ function register_metaboxes() {
 
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
+
+// Shortcode [services]
+add_shortcode('services', __NAMESPACE__ . '\shortcode');
+function shortcode() {
+
+  $services = get_post_meta( get_the_ID(), '_cmb2_services', true );
+  $output = '';
+
+
+  $output .= '<ul class="services">';
+  foreach ( (array) $services as $key => $service ) {
+      $title = $excerpt = $full = '';
+      if ( isset( $service['title'] ) )
+        $title = '<h4>'.esc_html( $service['title'] ).'</h4>';
+      if ( isset( $service['excerpt'] ) )
+        $excerpt = '<div class="excerpt">'.apply_filters('the_content', $service['excerpt'] ).'</div>';
+      if ( isset( $service['full'] ) )
+        $full = '<div class="full">'.apply_filters('the_content', $service['full'] ).'</div>';
+    $output .= '<li class="service">'.$title.$excerpt.$full.'</li>';
+  }
+  $output .= '</ul>';
+
+  return $output;
+}
