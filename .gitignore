@@ -34,3 +34,5 @@ bin
 
 # Fonts
 web/app/themes/typeforce/assets/fonts/*
+config/.DS_Store
+.DS_Store
