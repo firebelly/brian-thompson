@@ -93,6 +93,16 @@ class FbSiteOptions {
       ),
     ) );
     $cmb->add_field( array(
+      'name' => __( 'Contact Name', 'firebelly' ),
+      'id'   => 'name',
+      'type' => 'text',
+    ) );
+    $cmb->add_field( array(
+      'name' => __( 'Contact Organization', 'firebelly' ),
+      'id'   => 'org',
+      'type' => 'text',
+    ) );
+    $cmb->add_field( array(
       'name' => __( 'Contact Phone', 'firebelly' ),
       'id'   => 'phone',
       'type' => 'text',
