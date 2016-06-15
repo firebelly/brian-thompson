@@ -36,6 +36,7 @@ $firebelly_includes = [
   'lib/footer-meta.php',               // Footer Page Meta/Admin Functions, Filters, Hooks
   'lib/post-meta-boxes.php',           // Post Meta/Admin Functions, Filters, Hooks
   'lib/site_options.php',              // Site Options
+  'lib/nav-functions.php',             // Functions pertaining to navs
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

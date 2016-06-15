@@ -1,5 +1,4 @@
 <?php 
-use Firebelly\Utils; 
 
 // Page template as normal
 include(locate_template('index.php')); 
@@ -15,15 +14,9 @@ include(locate_template('index.php'));
     ];
     $recent_posts = get_posts($args);
     foreach ($recent_posts as $recent_post) : 
-      $category = Utils\get_category( $recent_post );
       ?>
       <li class="recent-post">
-        <article>
-          <a href="<?= get_the_permalink($recent_post->ID); ?>"><h4><?= get_the_title($recent_post->ID) ?></h4></a>
-          <?php if ($category) : ?>
-            <a class="category" href="<?= get_term_link($category); ?>"><?= $category->name; ?></a>
-          <?php endif; ?></p>
-          <time datetime="<?= date('c', strtotime($recent_post->post_date)); ?>"><?= date('m.d.y', strtotime($recent_post->post_date)); ?></time>
-        </article>
+        <?php $post = $recent_post; include(locate_template('templates/content.php')); ?>
       </li>
-    <?php endforeach;
+    <?php endforeach; ?>
+  </ul>
