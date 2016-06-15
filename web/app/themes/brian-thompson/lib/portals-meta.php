@@ -5,7 +5,9 @@
 
 namespace Firebelly\PostTypes\Pages\Portals;
 
-// Custom CMB2 fields for post type
+/**
+ * Custom CMB2 fields for page
+ */
 function register_metaboxes() {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
@@ -62,3 +64,29 @@ function register_metaboxes() {
   ) );
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
+
+function get_portals() {
+  $portals = get_post_meta(get_the_ID(),'_cmb2_portals',true);
+  $output = '';
+
+  $output.= '<ul class="portals">';
+  foreach ($portals as $portal) {
+
+    $thumbnail_url = \wp_get_attachment_image_src($portal['thumbnail_id'],'medium')[0];
+    $description = apply_filters('the_content',$portal['description']);
+    $url = esc_url($portal['url']);
+
+    $output .= <<<HTML
+      <li class="portal">
+        <h3>{$portal['title']}</h3>
+        <img src="{$thumbnail_url}">
+        <p>{$description}</p>
+        <a href="{$url}"><button>Log In</button></a>
+      </li>
+HTML;
+  }
+  $output .= '</ul>';
+
+  return $output;
+
+}

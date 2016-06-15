@@ -5,7 +5,9 @@
 
 namespace Firebelly\PostTypes\Pages\Process;
 
-// Custom CMB2 fields for post type
+/**
+ * Custom CMB2 fields for page
+ */
 function register_metaboxes() {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
@@ -50,11 +52,12 @@ function register_metaboxes() {
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
 
+/**
+ * Get template markup for steps
+ */
 function get_steps() {
   $steps = get_post_meta( get_the_ID(), '_cmb2_steps', true );
   $output = '';
-
-
 
   $output .= '<ul class="steps">';
   $i=1;

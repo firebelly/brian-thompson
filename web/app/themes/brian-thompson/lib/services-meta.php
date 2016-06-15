@@ -5,7 +5,9 @@
 
 namespace Firebelly\PostTypes\Pages\Services;
 
-// Custom CMB2 fields for post type
+/**
+ * Custom CMB2 fields for page
+ */
 function register_metaboxes() {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
@@ -58,7 +60,9 @@ function register_metaboxes() {
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
 
-// Shortcode [services]
+/**
+ * Shortcode [services] gets template markup for services
+ */
 add_shortcode('services', __NAMESPACE__ . '\shortcode');
 function shortcode() {
 

@@ -5,7 +5,9 @@
 
 namespace Firebelly\PostTypes\Pages\About;
 
-// Custom CMB2 fields for post type
+/**
+ * Custom CMB2 fields for page
+ */
 function register_metaboxes() {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
   
