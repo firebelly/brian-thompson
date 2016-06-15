@@ -82,9 +82,9 @@ function simplify_tinymce($settings) {
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
 
 /*
- * AddThis Exclude
+ * Only show Addthis share buttons on single post
  */
 function addthis_on_single_only($display) {
-  return is_single(); // Only show AddThis on single posts.
+  return is_single(); // Only show AddThis on single posts
 }
 add_filter('addthis_post_exclude', __NAMESPACE__ . '\addthis_on_single_only');

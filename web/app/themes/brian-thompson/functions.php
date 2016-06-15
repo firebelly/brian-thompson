@@ -30,7 +30,6 @@ $firebelly_includes = [
   'lib/about-meta.php',                // About Page Meta/Admin Functions, Filters, Hooks
   'lib/services-meta.php',             // Services Page Meta/Admin Functions, Filters, Hooks
   'lib/process-meta.php',              // Process Page Meta/Admin Functions, Filters, Hooks
-  'lib/contact-meta.php',              // Contact Page Meta/Admin Functions, Filters, Hooks
   'lib/appointments-meta.php',         // Appointments Page Meta/Admin Functions, Filters, Hooks
   'lib/portals-meta.php',              // Portals Page Meta/Admin Functions, Filters, Hooks
   'lib/footer-meta.php',               // Footer Page Meta/Admin Functions, Filters, Hooks
