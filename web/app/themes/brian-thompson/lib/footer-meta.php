@@ -13,7 +13,7 @@ function register_metaboxes() {
   
   $footer_meta = new_cmb2_box( array(
     'id'            => 'footer_metabox',
-    'title'         => __( 'More Information', 'cmb2' ),
+    'title'         => __( 'More Information', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'footer'),
     'context'       => 'normal',
@@ -23,7 +23,7 @@ function register_metaboxes() {
   );
   $footer_meta->add_field(
     array(
-      'name'             => __( 'Copyright Statement', 'cmb2' ),
+      'name'             => __( 'Copyright Statement', 'sage' ),
       'id'               => $prefix . 'copyright',
       'type'             => 'text',
     )

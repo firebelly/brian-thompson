@@ -13,7 +13,7 @@ function register_metaboxes() {
 
   $services_meta = new_cmb2_box( array(
     'id'            => 'service_metabox',
-    'title'         => __( 'Services', 'cmb2' ),
+    'title'         => __( 'Services', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'services'),
     'context'       => 'normal',
@@ -23,26 +23,26 @@ function register_metaboxes() {
   );
   $service_group = $services_meta->add_field(
     array(
-      'name'  => __( 'List of Services', 'cmb2' ),
+      'name'  => __( 'List of Services', 'sage' ),
       'id'    => $prefix . 'services',
-      'desc'  => __( 'The unfoldable "accordians" containing the services offered.', 'cmb2' ),
+      'desc'  => __( 'The unfoldable "accordians" containing the services offered.', 'sage' ),
       'type'  => 'group',
       'options'     => array(
-        'group_title'   => __( 'Service {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-        'add_button'    => __( 'Add Another Service', 'cmb2' ),
-        'remove_button' => __( 'Remove Service', 'cmb2' ),
+        'group_title'   => __( 'Service {#}', 'sage' ), // since version 1.1.4, {#} gets replaced by row number
+        'add_button'    => __( 'Add Another Service', 'sage' ),
+        'remove_button' => __( 'Remove Service', 'sage' ),
         'sortable'      => true, // beta
       ),
     )
   );
   $services_meta->add_group_field( $service_group, array(
-    'name' => __( 'Title', 'cmb2' ),
+    'name' => __( 'Title', 'sage' ),
     'id'   => 'title',
     'type' => 'text',
   ) );
   $services_meta->add_group_field( $service_group, array(
-    'name' => __( 'Short Description', 'cmb2' ),
-    'desc' => __( 'The brief description visible before the "accordian" is opened.', 'cmb2' ),
+    'name' => __( 'Short Description', 'sage' ),
+    'desc' => __( 'The brief description visible before the "accordian" is opened.', 'sage' ),
     'id'   => 'excerpt',
     'type' => 'wysiwyg',
     'options' => array(
@@ -51,8 +51,8 @@ function register_metaboxes() {
     ),
   ) );
   $services_meta->add_group_field( $service_group, array(
-    'name' => __( 'Full Description', 'cmb2' ),
-    'desc' => __( 'The complete description revealed to the user when they open the "accordian."', 'cmb2' ),
+    'name' => __( 'Full Description', 'sage' ),
+    'desc' => __( 'The complete description revealed to the user when they open the "accordian."', 'sage' ),
     'id'   => 'full',
     'type' => 'wysiwyg',
   ) );

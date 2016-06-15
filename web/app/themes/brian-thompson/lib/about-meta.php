@@ -13,7 +13,7 @@ function register_metaboxes() {
   
   $about_meta = new_cmb2_box( array(
     'id'            => 'about_metabox',
-    'title'         => __( 'Additional Images', 'cmb2' ),
+    'title'         => __( 'Additional Images', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'about'),
     'context'       => 'normal',
@@ -23,7 +23,7 @@ function register_metaboxes() {
   );
   $about_meta->add_field(
     array(
-      'name'             => __( 'Brian Alone', 'cmb2' ),
+      'name'             => __( 'Brian Alone', 'sage' ),
       'id'               => $prefix . 'brian_alone',
       'type'             => 'file',
       'options'          => array(
@@ -33,7 +33,7 @@ function register_metaboxes() {
   );
   $about_meta->add_field(
     array(
-      'name'             => __( 'Brian w/ Family', 'cmb2' ),
+      'name'             => __( 'Brian w/ Family', 'sage' ),
       'id'               => $prefix . 'brian_family',
       'type'             => 'file',
       'options'          => array(

@@ -13,7 +13,7 @@ function register_metaboxes() {
 
   $appoinments_meta = new_cmb2_box( array(
     'id'            => 'appointments_metabox',
-    'title'         => __( 'Calendly', 'cmb2' ),
+    'title'         => __( 'Calendly', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'appointments'),
     'context'       => 'normal',
@@ -23,7 +23,7 @@ function register_metaboxes() {
   );
   $appoinments_meta->add_field(
     array(
-      'name'             => __( 'Username', 'cmb2' ),
+      'name'             => __( 'Username', 'sage' ),
       'desc'             => __( 'Your Calendly username so we can embed the Calendly app.'),
       'id'               => $prefix . 'calendly',
       'type'             => 'text',

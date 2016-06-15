@@ -13,7 +13,7 @@ function register_metaboxes() {
 
   $portals_meta = new_cmb2_box( array(
     'id'            => 'portals_metabox',
-    'title'         => __( 'Client Portals', 'cmb2' ),
+    'title'         => __( 'Client Portals', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'portals'),
     'context'       => 'normal',
@@ -23,14 +23,14 @@ function register_metaboxes() {
   );
   $portal_group = $portals_meta->add_field(
     array(
-      'name'  => __( 'Client Portals', 'cmb2' ),
-      'desc'  => __( 'All client portals that will appear on client portals page.', 'cmb2' ),
+      'name'  => __( 'Client Portals', 'sage' ),
+      'desc'  => __( 'All client portals that will appear on client portals page.', 'sage' ),
       'id'    => $prefix . 'portals',
       'type'  => 'group',
       'options'     => array(
-        'group_title'   => __( 'Portal {#}', 'cmb2' ),
-        'add_button'    => __( 'Add Another Portal', 'cmb2' ),
-        'remove_button' => __( 'Remove This Portal', 'cmb2' ),
+        'group_title'   => __( 'Portal {#}', 'sage' ),
+        'add_button'    => __( 'Add Another Portal', 'sage' ),
+        'remove_button' => __( 'Remove This Portal', 'sage' ),
         'sortable'      => true, // beta
       ),
     )
@@ -43,7 +43,7 @@ function register_metaboxes() {
   ) );
   $portals_meta->add_group_field( $portal_group, array(
     'name' => 'Image',
-    'desc'  => __( 'Image to accompany portal.', 'cmb2' ),
+    'desc'  => __( 'Image to accompany portal.', 'sage' ),
     'id'   => 'thumbnail',
     'type' => 'file',
     'options'          => array(
@@ -52,13 +52,13 @@ function register_metaboxes() {
   ) );
   $portals_meta->add_group_field( $portal_group, array(
     'name' => 'Brief Description',
-    'desc'  => __( 'Brief description (1 sentence or less) or each site.', 'cmb2' ),
+    'desc'  => __( 'Brief description (1 sentence or less) or each site.', 'sage' ),
     'id'   => 'description',
     'type' => 'textarea_small',
   ) );
   $portals_meta->add_group_field( $portal_group, array(
     'name' => 'Login URL',
-    'desc'  => __( 'URL where clients can login.', 'cmb2' ),
+    'desc'  => __( 'URL where clients can login.', 'sage' ),
     'id'   => 'url',
     'type' => 'text_url',
   ) );

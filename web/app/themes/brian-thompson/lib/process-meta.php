@@ -13,7 +13,7 @@ function register_metaboxes() {
 
   $process_meta = new_cmb2_box( array(
     'id'            => 'process_metabox',
-    'title'         => __( 'Process Steps', 'cmb2' ),
+    'title'         => __( 'Process Steps', 'sage' ),
     'object_types'  => array( 'page', ), // Post type
     'show_on'       => array( 'key' => 'slug', 'value' => 'process'),
     'context'       => 'normal',
@@ -23,26 +23,26 @@ function register_metaboxes() {
   );
   $step_group = $process_meta->add_field(
     array(
-      'name'  => __( 'List of Steps', 'cmb2' ),
+      'name'  => __( 'List of Steps', 'sage' ),
       'id'    => $prefix . 'steps',
       'type'  => 'group',
       'options'     => array(
-        'group_title'   => __( 'Step {#}', 'cmb2' ),
-        'add_button'    => __( 'Add Another Step', 'cmb2' ),
-        'remove_button' => __( 'Remove Step', 'cmb2' ),
+        'group_title'   => __( 'Step {#}', 'sage' ),
+        'add_button'    => __( 'Add Another Step', 'sage' ),
+        'remove_button' => __( 'Remove Step', 'sage' ),
         'sortable'      => true, // beta
       ),
     )
   );
   $process_meta->add_group_field( $step_group, array(
-    'name' => __( 'Title', 'cmb2' ),
+    'name' => __( 'Title', 'sage' ),
     'id'   => 'title',
     'type' => 'text',
   ) );
   $process_meta->add_group_field( $step_group, array(
-    'name' => __( 'Description', 'cmb2' ),
+    'name' => __( 'Description', 'sage' ),
     'id'   => 'description',
-    'desc'  => __( 'This is the content that will be visible when the user triggers the popup for this step.', 'cmb2' ),
+    'desc'  => __( 'This is the content that will be visible when the user triggers the popup for this step.', 'sage' ),
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => get_option('default_post_edit_rows', 8), 
