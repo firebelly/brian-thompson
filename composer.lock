@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c479d8549aa02513919de71e47a90751",
-    "content-hash": "e18717f758287bfbaf5d20e5712f10b9",
+    "hash": "15d0b355d3902796ffab9b85fa0500e2",
+    "content-hash": "bba84cb0025b5898c983ecd2d84332e9",
     "packages": [
         {
             "name": "composer/installers",
@@ -420,6 +420,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/contact-form-7/"
+        },
+        {
+            "name": "wpackagist-plugin/contact-form-7-dynamic-text-extension",
+            "version": "2.0.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/contact-form-7-dynamic-text-extension/",
+                "reference": "tags/2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/contact-form-7-dynamic-text-extension.2.0.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/contact-form-7-dynamic-text-extension/"
         },
         {
             "name": "wpackagist-plugin/duplicate-post",
