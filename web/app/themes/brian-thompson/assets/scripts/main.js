@@ -32,6 +32,9 @@ var FBSage = (function($) {
     // _initSearch();
     // _initLoadMore();
 
+    // Inject all of our svgs so we can grab them throughout the page with <svg class="..." role="img"><use xlink:href="#..."></use></svg> commands.
+    _injectSvgSprite();
+
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
@@ -67,6 +70,11 @@ var FBSage = (function($) {
       delay: delay,
       offset: -wpOffset
     }, "easeOutSine");
+  }
+
+  // Inject all of our svgs so we can grab them throughout the page with <use xlink:href="#..."> commands.
+  function _injectSvgSprite() {
+    boomsvgloader.load('/app/themes/brian-thompson/assets/svgs/build/svgs-defs.svg');
   }
 
   function _initSearch() {

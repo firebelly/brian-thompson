@@ -25,3 +25,10 @@ function scripts() {
   
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__.'\\scripts', 100);
+
+// // THIS DOESN'T WORK YET (IM NOT FULLY UNDERSTANDING ASSETS_PATH), BUT ID LIKE TO GET IT TO WHEN I HAVE TIME:
+// // Send asset paths to javascript
+// function assets() {
+//   wp_localize_script('sage/js', 'sageSvgdefsPath', \Roots\Sage\Assets\asset_path('svgs/build/svgs-defs.svg'));
+// }
+// add_action('wp_enqueue_scripts', __NAMESPACE__.'\\assets', 100);
