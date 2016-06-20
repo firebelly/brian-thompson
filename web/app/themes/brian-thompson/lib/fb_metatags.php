@@ -16,6 +16,11 @@ function build_tags() {
     return;
   }
 
+  //Add Twitter tags
+  echo '<meta name="twitter:card" content="summary_large_image" />';
+  echo '<meta name="twitter:site" content="@'.\Firebelly\SiteOptions\get_option('twitter_id').'" />';
+  echo '<meta name="twitter:creator" content="@'.\Firebelly\SiteOptions\get_option('twitter_id').'" />';
+
   // Get Facebook ID for OG tags
   $facebook_app_id = \Firebelly\SiteOptions\get_option('facebook_app_id');
   if ($facebook_app_id) {
@@ -67,6 +72,8 @@ function build_tags() {
 
   // Find/output any images for use in the OGP tags
   $metatag_images = array();
+  $metatag_image_widths = array();
+  $metatag_image_heights = array();
 
   // Only find images if it isn't the homepage and the fallback isn't being forced
   if (!is_home()) {

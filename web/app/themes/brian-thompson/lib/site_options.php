@@ -116,6 +116,7 @@ class FbSiteOptions {
     $cmb->add_field( array(
       'name' => __( 'Twitter ID', 'firebelly' ),
       'id'   => 'twitter_id',
+      'desc' => 'Twitter ID without "@"',
       'type' => 'text',
     ) );
     $cmb->add_field( array(
