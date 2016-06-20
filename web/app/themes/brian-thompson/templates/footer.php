@@ -3,13 +3,15 @@ use Firebelly\SiteOptions;
 $footer = get_page_by_path('footer');
 ?>
 
-<!-- Brian's vcard is built into this footer via hcard -->
+<!-- Brian's contact infor in vcard format is built into this footer -->
 <footer class="site-footer vcard" role="contentinfo">
     <div class="visually-hidden">
       <span class="fn"><?= SiteOptions\get_option('name') ?></span>
     </div>
   <div class="description">
-    <a href="<?= bloginfo('url'); ?>" class="url"><svg></svg></a>
+    <a href="<?= bloginfo('url'); ?>" class="url">
+      <svg class="icon-placeholder" role="img"><use xlink:href="#icon-placeholder"></use></svg> 
+    </a>
     <?= apply_filters('the_content',$footer->post_content) ?>
   </div>
   <div class="questions">
