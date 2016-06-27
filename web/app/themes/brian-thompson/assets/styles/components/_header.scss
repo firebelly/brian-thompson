@@ -1,9 +1,58 @@
 // Header
 
 .site-header {
-  @include media-sm {
+
+  .brand {
+  position: absolute;
+  left: $grid-width - 1px;
+  top: 23px;
+  z-index: $z-brand;
   }
 
-  @include media-md {
+// Nav
+.site-nav {
+  @include font-mono;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: 0;
+  z-index: $z-nav;
+  ul { 
+    margin: 0;
   }
+  li {
+    position: relative;
+    float: left;
+    width: $grid-width;
+    padding: 25px 3px 0;
+    a:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+    }
+    &.current-menu-item a:before, a:hover:before {
+      height: 5px;
+    }
+  }
+  .menu-item-has-children {
+    position: relative;
+    float: left;
+    width: $grid-width;
+    padding: 0;
+    a { display: none }
+    li {
+      position: static;
+      a { display: block; }
+      &:not(:first-child) {
+        padding-top: 0;
+        &:before {
+          content: '–';
+          display: block;
+        }
+      }
+    }
+  }
+}  
 }

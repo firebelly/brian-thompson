@@ -1,15 +1,76 @@
 // Typography
 
-// Fonts
-$sans: Helvetica, sans-serif;
-$serif: Georgia, serif;
 
-// Sans-specific styles to chunk into one include
-@mixin font-sans() {
+// Font Faces
+@font-face {
+  font-family: "NB International Mono";
+  src: url(../fonts/NB_International_Pro_Mono.otf);
+  font-weight: normal;
+  font-style: normal;
 }
-// Serif-specific styles to chunk into one include
-@mixin font-sans() {
+@font-face {
+  font-family: "NB International Regular";
+  src: url(../fonts/NB_International_Pro_Regular.otf);
+  font-weight: normal;
+  font-style: normal;
 }
+@font-face {
+  font-family: "NB International Bold";
+  src: url(../fonts/NB_International_Pro_Bold.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NB International Italic";
+  src: url(../fonts/NB_International_Pro_Italic.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NB International Bold Italic";
+  src: url(../fonts/NB_International_Pro_Bold_Italic.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "BTF Regular";
+  src: url(../fonts/BTF_Regular.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Font Mixins
+@mixin font-mono {
+  font-family: "NB International Mono", monospace;
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin font-regular {
+  font-family: "NB International Regular", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin font-bold {
+  font-family: "NB International Bold", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin font-italic {
+  font-family: "NB International Italic", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin font-bold-italic {
+  font-family: "NB International Bold Italic", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+@mixin font-title {
+  font-family: "BTF Regular", monospace;
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 // Hide fonts while loading from Typekit
 .wf-loading {

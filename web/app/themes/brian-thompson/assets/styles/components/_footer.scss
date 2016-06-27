@@ -1,14 +1,5 @@
 // Footer
 
 .site-footer {
-  .contact {
-    @include media-sm {
-
-    }
-  }
-
-  .secondary-nav {
-    @include media-sm {}
-    @include media-md {}
-  }
+  display: none;
 }

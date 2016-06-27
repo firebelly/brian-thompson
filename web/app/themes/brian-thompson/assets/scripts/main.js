@@ -57,6 +57,9 @@ var FBSage = (function($) {
       }
     });
 
+    // Add html markup and behavior for lines
+    _initLines();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -180,6 +183,16 @@ var FBSage = (function($) {
   // function _scroll(dir) {
   //   var wintop = $(window).scrollTop();
   // }
+
+      // Add html markup and behavior for lines
+  function _initLines() {
+    var html = '<div class="lines" aria-hidden="true">';
+    for (var i=0; i<20; i++) { 
+      html+='<div class="line"></div>'; 
+    }
+    html+='</div>';
+    $(html).prependTo('body');
+  }
 
   // Public functions
   return {

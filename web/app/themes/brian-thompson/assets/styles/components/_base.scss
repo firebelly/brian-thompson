@@ -5,29 +5,99 @@
 
 html {
   box-sizing: border-box;
+  font-size: 12px; // 1 rem
+}
+
+@mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
+  color: $text;
+  background: $bg;
+  .ajax-swap {
+    background: $bg;
+  }
+  .line {
+    background: $line;
+  }
+  .site-nav a:before {
+    background: $text;
+  }
+  article:before, article:after {
+    background: $text;
+  }
+  h1 {
+    color: $highlight;
+  }
+  hr {
+    background: $text;
+  }
+  p a {
+    color: $highlight;
+  }
+  .btf-logo {
+    fill: $text;
+  }
 }
 
 body {
-  color: $black;
-  font-size: 16px;
   overflow-x: hidden;
-  font-family: $sans;
-  background: $white;
+  @include font-regular;
+  line-height: 1.66666666667;
+  letter-spacing: 0.02em;
+  &.white-color-scheme {
+     @include body-color-scheme($black, $gray, $near-white, $blue);
+  }
+  &.blue-color-scheme {
+    @include body-color-scheme($near-white, $lite-blue, $blue, $black);
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  @include font-bold;
+  line-height: 1.2;
+  letter-spacing: 0;
+  margin-top: 0;
+}
+h1 {
+  @include font-title;
+  font-size: 3.5rem;
+  letter-spacing: .08em;
+  // letter-spacing: 0;
+}
+h2 {
+  font-size: 2rem;
 }
 
 p {
   em {
-    font-style: italic;
+    @include font-italic;
+  }
+  strong {
+    @include font-bold;
+  }
+  em strong, strong em {
+    @include font-bold-italic;
   }
 }
 
 a {
   color: inherit;
+  text-decoration: none;
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  height: 1px;
 }
 
 // Browser alert
@@ -66,7 +136,64 @@ img {
   }
 }
 
+// Lines
+.lines {
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: $z-lines;
+  pointer-events: none;
+  .line {
+    float: left;
+    width: 1px;
+    height: 100%;
+    margin-left: $grid-width - 1px;
+    // transition: background $ajax-transition-time / 2;
+  }
+}
 
-.current-menu-item {
-  font-weight: bold;
+// Wrappers
+.wrap {
+  left: 0;
+  position: absolute;
+  margin-left: $grid-width*3;
+  width: $grid-width*5;
+}
+
+.site-wrap {
+  margin-top: 212px;
+  padding: 0 3px;
+
+  img:not(.floater-image) {
+    position: relative;
+    left: -3px;
+    right: -3px;
+    width: calc( 100% + 6px );
+    height: auto;
+    max-width: none;
+  }
+}
+
+
+
+.floater-image {
+  position: fixed;
+  width: 3 * $grid-width;
+  top: 0;
+  z-index: $z-floater-image;
+  &:nth-child(1) {
+    left: -1 * $grid-width;
+    top: 50px;
+  }
+  &:nth-child(2) {
+    left: 8 * $grid-width;
+    top: 0;
+  }
+  &:nth-child(3) {
+    left: 9 * $grid-width;
+    top: 690px;
+  }
 }

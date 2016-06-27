@@ -25,6 +25,23 @@ function body_class($classes) {
 add_filter('body_class', __NAMESPACE__ . '\\body_class');
 
 /**
+ * Add <body> class for color scheme
+ */
+function color_scheme($classes) {
+  // Add page slug if it doesn't exist
+  if (is_single() || is_page() && !is_front_page()) {
+    if (!in_array(basename(get_permalink()), $classes)) {
+      $classes[] = basename(get_permalink());
+    }
+  }
+
+  $classes[] = 'white-color-scheme';
+
+  return $classes;
+}
+add_filter('body_class', __NAMESPACE__ . '\\color_scheme');
+
+/**
  * Clean up the_excerpt()
  */
 function excerpt_more() {
