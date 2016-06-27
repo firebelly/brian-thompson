@@ -17,8 +17,11 @@ html {
   .line {
     background: $line;
   }
-  .site-nav a:before {
-    background: $text;
+  .site-nav {
+    background: $bg;
+    a:before {
+      background: $text;
+    }
   }
   article:before, article:after {
     background: $text;
@@ -150,21 +153,32 @@ hr {
     float: left;
     width: 1px;
     height: 100%;
-    margin-left: $grid-width - 1px;
     // transition: background $ajax-transition-time / 2;
   }
 }
 
-// Wrappers
-.wrap {
-  left: 0;
-  position: absolute;
-  margin-left: $grid-width*3;
-  width: $grid-width*5;
+@mixin columns($col-size) {
+  .site-wrap {
+    margin-left: ($col-size)*3;
+    width: ($col-size)*5;
+  }
+  .lines .line {
+    margin-left: calc( #{$col-size} - 1px);
+  }
+}
+@include columns(100px);
+@include min-screen(1500px) {
+  @include columns(100%/15);
 }
 
+// Wrappers
 .site-wrap {
-  margin-top: 212px;
+  left: 0;
+  position: absolute;
+}
+
+.body-wrap {
+  margin-top: 225px;
   padding: 0 3px;
 
   img:not(.floater-image) {
@@ -179,21 +193,21 @@ hr {
 
 
 
-.floater-image {
-  position: fixed;
-  width: 3 * $grid-width;
-  top: 0;
-  z-index: $z-floater-image;
-  &:nth-child(1) {
-    left: -1 * $grid-width;
-    top: 50px;
-  }
-  &:nth-child(2) {
-    left: 8 * $grid-width;
-    top: 0;
-  }
-  &:nth-child(3) {
-    left: 9 * $grid-width;
-    top: 690px;
-  }
-}
+// .floater-image {
+//   position: fixed;
+//   width: 3 * $grid-width;
+//   top: 0;
+//   z-index: $z-floater-image;
+//   &:nth-child(1) {
+//     left: -1 * $grid-width;
+//     top: 50px;
+//   }
+//   &:nth-child(2) {
+//     left: 8 * $grid-width;
+//     top: 0;
+//   }
+//   &:nth-child(3) {
+//     left: 9 * $grid-width;
+//     top: 690px;
+//   }
+// }

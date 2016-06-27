@@ -187,7 +187,7 @@ var FBSage = (function($) {
       // Add html markup and behavior for lines
   function _initLines() {
     var html = '<div class="lines" aria-hidden="true">';
-    for (var i=0; i<20; i++) { 
+    for (var i=0; i<15; i++) { 
       html+='<div class="line"></div>'; 
     }
     html+='</div>';

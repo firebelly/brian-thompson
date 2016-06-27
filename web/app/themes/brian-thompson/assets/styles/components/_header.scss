@@ -2,57 +2,77 @@
 
 .site-header {
 
+  position: relative;
+  width: 100%;
+
   .brand {
-  position: absolute;
-  left: $grid-width - 1px;
-  top: 23px;
-  z-index: $z-brand;
+    position: absolute;
+    width: calc( #{$col-inwrap} + 1px);
+    top: 8px;
+    left: calc( (-2 * #{$col-inwrap}) - 1px );
+    @include media-md {
+      top: 23px;
+    }
+    .btf-logo {
+      width: 100%;
+      height: auto;
+    }
+    z-index: $z-brand;
   }
 
-// Nav
-.site-nav {
-  @include font-mono;
-  font-size: 10px;
-  line-height: 15px;
-  letter-spacing: 0;
-  z-index: $z-nav;
-  ul { 
-    margin: 0;
-  }
-  li {
-    position: relative;
-    float: left;
-    width: $grid-width;
-    padding: 25px 3px 0;
-    a:before {
-      content: " ";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 0;
+  // Nav
+  .site-nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    @include font-mono;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0;
+    z-index: $z-nav;
+    ul { 
+      margin: 0;
     }
-    &.current-menu-item a:before, a:hover:before {
-      height: 5px;
-    }
-  }
-  .menu-item-has-children {
-    position: relative;
-    float: left;
-    width: $grid-width;
-    padding: 0;
-    a { display: none }
     li {
-      position: static;
-      a { display: block; }
-      &:not(:first-child) {
-        padding-top: 0;
-        &:before {
-          content: '–';
-          display: block;
+      position: relative;
+      float: left;
+      width: $col-inwrap;
+      padding: 10px 3px 0;
+      @include media-md {
+        padding: 25px 3px 0; 
+      }
+      a {
+        max-width: 100px;
+      }
+      a:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+      }
+      &.current-menu-item a:before, a:hover:before {
+        height: 5px;
+      }
+    }
+    .menu-item-has-children {
+      position: relative;
+      float: left;
+      padding: 0;
+      a { display: none }
+      li {
+        position: static;
+        width: 100%;
+        a { display: block; }
+        &:not(:first-child) {
+          padding-top: 0;
+          &:before {
+            content: '–';
+            display: block;
+          }
         }
       }
     }
-  }
-}  
+  }  
 }

@@ -3,7 +3,7 @@ use Firebelly\SiteOptions;
 $footer = get_page_by_path('footer');
 ?>
 
-<!-- Brian's contact infor in vcard format is built into this footer -->
+<!-- Brian's contact info in vcard format is built into this footer -->
 <footer class="site-footer vcard" role="contentinfo">
     <div class="visually-hidden">
       <span class="fn"><?= SiteOptions\get_option('name') ?></span>
