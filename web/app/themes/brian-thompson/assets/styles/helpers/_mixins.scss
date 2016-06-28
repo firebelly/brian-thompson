@@ -14,6 +14,12 @@
   }
 }
 
+// Clear lists
+@mixin delistify {
+  list-style: none;
+  padding-left: 0;
+}
+
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
 @mixin media-xs() {
   @media screen and (max-width: $breakpoint-small - 1) {

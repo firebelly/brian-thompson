@@ -5,7 +5,6 @@
 
 html {
   box-sizing: border-box;
-  font-size: 12px; // 1 rem
 }
 
 @mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
@@ -42,42 +41,11 @@ html {
 
 body {
   overflow-x: hidden;
-  @include font-regular;
-  line-height: 1.66666666667;
-  letter-spacing: 0.02em;
   &.white-color-scheme {
      @include body-color-scheme($black, $gray, $near-white, $blue);
   }
   &.blue-color-scheme {
     @include body-color-scheme($near-white, $lite-blue, $blue, $black);
-  }
-}
-
-h1,h2,h3,h4,h5,h6 {
-  @include font-bold;
-  line-height: 1.2;
-  letter-spacing: 0;
-  margin-top: 0;
-}
-h1 {
-  @include font-title;
-  font-size: 3.5rem;
-  letter-spacing: .08em;
-  // letter-spacing: 0;
-}
-h2 {
-  font-size: 2rem;
-}
-
-p {
-  em {
-    @include font-italic;
-  }
-  strong {
-    @include font-bold;
-  }
-  em strong, strong em {
-    @include font-bold-italic;
   }
 }
 
@@ -87,18 +55,15 @@ a {
 }
 
 img {
+  display: none;
   max-width: 100%;
   height: auto;
 }
 
-ul {
-  list-style: none;
-  padding-left: 0;
-}
 
 hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: $lh;
+  margin-bottom: $lh - 1px;
   border: 0;
   height: 1px;
 }
@@ -108,7 +73,6 @@ hr {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 200;
   color: $black;
   padding: 50px;
   text-align: center;
@@ -128,7 +92,6 @@ hr {
 .hide {
   display: none;
 }
-
 .container {
   width: 100%;
   margin: 0 auto;
@@ -139,75 +102,40 @@ hr {
   }
 }
 
-// Lines
-.lines {
-  overflow: hidden;
-  position: fixed;
-  top: 0; 
-  left: 0;
-  right: 0;
-  height: 100%;
-  z-index: $z-lines;
-  pointer-events: none;
-  .line {
-    float: left;
-    width: 1px;
-    height: 100%;
-    // transition: background $ajax-transition-time / 2;
-  }
-}
-
-@mixin columns($col-size) {
-  .site-wrap {
-    margin-left: ($col-size)*3;
-    width: ($col-size)*5;
-  }
-  .lines .line {
-    margin-left: calc( #{$col-size} - 1px);
-  }
-}
-@include columns(100px);
-@include min-screen(1500px) {
-  @include columns(100%/15);
-}
-
-// Wrappers
-.site-wrap {
-  left: 0;
-  position: absolute;
-}
-
+// Main Area
 .body-wrap {
-  margin-top: 225px;
-  padding: 0 3px;
+  margin-top: $lh*6;
 
-  img:not(.floater-image) {
+  h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
+    margin-top: 0;
+    margin-bottom: $lh - 10px; //Desired margin - amount of blank space already following the text within the line-height
+  }
+  h1 {
+    @include big-title;
+    margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
+  }
+  h2,h3,h4,h5,h6 {
+    @include small-title;
+    margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
+  }
+
+  p,ul,ol,blockquote {
+    @include copy;
+  }
+
+  .small-mono {
+    @include small-mono;
+  }
+
+  h1,h2,h3,h4,h5,h6,p {
+    padding: 0 3px;
+  }
+
+  img {
+    margin: $lh 0;
+  }
+  p img {
     position: relative;
-    left: -3px;
-    right: -3px;
-    width: calc( 100% + 6px );
-    height: auto;
-    max-width: none;
+    top: -2px;
   }
 }
-
-
-
-// .floater-image {
-//   position: fixed;
-//   width: 3 * $grid-width;
-//   top: 0;
-//   z-index: $z-floater-image;
-//   &:nth-child(1) {
-//     left: -1 * $grid-width;
-//     top: 50px;
-//   }
-//   &:nth-child(2) {
-//     left: 8 * $grid-width;
-//     top: 0;
-//   }
-//   &:nth-child(3) {
-//     left: 9 * $grid-width;
-//     top: 690px;
-//   }
-// }

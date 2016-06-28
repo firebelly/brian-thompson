@@ -2,12 +2,12 @@
 
 
 // Font Faces
-@font-face {
-  font-family: "NB International Mono";
-  src: url(../fonts/NB_International_Pro_Mono.otf);
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "NB International Mono";
+//   src: url(../fonts/NB_International_Pro_Mono.otf);
+//   font-weight: normal;
+//   font-style: normal;
+// }
 @font-face {
   font-family: "NB International Regular";
   src: url(../fonts/NB_International_Pro_Regular.otf);
@@ -33,18 +33,18 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "BTF Regular";
-  src: url(../fonts/BTF_Regular.otf);
+  font-family: "BTF Mono";
+  src: url(../fonts/BTF_Mono.otf);
   font-weight: normal;
   font-style: normal;
 }
 
 // Font Mixins
-@mixin font-mono {
-  font-family: "NB International Mono", monospace;
-  font-weight: normal;
-  font-style: normal;
-}
+// @mixin font-mono {
+//   font-family: "NB International Mono", monospace;
+//   font-weight: normal;
+//   font-style: normal;
+// }
 @mixin font-regular {
   font-family: "NB International Regular", sans-serif;
   font-weight: normal;
@@ -65,8 +65,8 @@
   font-weight: normal;
   font-style: normal;
 }
-@mixin font-title {
-  font-family: "BTF Regular", monospace;
+@mixin font-mono {
+  font-family: "BTF Mono", monospace;
   font-weight: normal;
   font-style: normal;
 }
@@ -77,7 +77,52 @@
   visibility: hidden;
 }
 
-//sizes
-$small: 0.5em;
-$med: 1em;
-$big: 3em;
+body { //Defaults
+  line-height: 20px;
+  @include font-regular
+}
+
+@mixin big-title {
+  @include font-mono;
+  line-height: 50px;
+  font-size: 48px;
+  position: relative;
+  top: -10px; // 0-10 (basline adjustment - top of line adjustment)
+  margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
+}
+
+@mixin small-title {
+  @include font-bold;
+  font-size: 18px;
+  line-height: 20px;
+  position: relative;
+  margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
+}
+
+@mixin copy {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  position: relative;
+  top: -3px;  // 2-5 (basline adjustment - top of line adjustment)
+  margin-bottom: $lh - 10px; //Desired margin - amount of blank space already following the text within the line-height
+  em {
+    @include font-italic;
+  }
+  strong {
+    @include font-bold;
+  }
+  em strong, strong em {
+    @include font-bold-italic;
+  }
+}
+
+@mixin small-copy {
+}
+
+
+@mixin small-mono {
+  @include font-mono;
+  font-size: 10px;
+  position: relative;
+  top: -4px; // 1-5 (basline adjustment - top of line adjustment)
+}

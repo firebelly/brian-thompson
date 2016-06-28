@@ -1,1 +1,39 @@
 // Grid system
+
+// Lines
+.lines {
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: $z-lines;
+  pointer-events: none;
+  .line {
+    float: left;
+    width: 1px;
+    height: 100%;
+    // transition: background $ajax-transition-time / 2;
+  }
+}
+
+@mixin columns($col-size) {
+  .main-area-wrap {
+    margin-left: ($col-size)*3;
+    width: ($col-size)*5;
+  }
+  .lines .line {
+    margin-left: calc( #{$col-size} - 1px);
+  }
+}
+@include columns(100px);
+@include min-screen(1500px) {
+  @include columns(100%/15);
+}
+
+// Wrappers
+.main-area-wrap {
+  left: 0;
+  position: absolute;
+}

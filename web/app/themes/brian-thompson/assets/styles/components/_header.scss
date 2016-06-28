@@ -2,14 +2,29 @@
 
 .site-header {
 
-  position: relative;
-  width: 100%;
+  //Why all this crazy nested wrapping?
+  //Each element needs a different pos-fixed element because they have different Z's.  This is wrapped around a .main-area-wrap, so that the elements could be positioned relative to the main content area size rather than full viewport.
+  .brand-wrap, .site-nav-wrap {
+    position: fixed;
+    width: 100%;
+  }
+  .brand-wrap {
+    z-index: $z-brand;
+  }
+  .site-nav-wrap {
+    z-index: $z-nav;
+  }
+
+  ul {
+    @include delistify;
+  }
 
   .brand {
     position: absolute;
     width: calc( #{$col-inwrap} + 1px);
     top: 8px;
     left: calc( (-2 * #{$col-inwrap}) - 1px );
+    z-index: $z-brand;
     @include media-md {
       top: 23px;
     }
@@ -17,7 +32,6 @@
       width: 100%;
       height: auto;
     }
-    z-index: $z-brand;
   }
 
   // Nav
@@ -29,7 +43,6 @@
     font-size: 10px;
     line-height: 15px;
     letter-spacing: 0;
-    z-index: $z-nav;
     ul { 
       margin: 0;
     }
