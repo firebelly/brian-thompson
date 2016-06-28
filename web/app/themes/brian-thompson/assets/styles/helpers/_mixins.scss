@@ -20,6 +20,70 @@
   padding-left: 0;
 }
 
+// Decorations
+@mixin dot {
+  position: absolute;
+  content: ' ';
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background: $black;
+}
+@mixin dash {
+  position: absolute;
+  content: '–';
+  @include font-bold;
+  color: $black;
+}
+
+@mixin arrow-right($height) {
+  height: $height;
+  position: relative;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: inline-block;
+  &:after {
+    content: ' ';
+    height: 100% * .707107; //  h/sqrt(2);
+    width: $height * .707107; //  h/sqrt(2);
+    transform: translate(50%,-50%) rotate(45deg) ;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background: $white;
+    border-top-right-radius: 3px;
+    z-index: -1;
+  }
+}
+
+@mixin arrow-left($height) {
+  height: $height;
+  position: relative;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: inline-block;
+  .arrow-wrap {
+    margin: auto;
+    display: inline-block;
+    text-align: center;
+  }
+  &:after {
+    content: ' ';
+    height: 100% * .707107; //  h/sqrt(2);
+    width: $height * .707107; //  h/sqrt(2);
+    transform: translate(-50%,-50%) rotate(45deg) ;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: $white;
+    border-bottom-left-radius: 3px;
+    z-index: -1;
+  }
+}
+
+
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
 @mixin media-xs() {
   @media screen and (max-width: $breakpoint-small - 1) {

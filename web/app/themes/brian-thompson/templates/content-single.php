@@ -11,8 +11,12 @@
       <?php the_content(); ?>
     </div>
     <footer>
-      <?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
+      <div class="nav-posts">
+        <div class="main-area-wrap">
+          <?php previous_post_link( '%link','<div class="prev-post"><div class="arrow-wrap">Prev Post</div></div>' ); ?>
+          <?php next_post_link( '%link','<div class="next-post"><div class="arrow-wrap">Next Post</div></div>' ); ?>
+        </div>
+      </div>
     </footer>
-    <?php comments_template('/templates/comments.php'); ?>
   </article>
 <?php endwhile; ?>

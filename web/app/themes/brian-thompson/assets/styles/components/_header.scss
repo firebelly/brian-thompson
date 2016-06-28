@@ -13,6 +13,7 @@
   }
   .site-nav-wrap {
     z-index: $z-nav;
+    height: 120px;
   }
 
   ul {
@@ -25,6 +26,7 @@
     top: 8px;
     left: calc( (-2 * #{$col-inwrap}) - 1px );
     z-index: $z-brand;
+    margin: 0;
     @include media-md {
       top: 23px;
     }
@@ -36,7 +38,7 @@
 
   // Nav
   .site-nav {
-    position: absolute;
+    position: relative;
     top: 0;
     width: 100%;
     @include font-mono;

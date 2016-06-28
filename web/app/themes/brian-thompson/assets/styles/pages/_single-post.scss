@@ -2,50 +2,65 @@
 
 .single-post {
 
+  .entry-meta {
+    p {
+      @include small-mono;
+    }
+    .date {
+      position: absolute;
+      top: 25px;
+      right: calc( 100% + 3px );
+    }
+    .category {
+      position: relative;
+      a { text-decoration: underline; }
+      &:after {
+        @include dash;
+        bottom: -15px;
+        left: 3px;
+      }
+    }
+  }
+
+  .entry-content {
+    position: relative;
+    &:before {
+      @include dot;
+      top: -( $lh * 1.25 );
+      right: calc( 125% - 2px );
+    }
+  }
   article {
-    @include clearfix();
 
-    main {
+  }
+
+  .nav-posts{
+    position: fixed;
+    width: 100%;
+    top: 50vh;
+    left: 0;
+    z-index: $z-brand;
+  }
+
+  .next-post, .prev-post {
+    color: $blue;
+    z-index: 100;
+    @include font-mono;
+    .arrow-wrap {
+      max-width: 50px
     }
-
-    header {
-    }
-
-    .user-content {
-      h1, h2, h3, h4, h5, h6 {
-      }
-
-      img {
-      }
-
-      ul, ol {
-        padding-left: 0;
-        li {
-          font-size: 16px;
-          line-height: 1.5em;
-        }
-      }
-
-      figure, figure:first-child {
-        margin: 30px 0;
-      }
-
-      figure > img,
-      figure >img:first-child {
-        margin: 0;
-      }
-
-      figcaption {
-      }
-
-      blockquote {
-        padding: 20px 0;
-        p {
-          font-size: 24px;
-          margin-bottom: 0;
-        }
-      }
-    }
+    background: $white;
+    transform: translateY(-50%);
+  }
+  .next-post {
+    left: calc( 100% - 2px );
+    @include arrow-right(70px);
+    position: absolute;
+  }
+  .prev-post {
+    right: calc( 100% - 2px );
+    @include arrow-left(70px);
+    position: absolute;
   }
 
 }

@@ -10,16 +10,19 @@ html {
 @mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
   color: $text;
   background: $bg;
-  .ajax-swap {
-    background: $bg;
-  }
+  // .ajax-swap {
+  //   background: $bg;
+  // }
   .line {
     background: $line;
   }
-  .site-nav {
+  .site-nav-wrap {
     background: $bg;
+    background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
+  }
+  .site-nav {
     a:before {
-      background: $text;
+      background: $black;
     }
   }
   article:before, article:after {
@@ -27,16 +30,20 @@ html {
   }
   h1 {
     color: $highlight;
+    &:before{
+      background: $black;
+    }
   }
   hr {
     background: $text;
   }
-  p a {
+  a {
     color: $highlight;
   }
   .btf-logo {
     fill: $text;
   }
+
 }
 
 body {
@@ -52,6 +59,9 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 img {
@@ -62,8 +72,8 @@ img {
 
 
 hr {
-  margin-top: $lh;
-  margin-bottom: $lh - 1px;
+  margin-top: ( $lh * 1.5 );
+  margin-bottom: ( $lh * 1.5 ) - 1px;
   border: 0;
   height: 1px;
 }
@@ -104,30 +114,37 @@ hr {
 
 // Main Area
 .body-wrap {
-  margin-top: $lh*6;
+  position: relative;
+  margin-top: $lh * 6;
+  width: $col-inwrap * 4;
 
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
     margin-top: 0;
-    margin-bottom: $lh - 10px; //Desired margin - amount of blank space already following the text within the line-height
-  }
+    }
+
   h1 {
     @include big-title;
     margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
+    &:before{
+      @include dot;
+      top: 40px;
+      right: calc(125% - 2px);
+    }
   }
   h2,h3,h4,h5,h6 {
     @include small-title;
-    margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
+    margin-bottom: ($lh * 1.5) - 5px; //Desired margin - amount of blank space already following the text within the line-height
   }
-
-  p,ul,ol,blockquote {
+  p,ul,ol,blockquote, li {
     @include copy;
+    margin-bottom: ($lh * 1.5) - 10px; //Desired margin - amount of blank space already following the text within the line-height
   }
 
   .small-mono {
     @include small-mono;
   }
 
-  h1,h2,h3,h4,h5,h6,p {
+  h1,h2,h3,h4,h5,h6,p,li {
     padding: 0 3px;
   }
 
@@ -138,4 +155,23 @@ hr {
     position: relative;
     top: -2px;
   }
+
+  ul {
+    padding-left: 0;
+  }
+  ol {
+    counter-reset: list-num;
+    padding-left: 0;
+    list-style: none;
+    li {
+      counter-increment: list-num;
+      &:before {
+        content: counter(list-num)' .';
+        position: absolute;
+        left: -20px;
+      }
+    }
+  }
+
+
 }
