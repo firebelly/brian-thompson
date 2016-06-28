@@ -58,6 +58,9 @@
       }
       a {
         max-width: 100px;
+        &:hover {
+          text-decoration: none;
+        }
       }
       a:before {
         content: " ";
