@@ -26,6 +26,23 @@
   .lines .line {
     margin-left: calc( #{$col-size} - 1px);
   }
+  .site-footer {
+    .description {
+      width: 2 * $col-size;
+      margin-left: 3 * $col-size;
+    }
+    .contact-form {
+      width: 1 * $col-size;
+    }
+    .add-info {
+      width: 1 * $col-size;
+      margin-left: 2 * $col-size;
+    }
+    .connect {
+      width: 2 * $col-size;
+      margin-left: 1 * $col-size;
+    }
+  }
 }
 @include columns(100px);
 @include min-screen(1500px) {

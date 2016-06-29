@@ -1,0 +1,71 @@
+@mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
+  color: $text;
+  background: $bg;
+
+  article:before, article:after {
+    background: $text;
+  }
+  h1 {
+    color: $highlight;
+  }
+  h1, h2 {
+    &:before, &:after {
+      background: $black;
+    }
+  }
+  hr {
+    background: $text;
+  }
+  a {
+    color: $highlight;
+  }
+
+  .line {
+    background: $line;
+  }
+
+  .site-nav-wrap {
+    background: $bg;
+    background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
+  }
+  .site-nav {
+    a {
+      color: $text;
+      &:before {
+        background: $black;
+      }
+    }
+  }
+
+  .btf-logo {
+    fill: $text;
+  }
+  .site-footer {
+    background: $blue;
+    color: $near-white;
+    a {
+      color: $near-white;
+    }
+    .btf-full-logo {
+      fill: $near-white;
+    }
+  }
+
+  h4 {
+    color: $highlight;
+  }
+  li.social-link {
+    button {
+      color: $near-white;
+      background: $black;
+    }
+  }
+
+  ul.categories a {
+    color: $text;
+  }
+
+  article.archive-listing {
+    h2 a { color: $text }
+  }
+}

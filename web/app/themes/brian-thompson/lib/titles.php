@@ -22,3 +22,11 @@ function title() {
     return get_the_title();
   }
 }
+
+function header_sr_class() {
+  if( is_home() ) {
+    return ' sr-only';
+  } else {
+    return '';
+  }
+}

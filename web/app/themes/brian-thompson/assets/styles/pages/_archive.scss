@@ -1,0 +1,32 @@
+// Archive Pages
+
+.category-nav {
+  position: absolute; 
+  left: 125%;
+  width: 50%;
+  ul.categories {
+    @include double-dash(20px,10px);
+    list-style: none;
+    li {
+      margin: 0;
+      @include small-mono;
+    }
+  }
+}
+
+.archive-listing {
+  float: left;
+  &:not(:first-of-type) {
+    width: 50%;
+  }
+  &:nth-of-type(2n+3) {
+    @include clearfix;
+    h2:after, h2:before {display: none;}
+  }
+  h2 {
+    margin-bottom: $lh/2;
+  }
+  .entry-meta {
+    @include small-mono;
+  }
+}

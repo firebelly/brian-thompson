@@ -1,0 +1,34 @@
+  // Social
+
+  .share {
+    ul.social-links {
+      padding-left: 3px;
+    }
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+  .site-footer {
+    li.social-link {
+      margin-top: ( $lh / 2 );
+    }
+  }
+  ul.social-links {
+    @include delistify;
+    margin: 0;
+  }
+  li.social-link {
+    margin-bottom: $lh * .75;
+    margin-left: 20px; 
+    &:first-child { margin-left: 0; }
+    float: left;
+    display: inline-block;
+  button {
+      width: 20px;
+      padding: 0;
+      @include small-nb-mono;
+      top: 0;
+      @include arrow-right(25px);
+      max-height: 25px;
+    }
+  }

@@ -35,23 +35,43 @@
   @include font-bold;
   color: $black;
 }
+@mixin dash-before($offset) {
+    &:before {
+      @include dash;
+      top: -1 * $offset; 
+      left: 3px;
+    }
+    position: relative;
+}
+@mixin dash-after($offset)  {
+    &:after {
+      @include dash;
+      bottom: -1 * $offset;
+      left: 3px;
+    }
+    position: relative;
+}
+@mixin double-dash($top,$bot) {
+  @include dash-before($top);
+  @include dash-after($bot);
+}
 
 @mixin arrow-right($height) {
   height: $height;
   position: relative;
-  padding: 15px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   display: inline-block;
+  border: 0;
   &:after {
     content: ' ';
-    height: 100% * .707107; //  h/sqrt(2);
-    width: $height * .707107; //  h/sqrt(2);
+    height: $height * .71; //  h/sqrt(2);
+    width: $height * .71; //  h/sqrt(2);
     transform: translate(50%,-50%) rotate(45deg) ;
     position: absolute;
     top: 50%;
     right: 0;
-    background: $white;
+    background: inherit;
     border-top-right-radius: 3px;
     z-index: -1;
   }
@@ -60,26 +80,34 @@
 @mixin arrow-left($height) {
   height: $height;
   position: relative;
-  padding: 15px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   display: inline-block;
-  .arrow-wrap {
-    margin: auto;
-    display: inline-block;
-    text-align: center;
-  }
+  border: 0;
   &:after {
     content: ' ';
-    height: 100% * .707107; //  h/sqrt(2);
+    height: $height * .707107; //  h/sqrt(2);
     width: $height * .707107; //  h/sqrt(2);
     transform: translate(-50%,-50%) rotate(45deg) ;
     position: absolute;
     top: 50%;
     left: 0;
-    background: $white;
+    background: inherit;
     border-bottom-left-radius: 3px;
     z-index: -1;
+  }
+}
+
+@mixin first-line-dots($dist-to-baseline) {
+  &:before{
+    @include dot;
+    top: $dist-to-baseline;
+    right: calc(125% - 2px);
+  }
+  &:after{
+    @include dot;
+    top: $dist-to-baseline;
+    left: calc(175% - 3px);
   }
 }
 

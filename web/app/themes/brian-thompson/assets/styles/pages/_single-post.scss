@@ -14,24 +14,11 @@
     .category {
       position: relative;
       a { text-decoration: underline; }
-      &:after {
-        @include dash;
-        bottom: -15px;
-        left: 3px;
-      }
     }
   }
 
   .entry-content {
-    position: relative;
-    &:before {
-      @include dot;
-      top: -( $lh * 1.25 );
-      right: calc( 125% - 2px );
-    }
-  }
-  article {
-
+    @include double-dash(25px,15px);
   }
 
   .nav-posts{
@@ -46,19 +33,20 @@
     color: $blue;
     z-index: 100;
     @include font-mono;
-    .arrow-wrap {
-      max-width: 50px
+    .wrap {
+      max-width: 35px
     }
+    padding: 15px;
     background: $white;
     transform: translateY(-50%);
   }
   .next-post {
-    left: calc( 100% - 2px );
+    left: calc( 100% - 5px );
     @include arrow-right(70px);
     position: absolute;
   }
   .prev-post {
-    right: calc( 100% - 2px );
+    right: calc( 120% - 5px );
     @include arrow-left(70px);
     position: absolute;
   }

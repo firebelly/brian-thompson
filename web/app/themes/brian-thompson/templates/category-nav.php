@@ -1,4 +1,5 @@
 <nav class="category-nav">
+  <h4>Categories</h4>
   <ul class="categories">
 
     <?php $active_class = is_home() ? ' current-menu-item' : ''; ?>

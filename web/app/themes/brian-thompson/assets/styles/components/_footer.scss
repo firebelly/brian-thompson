@@ -1,5 +1,75 @@
 // Footer
 
 .site-footer {
-  display: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: $z-brand;
+
+  a {
+    text-decoration: underline
+  }
+
+  button {
+    padding: 0;
+    @include small-nb-mono;
+    top: 0;
+    background: $black;
+    @include arrow-right(25px);
+    max-height: 25px;
+  }
+
+  .footer-block {
+    float: left;
+    display: inline-block;
+    padding: $lh 0;
+  }
+
+  .description {
+    padding-right: $lh;
+    p{
+      @include small-copy;
+    }
+  }
+  .contact-form, .add-info, .connect {
+    p{
+      @include small-nb-mono;
+    }
+  }
+  .connect {
+    .email-wrap {
+      max-width: 100px;
+      clear: both;
+    }
+    // .social-link {
+    //   margin-top: ( $lh / 2 );
+    //   margin-bottom: $lh * .75;
+    //   margin-left: 20px; 
+    //   &:first-child { margin-left: 0; }
+    //   float: left;
+    //   display: inline-block;
+    // }
+    // button {
+    //   width: 20px;
+    // }
+  }
+
+
+  p.org {
+    @include font-mono;
+    font-size: 14px;
+    top: -1px;
+    max-width: 50px;
+    margin-bottom: $lh;
+  }
+
+  .contact-form {  
+    .contact-button {
+      margin-top: $lh/2;
+      position: relative;
+      left: -6px;
+      width: 100%;
+    }
+  }
 }

@@ -2,12 +2,12 @@
 
 
 // Font Faces
-// @font-face {
-//   font-family: "NB International Mono";
-//   src: url(../fonts/NB_International_Pro_Mono.otf);
-//   font-weight: normal;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: "NB International Mono";
+  src: url(../fonts/NB_International_Pro_Mono.otf);
+  font-weight: normal;
+  font-style: normal;
+}
 @font-face {
   font-family: "NB International Regular";
   src: url(../fonts/NB_International_Pro_Regular.otf);
@@ -40,11 +40,11 @@
 }
 
 // Font Mixins
-// @mixin font-mono {
-//   font-family: "NB International Mono", monospace;
-//   font-weight: normal;
-//   font-style: normal;
-// }
+@mixin font-nb-mono {
+  font-family: "NB International Mono", monospace;
+  font-weight: normal;
+  font-style: normal;
+}
 @mixin font-regular {
   font-family: "NB International Regular", sans-serif;
   font-weight: normal;
@@ -79,7 +79,7 @@
 
 body { //Defaults
   line-height: 20px;
-  @include font-regular
+  @include font-regular;
 }
 
 @mixin big-title {
@@ -88,15 +88,17 @@ body { //Defaults
   font-size: 48px;
   position: relative;
   top: -10px; // 0-10 (basline adjustment - top of line adjustment)
+  margin-top: 0;
   margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
-}
+  }
 
 @mixin small-title {
   @include font-bold;
   font-size: 18px;
   line-height: 20px;
   position: relative;
-  margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
+  margin-top: 0;
+  margin-bottom: ($lh * 1.5) - 5px; //Desired margin - amount of blank space already following the text within the line-height
 }
 
 @mixin copy {
@@ -104,7 +106,8 @@ body { //Defaults
   letter-spacing: 0.02em;
   position: relative;
   top: -3px;  // 2-5 (basline adjustment - top of line adjustment)
-  margin-bottom: $lh - 10px; //Desired margin - amount of blank space already following the text within the line-height
+  margin-top: 0;
+  margin-bottom: ($lh * 1.5) - 10px; //Desired margin - amount of blank space already following the text within the line-height
   em {
     @include font-italic;
   }
@@ -117,12 +120,28 @@ body { //Defaults
 }
 
 @mixin small-copy {
+  @include copy;
+  font-size: 10px;
+  line-height: 15px;
+  top: 0;  // (basline adjustment - top of line adjustment)
+  margin-top: 0;
+  margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
 }
-
 
 @mixin small-mono {
   @include font-mono;
   font-size: 10px;
   position: relative;
+  margin-top: 0;
   top: -4px; // 1-5 (basline adjustment - top of line adjustment)
+}
+
+@mixin small-nb-mono {
+  @include font-nb-mono;
+  font-size: 10px;
+  line-height: 15px;
+  position: relative;
+  top: 0; 
+  margin-top: 0;
+  margin-bottom: 0;
 }

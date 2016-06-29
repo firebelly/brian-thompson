@@ -26,7 +26,7 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: -1px !important;
   overflow: hidden;
   clip: rect(0,0,0,0);
   border: 0;

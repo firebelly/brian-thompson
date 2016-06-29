@@ -7,48 +7,6 @@ html {
   box-sizing: border-box;
 }
 
-@mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
-  color: $text;
-  background: $bg;
-  // .ajax-swap {
-  //   background: $bg;
-  // }
-  .line {
-    background: $line;
-  }
-  .site-nav-wrap {
-    background: $bg;
-    background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
-  }
-  .site-nav {
-    a {
-      color: $text;
-      &:before {
-        background: $black;
-      }
-    }
-  }
-  article:before, article:after {
-    background: $text;
-  }
-  h1 {
-    color: $highlight;
-    &:before{
-      background: $black;
-    }
-  }
-  hr {
-    background: $text;
-  }
-  a {
-    color: $highlight;
-  }
-  .btf-logo {
-    fill: $text;
-  }
-
-}
-
 body {
   overflow-x: hidden;
   &.white-color-scheme {
@@ -120,34 +78,30 @@ hr {
   position: relative;
   margin-top: $lh * 6;
   width: $col-inwrap * 4;
+  margin-bottom: 5 * $lh + 150px; // REMOVE 150 AFTER CODING FOOTER BEHAVIOR
 
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
     margin-top: 0;
-    }
+  }
 
   h1 {
     @include big-title;
-    margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
-    &:before{
-      @include dot;
-      top: 40px;
-      right: calc(125% - 2px);
-    }
+    @include first-line-dots(40px);
   }
-  h2,h3,h4,h5,h6 {
+  h2,h3 {
     @include small-title;
-    margin-bottom: ($lh * 1.5) - 5px; //Desired margin - amount of blank space already following the text within the line-height
   }
-  p,blockquote, li {
-    @include copy;
-    margin-bottom: ($lh * 1.5) - 10px; //Desired margin - amount of blank space already following the text within the line-height
+  h2 {
+    @include first-line-dots(10px);
   }
-
-  .small-mono {
+  h4,h5,h6  {
     @include small-mono;
   }
+  p, li, figcaption {
+    @include copy;
+  }
 
-  h1,h2,h3,h4,h5,h6,p,li {
+  h1, h2, h3, h4, h5, h6, p, li {
     padding: 0 3px;
   }
 
@@ -175,6 +129,5 @@ hr {
       }
     }
   }
-
 
 }
