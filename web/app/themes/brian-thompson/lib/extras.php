@@ -35,12 +35,14 @@ function color_scheme($classes) {
     }
   }
 
-  if(isset($_GET['color'])) { 
-    $classes[] = ($_GET['color'] === 'blue' ? 'blue' : 'white' ).'-color-scheme';
-  } else {
-    $classes[] = 'white-color-scheme';
+
+  if(!isset($_COOKIE['color'])) {
+    $_COOKIE['color'] = 'white';
   }
 
+  $classes[] = ($_COOKIE['color'] === 'blue' ? 'blue' : 'white' ).'-color-scheme';
+
+  setcookie('color', ($_COOKIE['color'] === 'blue' ? 'white' : 'blue') );
 
   return $classes;
 }

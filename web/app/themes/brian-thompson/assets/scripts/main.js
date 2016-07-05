@@ -240,11 +240,6 @@ var FBSage = (function($) {
     // Define a constant to store whether we are transitioning between pages (to elsewhere block certain behaviors in this case)
     _isTransitioning = false;
 
-    // Destroy the evidence if we are coming from a page that did this
-    var url = window.location.href;
-    var baseUrl = url.split('?')[0];
-    window.history.replaceState('object or string', 'Title', baseUrl);
-
     // Hijack links
     $('a:not(.fake-link)').each(function() {
       $(this).click(function(e) {
@@ -255,12 +250,8 @@ var FBSage = (function($) {
 
           var linkUrl = $(this)[0].href; // Get my dest url
           if( _get_hostname(linkUrl) === document.location.hostname ) { // Apply transition only if its an in-site URL!  Otherwise, skip this and proceed to default link behavior
+            _isTransitioning = true;
             e.preventDefault();
-
-            // Build new URL with color scheme info
-            var amIWhite = $('body').hasClass('white-color-scheme');
-            var color = amIWhite ? 'blue' : 'white';
-            var gotoUrl = linkUrl+'?color='+color;
 
             // Throw lines to front and change their color
             $('.lines').addClass('page-transitioning');
@@ -268,8 +259,9 @@ var FBSage = (function($) {
             // Find starting blind
             var startingBlindNum = _closestX( $('.blinds.-page .blind'), $(this).offset().left ).data('blind-num'); //Math.floor($(this).offset().left / $('.blinds.-page .blind').width()); // Which blind # corresponds to the X location of this link
 
+            // Trigger blinds, go to href on complete
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
-              window.location.href = gotoUrl;
+              window.location.href = linkUrl;
             });
 
           }
