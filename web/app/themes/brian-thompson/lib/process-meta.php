@@ -59,19 +59,17 @@ function get_steps() {
   $steps = get_post_meta( get_the_ID(), '_cmb2_steps', true );
   $output = '';
 
-  $output .= '<ul class="steps">';
+  $output .= '<ul class="steps columns-wrap">';
   $i=1;
   foreach ( (array) $steps as $key => $step ) {
 
     $title = $excerpt = $full = '';
 
-    $step_num = '<h4>Step '.$i.'</h4>';
-    if ( isset( $step['title'] ) )
-      $title = '<h4>'.esc_html( $step['title'] ).'</h4>';
-    if ( isset( $step['description'] ) )
-      $description = '<div class="description">'.apply_filters('the_content', $step['description'] ).'</div>';
+    $step_num = '<h2 class="big-title reveal-content">'.$i.'</h2>';
+      $title = '<h3><a href="" class="reveal-content">'.esc_html( $step['title'] ).'</a></h3>';
+      $content_to_reveal = '<div class="content-to-reveal"><h2 class="big-title">'.$i.'</h2><div class="description"><h3>'.esc_html( $step['title'] ).'</h3>'.apply_filters('the_content', $step['description'] ).'</div></div>';
 
-    $output .= '<li class="step">'.$step_num.$title.$description.'</li>';
+    $output .= '<li class="step columns-item">'.$step_num.$title.$content_to_reveal.'</li>';
 
     $i++;
   }

@@ -1,0 +1,30 @@
+// Process page
+
+.process {
+  .page-header {
+    @extend .sr-only
+  }
+  ul.steps {
+    list-style: none;
+    margin-top: $lh * 1.5;
+  }
+  li.step {
+    min-height: 8 * $lh;
+  }
+
+  .revealed-content {
+    h2 {
+      &:before, &:after {
+        display: none;
+      }
+    }
+    h3 {
+      max-width: 50%;
+      margin-bottom: 0.25 * $lh;
+    }
+    .description {
+      @include dash-before($lh*1.5);
+    }
+  }
+
+}

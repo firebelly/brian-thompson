@@ -8,6 +8,6 @@ else:
 endif;
 ?>
 
-<div class="page-header<?= Titles\header_sr_class(); ?>">
+<div class="page-header">
   <h1><?= Titles\title(); ?></h1>
 </div>

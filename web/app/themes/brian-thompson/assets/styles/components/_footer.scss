@@ -1,29 +1,94 @@
 // Footer
 
+    $color-time: .2s;
+    $open-time: .2s;
+
 .site-footer {
+  min-width: 1500px; //TEMP HACK TO REMOVE WHEN RESPONSIVITY ADDED
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   z-index: $z-brand;
+  @include clearfix;
+
+  .footer-tab {
+    position: absolute;
+    left: 0;
+    height: $lh;
+    width: 100%;
+    bottom: 100%;
+    transition: background $color-time;
+    cursor: pointer;
+    .footer-toggle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 100%;
+      border: 0;
+      transition: color $color-time;
+      @include font-nb-mono;
+      font-size: 18px;
+      text-align: center;
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      &:focus {
+        outline: 0;
+      }
+      &:before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        z-index: -20;
+      }
+      &:after {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        transform: translateY(100%);
+        transition: transform $color-time ease-in, background $color-time;
+        z-index: -10;
+        // border-radius: 100%;
+      }
+    }
+  }
+
+  transition: transform $open-time $color-time;
+  &.closed {
+    transform: translateY(100%);
+    transition: transform $open-time;
+    .footer-tab {
+      transition: background $color-time $open-time;
+      .footer-toggle {
+        transition: color $color-time $open-time;
+        &:before {
+          display: none;
+        }
+        &:after {
+          transform: translateY(0);
+          transition: transform $color-time $open-time ease-in, background $color-time $open-time;
+          // border-radius: 0;
+        }
+      }
+    }
+  }
 
   a {
     text-decoration: underline
   }
 
-  button {
-    padding: 0;
-    @include small-nb-mono;
-    top: 0;
-    background: $black;
-    @include arrow-right(25px);
-    max-height: 25px;
-  }
-
   .footer-block {
     float: left;
     display: inline-block;
-    padding: $lh 0;
+    padding-bottom: $lh;
   }
 
   .description {
@@ -32,29 +97,19 @@
       @include small-copy;
     }
   }
+
   .contact-form, .add-info, .connect {
     p{
       @include small-nb-mono;
     }
   }
+
   .connect {
     .email-wrap {
       max-width: 100px;
       clear: both;
     }
-    // .social-link {
-    //   margin-top: ( $lh / 2 );
-    //   margin-bottom: $lh * .75;
-    //   margin-left: 20px; 
-    //   &:first-child { margin-left: 0; }
-    //   float: left;
-    //   display: inline-block;
-    // }
-    // button {
-    //   width: 20px;
-    // }
   }
-
 
   p.org {
     @include font-mono;
@@ -66,10 +121,15 @@
 
   .contact-form {  
     .contact-button {
+      @include small-nb-mono;
       margin-top: $lh/2;
       position: relative;
       left: -6px;
       width: 100%;
+      padding: 0;
+      top: 0;
+      @include arrow-right(25px);
+      max-height: 25px;
     }
   }
 }

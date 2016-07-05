@@ -35,7 +35,12 @@ function color_scheme($classes) {
     }
   }
 
-  $classes[] = 'white-color-scheme';
+  if(isset($_GET['color'])) { 
+    $classes[] = ($_GET['color'] === 'blue' ? 'blue' : 'white' ).'-color-scheme';
+  } else {
+    $classes[] = 'white-color-scheme';
+  }
+
 
   return $classes;
 }
@@ -45,6 +50,6 @@ add_filter('body_class', __NAMESPACE__ . '\\color_scheme');
  * Clean up the_excerpt()
  */
 function excerpt_more() {
-  return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
+  return ' &hellip; <a href="' . get_permalink() . '" class="read-more"><button class="white-arrow">' . __('Read More', 'sage') . '</button></a>';
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');

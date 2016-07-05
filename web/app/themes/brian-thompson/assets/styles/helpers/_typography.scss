@@ -134,6 +134,8 @@ body { //Defaults
   position: relative;
   margin-top: 0;
   top: -4px; // 1-5 (basline adjustment - top of line adjustment)
+  margin-bottom: $lh - 5px; //Desired margin - amount of blank space already following the text within the line-height
+
 }
 
 @mixin small-nb-mono {

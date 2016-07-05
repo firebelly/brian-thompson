@@ -40,6 +40,7 @@ var FBSage = (function($) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideMobileNav();
+        _hideContent();
       }
     });
 
@@ -59,6 +60,18 @@ var FBSage = (function($) {
 
     // Add html markup and behavior for lines
     _initLines();
+
+    // Add html markup and behavior for footer
+    _initFooter();
+
+    // Add color information to URL we are going to, handle transition effect
+    _initPageTransition();
+
+    // Handle revealing content of subsections
+    _initContentReveal();
+
+    // Add html markup and behavior for venetian blinds
+    _initBlinds();
 
   } // end init()
 
@@ -179,12 +192,7 @@ var FBSage = (function($) {
     breakpoint_large = (screenWidth > breakpoint_array[2]);
   }
 
-  // Called on scroll
-  // function _scroll(dir) {
-  //   var wintop = $(window).scrollTop();
-  // }
-
-      // Add html markup and behavior for lines
+  // Add html markup and behavior for lines
   function _initLines() {
     var html = '<div class="lines" aria-hidden="true">';
     for (var i=0; i<15; i++) { 
@@ -192,6 +200,208 @@ var FBSage = (function($) {
     }
     html+='</div>';
     $(html).prependTo('body');
+    $(html).appendTo('.site-nav-wrap');
+  }
+
+  function _closeFooter(animDur) {
+    animDur = animDur || 200;
+    $('.site-footer').addClass('closed');
+    setTimeout(function() { $('.footer-toggle').empty().append('+'); }, 200);
+  }
+
+  function _openFooter(animDur) {
+    animDur = animDur || 200;
+    $('.site-footer').removeClass('closed');
+    $('.footer-toggle').empty().append('–');
+  }
+
+  function _initFooter() {
+    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button></div>';  
+    $(html).prependTo('.site-footer').click(function(e) {
+      e.preventDefault();
+      if( $('.site-footer').hasClass('closed') ){
+        _openFooter();
+      } else {
+        _closeFooter();
+      }
+    });
+  }
+
+  function _get_hostname(url) {
+    // Get the hostname from url using regexp
+    var base = url.match(/^http:\/\/[^/]+/);
+    var host = base[0] ? base[0].split('//')[1] : null;
+    return host ? host : null;
+  }
+
+  // Add color information to URL we are going to, handle transition effect
+  function _initPageTransition() {
+
+    // Define a constant to store whether we are transitioning between pages (to elsewhere block certain behaviors in this case)
+    _isTransitioning = false;
+
+    // Destroy the evidence if we are coming from a page that did this
+    var url = window.location.href;
+    var baseUrl = url.split('?')[0];
+    window.history.replaceState('object or string', 'Title', baseUrl);
+
+    // Hijack links
+    $('a').each(function() {
+      $(this).click(function(e) {
+
+        if(_isTransitioning) { // Don't be able to click links while we are already transitioning to a new page
+          e.preventDefault();
+        } else {
+
+          var linkUrl = $(this)[0].href; // Get my dest url
+          if( _get_hostname(linkUrl) === document.location.hostname ) { // Apply transition only if its an in-site URL!  Otherwise, skip this and proceed to default link behavior
+            e.preventDefault();
+
+            // Build new URL with color scheme info
+            var amIWhite = $('body').hasClass('white-color-scheme');
+            var color = amIWhite ? 'blue' : 'white';
+            var gotoUrl = linkUrl+'?color='+color;
+
+            // Throw lines to front and change their color
+            $('.lines').addClass('page-transitioning');
+
+            // Find starting blind
+            var startingBlindNum = _closestX( $('.blinds.-page .blind'), $(this).offset().left ).data('blind-num'); //Math.floor($(this).offset().left / $('.blinds.-page .blind').width()); // Which blind # corresponds to the X location of this link
+
+            _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
+              window.location.href = gotoUrl;
+            });
+
+          }
+        }
+      });
+    });
+  }
+
+  function _closestX($elements,x){
+    var closestDist = 9999;
+    var closestElement = false;
+    if ($elements.length) {
+      $elements.each(function() {
+        var dist = Math.abs( $(this).offset().left-x );
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestElement = $(this);
+        }
+      });
+    }
+    return closestElement;
+  }
+
+  function _blinds($blinds,showOrHide,startingBlindNum,onDone,duration) {
+    // Defaults
+    $blinds = $blinds || $('.blind');
+    showOrHide = showOrHide || 'show';
+    startingBlindNum = startingBlindNum || 0;
+    onDone = onDone || undefined;
+    duration = duration || 500;
+
+    // Which is the final onscreen blind to open or close?
+    var numBlinds = $blinds.filter(function () {
+      return $(this).offset().left < $(window).width();
+    }).length; // Number of on-screen blinds
+    var finalBlindNum = startingBlindNum > numBlinds - startingBlindNum ? 0 : numBlinds-1;
+
+    // Animate each blind.
+    $($blinds).each(function() {
+      var thisBlindNum = $(this).data('blind-num');
+      $(this).velocity( (showOrHide === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*100), 
+        easing: [1,0.75,0.5,1],
+        duration: duration,
+        complete: (thisBlindNum!==finalBlindNum) ? undefined : onDone // Fire onDone() when last blind is opened/closed
+      });
+    });
+  }
+
+  function _hideContent() {
+    $('.revealed-content').velocity('fadeOut',{
+      duration: 100,
+      complete: function () {
+        _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
+      }
+    });
+  }
+
+  function _revealContent($content) {
+    $('body').velocity('scroll',200);
+    _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
+      $('.revealed-content .body-wrap').empty();
+      $content.clone(true, true).contents().appendTo('.revealed-content .body-wrap');
+      $('.revealed-content').velocity('fadeIn',{ 
+        duration: 100
+      });
+    });
+  }
+
+  // Add color information to URL we are going to, handle transition effect
+  function _initContentReveal() {
+
+    // Here is a global variable to remember which blind was the first to open;
+    _contentBlindStartingBlindNum = 0;
+    var html = '<div class="revealed-content main-area-wrap" aria-hidden="true"><div class="body-wrap"></div></div>';
+    $(html).appendTo('body');
+    $('.revealed-content').velocity('fadeOut',0);
+
+    $('.reveal-content').click(function(e) {
+      e.preventDefault();
+      _contentBlindStartingBlindNum = _closestX( $('.blinds.-content .blind'), $(this).offset().left ).data('blind-num');
+      var $content = $(this).closest('.step').find('.content-to-reveal');
+      _revealContent($content);
+    });
+
+  }
+
+    // Add html markup and behavior for venetian blinds.  We have two sets of these.
+  function _initBlinds() {
+    // Add main section content blinds
+    var html = '<div class="blinds -content" aria-hidden="true" style="display: none;">';
+    // Display:none so that they don't appear before velocity animation hides them properly.  
+    // I Put it inline because it is about to be removes.
+    for (i=0; i<6; i++) { 
+      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
+    }
+    html+='</div>';
+    $(html).appendTo('body');
+
+    // Ditto page transition blinds
+    html = '<div class="blinds -page" aria-hidden="true" style="display: none;">';
+    for (i=0; i<15; i++) { 
+      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
+    }
+    html+='</div>';
+    $(html).appendTo('body');
+
+    // Register velocity animations
+    // Why handle this with velocity?  Why not add/remove a class?  Because velocity has a 'complete' callback and we need to time some things to fire precisely with animation completion (like going to destination url). That's why.
+    $.Velocity
+    .RegisterEffect("transition.blindHide", {
+      defaultDuration: 500,
+      calls: [
+        [ { translateX: '-50%', scaleX: '0.0001'} ]
+      ]
+    });
+
+    $.Velocity
+    .RegisterEffect("transition.blindShow", {
+      defaultDuration: 500,
+      calls: [
+        [ {  translateX: '0', scaleX: '1'} ]
+      ]
+    });
+
+    //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
+    $('.blind').velocity("transition.blindHide", { 
+      duration: 0, // MY GOD MAN, THERE'S NO TIME. DO IT NOW!!!!
+      complete: function() {
+        $('.blinds').css('display','block'); // Remove my hacky display:none.  It's up to velocity now to hide/show these pups.
+      }
+    });
   }
 
   // Public functions

@@ -1,14 +1,37 @@
-@mixin body-color-scheme ($text,$line,$bg,$highlight) { // Scheme Template
+// Colors
+$true-white: #fff;
+$white: #e8e8e8;
+$gray: #c7c7c7;
+$blue: #006efa;
+$black: #1e1e1e;
+$lite-blue: #4092fb;
+$brand-primary: $white;
+$brand-secondary: $blue;
+
+// Color Scheme
+
+@function choose($option_true,$option_false,$choice) {
+  @if $choice {
+    @return $option_true;
+  } @else {
+    @return $option_false;
+  }
+}
+
+@mixin color-scheme ($scheme) { // Scheme Template
+  $text: choose($black,$white,$scheme);
+  $anti-text: choose($black,$white,not $scheme);
+  $bg: choose($white,$blue,$scheme);
+  $anti-bg: choose($white,$blue,not $scheme);
+  $title: choose($blue,$black,$scheme);
+  $anti-title: choose($blue,$black,not $scheme);
+
   color: $text;
   background: $bg;
-
-  article:before, article:after {
-    background: $text;
+  h1,h4,.step h2 {
+    color: $title;
   }
-  h1 {
-    color: $highlight;
-  }
-  h1, h2 {
+  h1, h2,.step h2 {
     &:before, &:after {
       background: $black;
     }
@@ -16,19 +39,54 @@
   hr {
     background: $text;
   }
-  a {
-    color: $highlight;
+  .body-wrap {
+    a {
+      color: $text;
+      &:hover {
+        color: $title;
+      }
+      border-bottom: 1px solid $title;
+    }
+
+    a h1, a h2, h1 a, h2 a {
+      border-bottom: 0;
+      background: $bg;
+      $start: 90%; 
+      $stop: calc(#{$start} + 1px);
+      background: linear-gradient(rgba($bg,0), rgba($bg,0) $start, rgba($title,1) $start, rgba($title,1) $stop, rgba($bg,0) $stop);
+    }
   }
 
+  // Revealed Content
+  .revealed-content .body-wrap {
+    h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
+      color: $white;
+    }
+  }
+
+  // Lines & Blinds
   .line {
-    background: $line;
+    background: choose($gray,$lite-blue,$scheme);
+  }
+  .lines.page-transitioning .line {
+    background: choose($gray,$lite-blue,not $scheme);
+  }
+  .blinds.-page .blind {
+    background: $anti-bg;
+  }
+  .blinds.-content .blind {
+    background: $title;
   }
 
+  // Nav
   .site-nav-wrap {
     background: $bg;
     background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
   }
   .site-nav {
+    .current-menu-item a{
+      color: $title;
+    }
     a {
       color: $text;
       &:before {
@@ -37,35 +95,69 @@
     }
   }
 
+  // Logo
   .btf-logo {
     fill: $text;
+    a { background: transparent; }
   }
   .site-footer {
-    background: $blue;
-    color: $near-white;
-    a {
-      color: $near-white;
+    background: $anti-bg;
+    &, a { 
+      color: $anti-text; 
+    }
+    a:hover { color: $anti-title; }
+    .footer-tab {
+      background: $anti-bg;
+      .footer-toggle {
+        background: transparent;
+        color: $text;
+        &:before {
+          background: $bg;
+        }
+        &:after {
+          background: $anti-bg;
+        }
+      }
+    }
+    &.closed {
+      .footer-tab {
+        background: $black;
+        .footer-toggle {
+          color: $white;
+          &:after {
+            background: $black;
+          }
+        }
+      }
     }
     .btf-full-logo {
-      fill: $near-white;
+      fill: $anti-text;
     }
   }
 
-  h4 {
-    color: $highlight;
-  }
-  li.social-link {
-    button {
-      color: $near-white;
-      background: $black;
+  .white-arrow {
+    background: $true-white;
+    color: $title;
+    &:hover {
+      background: $title;
+      color: $true-white;
     }
   }
-
-  ul.categories a {
-    color: $text;
+  .black-arrow{
+    background: $black;
+    color: $white;
+    &:hover {
+    background: $true-white;
+    color: $black;
+    }
   }
+}
 
-  article.archive-listing {
-    h2 a { color: $text }
+body {
+  &.white-color-scheme {
+     @include color-scheme(true);
+  }
+  &.blue-color-scheme {
+    @include color-scheme(false);
   }
 }

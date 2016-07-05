@@ -1,18 +1,6 @@
 // Variables
 
-
-// Colors
-$white: #fff;
-$near-white: #e8e8e8;
-$gray: #c7c7c7;
-$blue: #006efa;
-$near-black: #1e1e1e;
-$black: #1e1e1e;
-$lite-blue: #4092fb;
-
-// Brand Swatches
-$brand-primary: $black;
-$brand-secondary: $white;
+// See color-scheme for colors
 
 // Breakpoints
 $breakpoint-small: 480px;
@@ -22,8 +10,12 @@ $breakpoint-huge: 1200px;
 $breakpoint-nav: 1050px;
 
 // Z indexes;
+$z-lines-page-transitioning: 60;
+$z-page-blinds: 50;
+$z-revealed-content: 40;
+$z-content-blinds: 35;
 $z-brand: 30;
-$z-lines: 20;
+$z-lines: -10;
 $z-nav: 10;
 $z-floater-image: 5;
 

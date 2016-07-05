@@ -1,32 +1,60 @@
 // Archive Pages
 
-.category-nav {
-  position: absolute; 
-  left: 125%;
-  width: 50%;
-  ul.categories {
-    @include double-dash(20px,10px);
-    list-style: none;
-    li {
-      margin: 0;
-      @include small-mono;
-    }
+
+.blog {
+  .page-header {
+    @extend .sr-only;
   }
 }
 
-.archive-listing {
-  float: left;
-  &:not(:first-of-type) {
+.blog, .archive {
+
+  .category-nav {
+    position: absolute; 
+    left: 125%;
     width: 50%;
+    padding: 0 3px;
+    ul.categories {
+      @include double-dash(20px,10px);
+      list-style: none;
+      li {      
+        @include small-mono;
+        margin: 0;
+      }
+    }
   }
-  &:nth-of-type(2n+3) {
-    @include clearfix;
-    h2:after, h2:before {display: none;}
-  }
-  h2 {
-    margin-bottom: $lh/2;
-  }
-  .entry-meta {
-    @include small-mono;
+
+  .archive-listing {
+    width: 100%;
+    h2 {
+      margin-bottom: $lh/2; 
+      padding-right: $lh;
+    }
+
+    .summary {
+      @include dash-before($lh);
+      padding-right: $lh;
+    }
+
+    .meta p {
+      @include small-mono;
+      margin-bottom: $lh/2
+    }
+
+    .read-more {
+      &:hover {
+        text-decoration: none;
+      }
+      button {
+        padding: 0 $lh/4;
+        @include small-nb-mono;
+        top: -2px;
+        left: -3px;
+        @include arrow-right(25px);
+        max-height: 25px;
+        display: block;
+        margin-top: $lh/4;
+      }
+    } 
   }
 }

@@ -11,8 +11,8 @@
     <footer>
       <div class="nav-posts">
         <div class="main-area-wrap">
-          <?php previous_post_link( '%link','<button class="prev-post"><div class="wrap">Prev Post</div></button>' ); ?>
-          <?php next_post_link( '%link','<button class="next-post"><div class="wrap">Next Post</div></button>' ); ?>
+          <?php previous_post_link( '%link','<button class="prev-post white-arrow"><div class="wrap">Prev Post</div></button>' ); ?>
+          <?php next_post_link( '%link','<button class="next-post white-arrow"><div class="wrap">Next Post</div></button>' ); ?>
         </div>
       </div>
       <?php include(locate_template('templates/share.php')); ?>

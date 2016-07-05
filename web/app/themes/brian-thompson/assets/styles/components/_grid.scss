@@ -1,30 +1,23 @@
 // Grid system
 
-// Lines
-.lines {
-  overflow: hidden;
-  position: fixed;
-  top: 0; 
-  left: 0;
-  right: 0;
-  height: 100%;
-  z-index: $z-lines;
-  pointer-events: none;
-  .line {
-    float: left;
-    width: 1px;
-    height: 100%;
-    // transition: background $ajax-transition-time / 2;
-  }
-}
-
+// Things outside of .main-area-wrap that depend on col-size:
 @mixin columns($col-size) {
+  // Main Area Wraps (everything in here can just use 25% as col-size)
   .main-area-wrap {
     margin-left: ($col-size)*3;
     width: ($col-size)*5;
   }
+
+  //Lines 
   .lines .line {
     margin-left: calc( #{$col-size} - 1px);
+  }
+  .blinds .blind {
+    width: $col-size;
+  }
+  .blinds.-content {
+    left: 2 * $col-size;
+    width: 6 * $col-size;
   }
   .site-footer {
     .description {
@@ -53,4 +46,108 @@
 .main-area-wrap {
   left: 0;
   position: absolute;
+}
+
+// Two Columns For Pages
+.columns-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  @include break-out-of-padding(3px,3px);
+  .columns-item {
+    position: relative; top: 0px; // Correct my baseline thing typography
+    flex-basis: 50%;
+    padding: 0 3px;
+
+    &:not(.-first-wide) {
+      &:nth-of-type(2n) {
+        h2:after, h2:before {
+          display: none;
+        }
+      }
+      &:nth-of-type(2n+1) {
+        h2:before {
+          right: calc( (100% + 6px) * 1.5 - 3px - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+        h2:after {
+          left: calc( (100% + 6px) * 3.5 - 3px - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+      }
+    }
+  
+    &.-first-wide {
+      &:first-child {
+        flex-basis: 100%;
+      }
+      &:nth-of-type(2n+3) {
+        h2:after, h2:before {
+          display: none;
+        }
+      }
+      &:nth-of-type(2n+2) {
+        h2:before {
+          right: calc( (100% + 6px) * 1.5 - 3px - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+        h2:after {
+          left: calc( (100% + 6px) * 3.5 - 3px - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+      }
+    }
+
+  }
+}
+
+// Lines & Page Blinds
+.lines, .blinds.-page {
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-width: 1500px;
+  pointer-events: none;
+}
+.line, .blind {
+  float: left;
+  height: 100%;
+}
+.lines {
+  z-index: $z-lines;
+  &.page-transitioning {
+    z-index: $z-lines-page-transitioning;
+  }
+  .line {
+    width: 1px;
+    transition: background 0.5s;
+  }
+}
+.blinds.-page {
+  z-index: $z-page-blinds;
+}
+.site-nav-wrap .lines {
+  position: absolute; // Otherwise pos:fix breaks them out of the wrap and the cover full screen
+}
+
+.blinds.-content {
+  z-index: $z-content-blinds;
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  height: 100%;
+  pointer-events: none;
+  .blind {
+    width: 16.66666%
+  }
+}
+.revealed-content {
+  z-index: $z-revealed-content;
+  a {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+}
+.content-to-reveal {
+  @extend .sr-only
 }
