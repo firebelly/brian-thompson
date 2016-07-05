@@ -19,6 +19,9 @@
     left: 2 * $col-size;
     width: 6 * $col-size;
   }
+  .lines.-content {
+    left: 2 * $col-size;
+  }
   .site-footer {
     .description {
       width: 2 * $col-size;

@@ -58,9 +58,6 @@ var FBSage = (function($) {
       }
     });
 
-    // Add html markup and behavior for lines
-    _initLines();
-
     // Add html markup and behavior for footer
     _initFooter();
 
@@ -72,6 +69,9 @@ var FBSage = (function($) {
 
     // Add html markup and behavior for venetian blinds
     _initBlinds();
+
+    // Add html markup and behavior for lines
+    _initLines();
 
   } // end init()
 
@@ -190,17 +190,6 @@ var FBSage = (function($) {
     breakpoint_small = (screenWidth > breakpoint_array[0]);
     breakpoint_medium = (screenWidth > breakpoint_array[1]);
     breakpoint_large = (screenWidth > breakpoint_array[2]);
-  }
-
-  // Add html markup and behavior for lines
-  function _initLines() {
-    var html = '<div class="lines" aria-hidden="true">';
-    for (var i=0; i<15; i++) { 
-      html+='<div class="line"></div>'; 
-    }
-    html+='</div>';
-    $(html).prependTo('body');
-    $(html).appendTo('.site-nav-wrap');
   }
 
   function _closeFooter(animDur) {
@@ -323,12 +312,14 @@ var FBSage = (function($) {
     $('.revealed-content').velocity('fadeOut',{
       duration: 100,
       complete: function () {
+        $('.lines.-content').velocity('fadeOut',100);
         _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
       }
     });
   }
 
   function _revealContent($content) {
+    $('.lines.-content').velocity('fadeIn',100);
     $('body').velocity('scroll',200);
     _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
       $('.revealed-content .body-wrap').empty();
@@ -397,6 +388,25 @@ var FBSage = (function($) {
     $('.blind').velocity("transition.blindHide", { 
       duration: 0 // MY GOD MAN, THERE'S NO TIME. DO IT NOW!!!!
     });
+  }
+
+    // Add html markup and behavior for lines
+  function _initLines() {
+    var html = '<div class="lines" aria-hidden="true">';
+    for (i=0; i<15; i++) { 
+      html+='<div class="line"></div>'; 
+    }
+    html+='</div>';
+    $(html).prependTo('body');
+    $(html).appendTo('.site-nav-wrap');
+
+    html = '<div class="lines -content" aria-hidden="true">';
+    for (i=0; i<5; i++) { 
+      html+='<div class="line"></div>'; 
+    }
+    html+='</div>';
+    $(html).appendTo('body');
+    $('.lines.-content').velocity('fadeOut',0);
   }
 
   // Public functions
