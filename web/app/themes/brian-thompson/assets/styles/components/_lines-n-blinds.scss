@@ -1,0 +1,53 @@
+// Lines & Page Blinds
+.lines, .blinds.-page {
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-width: 1500px;
+  pointer-events: none;
+}
+.line, .blind {
+  float: left;
+  height: 100%;
+}
+.lines {
+  z-index: $z-lines;
+  &.page-transitioning {
+    z-index: $z-lines-page-transitioning;
+  }
+  .line {
+    width: 1px;
+    transition: background 0.5s;
+  }
+}
+.blinds.-page {
+  z-index: $z-page-blinds;
+}
+.site-nav-wrap .lines {
+  position: absolute; // Otherwise pos:fix breaks them out of the wrap and the cover full screen
+}
+
+.blinds.-content {
+  z-index: $z-content-blinds;
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  height: 100%;
+  pointer-events: none;
+  .blind {
+    width: 16.66666%
+  }
+}
+.revealed-content {
+  z-index: $z-revealed-content;
+  a {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+}
+.content-to-reveal {
+  @extend .sr-only
+}
