@@ -73,6 +73,9 @@ var FBSage = (function($) {
     // Add html markup and behavior for lines
     _initLines();
 
+    // Add global overlay for clickouts
+    _initGlobalOverlay();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -192,18 +195,6 @@ var FBSage = (function($) {
     breakpoint_large = (screenWidth > breakpoint_array[2]);
   }
 
-  function _closeFooter(animDur) {
-    animDur = animDur || 200;
-    $('.site-footer').addClass('closed');
-    setTimeout(function() { $('.footer-toggle').empty().append('+'); }, 200);
-  }
-
-  function _openFooter(animDur) {
-    animDur = animDur || 200;
-    $('.site-footer').removeClass('closed');
-    $('.footer-toggle').empty().append('–');
-  }
-
   function _initFooter() {
     var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button></div>';  
     $(html).prependTo('.site-footer').click(function(e) {
@@ -214,14 +205,18 @@ var FBSage = (function($) {
         _closeFooter();
       }
     });
+  }  
+  function _closeFooter(animDur) {
+    animDur = animDur || 200;
+    $('.site-footer').addClass('closed');
+    setTimeout(function() { $('.footer-toggle').empty().append('+'); }, 200);
+  }
+  function _openFooter(animDur) {
+    animDur = animDur || 200;
+    $('.site-footer').removeClass('closed');
+    $('.footer-toggle').empty().append('–');
   }
 
-  function _get_hostname(url) {
-    // Get the hostname from url using regexp
-    var base = url.match(/^http:\/\/[^/]+/);
-    var host = base[0] ? base[0].split('//')[1] : null;
-    return host ? host : null;
-  }
 
   // Add color information to URL we are going to, handle transition effect
   function _initPageTransition() {
@@ -258,22 +253,14 @@ var FBSage = (function($) {
       });
     });
   }
-
-  function _closestX($elements,x){
-    var closestDist = 9999;
-    var closestElement = false;
-    if ($elements.length) {
-      $elements.each(function() {
-        var dist = Math.abs( $(this).offset().left-x );
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestElement = $(this);
-        }
-      });
-    }
-    return closestElement;
+  function _get_hostname(url) {
+    // Get the hostname from url using regexp
+    var base = url.match(/^http:\/\/[^/]+/);
+    var host = base[0] ? base[0].split('//')[1] : null;
+    return host ? host : null;
   }
 
+  // Handle animating blinds
   function _blinds($blinds,showOrHide,startingBlindNum,onDone,duration) {
     // Defaults
     $blinds = $blinds || $('.blind');
@@ -307,32 +294,24 @@ var FBSage = (function($) {
       });
     });
   }
-
-  function _hideContent() {
-    $('.revealed-content').velocity('fadeOut',{
-      duration: 100,
-      complete: function () {
-        $('.lines.-content').velocity('fadeOut',100);
-        _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
-      }
-    });
-  }
-
-  function _revealContent($content) {
-    $('.lines.-content').velocity('fadeIn',100);
-    $('body').velocity('scroll',200);
-    _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
-      $('.revealed-content .body-wrap').empty();
-      $content.clone(true, true).contents().appendTo('.revealed-content .body-wrap');
-      $('.revealed-content').velocity('fadeIn',{ 
-        duration: 100
+  function _closestX($elements,x){
+    var closestDist = 9999;
+    var closestElement = false;
+    if ($elements.length) {
+      $elements.each(function() {
+        var dist = Math.abs( $(this).offset().left-x );
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestElement = $(this);
+        }
       });
-    });
+    }
+    return closestElement;
   }
+
 
   // Add color information to URL we are going to, handle transition effect
   function _initContentReveal() {
-
     // Here is a global variable to remember which blind was the first to open;
     _contentBlindStartingBlindNum = 0;
     var html = '<div class="revealed-content main-area-wrap" aria-hidden="true"><div class="body-wrap"></div></div>';
@@ -345,7 +324,44 @@ var FBSage = (function($) {
       var $content = $(this).closest('.step').find('.content-to-reveal');
       _revealContent($content);
     });
+  }  
+  function _hideContent() {
+    _returnToYourSlumberAlmightyOverlay();
+    $('.revealed-content').velocity('fadeOut',{
+      duration: 100,
+      complete: function () {
+        $('.lines.-content').velocity('fadeOut',100);
+        _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
+      }
+    });
+  }
+  function _revealContent($content) {
+    _awakenTheAlmightyOverlay();
+    $('.lines.-content').velocity('fadeIn',100);
+    $('body').velocity('scroll',200);
+    _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
+      $('.revealed-content .body-wrap').empty();
+      $content.clone(true, true).contents().appendTo('.revealed-content .body-wrap');
+      $('.revealed-content').velocity('fadeIn',{ 
+        duration: 100
+      });
+    });
+  }
 
+  // Add global overlay for clickouts
+  function _initGlobalOverlay() {
+    var html = '<div class="almighty-global-overlay -hidden" aria-hidden="true"></div>';
+    $(html).appendTo('body');
+    $('.almighty-global-overlay').click(function() {
+      _returnToYourSlumberAlmightyOverlay();
+      _hideContent();
+    });
+  }
+  function _awakenTheAlmightyOverlay() {
+    $('.almighty-global-overlay').removeClass('-hidden');
+  }
+  function _returnToYourSlumberAlmightyOverlay() {
+    $('.almighty-global-overlay').addClass('-hidden');
   }
 
     // Add html markup and behavior for venetian blinds.  We have two sets of these.

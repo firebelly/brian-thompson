@@ -42,7 +42,7 @@
 }
 @include columns(100px);
 @include min-screen(1500px) {
-  @include columns(100%/15);
+  @include columns( 100vw / 15 );
 }
 
 // Wrappers

@@ -121,3 +121,15 @@ hr {
   }
 
 }
+
+// Almighty Global Overlay
+.almighty-global-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: $z-overlay;
+}
