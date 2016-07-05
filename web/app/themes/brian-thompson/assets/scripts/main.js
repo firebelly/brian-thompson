@@ -246,7 +246,7 @@ var FBSage = (function($) {
     window.history.replaceState('object or string', 'Title', baseUrl);
 
     // Hijack links
-    $('a').each(function() {
+    $('a:not(.fake-link)').each(function() {
       $(this).click(function(e) {
 
         if(_isTransitioning) { // Don't be able to click links while we are already transitioning to a new page
@@ -301,20 +301,28 @@ var FBSage = (function($) {
     onDone = onDone || undefined;
     duration = duration || 500;
 
+    // We gotta find the container because so we can add/remove classes.
+    $container = $blinds.closest('.blinds');
+
     // Which is the final onscreen blind to open or close?
     var numBlinds = $blinds.filter(function () {
       return $(this).offset().left < $(window).width();
     }).length; // Number of on-screen blinds
     var finalBlindNum = startingBlindNum > numBlinds - startingBlindNum ? 0 : numBlinds-1;
 
+    if (showOrHide === 'show') { $container.removeClass('-hidden'); }
+
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
       $(this).velocity( (showOrHide === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
         delay: (Math.abs(startingBlindNum-thisBlindNum)*100), 
-        easing: [1,0.75,0.5,1],
         duration: duration,
-        complete: (thisBlindNum!==finalBlindNum) ? undefined : onDone // Fire onDone() when last blind is opened/closed
+        easing: [1,0.75,0.5,1],
+        complete: (thisBlindNum!==finalBlindNum) ? undefined : function() {
+          if (showOrHide === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
+          onDone();
+        }
       });
     });
   }
@@ -360,9 +368,7 @@ var FBSage = (function($) {
     // Add html markup and behavior for venetian blinds.  We have two sets of these.
   function _initBlinds() {
     // Add main section content blinds
-    var html = '<div class="blinds -content" aria-hidden="true" style="display: none;">';
-    // Display:none so that they don't appear before velocity animation hides them properly.  
-    // I Put it inline because it is about to be removes.
+    var html = '<div class="blinds -content -hidden" aria-hidden="true">';
     for (i=0; i<6; i++) { 
       html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
     }
@@ -370,7 +376,7 @@ var FBSage = (function($) {
     $(html).appendTo('body');
 
     // Ditto page transition blinds
-    html = '<div class="blinds -page" aria-hidden="true" style="display: none;">';
+    html = '<div class="blinds -page -hidden" aria-hidden="true">';
     for (i=0; i<15; i++) { 
       html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
     }
@@ -391,16 +397,13 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindShow", {
       defaultDuration: 500,
       calls: [
-        [ {  translateX: '0', scaleX: '1'} ]
+        [ { translateX: '0', scaleX: '1'} ]
       ]
     });
 
     //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
     $('.blind').velocity("transition.blindHide", { 
-      duration: 0, // MY GOD MAN, THERE'S NO TIME. DO IT NOW!!!!
-      complete: function() {
-        $('.blinds').css('display','block'); // Remove my hacky display:none.  It's up to velocity now to hide/show these pups.
-      }
+      duration: 0 // MY GOD MAN, THERE'S NO TIME. DO IT NOW!!!!
     });
   }
 

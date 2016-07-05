@@ -66,7 +66,7 @@ function get_steps() {
     $title = $excerpt = $full = '';
 
     $step_num = '<h2 class="big-title reveal-content">'.$i.'</h2>';
-      $title = '<h3><a href="" class="reveal-content">'.esc_html( $step['title'] ).'</a></h3>';
+      $title = '<h3><a href="" class="reveal-content fake-link">'.esc_html( $step['title'] ).'</a></h3>';
       $content_to_reveal = '<div class="content-to-reveal"><h2 class="big-title">'.$i.'</h2><div class="description"><h3>'.esc_html( $step['title'] ).'</h3>'.apply_filters('the_content', $step['description'] ).'</div></div>';
 
     $output .= '<li class="step columns-item">'.$step_num.$title.$content_to_reveal.'</li>';

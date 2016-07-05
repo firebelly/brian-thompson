@@ -7,7 +7,9 @@
   right: 0;
   height: 100%;
   min-width: 1500px;
-  pointer-events: none;
+}
+.blinds.-hidden {
+  visibility: hidden;
 }
 .line, .blind {
   float: left;
@@ -36,7 +38,6 @@
   position: fixed;
   top: 0; 
   height: 100%;
-  pointer-events: none;
   .blind {
     width: 16.66666%
   }
@@ -50,4 +51,7 @@
 }
 .content-to-reveal {
   @extend .sr-only
+}
+.reveal-content {
+  cursor: pointer;
 }
