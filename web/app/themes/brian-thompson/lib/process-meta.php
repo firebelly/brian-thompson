@@ -65,9 +65,14 @@ function get_steps() {
 
     $title = $excerpt = $full = '';
 
-    $step_num = '<h2 class="big-title reveal-content">'.$i.'</h2>';
-      $title = '<h3><a href="" class="reveal-content fake-link">'.esc_html( $step['title'] ).'</a></h3>';
-      $content_to_reveal = '<div class="content-to-reveal"><h2 class="big-title">'.$i.'</h2><div class="description"><h3>'.esc_html( $step['title'] ).'</h3>'.apply_filters('the_content', $step['description'] ).'</div></div>';
+    $step_num = '<h2 class="big-title reveal-content" data-content="#step-'.$i.'">'.$i.'</h2>';
+    $title = '<h3><a href="" class="reveal-content fake-link" data-content="#step-'.$i.'">'.esc_html( $step['title'] ).'</a></h3>';
+
+    $next = ($i % count($steps))+1;
+    $next_word = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine'][$next];
+    $arrow='<button class="white-arrow switch-content next-content" data-content="#step-'.$next.'" aria-hidden="true">Step '.$next_word.'</button>';
+
+    $content_to_reveal = '<div id="step-'.$i.'" class="sr-only"><h2 class="big-title"  aria-hidden="true">'.$i.'</h2><div class="description"><h3  aria-hidden="true">'.esc_html( $step['title'] ).'</h3>'.apply_filters('the_content', $step['description'] ).'</div>'.$arrow.'</div>';
 
     $output .= '<li class="step columns-item">'.$step_num.$title.$content_to_reveal.'</li>';
 

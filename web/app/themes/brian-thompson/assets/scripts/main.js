@@ -22,6 +22,12 @@ var FBSage = (function($) {
     $document = $(document);
     $('body').addClass('loaded');
 
+    // Whether we are animating (to elsewhere block certain behaviors in this case)
+    _isAnimating = false;
+
+    // Add global overlay for clickouts
+    _initGlobalOverlay();
+
     // Set screen size vars
     _resize();
 
@@ -72,9 +78,6 @@ var FBSage = (function($) {
 
     // Add html markup and behavior for lines
     _initLines();
-
-    // Add global overlay for clickouts
-    _initGlobalOverlay();
 
   } // end init()
 
@@ -195,6 +198,19 @@ var FBSage = (function($) {
     breakpoint_large = (screenWidth > breakpoint_array[2]);
   }
 
+  // Add global overlay for clickouts
+  function _initGlobalOverlay() {
+    var html = '<div class="almighty-global-overlay -hidden" aria-hidden="true"></div>';
+    $(html).appendTo('body');
+  }
+  function _awakenTheAlmightyOverlay() {
+    $('.almighty-global-overlay').removeClass('-hidden');
+  }
+  function _returnToYourSlumberAlmightyOverlay() {
+    $('.almighty-global-overlay').addClass('-hidden');
+  }
+
+
   function _initFooter() {
     var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button></div>';  
     $(html).prependTo('.site-footer').click(function(e) {
@@ -217,24 +233,19 @@ var FBSage = (function($) {
     $('.footer-toggle').empty().append('–');
   }
 
-
   // Add color information to URL we are going to, handle transition effect
   function _initPageTransition() {
-
-    // Define a constant to store whether we are transitioning between pages (to elsewhere block certain behaviors in this case)
-    _isTransitioning = false;
-
     // Hijack links
     $('a:not(.fake-link)').each(function() {
       $(this).click(function(e) {
 
-        if(_isTransitioning) { // Don't be able to click links while we are already transitioning to a new page
+        if(_isAnimating) { // Don't be able to click links while we are already transitioning to a new page
           e.preventDefault();
         } else {
 
           var linkUrl = $(this)[0].href; // Get my dest url
           if( _get_hostname(linkUrl) === document.location.hostname ) { // Apply transition only if its an in-site URL!  Otherwise, skip this and proceed to default link behavior
-            _isTransitioning = true;
+            _isAnimating = true;
             e.preventDefault();
 
             // Throw lines to front and change their color
@@ -289,7 +300,7 @@ var FBSage = (function($) {
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined : function() {
           if (showOrHide === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
-          onDone();
+          if (onDone) { onDone(); }
         }
       });
     });
@@ -309,59 +320,86 @@ var FBSage = (function($) {
     return closestElement;
   }
 
-
   // Add color information to URL we are going to, handle transition effect
   function _initContentReveal() {
     // Here is a global variable to remember which blind was the first to open;
     _contentBlindStartingBlindNum = 0;
-    var html = '<div class="revealed-content main-area-wrap" aria-hidden="true"><div class="body-wrap"></div></div>';
+    var html = '<div class="revealed-content main-area-wrap" aria-hidden="true"><div class="body-wrap"><div class="content-holder"></div><button class="close" aria-hidden="true">x</button></div></div>';
     $(html).appendTo('body');
     $('.revealed-content').velocity('fadeOut',0);
 
     $('.reveal-content').click(function(e) {
       e.preventDefault();
-      _contentBlindStartingBlindNum = _closestX( $('.blinds.-content .blind'), $(this).offset().left ).data('blind-num');
-      var $content = $(this).closest('.step').find('.content-to-reveal');
-      _revealContent($content);
+      if(!_isAnimating) {
+        _contentBlindStartingBlindNum = _closestX( $('.blinds.-content .blind'), $(this).offset().left ).data('blind-num');
+        var $content = $($(this).data('content'));
+        _revealContent($content);
+      }
+    });
+    $('.switch-content').click(function(e) {
+      e.preventDefault();
+      if(!_isAnimating) {
+        var $content = $($(this).data('content'));
+        _switchContent($content);
+      }
+    });
+
+    $('.almighty-global-overlay, .revealed-content .close').click(function() {
+      if(!_isAnimating) {
+        _hideContent();
+      }
     });
   }  
   function _hideContent() {
+    _isAnimating = true;
+    $('.revealed-content').removeClass('showing');
     _returnToYourSlumberAlmightyOverlay();
     $('.revealed-content').velocity('fadeOut',{
-      duration: 100,
+      duration: 200,
       complete: function () {
-        $('.lines.-content').velocity('fadeOut',100);
+        $('.lines.-content').velocity('fadeOut',{ 
+          duration: 200,
+          complete: function() {
+            _isAnimating = false;
+          }
+        });
         _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
       }
     });
   }
   function _revealContent($content) {
+    _isAnimating = true;
+    $('.revealed-content').addClass('showing');
     _awakenTheAlmightyOverlay();
-    $('.lines.-content').velocity('fadeIn',100);
+    $('.lines.-content').velocity('fadeIn',200);
     $('body').velocity('scroll',200);
     _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
-      $('.revealed-content .body-wrap').empty();
-      $content.clone(true, true).contents().appendTo('.revealed-content .body-wrap');
+      $('.revealed-content .content-holder').empty();
+      $content.clone(true, true).contents().appendTo('.revealed-content .content-holder');
       $('.revealed-content').velocity('fadeIn',{ 
-        duration: 100
+        duration: 200,
+        complete: function() {
+          _isAnimating = false;
+        }
       });
     });
   }
-
-  // Add global overlay for clickouts
-  function _initGlobalOverlay() {
-    var html = '<div class="almighty-global-overlay -hidden" aria-hidden="true"></div>';
-    $(html).appendTo('body');
-    $('.almighty-global-overlay').click(function() {
-      _returnToYourSlumberAlmightyOverlay();
-      _hideContent();
+  function _switchContent($content) {
+    _isAnimating = true;
+    $('body').velocity('scroll',200);
+    $('.revealed-content').velocity('fadeOut',{ 
+      duration: 200,
+      complete: function() {
+        $('.revealed-content .content-holder').empty();
+        $content.clone(true, true).contents().appendTo('.revealed-content .content-holder');
+        $('.revealed-content').velocity('fadeIn',{ 
+          duration: 200,
+          complete: function() {
+            _isAnimating = false;
+          }
+        });
+      }
     });
-  }
-  function _awakenTheAlmightyOverlay() {
-    $('.almighty-global-overlay').removeClass('-hidden');
-  }
-  function _returnToYourSlumberAlmightyOverlay() {
-    $('.almighty-global-overlay').addClass('-hidden');
   }
 
     // Add html markup and behavior for venetian blinds.  We have two sets of these.

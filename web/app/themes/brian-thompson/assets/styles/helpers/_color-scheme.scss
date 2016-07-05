@@ -62,14 +62,24 @@ $brand-secondary: $blue;
     h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
+    .white-arrow:hover {
+      background: choose($black,$white,$scheme);
+      color: choose($white,$black,$scheme);
+    }
+    .close, .close:before {
+      color: $white;
+    }
   }
 
   // Lines & Blinds
   .line {
     background: choose($gray,$lite-blue,$scheme);
   }
-  .lines.page-transitioning .line, .lines.-content .line {
+  .lines.page-transitioning .line {
     background: choose($gray,$lite-blue,not $scheme);
+  }
+  .lines.-content .line {
+    background: choose(rgba($gray,.25),$lite-blue,not $scheme);
   }
   .blinds.-page .blind {
     background: $anti-bg;
@@ -136,6 +146,7 @@ $brand-secondary: $blue;
     }
   }
 
+  // Arrows
   .white-arrow {
     background: $true-white;
     color: $title;
