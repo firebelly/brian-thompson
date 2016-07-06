@@ -33,7 +33,7 @@
   position: absolute;
   content: '–';
   @include font-bold;
-  color: $black;
+  // color: $black;
 }
 @mixin dash-before($offset) {
     &:before {

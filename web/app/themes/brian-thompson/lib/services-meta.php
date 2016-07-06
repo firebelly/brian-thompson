@@ -42,7 +42,7 @@ function register_metaboxes() {
   ) );
   $services_meta->add_group_field( $service_group, array(
     'name' => __( 'Short Description', 'sage' ),
-    'desc' => __( 'The brief description visible before the "accordian" is opened.', 'sage' ),
+    'desc' => __( 'The brief description visible from the page with no popup open.', 'sage' ),
     'id'   => 'excerpt',
     'type' => 'wysiwyg',
     'options' => array(
@@ -52,34 +52,75 @@ function register_metaboxes() {
   ) );
   $services_meta->add_group_field( $service_group, array(
     'name' => __( 'Full Description', 'sage' ),
-    'desc' => __( 'The complete description revealed to the user when they open the "accordian."', 'sage' ),
+    'desc' => __( 'The complete description revealed to the user when they open the popup.', 'sage' ),
     'id'   => 'full',
     'type' => 'wysiwyg',
   ) );
-
+  $services_meta->add_group_field( $service_group, array(
+    'name'       => __( 'Pricing', 'sage' ),
+    'desc'       => __( 'Price in this format, separating with double dashes: Item -- Price -- Note', 'sage' ),
+    'id'         => 'price',
+    'type'       => 'textarea_code',
+    'repeatable' => true,
+    'options' => array(
+      'textarea_rows' => 1
+    ),
+  ) );
+  $services_meta->add_group_field( $service_group, array(
+    'name' => __( 'Pricing Note', 'sage' ),
+    'id'   => 'pricing_note',
+    'desc'  => __( 'Any (very short) notes you have on pricing', 'sage' ),
+    'type' => 'wysiwyg',
+  ) );
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
 
 /**
  * Shortcode [services] gets template markup for services
  */
-add_shortcode('services', __NAMESPACE__ . '\shortcode');
-function shortcode() {
+add_shortcode('services', __NAMESPACE__ . '\services_shortcode');
+function services_shortcode() {
 
   $services = get_post_meta( get_the_ID(), '_cmb2_services', true );
   $output = '';
 
 
   $output .= '<ul class="services">';
-  foreach ( (array) $services as $key => $service ) {
-      $title = $excerpt = $full = '';
-      if ( isset( $service['title'] ) )
-        $title = '<h4>'.esc_html( $service['title'] ).'</h4>';
-      if ( isset( $service['excerpt'] ) )
-        $excerpt = '<div class="excerpt">'.apply_filters('the_content', $service['excerpt'] ).'</div>';
-      if ( isset( $service['full'] ) )
-        $full = '<div class="full">'.apply_filters('the_content', $service['full'] ).'</div>';
-    $output .= '<li class="service">'.$title.$excerpt.$full.'</li>';
+  foreach ( (array) $services as $i => $service ) {
+    $title = $excerpt = $full = $pricing = '';
+    if ( isset( $service['title'] ) )
+      $title = esc_html( $service['title'] );
+    if ( isset( $service['excerpt'] ) )
+      $excerpt = '<div class="excerpt">'.apply_filters('the_content', $service['excerpt'] ).'</div>';
+    if ( isset( $service['full'] ) )
+      $full = apply_filters('the_content', $service['full'] );
+    if ( isset( $service['price'] ) || isset( $service['pricing_note'] ) ) {
+      $pricing .= '<ul class="pricetags">';
+      if ( isset( $service['price'] ) ) {
+        foreach ($service['price'] as $pricetag) {
+          $pricetag_exploded = explode('--',$pricetag);
+          $item = isset($pricetag_exploded[0]) ? '<p class="item">'.trim($pricetag_exploded[0]).'</p>' : '';
+          $price = isset($pricetag_exploded[1]) ? trim($pricetag_exploded[1]) : '';
+          $price_exploded = explode(' ',$price,2);
+          $cost = isset($price_exploded[0]) ? '<p class="cost">'.trim($price_exploded[0]).'</p>' : '';
+          $unit = isset($price_exploded[1]) ? '<p class="unit">'.trim($price_exploded[1]).'</p>' : '';
+          $note = isset($pricetag_exploded[2]) ? '<p class="note">'.trim($pricetag_exploded[2]).'</p>' : '';
+
+          $pricing .='<li class="pricetag">'.$item.$cost.$unit.$note.'</li>';
+        }
+      }
+      if ( isset( $service['pricing_note'] ) ) {
+        $pricing .='<li class="pricetag pricing-note"><div class="wrap">'.apply_filters('the_content', $service['pricing_note'] ).'</div></li>';
+      }
+
+      $pricing .= '</ul>';
+    }
+
+    $next = (($i+1) % count($services));
+    $arrow='<button class="white-arrow switch-content next-content" data-content="#service-'.$next.'" aria-hidden="true">Next Service</button>';
+    $content_to_reveal = '<div id="service-'.$i.'" class="sr-only"><h2>'.$title.'</h2>'.$full.$pricing.$arrow.'</div>';
+
+    $output .= '<li class="service"><h2><a href="#" class="fake-link reveal-content" data-content="#service-'.$i.'">'.$title.'</a></h2>'.$excerpt.$content_to_reveal.'</li>';
   }
   $output .= '</ul>';
 

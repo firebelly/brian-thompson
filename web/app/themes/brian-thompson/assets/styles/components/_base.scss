@@ -85,6 +85,7 @@ hr {
   }
   h2,h3 {
     @include small-title;
+    margin-bottom: $lh/4;
   }
   h2 {
     @include first-line-dots(10px);
