@@ -1,6 +1,5 @@
 <?php
 use Firebelly\SiteOptions;
-$footer = get_page_by_path('footer');
 ?>
 
 <!-- Brian's contact info in vcard format is built into this footer -->
@@ -9,7 +8,7 @@ $footer = get_page_by_path('footer');
     <span class="fn"><?= SiteOptions\get_option('name') ?></span>
   </div>
   <div class="description footer-block">
-    <?= apply_filters('the_content',$footer->post_content) ?>
+    <?= apply_filters('the_content', SiteOptions\get_option('description')) ?>
   </div>
   <div class="contact-form footer-block">
     <p class="questions-graph">Have Questions?</p>
@@ -19,7 +18,7 @@ $footer = get_page_by_path('footer');
     <p class="org"><?= SiteOptions\get_option('org') ?></p>
     <p class="disclaimer"><a href="<?= get_permalink(get_page_by_path('disclaimer')) ?>">Disclaimer</a></p>
     <p class="adv"><a href="<?= SiteOptions\get_option('adv') ?>">ADV Part 2a</a></p>
-    <div class="copyright"><?= apply_filters('the_content',get_post_meta($footer->ID,'_cmb2_copyright',true)) ?></div>
+    <div class="copyright"><?= apply_filters('the_content',SiteOptions\get_option('copyright') ) ?></div>
   </div>
   <div class="connect footer-block">
     <p>Connect</p>

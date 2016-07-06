@@ -29,7 +29,7 @@ class FbSiteOptions {
    */
   public function __construct() {
     // Set our title
-    $this->title = __( 'Contact, Social Media & ADV', 'firebelly' );
+    $this->title = __( 'Info & Footer', 'firebelly' );
   }
   /**
    * Initiate our hooks
@@ -97,6 +97,22 @@ class FbSiteOptions {
       'id'   => 'name',
       'type' => 'text',
     ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Description', 'firebelly' ),
+      'desc'    => __( 'Description of organization for footer'),
+      'id'   => 'description',
+      'type' => 'wysiwyg',
+      'options'          => array(
+        'textarea_rows'  => 5, // Hide the text input for the url
+      ),
+    ) );   
+    $cmb->add_field( array(
+      'name' => __( 'Copyright', 'firebelly' ),
+      'desc'    => __( 'Copyright statement for footer'),
+      'id'   => 'copyright',
+      'type' => 'text',
+    ) );   
     $cmb->add_field( array(
       'name' => __( 'Contact Organization', 'firebelly' ),
       'id'   => 'org',

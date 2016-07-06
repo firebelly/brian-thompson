@@ -1,6 +1,6 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?> role="article">
-    <?php the_post_thumbnail('large', ['class' => 'floater-image']); ?>
+    <?= Firebelly\Media\get_floater_images(); ?>
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
       <?php get_template_part('templates/entry-meta-single'); ?>

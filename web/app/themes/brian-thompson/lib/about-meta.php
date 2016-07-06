@@ -30,36 +30,5 @@ function register_metaboxes() {
     )
   );
 
-  $about_meta_images = new_cmb2_box( array(
-    'id'            => 'about_iamges_metabox',
-    'title'         => __( 'Additional Images', 'sage' ),
-    'object_types'  => array( 'page', ), // Post type
-    'show_on'       => array( 'key' => 'slug', 'value' => 'about'),
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => true,
-    )
-  );
-  $about_meta_images->add_field(
-    array(
-      'name'             => __( 'Brian Alone', 'sage' ),
-      'id'               => $prefix . 'brian_alone',
-      'type'             => 'file',
-      'options'          => array(
-        'url'            => false, // Hide the text input for the url
-      ),
-    )
-  );
-  $about_meta_images->add_field(
-    array(
-      'name'             => __( 'Brian w/ Family', 'sage' ),
-      'id'               => $prefix . 'brian_family',
-      'type'             => 'file',
-      'options'          => array(
-        'url'            => false, // Hide the text input for the url
-      ),
-    )
-  );
-
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );

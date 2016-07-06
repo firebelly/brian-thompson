@@ -79,6 +79,9 @@ var FBSage = (function($) {
     // Add html markup and behavior for lines
     _initLines();
 
+    // Place and dictate behavior for non-inline "floater" images
+    initFloaterImages();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -446,21 +449,67 @@ var FBSage = (function($) {
 
     // Add html markup and behavior for lines
   function _initLines() {
-    var html = '<div class="lines" aria-hidden="true">';
-    for (i=0; i<15; i++) { 
-      html+='<div class="line"></div>'; 
-    }
-    html+='</div>';
-    $(html).prependTo('body');
-    $(html).appendTo('.site-nav-wrap');
+    // Page Lines
+    $(_linefactory(15,'')).prependTo('body');
 
-    html = '<div class="lines -content" aria-hidden="true">';
-    for (i=0; i<5; i++) { 
+    // Nav Lines
+    $('<div class="background-overlay"></div>').prependTo('.site-nav');
+    $(_linefactory(5,'')).prependTo('.site-nav');
+
+    // Lines behind content-reveal popups
+    $(_linefactory(4,'-content')).appendTo('body');
+    $('.lines.-content').velocity('fadeOut',0);
+  }
+  function _linefactory(n,cssClasses){
+    html = '<div class="lines '+cssClasses+'" aria-hidden="true">';
+    for (i=0; i<n; i++) { 
       html+='<div class="line"></div>'; 
     }
     html+='</div>';
-    $(html).appendTo('body');
-    $('.lines.-content').velocity('fadeOut',0);
+    return html;
+  }
+
+  // Place and dictate behavior for non-inline "floater" images
+  function initFloaterImages() {
+    _placeFloaterImages();
+    $(window).resize(function() {
+      _placeFloaterImages();
+    });
+  }
+  function _placeFloaterImages() {
+    $('.floater-image').each(function() {
+      $(this).attr( 'data-col', _chooseFloaterImageCol() );
+      console.log(_chooseFloaterImageCol());
+      $(this).css( 'top', _chooseFloaterImageTop() );
+    });
+  }
+  function _chooseFloaterImageTop() {
+    var randPercent = Math.random()*100;
+    return randPercent+'vh';
+  }
+  function _getPossibleFloaterImageCols() {
+    var screenWidth = $(window).width();
+
+    var badCols = [];
+    // Mark content area off-limits
+    if(screenWidth<900) {
+      badCols = $.merge(badCols,[0,1,2,3,4,5]);
+    }
+    if(screenWidth>=900) {
+      badCols = $.merge(badCols,[1,2,3,4,5,6]);
+    }
+
+    var goodCols = [];
+    var colWidth = $('.blind').width();
+    //Loop through 
+    for (i=-2; i<Math.floor(screenWidth/colWidth); i++) {
+      if($.inArray(i, badCols)===-1) { goodCols.push(i); }
+    }
+    return goodCols;
+  }
+  function _chooseFloaterImageCol() {
+    var possibleCols = _getPossibleFloaterImageCols();
+    return possibleCols[Math.floor(Math.random()*possibleCols.length)];
   }
 
   // Public functions

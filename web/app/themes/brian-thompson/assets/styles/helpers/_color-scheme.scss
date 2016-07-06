@@ -95,9 +95,9 @@ $brand-secondary: $blue;
 
 
   // Nav
-  .site-nav-wrap {
+  .site-nav-wrap .background-overlay {
     background: $bg;
-    background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
+  // background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
   }
   .site-nav {
     .current-menu-item a{

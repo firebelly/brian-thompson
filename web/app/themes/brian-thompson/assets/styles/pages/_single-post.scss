@@ -2,7 +2,7 @@
 
 .single-post {
 
-  .meta {
+  .entry-meta {
     p {
       @include small-mono;
     }
@@ -13,7 +13,6 @@
     }
     .category {
       position: relative;
-      a { text-decoration: underline; }
     }
   }
 
@@ -26,19 +25,19 @@
     width: 100%;
     top: 50vh;
     left: 0;
-    z-index: $z-brand;
+    z-index: $z-post-nav;
   }
 
   .next-post, .prev-post {
     color: $blue;
     z-index: 100;
     @include font-mono;
-    .wrap {
-      max-width: 35px
-    }
     padding: 15px;
     background: $white;
     transform: translateY(-50%);
+    .wrap {
+      max-width: 35px;
+    }
   }
   .next-post {
     left: calc( 100% - 5px );

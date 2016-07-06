@@ -5,6 +5,35 @@
 
 namespace Firebelly\PostTypes\Pages;
 
+/**
+ * Add additional image dialogues to all pages
+ */
+function register_metaboxes() {
+  $prefix = '_cmb2_';
+  $add_images_meta = new_cmb2_box( array(
+    'id'            => 'additional_images_metabox',
+    'title'         => __( 'Additional Images', 'sage' ),
+    'object_types'  => array( 'page', 'post'), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    )
+  );
+  $add_images_meta->add_field(
+    array(
+      'name'             => __( 'Additional Images', 'sage' ),
+      'desc'             => __( 'Any images you would like to be displayed about the page/post in ADDITION to the featured image.' ),
+      'id'               => $prefix . 'additional_images',
+      'type'             => 'file_list',
+      'options'          => array(
+        'url'            => false, // Hide the text input for the url
+      ),
+    )
+  );
+
+}
+add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
+
 /** 
  * ADAPTED FROM:
  * Metabox for Page Slug
@@ -50,9 +79,6 @@ add_filter( 'cmb2_show_on', __NAMESPACE__ . '\metabox_show_on_slug', 10, 2 );
 function hack_in_admin_styling() {
   echo <<<HTML
   <style>
-    .regular-text {
-      width: 100% !important;
-    }
     .cmb-group-name {
       padding-left: 0 !important;
       font-weight: bold !important;

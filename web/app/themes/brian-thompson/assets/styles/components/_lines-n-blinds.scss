@@ -12,10 +12,14 @@
   float: left;
   height: 100%;
 }
+.line {
+  transform: scale(0.5,1); // Thin the lines up.  Doesn't affect the margin.  Neat!
+}
 
 // Lines
 .lines {
   z-index: $z-lines;
+  pointer-events: none;
   &.page-transitioning {
     z-index: $z-lines-page-transitioning;
   }
