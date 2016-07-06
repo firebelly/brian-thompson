@@ -2,6 +2,9 @@
 
 use Roots\Sage\Setup;
 use Roots\Sage\Wrapper;
+use Roots\Sage\Extras;
+
+$color_class = Extras\get_color_class();
 
 ?>
 
@@ -10,7 +13,7 @@ use Roots\Sage\Wrapper;
 <!--[if IE 9 ]> <html class="no-js ie9 lt-ie10" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
   <?php get_template_part('templates/head'); ?>
-  <body <?php body_class(); ?>>
+  <body <?php body_class($color_class); ?>>
     <!--[if lt IE 9]>
       <div class="alert alert-warning">
         <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>

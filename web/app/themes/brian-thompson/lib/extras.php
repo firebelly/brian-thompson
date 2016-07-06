@@ -25,28 +25,16 @@ function body_class($classes) {
 add_filter('body_class', __NAMESPACE__ . '\\body_class');
 
 /**
- * Add <body> class for color scheme
+ * Use the magic of cookies to get the correct color class 
+ * so we alternate colors every page.
  */
-function color_scheme($classes) {
-  // Add page slug if it doesn't exist
-  if (is_single() || is_page() && !is_front_page()) {
-    if (!in_array(basename(get_permalink()), $classes)) {
-      $classes[] = basename(get_permalink());
-    }
-  }
-
-
-  if(!isset($_COOKIE['color'])) {
-    $_COOKIE['color'] = 'white';
-  }
-
-  $classes[] = ($_COOKIE['color'] === 'blue' ? 'blue' : 'white' ).'-color-scheme';
-
-  setcookie('color', ($_COOKIE['color'] === 'blue' ? 'white' : 'blue') );
-
-  return $classes;
+function get_color_class() {
+  $prev_color = !empty($_COOKIE['color']) ? $_COOKIE['color'] : 'blue';
+  $curr_color = ($prev_color === 'white' ? 'blue' : 'white');
+  setcookie('color', $curr_color, 0, "/");
+  $_COOKIE['color'] = $curr_color; //setcookie won't repopulate $_COOKIE[]
+  return $curr_color.'-color-scheme';
 }
-add_filter('body_class', __NAMESPACE__ . '\\color_scheme');
 
 /**
  * Clean up the_excerpt()
