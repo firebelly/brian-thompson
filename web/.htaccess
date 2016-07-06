@@ -1,0 +1,17 @@
+# BEGIN redirects
+RewriteEngine On
+RewriteBase /
+RewriteRule ^post/([0-9]+).*$ /posts/$1/ [R=301,L]
+RewriteRule ^tagged/(.*)$ /posts/tag/$1/ [R=301,L]
+# END redirects
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
