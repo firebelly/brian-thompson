@@ -1,12 +1,27 @@
 // Grid system
 
+$small-pad: 10px;
+
 // Things outside of .main-area-wrap that depend on col-size:
 @mixin columns($col-size) {
 
   // Main Area Wraps (everything in here can just use 25% as col-size)
   .main-area-wrap {
-    margin-left: $col-size * 2;
-    width: $col-size * 5;
+      width: calc(100% - 20px);
+      margin-left: 10px;
+    @include min-screen(320px) {
+      width: 3 * $col-size;
+      margin-left: calc((100% - 3 * #{$col-size})/2);
+    }
+    @include min-screen(420px) {
+      width: 4 * $col-size;
+      margin-left: calc((100% - 4 * #{$col-size})/2);
+    }
+    @include media-md {
+      margin-left: $col-size * 2;
+      width: $col-size * 5;
+      max-width: none;
+    }
     @include min-screen(900px) {
       margin-left: $col-size * 3;
     }
@@ -24,8 +39,18 @@
   }
 
   // Lines 
-  .lines .line {
-    margin-left: calc( #{$col-size} - 1px);
+  .lines {
+    margin-left: -90px;
+    @include min-screen(320px) {
+      margin-left: calc((100% - 3 * #{$col-size})/2 - 3 * #{$col-size});
+    }
+    @include min-screen(420px) {
+      margin-left: calc((100% - 4 * #{$col-size})/2 - 3 * #{$col-size});
+    }
+    @include media-md { margin-left: 0; }
+    .line {
+      margin-left: calc( #{$col-size} - 1px);
+    }
   }
   .blinds .blind {
     width: $col-size;

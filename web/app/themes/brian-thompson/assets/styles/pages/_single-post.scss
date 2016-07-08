@@ -7,9 +7,11 @@
       @include small-mono;
     }
     .date {
-      position: absolute;
-      top: 25px;
-      right: calc( 100% + 3px );
+      @include media-md {
+        position: absolute;
+        top: 25px;
+        right: calc( 100% + 3px );
+      }
     }
     .category {
       position: relative;
@@ -40,12 +42,19 @@
     }
   }
   .next-post {
-    left: calc( 100% - 5px );
+
+    left: calc( 90% - 5px );
+    @include min-screen(800px) {
+      left: calc( 100% - 5px );
+    }
     @include arrow-right(70px);
     position: absolute;
   }
   .prev-post {
-    right: calc( 120% - 5px );
+    right: calc( 110% - 5px );
+    @include min-screen(800px) {
+      right: calc( 120% - 5px );
+    }
     @include arrow-left(70px);
     position: absolute;
   }

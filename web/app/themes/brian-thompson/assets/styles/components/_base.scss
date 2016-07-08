@@ -65,7 +65,8 @@ hr {
 .body-wrap {
   position: relative;
   margin-top: $lh * 6;
-  width: $col-inwrap * 4;
+  width: 100%;
+  @include media-md { width: 80%; }
   margin-bottom: 5 * $lh + 100px;
   padding: 0 3px;
 
@@ -164,7 +165,7 @@ button{
   border-radius: 100%;
   background: red;
   border: 1px solid black;
-  visibility: hidden;
+  // visibility: hidden;
   &.-footer {
     background: blue;
     bottom: 1px;
