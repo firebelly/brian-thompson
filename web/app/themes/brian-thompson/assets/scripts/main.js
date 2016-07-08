@@ -82,6 +82,9 @@ var FBSage = (function($) {
     // Place and dictate behavior for non-inline "floater" images
     initFloaterImages();
 
+    // Add functions to supplement CF7 form handling
+    _initContactForm();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -213,7 +216,6 @@ var FBSage = (function($) {
     $('.almighty-global-overlay').addClass('-hidden');
   }
 
-
   function _initFooter() {
     var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button></div>';  
     $(html).prependTo('.site-footer').click(function(e) {
@@ -224,6 +226,21 @@ var FBSage = (function($) {
         _closeFooter();
       }
     });
+
+    $('<div class="invisible-waypoint -footer" aria-hidden="true"></div>')
+    .prependTo('#primary-site-content')
+    .waypoint({
+      offset: 'bottom-in-view',
+      handler: function(direction) {
+        if(direction==='down' && $(document).height > $(window.width)) {
+          _openFooter();
+        }
+        if(direction==='up'){
+          _closeFooter();
+        }
+      }
+    });
+
   }  
   function _closeFooter(animDur) {
     animDur = animDur || 200;
@@ -454,7 +471,7 @@ var FBSage = (function($) {
 
     // Nav Lines
     $('<div class="background-overlay"></div>').prependTo('.site-nav');
-    $(_linefactory(5,'')).prependTo('.site-nav');
+    $(_linefactory(15,'')).prependTo('.site-nav-wrap');
 
     // Lines behind content-reveal popups
     $(_linefactory(4,'-content')).appendTo('body');
@@ -471,21 +488,96 @@ var FBSage = (function($) {
 
   // Place and dictate behavior for non-inline "floater" images
   function initFloaterImages() {
-    _placeFloaterImages();
-    $(window).resize(function() {
-      _placeFloaterImages();
-    });
+    var numImages = $('.floater-image').length;
+    if(numImages) {
+
+      // Init waypoints
+      var maxVisible = 3; //Max number of images visible on screen
+      var scrollableHeight = $('#primary-site-content').height()-$(window).height(); // How many pixels can a user scroll on this page?
+
+      i=0;
+      $('.floater-image').each( function() {
+        var $image = $(this);
+
+        // This is an invisible waypoint element positioned at the the 
+        // top-most point this image should be visible.
+        // It shows/hides the image as appropriate on scroll-by.
+        posTop = ((i-0.5-(maxVisible-2))*scrollableHeight/numImages)+'px';
+        // Why offset by .5? This allows the images to overlap as you scroll.
+        // E.g, one transitions in before the previous transitions out.
+        $('<div class="invisible-waypoint" aria-hidden="true"></div>')
+        .prependTo('body')
+        .css('top',posTop)
+        .waypoint({
+          handler: function(direction) {
+            if(direction==='down'){
+              _revealFloaterImage($image);
+            }
+            if(direction==='up'){
+              _hideFloaterImage($image);
+            }
+          }
+        });
+
+        // Ditto for bottom-most point image should be visible
+        if(i<=numImages-maxVisible){
+          posTop = ((i+maxVisible-1.5)*scrollableHeight/numImages)+'px';
+          $('<div class="invisible-waypoint" aria-hidden="true"></div>')
+          .prependTo('body')
+          .css('top',posTop)
+          .waypoint({
+            handler: function(direction) {
+              if(direction==='down'){
+                _hideFloaterImage($image);
+              }
+              if(direction==='up'){
+                _revealFloaterImage($image);
+              }
+            }
+          });
+        }
+
+        i++;
+      });
+
+      // Handle resize
+      $(window).resize(function() {
+        _floaterImageOnResize(); //maybe: https://css-tricks.com/snippets/jquery/done-resizing-event/
+      });
+    }
   }
-  function _placeFloaterImages() {
+  function _revealFloaterImage($image) {
+    _positionFloaterImage($image);
+    $image.addClass('revealed');
+  }
+  function _hideFloaterImage($image) {
+    $image.removeClass('revealed');
+  }
+  function _positionFloaterImage($image) {
+    $image.attr( 'data-col', _chooseFloaterImageCol() );
+    $image.css( 'top', _chooseFloaterImageTop() );
+  }
+  function _floaterImageOnResize() {
+    var i=0;
+    var goodCols = _getPossibleFloaterImageCols();
+    console.log(goodCols);
     $('.floater-image').each(function() {
-      $(this).attr( 'data-col', _chooseFloaterImageCol() );
-      console.log(_chooseFloaterImageCol());
-      $(this).css( 'top', _chooseFloaterImageTop() );
+      var col = parseInt($(this).attr('data-col'));
+      if($.inArray(col,goodCols)===-1 || !$(this).hasClass('revealed')) { // If I'm not in a good col or I'm hidden, reposition me.
+        _positionFloaterImage($(this));
+      }
+      i++;
     });
   }
   function _chooseFloaterImageTop() {
     var randPercent = Math.random()*100;
     return randPercent+'vh';
+  }
+  function _chooseFloaterImageCol() {
+    var possibleCols = _getPossibleFloaterImageCols();
+    var random = Math.random();
+    var col = possibleCols[Math.floor(random*possibleCols.length)];
+    return col;
   }
   function _getPossibleFloaterImageCols() {
     var screenWidth = $(window).width();
@@ -493,23 +585,31 @@ var FBSage = (function($) {
     var badCols = [];
     // Mark content area off-limits
     if(screenWidth<900) {
-      badCols = $.merge(badCols,[0,1,2,3,4,5]);
+      badCols = $.merge(badCols,[-1,0,1,2,3,4,5,6]);
     }
     if(screenWidth>=900) {
-      badCols = $.merge(badCols,[1,2,3,4,5,6]);
+      badCols = $.merge(badCols,[0,1,2,3,4,5,6,7]);
     }
 
     var goodCols = [];
     var colWidth = $('.blind').width();
-    //Loop through 
-    for (i=-2; i<Math.floor(screenWidth/colWidth); i++) {
-      if($.inArray(i, badCols)===-1) { goodCols.push(i); }
+    //Loop through all cols where image would be visible
+    for (i=-2; i<Math.floor(screenWidth/colWidth); i++) { 
+      if($.inArray(i, badCols)===-1) { goodCols.push(i); } // If this I isn't bad, it's good.  Add it on, then.
     }
     return goodCols;
   }
-  function _chooseFloaterImageCol() {
-    var possibleCols = _getPossibleFloaterImageCols();
-    return possibleCols[Math.floor(Math.random()*possibleCols.length)];
+
+  // Add functions to supplement CF7 form handling
+  function _initContactForm() {
+    $('.contact-form-submit').click(function(e){
+      $('#wpcf7-f91-o1 .wpcf7-form').submit();
+      $('.wpcf7-response-output').velocity('scroll',300);
+    });
+    $('.wpcf7').on('wpcf7:mailsent', function(e) {
+      $('.form-accordian').velocity('slideUp',300);
+      $('.form-wrap').css('padding-bottom','15px');
+    });
   }
 
   // Public functions

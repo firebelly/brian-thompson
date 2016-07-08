@@ -13,16 +13,7 @@
   }
   .site-nav-wrap {
     z-index: $z-nav;
-
-    .lines {
-      z-index: $z-nav-lines;
-    }
-    .background-overlay {
-      position: absolute;
-      height: 100px;
-      width: 80%;
-      z-index: $z-nav-background;
-    }
+    overflow: hidden;
   }
 
   ul {
@@ -42,6 +33,13 @@
     .btf-logo {
       width: 100%;
       height: auto;
+    }
+  }
+
+  .site-nav, .site-nav-wrap {
+    height: 80px;
+    @include min-screen(900px) {
+      height: 95px;
     }
   }
 

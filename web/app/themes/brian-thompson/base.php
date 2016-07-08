@@ -23,7 +23,7 @@ $color_class = Extras\get_color_class();
         do_action('get_header');
         get_template_part('templates/header');
       ?>
-    <div class="main-area-wrap">
+    <div class="main-area-wrap" id="primary-site-content">
       <div class="body-wrap" role="document">
         <main class="site-main" role="main">
           <?php include Wrapper\template_path(); ?>

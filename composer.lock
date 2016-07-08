@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "15d0b355d3902796ffab9b85fa0500e2",
-    "content-hash": "bba84cb0025b5898c983ecd2d84332e9",
+    "hash": "0b57b96382707955ff41799bf62c886e",
+    "content-hash": "d1d8e22778eb745dd35c22b6ed7ebb02",
     "packages": [
         {
             "name": "composer/installers",
@@ -383,7 +383,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.2.1",
+            "version": "2.2.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -520,6 +520,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/regenerate-thumbnails/"
+        },
+        {
+            "name": "wpackagist-plugin/search-and-replace",
+            "version": "3.1.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/search-and-replace/",
+                "reference": "tags/3.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/search-and-replace.3.1.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/search-and-replace/"
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",

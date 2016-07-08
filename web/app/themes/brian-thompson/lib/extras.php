@@ -40,6 +40,19 @@ function get_color_class() {
  * Clean up the_excerpt()
  */
 function excerpt_more() {
-  return ' &hellip; <a href="' . get_permalink() . '" class="read-more"><button class="white-arrow">' . __('Read More', 'sage') . '</button></a>';
+  return '&hellip;';
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
+
+
+
+function remove_spaces( $content ) {
+  // global $wpcf7_contact_form;
+  
+  $find = '&nbsp;';
+  $replace = '';
+  $content = str_replace( $find, $replace, $content);
+
+  return $content;  
+}
+add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\remove_spaces' );

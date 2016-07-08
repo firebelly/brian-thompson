@@ -20,7 +20,7 @@
     &:first-child { margin-left: 0; }
     float: left;
     display: inline-block;
-  button {
+    button {
       width: 20px;
       padding: 0;
       @include small-nb-mono;

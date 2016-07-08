@@ -45,15 +45,12 @@ $brand-secondary: $blue;
       &:hover {
         color: $title;
       }
-      border-bottom: 1px solid $title;
+      &:not(.no-underline) { border-bottom: 1px solid $title; }
     }
 
-    a h1, a h2, h1 a, h2 a {
+    a h1, a h2, h1 a, h2 a:not(.no-underline) {
       border-bottom: 0;
-      background: $bg;
-      $start: 90%; 
-      $stop: calc(#{$start} + 1px);
-      background: linear-gradient(rgba($bg,0), rgba($bg,0) $start, rgba($title,1) $start, rgba($title,1) $stop, rgba($bg,0) $stop);
+      @include gradient-underline($bg,$title,90%, calc(90% + 1px));
     }
   }
 
@@ -76,6 +73,25 @@ $brand-secondary: $blue;
     }
   }
 
+  // Form Pages
+  .form-wrap {
+    background: $true-white;
+    color: $black;
+    hr {
+      color: $white;
+    }
+    a {
+      color: $black;
+      &:not(.no-underline) { border-bottom: 1px solid $blue; }
+      &:hover {
+        color: $blue;
+      }
+    }
+    .black-arrow:hover {
+      background: $white;
+    }
+  }
+
   // Lines & Blinds
   .line {
     background: choose($gray,$lite-blue,$scheme);
@@ -95,7 +111,7 @@ $brand-secondary: $blue;
 
 
   // Nav
-  .site-nav-wrap .background-overlay {
+  .site-nav-wrap {//.site-nav-wrap .background-overlay {
     background: $bg;
   // background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
   }
@@ -164,15 +180,15 @@ $brand-secondary: $blue;
     background: $black;
     color: $white;
     &:hover {
-    background: $true-white;
-    color: $black;
+      background: $true-white;
+      color: $black;
     }
   }
 }
 
 body {
   &.white-color-scheme {
-     @include color-scheme(true);
+    @include color-scheme(true);
   }
   &.blue-color-scheme {
     @include color-scheme(false);

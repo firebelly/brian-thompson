@@ -16,7 +16,8 @@
     "svg4everybody": "~1.0.0",
     "velocity": "^1.2.3",
     "fastclick": "~1.0.6",
-    "boomsvgloader": "^0.0.2"
+    "boomsvgloader": "^0.0.2",
+    "waypoints": "^4.0.0"
   },
   "overrides": {
     "modernizr": {
@@ -24,6 +25,12 @@
     },
     "boomsvgloader": {
       "main": "./dist/js/boomsvgloader.js"
-    }
+    },
+    "waypoints": {
+    "main": [
+      "./lib/jquery.waypoints.js",
+      "./lib/shortcuts/sticky.js"
+     ]
+   }
   }
 }

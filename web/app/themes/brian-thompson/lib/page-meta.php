@@ -13,7 +13,7 @@ function register_metaboxes() {
   $add_images_meta = new_cmb2_box( array(
     'id'            => 'additional_images_metabox',
     'title'         => __( 'Additional Images', 'sage' ),
-    'object_types'  => array( 'page', 'post'), // Post type
+    'object_types'  => array( 'page', 'post', 'attachment'), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -33,6 +33,7 @@ function register_metaboxes() {
 
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
+
 
 /** 
  * ADAPTED FROM:
@@ -82,6 +83,9 @@ function hack_in_admin_styling() {
     .cmb-group-name {
       padding-left: 0 !important;
       font-weight: bold !important;
+    }
+    .media-modal .attachment-info .settings .media-types.media-types-required-info {
+      display: none;
     }
   </style>
 HTML;

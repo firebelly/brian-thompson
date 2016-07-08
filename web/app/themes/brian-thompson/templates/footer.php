@@ -12,7 +12,7 @@ use Firebelly\SiteOptions;
   </div>
   <div class="contact-form footer-block">
     <p class="questions-graph">Have Questions?</p>
-    <a href="<?= get_permalink(get_page_by_path('contact')) ?>"><button class="contact-button black-arrow"><div class="arrow-wrap">Contact Brian</div></button></a>
+    <a href="<?= get_permalink(get_page_by_path('contact')) ?>"><button class="contact-button black-arrow">Contact Brian</button></a>
   </div>
   <div class="add-info footer-block">
     <p class="org"><?= SiteOptions\get_option('org') ?></p>

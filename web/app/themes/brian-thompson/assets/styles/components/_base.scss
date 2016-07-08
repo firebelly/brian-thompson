@@ -14,11 +14,7 @@ body {
 
 a {
   text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
+  transition: color 0.2s, background 0.2s;
 }
 
 hr {
@@ -70,7 +66,7 @@ hr {
   position: relative;
   margin-top: $lh * 6;
   width: $col-inwrap * 4;
-  margin-bottom: 5 * $lh;
+  margin-bottom: 5 * $lh + 100px;
   padding: 0 3px;
 
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
@@ -98,17 +94,27 @@ hr {
   // Inline images
   img:not(.floater-image) {
     margin: $lh 0;
-    width: 100%;
+    @include break-out-of-padding(3px,3px);
+    height: auto;
+    &.alignnone {
+      width: calc(100% + 6px);
+      max-width: none;
+    }
   }
 
+  // Floater Images & Waypoints
   .floater-image {
     display: block;
     position: fixed;
     max-width: none;
     height: auto;
+    opacity: 0;
     z-index: $z-floater-image;
+    transition: opacity 0.3s;
+    &.revealed {
+      opacity: 1;
+    }
   }
-
 
   // Lists
   ul {
@@ -130,8 +136,11 @@ hr {
 
 }
 
-button:hover {
-  outline: 0;
+button{
+  transition: color 0.2s, background 0.2s;
+  &:focus {
+    outline: 0;
+  }
 }
 
 
@@ -145,4 +154,19 @@ button:hover {
   opacity: 0;
   cursor: pointer;
   z-index: $z-overlay;
+}
+
+.invisible-waypoint {
+  position: absolute;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: red;
+  border: 1px solid black;
+  visibility: hidden;
+  &.-footer {
+    background: blue;
+    bottom: 1px;
+  }
 }
