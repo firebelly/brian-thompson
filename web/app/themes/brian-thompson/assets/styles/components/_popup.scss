@@ -1,0 +1,92 @@
+
+//Popup
+
+.popup {
+  position: absolute;
+  top: 0;
+  width: $col*6;
+  z-index: $z-popup;
+  left: $small-pad;
+  width: calc(100% - #{$small-pad});
+  @include min-screen(320px) {
+    left: calc((100% - 3 * #{$col})/2 );
+  }
+  @include min-screen(420px) {
+    left: calc((100% - 4 * #{$col})/2 );
+  }
+  @include media-md{
+    left: 1*$col;
+  }
+  @include media-lg {
+    left: 2*$col;
+  }
+  @include media-huge {
+    left: 2*$col-huge;
+    width: $col-huge*6;
+  }
+
+  a {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+  .body-wrap {
+    margin-right: 0;
+    padding-top:  $lh * 4;
+    margin-left: 0;
+    @include media-md {
+      margin-left: 1*$col;
+    }
+    @include media-huge {
+      margin-right: 0;
+      margin-left: $col-huge;
+      width: 4*$col-huge;
+    }
+  }
+
+  .description {
+    @include dash-before($lh*1.5);
+  }
+
+  .next-content {
+    @include small-mono;
+    @include arrow-right(57px);
+    position: absolute;
+    top: -$lh/4;
+    left: calc( 100% + 5px );
+    width: 25%;
+    display: none;
+    @include media-md {
+      display: block;
+    }
+  }
+
+  .close {
+    border: none;
+    background: transparent;
+    @include big-title;
+    position: absolute;
+    top: -$lh/2;
+    right: 0;
+    &:before {
+      content: 'Close';
+      @include small-mono;
+      @include no-word-break;
+      position: absolute;
+      top: $lh/2 - 2px;;
+      right: 100%;
+      display: none;
+      @include media-md {
+        display: block;
+      }
+
+    }
+  }
+}
+
+.content-to-popup {
+  @extend .sr-only
+}
+
+.open-popup {
+  cursor: pointer;
+}

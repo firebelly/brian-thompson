@@ -5,25 +5,29 @@
 // Breakpoints
 $breakpoint-small: 480px;
 $breakpoint-medium: 768px;
-$breakpoint-large: 1000px;
-$breakpoint-huge: 1200px;
-$breakpoint-nav: 1050px;
+$breakpoint-large: 900px;
+$breakpoint-huge: 1500px;
 
 // Z indexes;
-$z-lines-page-transitioning: 90;
-$z-page-blinds: 80;
-$z-revealed-content: 70;
-$z-content-lines: 60;
-$z-content-blinds: 50;
-$z-overlay: 40;
-$z-post-nav: 30;
-$z-brand: 20;
-$z-floater-image: 15;
-$z-nav: 10;
-$z-lines: -10;
+$z-lines-page-transitioning: 900;
+$z-page-blinds: 800;
+$z-popup: 700;
+$z-content-lines: 600;
+$z-content-blinds: 500;
+$z-overlay: 400;
+
+$z-post-nav: 300;
+$z-brand: 200;
+$z-dots: 175;
+$z-floater-image: 150;
+$z-nav: 100;
+$z-lines: -100;
 
 // Sizes
 $col-inwrap: 20%;
 
-// Line Height
+$col: 100px;
+$col-huge: 100vw / 15; //6.6666666%;
+$tiny-pad: 5px;
+$small-pad: 10px;
 $lh: 20px;

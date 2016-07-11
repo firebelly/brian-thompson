@@ -120,7 +120,7 @@ function services_shortcode() {
     $arrow='<button class="white-arrow switch-content next-content" data-content="#service-'.$next.'" aria-hidden="true">Next Service</button>';
     $content_to_reveal = '<div id="service-'.$i.'" class="sr-only"><h2>'.$title.'</h2>'.$full.$pricing.$arrow.'</div>';
 
-    $output .= '<li class="service"><h2><a href="#" class="fake-link reveal-content" data-content="#service-'.$i.'">'.$title.'</a></h2>'.$excerpt.$content_to_reveal.'</li>';
+    $output .= '<li class="service"><h2><a href="#" class="fake-link open-popup" data-content="#service-'.$i.'">'.$title.'</a></h2>'.$excerpt.$content_to_reveal.'</li>';
   }
   $output .= '</ul>';
 

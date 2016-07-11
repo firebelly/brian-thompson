@@ -23,18 +23,13 @@ $color_class = Extras\get_color_class();
         do_action('get_header');
         get_template_part('templates/header');
       ?>
-    <div class="main-area-wrap" id="primary-site-content">
-      <div class="body-wrap" role="document">
+    <!-- <div class="site-wrap"> -->
+      <div class="body-wrap" role="document" id="primary-site-content">
         <main class="site-main" role="main">
           <?php include Wrapper\template_path(); ?>
-        </main><!-- /.main -->
-        <?php if (Setup\display_sidebar()) : ?>
-          <aside class="sidebar">
-            <?php include Wrapper\sidebar_path(); ?>
-          </aside><!-- /.sidebar -->
-        <?php endif; ?>
-      </div><!-- /.content -->
-    </div><!-- /.site-wrap -->
+        </main>
+      </div>
+    <!-- </div> -->
     <?php
       do_action('get_footer');
       get_template_part('templates/footer');

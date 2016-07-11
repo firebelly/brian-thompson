@@ -47,7 +47,6 @@ add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
 
 
 function remove_spaces( $content ) {
-  // global $wpcf7_contact_form;
   
   $find = '&nbsp;';
   $replace = '';

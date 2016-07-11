@@ -46,7 +46,7 @@ var FBSage = (function($) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideMobileNav();
-        _hideContent();
+        _closePopup();
       }
     });
 
@@ -343,78 +343,78 @@ var FBSage = (function($) {
   // Add color information to URL we are going to, handle transition effect
   function _initContentReveal() {
     // Here is a global variable to remember which blind was the first to open;
-    _contentBlindStartingBlindNum = 0;
-    var html = '<div class="revealed-content main-area-wrap" aria-hidden="true"><div class="body-wrap"><div class="content-holder"></div><button class="close" aria-hidden="true">x</button></div></div>';
+    _popupStartingBlindNum = 0;
+    var html = '<div class="popup" aria-hidden="true"><div class="body-wrap"><div class="content-holder"></div><button class="close" aria-hidden="true">x</button></div></div>';
     $(html).appendTo('body');
-    $('.revealed-content').velocity('fadeOut',0);
+    $('.popup').velocity('fadeOut',0);
 
-    $('.reveal-content').click(function(e) {
+    $('.open-popup').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
-        _contentBlindStartingBlindNum = _closestX( $('.blinds.-content .blind'), $(this).offset().left ).data('blind-num');
+        _popupStartingBlindNum = _closestX( $('.blinds.-for-popup .blind'), $(this).offset().left ).data('blind-num');
         var $content = $($(this).data('content'));
-        _revealContent($content);
+        _openPopup($content);
       }
     });
     $('.switch-content').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
         var $content = $($(this).data('content'));
-        _switchContent($content);
+        _switchPopupContent($content);
       }
     });
 
-    $('.almighty-global-overlay, .revealed-content .close').click(function() {
+    $('.almighty-global-overlay, .popup .close').click(function() {
       if(!_isAnimating) {
-        _hideContent();
+        _closePopup();
       }
     });
   }  
-  function _hideContent() {
+  function _closePopup() {
     _isAnimating = true;
-    $('.revealed-content').removeClass('showing');
+    $('.popup').removeClass('showing');
     _returnToYourSlumberAlmightyOverlay();
-    $('.revealed-content').velocity('fadeOut',{
+    $('.popup').velocity('fadeOut',{
       duration: 200,
       complete: function () {
-        $('.lines.-content').velocity('fadeOut',{ 
+        $('.lines.-for-popup').velocity('fadeOut',{ 
           duration: 200,
           complete: function() {
             _isAnimating = false;
           }
         });
-        _blinds($('.blinds.-content .blind'),'hide',_contentBlindStartingBlindNum);
+        _blinds($('.blinds.-for-popup .blind'),'hide',_popupStartingBlindNum);
       }
     });
   }
-  function _revealContent($content) {
+  function _openPopup($content) {
     _isAnimating = true;
-    $('.revealed-content').addClass('showing');
+    $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
-    $('.lines.-content').velocity('fadeIn',200);
-    $('body').velocity('scroll',200);
-    _blinds($('.blinds.-content .blind'),'show',_contentBlindStartingBlindNum,function () {
-      $('.revealed-content .content-holder').empty();
-      $content.clone(true, true).contents().appendTo('.revealed-content .content-holder');
-      $('.revealed-content').velocity('fadeIn',{ 
+    $('.lines.-for-popup').velocity('fadeIn',200);
+    _blinds($('.blinds.-for-popup .blind'),'show',_popupStartingBlindNum,function () {
+      $('.popup .content-holder').empty();
+      $content.clone(true, true).contents().appendTo('.popup .content-holder');
+      $('.popup').velocity('fadeIn',{ 
         duration: 200,
         complete: function() {
+          $('.popup').velocity('scroll',200);
           _isAnimating = false;
         }
       });
     });
   }
-  function _switchContent($content) {
+  function _switchPopupContent($content) {
     _isAnimating = true;
-    $('body').velocity('scroll',200);
-    $('.revealed-content').velocity('fadeOut',{ 
+    $('.popup').velocity('fadeOut',{ 
       duration: 200,
       complete: function() {
-        $('.revealed-content .content-holder').empty();
-        $content.clone(true, true).contents().appendTo('.revealed-content .content-holder');
-        $('.revealed-content').velocity('fadeIn',{ 
+        $('.popup .content-holder').empty();
+        $content.clone(true, true).contents().appendTo('.popup .content-holder');
+        $('.popup').velocity('fadeIn',{ 
           duration: 200,
           complete: function() {
+            $('.popup').velocity('scroll',200);
             _isAnimating = false;
           }
         });
@@ -425,7 +425,7 @@ var FBSage = (function($) {
     // Add html markup and behavior for venetian blinds.  We have two sets of these.
   function _initBlinds() {
     // Add main section content blinds
-    var html = '<div class="blinds -content -hidden" aria-hidden="true">';
+    var html = '<div class="blinds -for-popup -hidden" aria-hidden="true">';
     for (i=0; i<6; i++) { 
       html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
     }
@@ -467,15 +467,14 @@ var FBSage = (function($) {
     // Add html markup and behavior for lines
   function _initLines() {
     // Page Lines
-    $(_linefactory(15,'')).prependTo('body');
+    $(_linefactory(15,'')).appendTo('body');
 
     // Nav Lines
-    $('<div class="background-overlay"></div>').prependTo('.site-nav');
-    $(_linefactory(15,'')).prependTo('.site-nav-wrap');
+    $(_linefactory(15,'')).appendTo('.site-nav');
 
-    // Lines behind content-reveal popups
-    $(_linefactory(4,'-content')).appendTo('body');
-    $('.lines.-content').velocity('fadeOut',0);
+    // Lines behind popups
+    $(_linefactory(5,'-for-popup')).appendTo('body');
+    $('.lines.-for-popup').velocity('fadeOut',0);
   }
   function _linefactory(n,cssClasses){
     html = '<div class="lines '+cssClasses+'" aria-hidden="true">';

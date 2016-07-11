@@ -1,111 +1,115 @@
 // Header
 
 .site-header {
-
-  //Why all this crazy nested wrapping?
-  //Each element needs a different pos-fixed element because they have different Z's.  This is wrapped around a .main-area-wrap, so that the elements could be positioned relative to the main content area size rather than full viewport.
-  .brand-wrap, .site-nav-wrap {
-    position: fixed;
-    width: 100%;
-  }
-  .brand-wrap {
-    z-index: $z-brand;
-  }
-  .site-nav-wrap {
-    z-index: $z-nav;
-    overflow: hidden;
-  }
-
   ul {
     @include delistify;
   }
 
   .brand {
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: $z-brand;
     margin: 0;
-    width: 70px;
-    left: 10px;
-    top: 8px;
-    @include media-md {
-      position: absolute;
-      width: calc( #{$col-inwrap} + 1px);
-      left: calc( (-2 * #{$col-inwrap}) - 1px );
-    }
-    @include min-screen(900px) {
-      top: 23px;
-    }
     .btf-logo {
-      width: 100%;
+      position: absolute;
+      width: 70px;
       height: auto;
+      left: 10px;
+      top: 8px;
+      @include media-md {
+        left: 0;
+        width: calc( #{$col} + 1px);
+      }
+      @include media-lg {
+        top: 2$tiny-pad;
+        left: calc( #{$col} - 1px);
+      }
+      @include media-huge {
+        width: calc( #{$col-huge} + 1px);
+        left: calc( #{$col-huge} - 1px);
+      }
     }
   }
 
-  .site-nav-wrap {
+  .site-nav {
+    z-index: $z-nav;
+    width: 100%;
+    overflow: hidden;
+    &, .lines {
       height: 50px;
-    @include media-md {
-      height: 80px;
+      @include media-md {
+        height: 80px;
+      }
+      @include min-screen(900px) {
+        height: 95px;
+      }
     }
-    @include min-screen(900px) {
-      height: 95px;
-    }
-    .site-nav {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    @include font-mono;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0;
+    ul#menu-main-menu { 
       display: none;
+      position: relative;
+      top: 0;
+      margin: 0;
+      left: 2 * $col;
       @include media-md {
         display: block;
       }
+      @include media-lg {
+        left: 3 * $col;
+      }
+      @include media-huge {
+        left: 3 * $col-huge;
+      }
+    }
+    li {
       position: relative;
-      top: 0;
-      width: 100%;
-      overflow: hidden;
-      @include font-mono;
-      font-size: 10px;
-      line-height: 15px;
-      letter-spacing: 0;
-      ul { 
-        margin: 0;
+      float: left;
+      width: $col;
+      padding: 10px $tiny-pad 0;
+      @include media-lg {
+        padding: 25px $tiny-pad 0; 
       }
+      @include media-huge {
+        width: $col-huge;
+      }
+      a {
+        max-width: 100px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      a:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+      }
+      &.current-menu-item a:before, a:hover:before {
+        height: 5px;
+      }
+    }
+    .menu-item-has-children {
+      float: left;
+      padding: 0;
+      a { display: none }
       li {
-        position: relative;
-        float: left;
-        width: $col-inwrap;
-        padding: 10px 3px 0;
-        @include min-screen(900px) {
-          padding: 25px 3px 0; 
-        }
-        a {
-          max-width: 100px;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-        a:before {
-          content: " ";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 0;
-        }
-        &.current-menu-item a:before, a:hover:before {
-          height: 5px;
-        }
-      }
-      .menu-item-has-children {
-        position: relative;
-        float: left;
-        padding: 0;
-        a { display: none }
-        li {
-          position: static;
-          width: 100%;
-          a { display: block; }
-          &:not(:first-child) {
-            padding-top: 0;
-            &:before {
-              content: '–';
-              display: block;
-            }
+        position: static;
+        width: 100%;
+        a { display: block; }
+        &:not(:first-child) {
+          padding-top: 0;
+          &:before {
+            content: '–';
+            display: block;
           }
         }
       }

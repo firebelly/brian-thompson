@@ -61,14 +61,33 @@ hr {
   }
 }
 
+
 // Main Area
 .body-wrap {
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  @include min-screen(320px) {
+    width: 3 * $col;
+    margin: $lh * 6 auto;//margin-left: calc((100% - 3 * #{$col})/2);
+  }
+  @include min-screen(420px) {
+    width: 4 * $col;
+    //margin-left: calc((100% - 4 * #{$col})/2);
+  }
+  @include media-md {
+    margin-left: $col * 2;
+  }
+  @include media-lg {
+    margin-left: $col * 3;
+  }
+  @include media-huge {
+    margin-left: $col-huge * 3;
+    width: 4 * $col-huge;
+  }
   position: relative;
   margin-top: $lh * 6;
-  width: 100%;
-  @include media-md { width: 80%; }
   margin-bottom: 5 * $lh + 100px;
-  padding: 0 3px;
+  padding: 0 $tiny-pad;
 
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
     margin-top: 0;
@@ -76,7 +95,10 @@ hr {
 
   h1, .big-title {
     @include big-title;
-    @include first-line-dots(40px);
+    @include first-line-dots(30px);
+    @include media-md {
+      @include first-line-dots(40px);
+    }
   }
   h2,h3 {
     @include small-title;
@@ -94,26 +116,39 @@ hr {
 
   // Inline images
   img:not(.floater-image) {
-    margin: $lh 0;
-    @include break-out-of-padding(3px,3px);
     height: auto;
+    margin: $lh 0;
+    @include break-out-of-padding($tiny-pad,$tiny-pad);
     &.alignnone {
-      width: calc(100% + 6px);
       max-width: none;
+      width: calc(100% + 6px);
     }
   }
 
-  // Floater Images & Waypoints
+  // Floater Images
   .floater-image {
-    display: block;
+    opacity: 0;
+    height: auto;
+    display: none;
     position: fixed;
     max-width: none;
-    height: auto;
-    opacity: 0;
+    width: $col * 3;
+    visibility: hidden;
     z-index: $z-floater-image;
-    transition: opacity 0.3s;
+    transform: translateY(-50%);
+    transition: opacity 0.3s, visibility 0.3s 0s;
+    @include media-md { display: block; }
+    @include media-huge { width: $col-huge * 3; }
+    @for $i from -2 through 15 {
+      &[data-col="#{$i}"] {
+        left: #{$i * $col};
+        @include media-huge { left: #{$i * $col-huge}; }
+      }
+    }
     &.revealed {
       opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s, visibility 0s;
     }
   }
 
@@ -165,7 +200,7 @@ button{
   border-radius: 100%;
   background: red;
   border: 1px solid black;
-  // visibility: hidden;
+  visibility: hidden;
   &.-footer {
     background: blue;
     bottom: 1px;

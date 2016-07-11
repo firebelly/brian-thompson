@@ -26,16 +26,17 @@
 @import "components/search";
 @import "components/forms";
 @import "components/footer";
-@import "components/grid";
+@import "components/double-cols";
 @import "components/social";
 @import "components/lines-n-blinds";
+@import "components/popup";
 
 // Pages
 @import "pages/home";
 @import "pages/archive";
 @import "pages/single-post";
 @import "pages/search-results";
-@import "pages/pages";
+@import "pages/other-pages";
 
 // WP specifics
 @import 'helpers/wp-classes';

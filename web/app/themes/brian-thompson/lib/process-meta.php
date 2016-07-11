@@ -65,8 +65,8 @@ function get_steps() {
 
     $title = $excerpt = $full = '';
 
-    $step_num = '<h2 class="big-title reveal-content" data-content="#step-'.$i.'">'.$i.'</h2>';
-    $title = '<h3><a href="" class="reveal-content fake-link" data-content="#step-'.$i.'">'.esc_html( $step['title'] ).'</a></h3>';
+    $step_num = '<h2 class="big-title open-popup" data-content="#step-'.$i.'">'.$i.'</h2>';
+    $title = '<h3><a href="" class="open-popup fake-link" data-content="#step-'.$i.'">'.esc_html( $step['title'] ).'</a></h3>';
 
     $next = ($i % count($steps))+1;
     $next_word = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine'][$next];

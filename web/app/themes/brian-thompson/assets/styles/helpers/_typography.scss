@@ -71,6 +71,19 @@
   font-style: normal;
 }
 
+@mixin word-break() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+@mixin no-word-break() {
+  overflow-wrap: normal;
+  word-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
 
 // Hide fonts while loading from Typekit
 .wf-loading {
@@ -80,12 +93,19 @@
 body { //Defaults
   line-height: 20px;
   @include font-regular;
+  @include word-break;
 }
+
+
 
 @mixin big-title {
   @include font-mono;
-  line-height: 50px;
-  font-size: 48px;
+  line-height: 40px;
+  font-size: 36px;
+  @include media-md {
+    line-height: 50px;
+    font-size: 48px;
+  }
   position: relative;
   top: -10px; // 0-10 (basline adjustment - top of line adjustment)
   margin-top: 0;
@@ -105,7 +125,7 @@ body { //Defaults
   font-size: 12px;
   letter-spacing: 0.02em;
   position: relative;
-  top: -3px;  // 2-5 (basline adjustment - top of line adjustment)
+  top: -$tiny-pad;  // 2-5 (basline adjustment - top of line adjustment)
   margin-top: 0;
   margin-bottom: ($lh * 1.5) - 10px; //Desired margin - amount of blank space already following the text within the line-height
   em {

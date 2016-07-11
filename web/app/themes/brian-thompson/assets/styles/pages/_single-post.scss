@@ -10,7 +10,7 @@
       @include media-md {
         position: absolute;
         top: 25px;
-        right: calc( 100% + 3px );
+        right: calc( 100% + $tiny-pad );
       }
     }
     .category {
@@ -31,32 +31,47 @@
   }
 
   .next-post, .prev-post {
+    @include font-mono;
     color: $blue;
     z-index: 100;
-    @include font-mono;
     padding: 15px;
     background: $white;
+
+    display: none;
     transform: translateY(-50%);
+    @include media-md {
+      display: block;
+    }
     .wrap {
       max-width: 35px;
     }
   }
   .next-post {
-
-    left: calc( 90% - 5px );
-    @include min-screen(800px) {
-      left: calc( 100% - 5px );
-    }
     @include arrow-right(70px);
     position: absolute;
+    left: 6.5 * $col - 5px;
+    @include min-screen(800px) {
+      left: 7 * $col - 5px;
+    }
+    @include media-lg {
+      left: 8 * $col - 5px;
+    }
+    @include media-huge {
+      left: calc( 8 * #{$col-huge} - 5px );
+    }
   }
   .prev-post {
-    right: calc( 110% - 5px );
-    @include min-screen(800px) {
-      right: calc( 120% - 5px );
-    }
     @include arrow-left(70px);
     position: absolute;
+    right: calc( 100% - ( 1.5 * #{$col} + 5px ) );
+    @include min-screen(800px) {
+      right: calc( 100% - (  1 * #{$col} + 5px ) );
+    }
+    @include media-lg {
+      right: calc( 100% - (  2 * #{$col} + 5px ) );
+    }
+    @include media-huge {
+      right: calc( 100% - (  2 * #{$col-huge} + 5px ) );
+    }
   }
-
 }

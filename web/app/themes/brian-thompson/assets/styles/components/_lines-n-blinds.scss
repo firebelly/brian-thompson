@@ -4,22 +4,35 @@
   position: fixed;
   top: 0; 
   left: 0;
-  // width: 100%;
+  width: 100%;
   height: 100%;
-  min-width: 1500px;
+  min-width: 15*$col; //Stop lines from wrapping;
 }
 .line, .blind {
   float: left;
   height: 100%;
 }
-.line {
-  transform: scale(0.5,1); // Thin the lines up.  Doesn't affect the margin.  Neat!
+
+.lines {
 }
+
 
 // Lines
 .lines {
   z-index: $z-lines;
   pointer-events: none;
+  margin-left: -90px;
+  @include min-screen(320px) {
+    margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col});
+  }
+  @include min-screen(420px) {
+    margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col});
+  }
+  @include media-md { margin-left: 0; }
+  .line {
+    margin-left: calc( #{$col} - 1px);
+    @include media-huge { margin-left: calc( #{$col-huge} - 1px); }
+  }
   &.page-transitioning {
     z-index: $z-lines-page-transitioning;
   }
@@ -28,19 +41,23 @@
     transition: background 0.5s;
   }
 }
-.site-nav-wrap .lines {
-  position: absolute; // Otherwise pos:fix breaks them out of the wrap and the cover full screen
-}
-.lines.-content {
+.lines.-for-popup {
   z-index: $z-content-lines;
   min-width: 0;
+  margin-left: 0;
 }
 
 // Blinds
+.blinds .blind {
+  width: $col;
+  @include media-huge { width: $col-huge; }
+}
 .blinds.-page {
   z-index: $z-page-blinds;
 }
-.blinds.-content {
+
+// Popup
+.blinds.-for-popup {
   z-index: $z-content-blinds;
   overflow: hidden;
   position: fixed;
@@ -51,17 +68,27 @@
   }
 }
 
-// Content Reveals
-.revealed-content {
-  z-index: $z-revealed-content;
-  a {
-    border-bottom: none;
-    text-decoration: underline;
+.lines.-for-popup, .blinds.-for-popup {
+    left: $small-pad;
+    @include min-screen(320px) {
+      left: calc((100% - 3 * #{$col})/2 );
+    }
+    @include min-screen(420px) {
+      left: calc((100% - 4 * #{$col})/2 );
+    }
+    @include media-md {
+      left: 1 * $col;
+    }
+    @include media-lg {
+      left: 2 * $col;
+    }
+    @include media-huge {
+      left: 2 * $col-huge;
+    }
   }
-}
-.content-to-reveal {
-  @extend .sr-only
-}
-.reveal-content {
-  cursor: pointer;
-}
+  .blinds.-for-popup {
+    width: 6 * $col;
+    @include media-huge {
+      width: 6 * $col-huge;
+    }
+  }

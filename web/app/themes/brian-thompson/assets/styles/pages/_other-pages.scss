@@ -1,0 +1,137 @@
+// Pages
+
+.process, .about, .services, .contact {
+  .page-header {
+    @extend .sr-only
+  }
+}
+
+
+.process {
+  ul.steps {
+    list-style: none;
+    margin-top: $lh * 1.5;
+  }
+  li.step {
+    min-height: 8 * $lh;
+  }
+  .popup {
+    .body-wrap {
+      padding-top: 0;
+    }
+    h2 {
+      &:before, &:after {
+        display: none;
+      }
+    }
+    h3 {
+      max-width: 50%;
+    }
+  }
+}
+
+.about {
+  .site-main {
+    p:first-of-type {
+      margin-bottom: $lh * 2.5;
+    }
+  }
+  .bio-button {
+    @include arrow-right(25px);
+    @include small-mono;
+    width: calc( 25% + 5px );
+    position: relative;
+    left: -5px;
+  }
+}
+
+.services {
+  ul.services {
+    list-style: none;
+    margin-top: $lh * 1.5;
+  }
+  .popup {
+    h2 {
+      margin-bottom: 0.25 * $lh;
+      &:before, &:after {
+        display: none;
+      }
+    }
+    ul.pricetags {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      width: 100%;
+      margin-top: 1.25*$lh;
+      @include break-out-of-padding($tiny-pad,$tiny-pad);
+    }
+    li.pricetag {
+      // padding: 2*$lh 0;
+      flex-basis: 25%;
+      text-align: center;
+      top: 0;
+      padding-top: 1.75*$lh;
+      padding-bottom: 2.25*$lh;
+      // &:first-of-type {
+      //   background: $white;
+      //   p, p:before {
+      //     color: $blue;
+      //   }
+      // }
+      &.pricing-note {
+        position: relative;
+        text-align: left;
+        vertical-align: bottom;
+        p {
+          margin: 0;
+          max-width: none;
+        }
+        .wrap {
+          position: absolute;
+          bottom: 2.25*$lh;
+          padding: 0 $lh/4;
+        }
+      }
+      p {
+        @include small-copy;
+        max-width: 75px;
+        margin: auto;
+      }
+      .item {
+        margin-bottom: $lh * 1.25;
+      }
+      .cost {
+        top: -$tiny-pad;
+        margin-bottom: 0;
+        @include font-mono;
+        font-size: 25px;
+        line-height: 25px;
+        max-width: none;
+        @include dash-before($lh*1.25);
+        &:before {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      .unit {
+        margin-top: 0;
+        margin-bottom: $lh * .75;
+      }
+    }
+  }
+}
+
+.appointments {
+  iframe{
+    width: 100%;
+    border: 1px solid $white;
+    height: 70vh;
+    margin-bottom: 2*$lh;
+  }
+}
+
+.contact {
+  .form-wrap {
+    padding-bottom: $lh * 4.25;
+  }
+}

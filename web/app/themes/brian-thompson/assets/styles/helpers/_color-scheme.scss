@@ -55,7 +55,7 @@ $brand-secondary: $blue;
   }
 
   // Revealed Content
-  .revealed-content .body-wrap {
+  .popup .body-wrap {
     h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
@@ -99,23 +99,20 @@ $brand-secondary: $blue;
   .lines.page-transitioning .line {
     background: choose($gray,$lite-blue,not $scheme);
   }
-  .lines.-content .line {
+  .lines.-for-popup .line {
     background: choose(rgba($gray,.25),$lite-blue,not $scheme);
   }
   .blinds.-page .blind {
     background: $anti-bg;
   }
-  .blinds.-content .blind {
+  .blinds.-for-popup .blind {
     background: $title;
   }
 
 
   // Nav
-  .site-nav-wrap {//.site-nav-wrap .background-overlay {
-    background: $bg;
-  // background: linear-gradient(rgba($bg,1), rgba($bg,1) 97%, rgba($bg,0));
-  }
   .site-nav {
+    background: $bg;
     .current-menu-item a{
       color: $title;
     }

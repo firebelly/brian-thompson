@@ -1,0 +1,56 @@
+// Two Columns For Pages
+.columns-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  @include break-out-of-padding($tiny-pad,$tiny-pad);
+  .columns-item {
+    position: relative; top: 0px; // Correct my baseline thing typography
+
+    max-width: 2*$col;
+    flex-basis: 100%;
+    @include min-screen(420px) {
+    flex-basis: 50%;
+    max-width: none;
+    }
+    padding: 0 $tiny-pad;
+
+    &:not(.-first-wide) {
+      &:nth-of-type(2n) {
+        h2:after, h2:before {
+          display: none;
+        }
+      }
+      &:nth-of-type(2n+1) {
+        h2:before {
+          right: calc( (100% + #{$tiny-pad} * 2) * 1.5 - #{$tiny-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+        h2:after {
+          left: calc( (100% + #{$tiny-pad} * 2) * 3.5 - #{$tiny-pad} - #{$tiny-pad});  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+      }
+    }
+  
+    &.-first-wide {
+      &:first-child {
+        flex-basis: 100%;
+      }
+      &:nth-of-type(2n+3) {
+        h2:after, h2:before {
+          display: none;
+        }
+      }
+      &:nth-of-type(2n+2) {
+        h2:before {
+          right: calc( (100% + #{$tiny-pad} * 2) * 1.5 - #{$tiny-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+        h2:after {
+          left: calc( (100% + #{$tiny-pad} * 2) * 3.5 - #{$tiny-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+        }
+      }
+    }
+
+  }
+}
+

@@ -106,6 +106,7 @@
 
   .connect {
     .email-wrap {
+      @include no-word-break;
       max-width: 100px;
       clear: both;
     }
@@ -117,6 +118,7 @@
     top: -1px;
     max-width: 50px;
     margin-bottom: $lh;
+    @include no-word-break;
   }
 
   .contact-form {  
@@ -133,3 +135,26 @@
     }
   }
 }
+
+
+  // Old Grid Code
+  .site-footer {
+    .description {
+      width: 2 * $col;
+      margin-left: 2 * $col;
+      @include min-screen(900px) {
+        margin-left: 3 * $col;
+      }
+    }
+    .contact-form {
+      width: 1 * $col;
+    }
+    .add-info {
+      width: 1 * $col;
+      margin-left: 2 * $col;
+    }
+    .connect {
+      width: 2 * $col;
+      margin-left: 1 * $col;
+    }
+  }
