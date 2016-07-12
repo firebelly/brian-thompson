@@ -3,14 +3,45 @@
     $color-time: .2s;
     $open-time: .2s;
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.body-wrap {
+  flex: 1;
+}
+
 .site-footer {
-  min-width: 1500px; //TEMP HACK TO REMOVE WHEN RESPONSIVITY ADDED
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  position: relative;
   width: 100%;
   z-index: $z-brand;
+  margin-top: $lh;
   @include clearfix;
+  transition: transform $open-time $color-time;
+  @include media-md {
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    &.closed {
+      transform: translateY(100%);
+      transition: transform $open-time;
+      .footer-tab {
+        transition: background $color-time $open-time;
+        .footer-toggle {
+          transition: color $color-time $open-time;
+          &:before {
+            display: none;
+          }
+          &:after {
+            transform: translateY(0);
+            transition: transform $color-time $open-time ease-in, background $color-time $open-time;
+            // border-radius: 0;
+          }
+        }
+      }
+    }
+  }
 
   .footer-tab {
     position: absolute;
@@ -34,6 +65,10 @@
       width: 25px;
       height: 25px;
       overflow: hidden;
+      display: none;
+      @include media-md {
+        display: block;
+      }
       &:focus {
         outline: 0;
       }
@@ -61,56 +96,30 @@
     }
   }
 
-  transition: transform $open-time $color-time;
-  &.closed {
-    transform: translateY(100%);
-    transition: transform $open-time;
-    .footer-tab {
-      transition: background $color-time $open-time;
-      .footer-toggle {
-        transition: color $color-time $open-time;
-        &:before {
-          display: none;
-        }
-        &:after {
-          transform: translateY(0);
-          transition: transform $color-time $open-time ease-in, background $color-time $open-time;
-          // border-radius: 0;
-        }
-      }
-    }
-  }
-
   a {
     text-decoration: underline
   }
 
-  .footer-block {
-    float: left;
-    display: inline-block;
-    padding-bottom: $lh;
-  }
-
-  .description {
+  .description-block {
     padding-right: $lh;
     p{
       @include small-copy;
     }
   }
 
-  .contact-form, .add-info, .connect {
+  .contact-form-block, .title-block, .fineprint-block, .social-block, .contact-block {
     p{
       @include small-nb-mono;
     }
   }
 
-  .connect {
-    .email-wrap {
-      @include no-word-break;
-      max-width: 100px;
-      clear: both;
-    }
+  p.email-wrap {
+    @include no-word-break;
+    max-width: 100px;
+    clear: both;
   }
+
+
 
   p.org {
     @include font-mono;
@@ -121,40 +130,187 @@
     @include no-word-break;
   }
 
-  .contact-form {  
+  .contact-form-block {  
+    p.have-questions {
+      min-width: 102px; // Prevent word wrap of "Have Questions?"
+    }
     .contact-button {
       @include small-nb-mono;
-      margin-top: $lh/2;
-      position: relative;
-      left: -6px;
+      
       width: 100%;
       padding: 0;
-      top: 0;
+        margin-top: $lh/4;
       @include arrow-right(25px);
       max-height: 25px;
+      @include min-screen(800px) {
+        position: relative;
+        margin-top: $lh/2;
+        left: -6px;
+      }
     }
   }
 }
 
-
-  // Old Grid Code
+  // Positioning
   .site-footer {
-    .description {
-      width: 2 * $col;
-      margin-left: 2 * $col;
-      @include min-screen(900px) {
-        margin-left: 3 * $col;
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: $small-pad;
+      padding-bottom: $lh;
+      @include media-tiny {
+        padding-left: calc((100% - 3 * #{$col})/2 );
+      }
+      @include media-sm {
+        padding-left: calc((100% - 4 * #{$col})/2 );
+      }
+      @include min-screen(800px) {
+        padding-left: 2 * $col;
+      }
+      @include media-lg {
+        padding-left: 3 * $col;
+      }
+      @include media-huge {
+        padding-left: 3 * $col-huge;
       }
     }
-    .contact-form {
-      width: 1 * $col;
+    .group-one, .group-two {
+      position: relative;
+      flex-basis: 3*$col;
+      display: flex;
+      flex-wrap: wrap;
+      @include media-sm {
+        flex-basis: 4*$col;
+      }
     }
-    .add-info {
-      width: 1 * $col;
-      margin-left: 2 * $col;
+    .group-one {
+      @include min-screen(800px) {
+        order: 2;
+        flex-basis: 2 * $col;
+      }
+      @include min-screen(1100px) {
+        flex-basis: 4 * $col;
+      }
+      @include media-huge {
+        flex-basis: 4 * $col-huge;
+      }
+      .title-block {
+        flex-basis: 2 * $col;
+        @include media-sm {
+          flex-basis: 3 * $col;
+        }
+        @include min-screen(800px) {
+          flex-basis: 2 * $col;
+          order: 1;
+        }
+        @include media-huge {
+          flex-basis: 2 * $col-huge;
+        }
+      }
+      .fineprint-block {
+        position: static;
+        flex-basis: 2 * $col;
+         @include min-screen(800px) {
+          order: 3;
+          // position: absolute;
+          // right: calc( 100% + #{$col} );
+          // min-width: 1 * $col;
+          // top: 4 * $lh;
+          margin-top: $lh;
+        }
+        @include min-screen(1100px) {
+          position: static;
+          margin-top: 0;
+        }
+        @include media-huge {
+          flex-basis: 2 * $col-huge;
+        }
+      }
+      .social-block {
+        flex-basis: $col;
+        @include min-screen(800px) {
+          flex-basis: 2 * $col;
+          order: 2;
+          // position: relative; 
+          // left: -2 * $col;
+          position: absolute;
+          right: calc( 100% + #{$col} );
+          min-width: 1 * $col;
+          top: 4 * $lh;
+        }
+        @include min-screen(1100px) {
+          position: static;
+        }
+        @include media-huge {
+          flex-basis: 2 * $col-huge;
+        }
+      }
+      .contact-block {
+        flex-basis: 3 * $col;
+        margin-bottom: $lh;
+        @include media-sm {
+          flex-basis: 4 * $col;
+        }
+        @include min-screen(800px) {
+          flex-basis: 2 * $col;
+          order: 2;
+          margin-bottom: 0;
+          // position: relative; 
+          // left: -2 * $col;
+        }
+        @include min-screen(1100px) {
+          // position: static;
+          order: 4;
+        }
+        @include media-huge {
+          flex-basis: 2 * $col-huge;
+        }
+      }
     }
-    .connect {
-      width: 2 * $col;
-      margin-left: 1 * $col;
+    .group-two {
+      @include min-screen(800px) {
+        order: 1;
+        flex-basis: 4 * $col;
+      }
+      @include min-screen(1200px) {
+        flex-basis: 5 * $col;
+      }
+      @include media-huge {
+        flex-basis: 5 * $col-huge;
+      }
+      .contact-form-block {
+        flex-basis: $col;
+        position: absolute;
+        right: 0;
+        bottom: 100%;
+        @include min-screen(800px) {
+          position: static;
+        }
+        @include min-screen(800px) {
+          order: 2;
+        }
+        @include media-huge {
+          flex-basis: $col-huge;
+        }
+      }
+      .description-block {
+        margin-top: 100px;
+        flex-basis: 3 * $col;
+        @include media-sm {
+          flex-basis: 4 * $col;
+        }
+        @include min-screen(800px) {
+          flex-basis: 2 * $col;
+          order: 1;
+          margin-top: 0;
+        }
+        @include media-huge {
+          flex-basis: 2 * $col-huge;
+        }
+      }
+    }
+    .footer-block {
+      float: left;
+      display: inline-block;
     }
   }

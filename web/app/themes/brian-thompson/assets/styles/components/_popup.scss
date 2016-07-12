@@ -5,23 +5,11 @@
   position: absolute;
   top: 0;
   width: $col*6;
-  z-index: $z-popup;
-  left: $small-pad;
   width: calc(100% - #{$small-pad});
-  @include min-screen(320px) {
-    left: calc((100% - 3 * #{$col})/2 );
-  }
-  @include min-screen(420px) {
-    left: calc((100% - 4 * #{$col})/2 );
-  }
-  @include media-md{
-    left: 1*$col;
-  }
-  @include media-lg {
-    left: 2*$col;
+  @include media-tiny {
+    width: $col*6;
   }
   @include media-huge {
-    left: 2*$col-huge;
     width: $col-huge*6;
   }
 
@@ -30,11 +18,17 @@
     text-decoration: underline;
   }
   .body-wrap {
+    z-index: $z-popup-content;
     margin-right: 0;
-    padding-top:  $lh * 4;
+    margin-top: 0;
+    padding-top:  $lh * 6;
+
     margin-left: 0;
+    @include min-screen(600px){
+      margin-left: $col;
+    }
     @include media-md {
-      margin-left: 1*$col;
+      padding-top:  $lh * 9.25;
     }
     @include media-huge {
       margin-right: 0;
@@ -50,13 +44,15 @@
   .next-content {
     @include small-mono;
     @include arrow-right(57px);
-    position: absolute;
-    top: -$lh/4;
-    left: calc( 100% + 5px );
+    min-width: $col;
     width: 25%;
-    display: none;
+    position: relative;
+    left: 3 * $col;
     @include media-md {
-      display: block;
+      position: absolute;
+      right: auto;
+      top: $lh*5.25;
+      left: calc( 100% + #{$teensy-pad} );
     }
   }
 
@@ -65,8 +61,14 @@
     background: transparent;
     @include big-title;
     position: absolute;
-    top: -$lh/2;
-    right: 0;
+    top: 0;
+    right: -$lh/4 - $small-pad*2;
+    @include media-tiny{
+      right: -$lh/4;
+    }
+    @include media-md {
+      top: $lh * 5;
+    }
     &:before {
       content: 'Close';
       @include small-mono;
@@ -89,4 +91,27 @@
 
 .open-popup {
   cursor: pointer;
+}
+
+.popup, .lines.-for-popup, .blinds.-for-popup  {
+  left: $small-pad;
+  @include media-tiny {
+    left: calc((100% - 3 * #{$col})/2 );
+  }
+  @include media-sm {
+    left: calc((100% - 4 * #{$col})/2 );
+  }
+  @include min-screen(600px) {
+    left: calc((100% - 4 * #{$col})/2 );
+  }
+  @include media-md{
+    left: 1*$col;
+  }
+  @include media-lg {
+    left: 2*$col;
+  }
+  @include media-huge {
+    left: 2*$col-huge;
+    width: $col-huge*6;
+  }
 }

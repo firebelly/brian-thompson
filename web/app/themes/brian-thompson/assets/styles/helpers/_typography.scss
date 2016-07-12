@@ -34,7 +34,7 @@
 }
 @font-face {
   font-family: "BTF Mono";
-  src: url(../fonts/BTFMonov3-Regular.otf);
+  src: url(../fonts/BTFMonov6-Regular.otf);
   font-weight: normal;
   font-style: normal;
 }
@@ -91,12 +91,10 @@
 }
 
 body { //Defaults
-  line-height: 20px;
+  line-height: $lh;
   @include font-regular;
   @include word-break;
 }
-
-
 
 @mixin big-title {
   @include font-mono;
@@ -109,7 +107,7 @@ body { //Defaults
   position: relative;
   top: -10px; // 0-10 (basline adjustment - top of line adjustment)
   margin-top: 0;
-  margin-bottom: ( $lh * 2 ) - 15px; //Desired margin - amount of blank space already following the text within the line-height
+  margin-bottom: ( $lh * 2 ) - 15px; // Desired margin - amount of blank space already following the text within the line-height
   }
 
 @mixin small-title {
@@ -118,16 +116,16 @@ body { //Defaults
   line-height: 20px;
   position: relative;
   margin-top: 0;
-  margin-bottom: ($lh * 1.5) - 5px; //Desired margin - amount of blank space already following the text within the line-height
+  margin-bottom: ($lh * 1.5) - 5px; // Desired margin - amount of blank space already following the text within the line-height
 }
 
 @mixin copy {
   font-size: 12px;
   letter-spacing: 0.02em;
   position: relative;
-  top: -$tiny-pad;  // 2-5 (basline adjustment - top of line adjustment)
+  top: -$teensy-pad;  // 2-5 (basline adjustment - top of line adjustment)
   margin-top: 0;
-  margin-bottom: ($lh * 1.5) - 10px; //Desired margin - amount of blank space already following the text within the line-height
+  margin-bottom: ($lh * 1.5) - 10px; // Desired margin - amount of blank space already following the text within the line-height
   em {
     @include font-italic;
   }

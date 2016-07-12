@@ -7,10 +7,11 @@
       @include small-mono;
     }
     .date {
+      @include no-word-break;
       @include media-md {
         position: absolute;
         top: 25px;
-        right: calc( 100% + $tiny-pad );
+        right: calc( 100% + #{$teensy-pad} );
       }
     }
     .category {

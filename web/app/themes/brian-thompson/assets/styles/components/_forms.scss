@@ -5,8 +5,8 @@
 
 .form-wrap {
   position: relative;
-  width: calc( 1.5 * (100% + 6px) - 1px);
-  left: calc(-.25 * (100% + 6px) - $tiny-pad);
+  width: calc( 1.5 * (100% + 2 * #{$teensy-pad}) - 1px);
+  left: calc(-.25 * (100% + 2 * #{$teensy-pad}) - #{$teensy-pad});
   margin-top: 3*$lh;
   padding: 1.75*$lh 25% 5*$lh;
   .wpcf7-response-output {
@@ -43,15 +43,17 @@
     position: absolute;
     float: right;
     width: 25%;
+    min-width: $col;
     padding: 0;
     @include arrow-right(25px);
+
   }
   fieldset {
     border: 0;
     border-bottom: 1px solid $white;
     padding: 0;
     position: relative;
-    top: -$tiny-pad;
+    top: -$teensy-pad;
     p { margin-bottom: $lh/2; }
     margin-bottom: $lh * 2;
   }
@@ -97,7 +99,7 @@
       .wpcf7-list-item-label:before {
         content: '';
         position: absolute;
-        top: $tiny-pad;
+        top: $teensy-pad;
         left: 0;
         width: 12px;
         height: 12px;

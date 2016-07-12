@@ -57,8 +57,6 @@ hr {
   padding: 0 10px;
   position: relative;
   @include clearfix();
-  @include media-md {
-  }
 }
 
 
@@ -66,16 +64,19 @@ hr {
 .body-wrap {
   width: calc(100% - 20px);
   margin-left: 10px;
-  @include min-screen(320px) {
+  position: relative;
+  padding: $lh*6 $teensy-pad $lh*5;
+  @include media-tiny {
     width: 3 * $col;
-    margin: $lh * 6 auto;//margin-left: calc((100% - 3 * #{$col})/2);
+    margin-left: calc((100% - 3 * #{$col})/2 );
   }
-  @include min-screen(420px) {
+  @include media-sm {
     width: 4 * $col;
-    //margin-left: calc((100% - 4 * #{$col})/2);
+    margin-left: calc((100% - 4 * #{$col})/2 );
   }
   @include media-md {
     margin-left: $col * 2;
+    padding: $lh*6 $teensy-pad $lh;
   }
   @include media-lg {
     margin-left: $col * 3;
@@ -84,10 +85,6 @@ hr {
     margin-left: $col-huge * 3;
     width: 4 * $col-huge;
   }
-  position: relative;
-  margin-top: $lh * 6;
-  margin-bottom: 5 * $lh + 100px;
-  padding: 0 $tiny-pad;
 
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
     margin-top: 0;
@@ -118,7 +115,7 @@ hr {
   img:not(.floater-image) {
     height: auto;
     margin: $lh 0;
-    @include break-out-of-padding($tiny-pad,$tiny-pad);
+    @include break-out-of-padding($teensy-pad,$teensy-pad);
     &.alignnone {
       max-width: none;
       width: calc(100% + 6px);
@@ -173,7 +170,7 @@ hr {
 }
 
 button{
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s, background 0.2s, fill 0.2s;
   &:focus {
     outline: 0;
   }
@@ -203,6 +200,5 @@ button{
   visibility: hidden;
   &.-footer {
     background: blue;
-    bottom: 1px;
   }
 }

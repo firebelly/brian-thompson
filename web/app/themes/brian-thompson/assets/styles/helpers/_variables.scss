@@ -3,31 +3,30 @@
 // See color-scheme for colors
 
 // Breakpoints
-$breakpoint-small: 480px;
+$breakpoint-tiny: 320px;
+$breakpoint-small: 420px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 900px;
 $breakpoint-huge: 1500px;
 
-// Z indexes;
+// Z indices
 $z-lines-page-transitioning: 900;
 $z-page-blinds: 800;
-$z-popup: 700;
-$z-content-lines: 600;
-$z-content-blinds: 500;
+$z-popup-content: 700;
+$z-popup-lines: 550;
+$z-popup-blinds: 500;
 $z-overlay: 400;
-
 $z-post-nav: 300;
 $z-brand: 200;
+$z-hamburger: 200;
 $z-dots: 175;
 $z-floater-image: 150;
 $z-nav: 100;
 $z-lines: -100;
 
 // Sizes
-$col-inwrap: 20%;
-
-$col: 100px;
-$col-huge: 100vw / 15; //6.6666666%;
-$tiny-pad: 5px;
-$small-pad: 10px;
-$lh: 20px;
+$col: 100px; // Mostly always the column size on sane screens
+$col-huge: 100vw / 15; // Columns at breakpoint-huge
+$teensy-pad: 5px; // Very small pad used to keep content of off lines of columns
+$small-pad: 10px; // A padding used for mobile sizes
+$lh: 20px; // Line Hieght

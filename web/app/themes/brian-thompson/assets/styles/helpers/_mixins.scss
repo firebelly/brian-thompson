@@ -34,18 +34,18 @@
   &:before{
     @include dot;
     top: $dist-to-baseline;
-    right: calc( (100% + #{$tiny-pad} * 2) * 1.25 - #{$tiny-pad} - 2px); 
+    right: calc( (100% + #{$teensy-pad} * 2) * 1.25 - #{$teensy-pad} - 2px); 
     // Sorry. 
     // (100% + 6px) : full width of content (correcting for container)
     // * 1.25  : we want 125% of that
-    // - $tiny-pad to correct for the padding that displaces the origin
+    // - $teensy-pad to correct for the padding that displaces the origin
     // - 2px to center our 5px diameter dot (2px exposed, 1px covered by line, 2px exposed)
     // And still rounding errors sometimes. Damn. I wish the
   }
   &:after{
     @include dot;
     top: $dist-to-baseline;
-    left: calc( (100% + #{$tiny-pad} * 2) * 1.75 - #{$tiny-pad} - 3px);  // See above.  Exception: Last number is 3px to center due to how browser rounds
+    left: calc( (100% + #{$teensy-pad} * 2) * 1.75 - #{$teensy-pad} - 3px);  // See above.  Exception: Last number is 3px to center due to how browser rounds
   }
 }
 
@@ -80,6 +80,7 @@
 
 // Arrows
 @mixin arrow-right($height) {
+  @include no-word-break;
   height: $height;
   position: relative;
   border-top-left-radius: 3px;
@@ -101,6 +102,7 @@
   }
 }
 @mixin arrow-left($height) {
+  @include no-word-break;
   height: $height;
   position: relative;
   border-top-right-radius: 3px;
@@ -135,8 +137,13 @@
 }
 
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
-@mixin media-xs() {
-  @media screen and (max-width: $breakpoint-small - 1) {
+@mixin media-nano() {
+  @media screen and (max-width: $breakpoint-tiny - 1) {
+    @content;
+  }
+}
+@mixin media-tiny() {
+  @media screen and (min-width: $breakpoint-tiny) {
     @content;
   }
 }

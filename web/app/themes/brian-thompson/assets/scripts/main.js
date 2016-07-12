@@ -8,7 +8,7 @@ var FBSage = (function($) {
       breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
-      breakpoint_array = [480,1000,1200],
+      breakpoint_array = [480,768,1500],
       $document,
       $sidebar,
       loadingTimer,
@@ -34,7 +34,7 @@ var FBSage = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // _initNav();
+    _initMobileNav();
     // _initSearch();
     // _initLoadMore();
 
@@ -44,8 +44,8 @@ var FBSage = (function($) {
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
-        _hideSearch();
-        _hideMobileNav();
+        // _hideSearch();
+        // _hideMobileNav();
         _closePopup();
       }
     });
@@ -71,7 +71,7 @@ var FBSage = (function($) {
     _initPageTransition();
 
     // Handle revealing content of subsections
-    _initContentReveal();
+    _initPopup();
 
     // Add html markup and behavior for venetian blinds
     _initBlinds();
@@ -105,47 +105,49 @@ var FBSage = (function($) {
     boomsvgloader.load('/app/themes/brian-thompson/assets/svgs/build/svgs-defs.svg');
   }
 
-  function _initSearch() {
-    $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
-      if ($('.search-form').hasClass('active')) {
+  // function _initSearch() {
+  //   $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
+  //     if ($('.search-form').hasClass('active')) {
 
-      } else {
-        e.preventDefault();
-        $('.search-form').addClass('active');
-        $('.search-field:first').focus();
-      }
-    });
-    $('.search-form .close-button').on('click', function() {
-      _hideSearch();
-      _hideMobileNav();
-    });
-  }
+  //     } else {
+  //       e.preventDefault();
+  //       $('.search-form').addClass('active');
+  //       $('.search-field:first').focus();
+  //     }
+  //   });
+  //   $('.search-form .close-button').on('click', function() {
+  //     _hideSearch();
+  //     _hideMobileNav();
+  //   });
+  // }
 
-  function _hideSearch() {
-    $('.search-form').removeClass('active');
-  }
+  // function _hideSearch() {
+  //   $('.search-form').removeClass('active');
+  // }
 
   // Handles main nav
-  function _initNav() {
+  function _initMobileNav() {
     // SEO-useless nav toggler
-    $('<div class="menu-toggle"><div class="menu-bar"><span class="sr-only">Menu</span></div></div>')
-      .prependTo('header.banner')
-      .on('click', function(e) {
-        _showMobileNav();
+    $('<button class="open-popup mobile-nav-open" aria-hidden="true" data-content=".menu-main-menu-container"><svg class="hamburger" role="img"><use xlink:href="#hamburger"></use></svg></div>')
+      .appendTo('.site-header').click(function() {
+        $('.popup').addClass('holding-mobile-nav');
       });
-    var mobileSearch = $('.search-form').clone().addClass('mobile-search');
-    mobileSearch.prependTo('.site-nav');
+  }
+  function _resizeMobileNav() {
+    if(breakpoint_medium && $('.popup ul#menu-main-menu').length) {
+      _closePopup();
+    }
   }
 
-  function _showMobileNav() {
-    $('.menu-toggle').addClass('menu-open');
-    $('.site-nav').addClass('active');
-  }
+  // function _showMobileNav() {
+  //   $('.menu-toggle').addClass('menu-open');
+  //   $('.site-nav').addClass('active');
+  // }
 
-  function _hideMobileNav() {
-    $('.menu-toggle').removeClass('menu-open');
-    $('.site-nav').removeClass('active');
-  }
+  // function _hideMobileNav() {
+  //   $('.menu-toggle').removeClass('menu-open');
+  //   $('.site-nav').removeClass('active');
+  // }
 
   function _initLoadMore() {
     $document.on('click', '.load-more a', function(e) {
@@ -186,15 +188,15 @@ var FBSage = (function($) {
     });
   }
 
-  // Track ajax pages in Analytics
-  function _trackPage() {
-    if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
-  }
+  // // Track ajax pages in Analytics
+  // function _trackPage() {
+  //   if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
+  // }
 
-  // Track events in Analytics
-  function _trackEvent(category, action) {
-    if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
-  }
+  // // Track events in Analytics
+  // function _trackEvent(category, action) {
+  //   if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
+  // }
 
   // Called in quick succession as window is resized
   function _resize() {
@@ -202,6 +204,10 @@ var FBSage = (function($) {
     breakpoint_small = (screenWidth > breakpoint_array[0]);
     breakpoint_medium = (screenWidth > breakpoint_array[1]);
     breakpoint_large = (screenWidth > breakpoint_array[2]);
+
+    _resizeMobileNav();
+    _resizeFooter();
+    // _floaterImageOnResize();
   }
 
   // Add global overlay for clickouts
@@ -227,9 +233,12 @@ var FBSage = (function($) {
       }
     });
 
-    $('<div class="invisible-waypoint -footer" aria-hidden="true"></div>')
-    .prependTo('#primary-site-content')
-    .waypoint({
+    _resizeFooter();
+
+    $footerWaypoint = $('<div class="invisible-waypoint -footer" aria-hidden="true"></div>')
+    .prependTo('#primary-site-content');
+    _resizeFooter();
+    $footerWaypoint.waypoint({
       offset: 'bottom-in-view',
       handler: function(direction) {
         if(direction==='down' && $(document).height > $(window.width)) {
@@ -240,7 +249,6 @@ var FBSage = (function($) {
         }
       }
     });
-
   }  
   function _closeFooter(animDur) {
     animDur = animDur || 200;
@@ -251,6 +259,11 @@ var FBSage = (function($) {
     animDur = animDur || 200;
     $('.site-footer').removeClass('closed');
     $('.footer-toggle').empty().append('–');
+  }
+  function _resizeFooter() {
+    var footerHeight = $('.site-footer').outerHeight();
+    $('#primary-site-content').css('margin-bottom',(breakpoint_medium ? footerHeight : 0));
+    $('.invisible-waypoint.-footer').css('bottom', -footerHeight+30);
   }
 
   // Add color information to URL we are going to, handle transition effect
@@ -341,12 +354,12 @@ var FBSage = (function($) {
   }
 
   // Add color information to URL we are going to, handle transition effect
-  function _initContentReveal() {
+  function _initPopup() {
     // Here is a global variable to remember which blind was the first to open;
     _popupStartingBlindNum = 0;
     var html = '<div class="popup" aria-hidden="true"><div class="body-wrap"><div class="content-holder"></div><button class="close" aria-hidden="true">x</button></div></div>';
     $(html).appendTo('body');
-    $('.popup').velocity('fadeOut',0);
+    $('.popup .body-wrap').velocity('fadeOut',0);
 
     $('.open-popup').click(function(e) {
       e.preventDefault();
@@ -372,18 +385,17 @@ var FBSage = (function($) {
   }  
   function _closePopup() {
     _isAnimating = true;
-    $('.popup').removeClass('showing');
     _returnToYourSlumberAlmightyOverlay();
-    $('.popup').velocity('fadeOut',{
+    $('.popup .body-wrap').velocity('fadeOut',{
       duration: 200,
       complete: function () {
-        $('.lines.-for-popup').velocity('fadeOut',{ 
-          duration: 200,
-          complete: function() {
-            _isAnimating = false;
-          }
+        $('.popup .lines').velocity('fadeOut',{ 
+          duration: 200
         });
-        _blinds($('.blinds.-for-popup .blind'),'hide',_popupStartingBlindNum);
+        _blinds($('.blinds.-for-popup .blind'),'hide',_popupStartingBlindNum, function() {
+            _isAnimating = false;
+            $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
+        });
       }
     });
   }
@@ -391,14 +403,14 @@ var FBSage = (function($) {
     _isAnimating = true;
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
-    $('.lines.-for-popup').velocity('fadeIn',200);
+    $('.popup .lines').velocity('fadeIn',200);
     _blinds($('.blinds.-for-popup .blind'),'show',_popupStartingBlindNum,function () {
       $('.popup .content-holder').empty();
       $content.clone(true, true).contents().appendTo('.popup .content-holder');
-      $('.popup').velocity('fadeIn',{ 
+      $('.popup .body-wrap').velocity('fadeIn',{ 
         duration: 200,
         complete: function() {
-          $('.popup').velocity('scroll',200);
+          $('.popup:not(.holding-mobile-nav').velocity('scroll',200);
           _isAnimating = false;
         }
       });
@@ -406,12 +418,12 @@ var FBSage = (function($) {
   }
   function _switchPopupContent($content) {
     _isAnimating = true;
-    $('.popup').velocity('fadeOut',{ 
+    $('.popup .body-wrap').velocity('fadeOut',{ 
       duration: 200,
       complete: function() {
         $('.popup .content-holder').empty();
         $content.clone(true, true).contents().appendTo('.popup .content-holder');
-        $('.popup').velocity('fadeIn',{ 
+        $('.popup .body-wrap').velocity('fadeIn',{ 
           duration: 200,
           complete: function() {
             $('.popup').velocity('scroll',200);
@@ -430,7 +442,7 @@ var FBSage = (function($) {
       html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
     }
     html+='</div>';
-    $(html).appendTo('body');
+    $(html).appendTo('.popup');
 
     // Ditto page transition blinds
     html = '<div class="blinds -page -hidden" aria-hidden="true">';
@@ -473,7 +485,7 @@ var FBSage = (function($) {
     $(_linefactory(15,'')).appendTo('.site-nav');
 
     // Lines behind popups
-    $(_linefactory(5,'-for-popup')).appendTo('body');
+    $(_linefactory(5,'-for-popup')).appendTo('.popup');
     $('.lines.-for-popup').velocity('fadeOut',0);
   }
   function _linefactory(n,cssClasses){
@@ -537,11 +549,6 @@ var FBSage = (function($) {
         }
 
         i++;
-      });
-
-      // Handle resize
-      $(window).resize(function() {
-        _floaterImageOnResize(); //maybe: https://css-tricks.com/snippets/jquery/done-resizing-event/
       });
     }
   }

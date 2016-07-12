@@ -4,17 +4,17 @@
   flex-wrap: wrap;
   list-style: none;
 
-  @include break-out-of-padding($tiny-pad,$tiny-pad);
+  @include break-out-of-padding($teensy-pad,$teensy-pad);
   .columns-item {
     position: relative; top: 0px; // Correct my baseline thing typography
 
     max-width: 2*$col;
     flex-basis: 100%;
-    @include min-screen(420px) {
-    flex-basis: 50%;
-    max-width: none;
+    @include media-sm {
+      flex-basis: 50%;
+      max-width: none;
     }
-    padding: 0 $tiny-pad;
+    padding: 0 $teensy-pad;
 
     &:not(.-first-wide) {
       &:nth-of-type(2n) {
@@ -24,10 +24,10 @@
       }
       &:nth-of-type(2n+1) {
         h2:before {
-          right: calc( (100% + #{$tiny-pad} * 2) * 1.5 - #{$tiny-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+          right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
         }
         h2:after {
-          left: calc( (100% + #{$tiny-pad} * 2) * 3.5 - #{$tiny-pad} - #{$tiny-pad});  // Sorry. For expanation of math, see first-line-dots() mixin
+          left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
         }
       }
     }
@@ -43,10 +43,10 @@
       }
       &:nth-of-type(2n+2) {
         h2:before {
-          right: calc( (100% + #{$tiny-pad} * 2) * 1.5 - #{$tiny-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+          right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
         }
         h2:after {
-          left: calc( (100% + #{$tiny-pad} * 2) * 3.5 - #{$tiny-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+          left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
         }
       }
     }

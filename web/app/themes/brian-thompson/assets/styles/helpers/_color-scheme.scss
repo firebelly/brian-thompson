@@ -54,7 +54,7 @@ $brand-secondary: $blue;
     }
   }
 
-  // Revealed Content
+  // Popup
   .popup .body-wrap {
     h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
@@ -78,7 +78,7 @@ $brand-secondary: $blue;
     background: $true-white;
     color: $black;
     hr {
-      color: $white;
+      background: $white;
     }
     a {
       color: $black;
@@ -99,14 +99,20 @@ $brand-secondary: $blue;
   .lines.page-transitioning .line {
     background: choose($gray,$lite-blue,not $scheme);
   }
-  .lines.-for-popup .line {
-    background: choose(rgba($gray,.25),$lite-blue,not $scheme);
-  }
   .blinds.-page .blind {
     background: $anti-bg;
   }
-  .blinds.-for-popup .blind {
+  .popup .line {
+    background: choose(rgba($gray,.25),$lite-blue,not $scheme);
+  }
+  .popup .blind {
     background: $title;
+  }
+  .popup.holding-mobile-nav .blind {
+    background: $black;
+  }
+  .popup.holding-mobile-nav .line {
+    background: rgba($gray,.25);
   }
 
 
@@ -123,6 +129,10 @@ $brand-secondary: $blue;
       }
     }
   }
+  .hamburger {
+    fill: $text;
+  }
+
 
   // Logo
   .btf-logo {
@@ -148,13 +158,15 @@ $brand-secondary: $blue;
         }
       }
     }
-    &.closed {
-      .footer-tab {
-        background: $black;
-        .footer-toggle {
-          color: $white;
-          &:after {
-            background: $black;
+    @include media-md {
+      &.closed {
+        .footer-tab {
+          background: $black;
+          .footer-toggle {
+            color: $white;
+            &:after {
+              background: $black;
+            }
           }
         }
       }
@@ -176,8 +188,17 @@ $brand-secondary: $blue;
   .black-arrow{
     background: $black;
     color: $white;
+    fill: $white;
     &:hover {
       background: $true-white;
+      color: $black;
+      fill: $black;
+    }
+  }
+
+  // Archives
+  ul.categories {
+    &:before, &:after {
       color: $black;
     }
   }
