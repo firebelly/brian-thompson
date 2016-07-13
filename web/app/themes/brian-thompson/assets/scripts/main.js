@@ -207,7 +207,6 @@ var FBSage = (function($) {
 
     _resizeMobileNav();
     _resizeFooter();
-    // _floaterImageOnResize();
   }
 
   // Add global overlay for clickouts
@@ -236,7 +235,7 @@ var FBSage = (function($) {
     _resizeFooter();
 
     $footerWaypoint = $('<div class="invisible-waypoint -footer" aria-hidden="true"></div>')
-    .prependTo('#primary-site-content');
+    .appendTo('#primary-site-content');
     _resizeFooter();
     $footerWaypoint.waypoint({
       offset: 'bottom-in-view',
@@ -256,9 +255,11 @@ var FBSage = (function($) {
     setTimeout(function() { $('.footer-toggle').empty().append('+'); }, 200);
   }
   function _openFooter(animDur) {
-    animDur = animDur || 200;
-    $('.site-footer').removeClass('closed');
-    $('.footer-toggle').empty().append('–');
+    if(!$('.popup.showing').length) {
+      animDur = animDur || 200;
+      $('.site-footer').removeClass('closed');
+      $('.footer-toggle').empty().append('–');
+    }
   }
   function _resizeFooter() {
     var footerHeight = $('.site-footer').outerHeight();
@@ -400,6 +401,7 @@ var FBSage = (function($) {
     });
   }
   function _openPopup($content) {
+    _closeFooter();
     _isAnimating = true;
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
@@ -503,8 +505,9 @@ var FBSage = (function($) {
     if(numImages) {
 
       // Init waypoints
-      var maxVisible = 3; //Max number of images visible on screen
-      var scrollableHeight = $('#primary-site-content').height()-$(window).height(); // How many pixels can a user scroll on this page?
+      var maxVisible = 2; //Max number of images visible on screen
+      var scrollableHeight = $(document).height()-$(window).height(); // How many pixels can a user scroll on this page?
+      console.log(scrollableHeight);
 
       i=0;
       $('.floater-image').each( function() {
@@ -513,11 +516,11 @@ var FBSage = (function($) {
         // This is an invisible waypoint element positioned at the the 
         // top-most point this image should be visible.
         // It shows/hides the image as appropriate on scroll-by.
-        posTop = ((i-0.5-(maxVisible-2))*scrollableHeight/numImages)+'px';
+        posTop = ((i-0.5)*scrollableHeight/numImages)+'px';
         // Why offset by .5? This allows the images to overlap as you scroll.
         // E.g, one transitions in before the previous transitions out.
         $('<div class="invisible-waypoint" aria-hidden="true"></div>')
-        .prependTo('body')
+        .appendTo('body')
         .css('top',posTop)
         .waypoint({
           handler: function(direction) {
@@ -531,10 +534,10 @@ var FBSage = (function($) {
         });
 
         // Ditto for bottom-most point image should be visible
-        if(i<=numImages-maxVisible){
-          posTop = ((i+maxVisible-1.5)*scrollableHeight/numImages)+'px';
+        // if(i<=numImages-maxVisible){
+          posTop = ((i+0.5+maxVisible)*scrollableHeight/numImages)+'px';
           $('<div class="invisible-waypoint" aria-hidden="true"></div>')
-          .prependTo('body')
+          .appendTo('body')
           .css('top',posTop)
           .waypoint({
             handler: function(direction) {
@@ -546,7 +549,7 @@ var FBSage = (function($) {
               }
             }
           });
-        }
+        // }
 
         i++;
       });
@@ -560,12 +563,12 @@ var FBSage = (function($) {
     $image.removeClass('revealed');
   }
   function _positionFloaterImage($image) {
-    $image.attr( 'data-col', _chooseFloaterImageCol() );
-    $image.css( 'top', _chooseFloaterImageTop() );
+    $image.attr( 'data-col', _chooseFloaterImageCol($image) );
+    $image.css( 'top', _chooseFloaterImageTop($image) );
   }
   function _floaterImageOnResize() {
     var i=0;
-    var goodCols = _getPossibleFloaterImageCols();
+    var goodCols = _getPossibleFloaterImageCols($image);
     console.log(goodCols);
     $('.floater-image').each(function() {
       var col = parseInt($(this).attr('data-col'));
@@ -575,17 +578,17 @@ var FBSage = (function($) {
       i++;
     });
   }
-  function _chooseFloaterImageTop() {
+  function _chooseFloaterImageTop($image) {
     var randPercent = Math.random()*100;
     return randPercent+'vh';
   }
-  function _chooseFloaterImageCol() {
-    var possibleCols = _getPossibleFloaterImageCols();
+  function _chooseFloaterImageCol($image) {
+    var possibleCols = _getPossibleFloaterImageCols($image);
     var random = Math.random();
     var col = possibleCols[Math.floor(random*possibleCols.length)];
     return col;
   }
-  function _getPossibleFloaterImageCols() {
+  function _getPossibleFloaterImageCols($image) {
     var screenWidth = $(window).width();
 
     var badCols = [];

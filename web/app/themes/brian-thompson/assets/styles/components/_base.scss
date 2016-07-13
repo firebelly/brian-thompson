@@ -112,7 +112,7 @@ hr {
   }
 
   // Inline images
-  img:not(.floater-image) {
+  img { //:not(.floater-image)
     height: auto;
     margin: $lh 0;
     @include break-out-of-padding($teensy-pad,$teensy-pad);
@@ -125,21 +125,42 @@ hr {
   // Floater Images
   .floater-image {
     opacity: 0;
-    height: auto;
     display: none;
     position: fixed;
     max-width: none;
-    width: $col * 3;
     visibility: hidden;
     z-index: $z-floater-image;
     transform: translateY(-50%);
     transition: opacity 0.3s, visibility 0.3s 0s;
-    @include media-md { display: block; }
-    @include media-huge { width: $col-huge * 3; }
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    @include media-md { 
+      display: block; 
+    }
     @for $i from -2 through 15 {
       &[data-col="#{$i}"] {
         left: #{$i * $col};
         @include media-huge { left: #{$i * $col-huge}; }
+      }
+    }
+    img {
+      @extend .sr-only;
+    }
+    &.-portrait {
+       width: $col * 3;
+       height: $col * 3 * (5/4); // 5/4 is the aspect ratio
+       @include media-huge { 
+        width: $col-huge * 3; 
+        height: $col-huge * 3 * (5/4);
+      }
+    }
+    &.-landscape {
+       width: $col * 4;
+       height: $col * 4 * (4/5); // 5/4 is the aspect ratio
+       @include media-huge { 
+        width: $col-huge * 4; 
+        height: $col-huge * 4 * (4/5);
       }
     }
     &.revealed {
@@ -197,7 +218,8 @@ button{
   border-radius: 100%;
   background: red;
   border: 1px solid black;
-  visibility: hidden;
+  // visibility: hidden;
+  z-index: 1000000;
   &.-footer {
     background: blue;
   }

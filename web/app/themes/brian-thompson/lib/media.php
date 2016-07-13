@@ -4,6 +4,7 @@
  */
 
 namespace Firebelly\Media;
+use Firebelly\SiteOptions;
 
 // Compress jpegs
 add_filter( 'jpeg_quality', create_function( '', 'return 90;' ) );
@@ -51,6 +52,12 @@ function get_post_thumbnail($post_id, $size='medium') {
   return $return;
 }
 
+// Returns HTML for a floater image
+function floater_image_html ($url, $portrait_or_landscape = false ) {
+  $portrait_or_landscape = $portrait_or_landscape ? $portrait_or_landscape : (rand(0,1) ? 'portrait' : 'landscape');
+  return '<div class="floater-image -'.$portrait_or_landscape.'" style="background: url('.$url.');"><img src="'.$url.'" class="sr-only"></div>';
+}
+
 // Get featured image and all additional images for post, add floater-image class
 function get_floater_images($post_id = false) {
   // Default
@@ -58,12 +65,37 @@ function get_floater_images($post_id = false) {
   if (!$post_id) { return ''; } // Safety first
 
   $output = '';
-  $output .= '<img src="'.get_treated_url(get_post_thumbnail_id($post_id), ['type'=>'color']).'" class="floater-image">';
 
-  $files = \get_post_meta( $post_id, '_cmb2_additional_images', true );
-  // Loop through them and output an image
-  foreach ( (array) $files as $attachment_id => $attachment_url ) {
-    $output .= '<img src="'.get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]).'" class="floater-image">';
+  // Retrieve featured & additional images.  If neither set, take stock images
+  $featured = get_post_thumbnail_id($post_id);
+  $additional = \get_post_meta( $post_id, '_cmb2_additional_images', true );
+  if ($featured || $additional ) {
+    // Output featured image
+    if($featured) {
+      $output .= floater_image_html( get_treated_url($featured, ['type'=>'color']) );
+    }
+
+    // Output additional images
+    if($additional) {
+      foreach ( (array) $additional as $attachment_id => $attachment_url ) {
+        $output .= floater_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+      }
+    }
+  } else { // Go with stock images
+
+    $n_total_stock = count(SiteOptions\get_option('stock_images'));
+    if(!$n_total_stock) { return ''; }
+
+    $n_images_to_take = 4;  // How many images should we take?
+    $n_images_to_take =  $n_total_stock >= $n_images_to_take ? $n_images_to_take : $n_total_stock;
+    $all_stock_image_ids = array_keys( SiteOptions\get_option('stock_images') );
+    shuffle( $all_stock_image_ids );
+
+    $chosen_stock_image_ids = array_slice( $all_stock_image_ids, 0, $n_images_to_take );
+
+    foreach ( (array) $chosen_stock_image_ids as $stock_image_id ) {
+      $output .= floater_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+    }
   }
 
   return $output;

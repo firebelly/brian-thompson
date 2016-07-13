@@ -159,12 +159,21 @@ class FbSiteOptions {
       'options'          => array(
         'url'            => false, // Hide the text input for the url
       ),
-    ) );    
+    ) );
     $cmb->add_field( array(
       'name' => __( 'ADV Part 2A', 'firebelly' ),
       'desc'    => __( 'A PDF of the ADV Part 2A', 'firebelly' ),
       'id'   => 'adv',
       'type' => 'file',
+      'options'          => array(
+        'url'            => false, // Hide the text input for the url
+      ),
+    ) );
+    $cmb->add_field( array(
+      'name' => __( 'Stock Images', 'firebelly' ),
+      'desc'    => __( 'If a page does not specify specific images, these will be used.', 'firebelly' ),
+      'id'   => 'stock_images',
+      'type' => 'file_list',
       'options'          => array(
         'url'            => false, // Hide the text input for the url
       ),
