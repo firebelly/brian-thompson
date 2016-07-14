@@ -10,6 +10,46 @@ use Firebelly\SiteOptions;
 add_filter( 'jpeg_quality', create_function( '', 'return 90;' ) );
 
 
+// Get Inline Images for Front Page;
+function get_front_page_images() {
+
+  global $post;
+
+  $output = '';
+  $featured = get_post_thumbnail_id($post->ID);
+  $additional = get_post_meta( $post->ID, '_cmb2_additional_images', true );
+
+  // Output featured image
+  if($featured) {
+    $output .= get_image_html( get_treated_url($featured, ['type'=>'gray']),'inline-image -one','portrait' );
+
+  }
+
+  // Output additional images
+  if($additional) {
+    $i = 0;
+    foreach ( (array) $additional as $attachment_id => $attachment_url ) {
+      switch ($i) {
+        case 0:
+          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'color']),'inline-image -two','landscape' );
+          break;
+        case 1:
+          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'color']),'inline-image -three','portrait' );
+          break;
+        case 2:
+          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'color']),'inline-image -four','landscape' );
+          break;
+        default:
+          break;
+      }
+      $i++;
+    }
+  }
+
+  return $output;
+}
+
+
 // Add grayscale checkbox to media library items:
 // Adapted (stolen) from: https://gielberkers.com/add-checkbox-media-library-wordpress/
 function add_grayscale_checkbox($form_fields, $post){
@@ -53,9 +93,9 @@ function get_post_thumbnail($post_id, $size='medium') {
 }
 
 // Returns HTML for a floater image
-function floater_image_html ($url, $portrait_or_landscape = false ) {
+function get_image_html ($url, $class = 'floater-image', $portrait_or_landscape = false) {
   $portrait_or_landscape = $portrait_or_landscape ? $portrait_or_landscape : (rand(0,1) ? 'portrait' : 'landscape');
-  return '<div class="floater-image -'.$portrait_or_landscape.'" style="background: url('.$url.');"><img src="'.$url.'" class="sr-only"></div>';
+  return '<div class="'.$class.' -'.$portrait_or_landscape.'" style="background-image: url('.$url.');"><img src="'.$url.'" class="sr-only"></div>';
 }
 
 // Get featured image and all additional images for post, add floater-image class
@@ -72,13 +112,13 @@ function get_floater_images($post_id = false) {
   if ($featured || $additional ) {
     // Output featured image
     if($featured) {
-      $output .= floater_image_html( get_treated_url($featured, ['type'=>'color']) );
+      $output .= get_image_html( get_treated_url($featured, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
     }
 
     // Output additional images
     if($additional) {
       foreach ( (array) $additional as $attachment_id => $attachment_url ) {
-        $output .= floater_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+        $output .= get_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
       }
     }
   } else { // Go with stock images
@@ -86,7 +126,7 @@ function get_floater_images($post_id = false) {
     $n_total_stock = count(SiteOptions\get_option('stock_images'));
     if(!$n_total_stock) { return ''; }
 
-    $n_images_to_take = 4;  // How many images should we take?
+    $n_images_to_take = 3;  // How many images should we take?
     $n_images_to_take =  $n_total_stock >= $n_images_to_take ? $n_images_to_take : $n_total_stock;
     $all_stock_image_ids = array_keys( SiteOptions\get_option('stock_images') );
     shuffle( $all_stock_image_ids );
@@ -94,7 +134,7 @@ function get_floater_images($post_id = false) {
     $chosen_stock_image_ids = array_slice( $all_stock_image_ids, 0, $n_images_to_take );
 
     foreach ( (array) $chosen_stock_image_ids as $stock_image_id ) {
-      $output .= floater_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+      $output .= get_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
     }
   }
 
@@ -163,7 +203,7 @@ function get_treated_url($post_or_id, $options=[]) {
 
   // Override 'color' treatment type if image is grayscale
   if(is_grayscale($thumb_id) && $type === 'color') {
-    $type = 'grayscale';
+    $type = 'gray';
   }
 
   // Get the image of proper size

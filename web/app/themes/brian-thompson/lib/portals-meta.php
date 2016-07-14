@@ -69,7 +69,7 @@ function get_portals() {
   $portals = get_post_meta(get_the_ID(),'_cmb2_portals',true);
   $output = '';
 
-  $output.= '<ul class="portals">';
+  $output.= '<ul class="portals-list columns-wrap">';
   foreach ($portals as $portal) {
 
     $thumbnail_url = \wp_get_attachment_image_src($portal['thumbnail_id'],'medium')[0];
@@ -77,11 +77,14 @@ function get_portals() {
     $url = esc_url($portal['url']);
 
     $output .= <<<HTML
-      <li class="portal">
-        <h3>{$portal['title']}</h3>
+      <li class="portal columns-item">
+        <h3 class='sr-only'>{$portal['title']}</h3>
         <img src="{$thumbnail_url}">
-        <p>{$description}</p>
-        <a href="{$url}"><button>Log In</button></a>
+        <p class="description">{$description}</p>
+        <div class="login-wrap">
+          <hr>
+          <a href="{$url}" class="login no-underline"><button class="black-arrow">Login</button></a>
+        </div>
       </li>
 HTML;
   }

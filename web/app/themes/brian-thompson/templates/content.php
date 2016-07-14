@@ -4,7 +4,7 @@
     <?php include(locate_template('templates/entry-meta.php')); ?>
     <div class="summary">
       <?php the_excerpt(); ?>
-      <a href="' . get_permalink() . '" class="read-more"><button class="white-arrow">Read More</button></a>
+      <a href="<?= get_permalink(); ?>" class="read-more"><button class="white-arrow">Read More</button></a>
     </div>
   </header>
 </article>

@@ -116,7 +116,7 @@ function hide_editor() {
     $post = get_post($post_id);
     $slug = $post->post_name;
     $exclude_on = array( // Any template filenames or slugs here will be have the editor excluded
-      'portals',
+      // 'portals',
       );
     if(in_array($template_file,$exclude_on) || in_array($slug,$exclude_on)){
       remove_post_type_support('page', 'editor');

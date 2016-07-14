@@ -99,6 +99,9 @@ $brand-secondary: $blue;
   .lines.page-transitioning .line {
     background: choose($gray,$lite-blue,not $scheme);
   }
+  .blinds .blind {
+    background: $bg;
+  }
   .blinds.-page .blind {
     background: $anti-bg;
   }

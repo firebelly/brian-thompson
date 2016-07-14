@@ -8,7 +8,7 @@ var FBSage = (function($) {
       breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
-      breakpoint_array = [480,768,1500],
+      breakpoint_array = [480,768,900],
       $document,
       $sidebar,
       loadingTimer,
@@ -79,8 +79,8 @@ var FBSage = (function($) {
     // Add html markup and behavior for lines
     _initLines();
 
-    // Place and dictate behavior for non-inline "floater" images
-    initFloaterImages();
+    // Place and dictate behavior for images
+    _initImages();
 
     // Add functions to supplement CF7 form handling
     _initContactForm();
@@ -264,7 +264,7 @@ var FBSage = (function($) {
   function _resizeFooter() {
     var footerHeight = $('.site-footer').outerHeight();
     $('#primary-site-content').css('margin-bottom',(breakpoint_medium ? footerHeight : 0));
-    $('.invisible-waypoint.-footer').css('bottom', -footerHeight+30);
+    $('.invisible-waypoint.-footer').css('bottom', -footerHeight+1);
   }
 
   // Add color information to URL we are going to, handle transition effect
@@ -306,13 +306,14 @@ var FBSage = (function($) {
   }
 
   // Handle animating blinds
-  function _blinds($blinds,showOrHide,startingBlindNum,onDone,duration) {
+  function _blinds($blinds,showOrHideTheBlinds,startingBlindNum,onDone,useHiddenClass,duration) {
     // Defaults
     $blinds = $blinds || $('.blind');
-    showOrHide = showOrHide || 'show';
+    showOrHideTheBlinds = showOrHideTheBlinds || 'show';
     startingBlindNum = startingBlindNum || 0;
     onDone = onDone || undefined;
-    duration = duration || 500;
+    duration = duration || 200;
+    useHiddenClass = typeof useHiddenClass === 'undefined' ? true : useHiddenClass;
 
     // We gotta find the container because so we can add/remove classes.
     $container = $blinds.closest('.blinds');
@@ -323,17 +324,17 @@ var FBSage = (function($) {
     }).length; // Number of on-screen blinds
     var finalBlindNum = startingBlindNum > numBlinds - startingBlindNum ? 0 : numBlinds-1;
 
-    if (showOrHide === 'show') { $container.removeClass('-hidden'); }
+    if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
-      $(this).velocity( (showOrHide === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
-        delay: (Math.abs(startingBlindNum-thisBlindNum)*100), 
+      $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
         duration: duration,
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined : function() {
-          if (showOrHide === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
+          if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
           if (onDone) { onDone(); }
         }
       });
@@ -365,7 +366,7 @@ var FBSage = (function($) {
     $('.open-popup').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
-        _popupStartingBlindNum = _closestX( $('.blinds.-for-popup .blind'), $(this).offset().left ).data('blind-num');
+        _popupStartingBlindNum = _closestX( $('.popup .blind'), $(this).offset().left ).data('blind-num');
         var $content = $($(this).data('content'));
         _openPopup($content);
       }
@@ -393,7 +394,7 @@ var FBSage = (function($) {
         $('.popup .lines').velocity('fadeOut',{ 
           duration: 200
         });
-        _blinds($('.blinds.-for-popup .blind'),'hide',_popupStartingBlindNum, function() {
+        _blinds($('.popup .blind'),'hide',_popupStartingBlindNum, function() {
             _isAnimating = false;
             $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
         });
@@ -406,7 +407,7 @@ var FBSage = (function($) {
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
     $('.popup .lines').velocity('fadeIn',200);
-    _blinds($('.blinds.-for-popup .blind'),'show',_popupStartingBlindNum,function () {
+    _blinds($('.popup .blind'),'show',_popupStartingBlindNum,function () {
       $('.popup .content-holder').empty();
       $content.clone(true, true).contents().appendTo('.popup .content-holder');
       $('.popup .body-wrap').velocity('fadeIn',{ 
@@ -438,22 +439,6 @@ var FBSage = (function($) {
 
     // Add html markup and behavior for venetian blinds.  We have two sets of these.
   function _initBlinds() {
-    // Add main section content blinds
-    var html = '<div class="blinds -for-popup -hidden" aria-hidden="true">';
-    for (i=0; i<6; i++) { 
-      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
-    }
-    html+='</div>';
-    $(html).appendTo('.popup');
-
-    // Ditto page transition blinds
-    html = '<div class="blinds -page -hidden" aria-hidden="true">';
-    for (i=0; i<15; i++) { 
-      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
-    }
-    html+='</div>';
-    $(html).appendTo('body');
-
     // Register velocity animations
     // Why handle this with velocity?  Why not add/remove a class?  Because velocity has a 'complete' callback and we need to time some things to fire precisely with animation completion (like going to destination url). That's why.
     $.Velocity
@@ -472,141 +457,271 @@ var FBSage = (function($) {
       ]
     });
 
-    //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
-    $('.blind').velocity("transition.blindHide", { 
-      duration: 0 // MY GOD MAN, THERE'S NO TIME. DO IT NOW!!!!
-    });
+    // Add main section content blinds
+    _makeBlinds(6,'.popup','-hidden');
+
+    // Ditto page transition blinds
+    _makeBlinds(15,'body','-page -hidden');
+
+        //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
+    $('.blind').velocity("transition.blindHide", {duration: 0});
+
+    // Add image content blinds
+    _makeBlinds(3,'.floater-image.-portrait, .inline-image.-portrait:not(.-one)');
+    _makeBlinds(5,'.inline-image.-one');
+    _makeBlinds(4,'.floater-image.-landscape, .inline-image.-landscape');
+
+
+  }
+  function _makeBlinds(n,container,cssClass) {
+    cssClass = cssClass || '';
+    var html = '<div class="blinds '+cssClass+'" aria-hidden="true">';
+    for (i=0; i<n; i++) { 
+      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
+    }
+    html+='</div>';
+    return $(html).appendTo(container);
   }
 
     // Add html markup and behavior for lines
   function _initLines() {
     // Page Lines
-    $(_linefactory(15,'')).appendTo('body');
-
+    _makeLines(15,'body');
     // Nav Lines
-    $(_linefactory(15,'')).appendTo('.site-nav');
-
+    _makeLines(15,'.site-nav');
     // Lines behind popups
-    $(_linefactory(5,'-for-popup')).appendTo('.popup');
-    $('.lines.-for-popup').velocity('fadeOut',0);
+    _makeLines(5,'.popup').velocity('fadeOut',0);
+    // Lines in front of images
+    _makeLines(6,'.floater-image, .inline-image');
   }
-  function _linefactory(n,cssClasses){
-    html = '<div class="lines '+cssClasses+'" aria-hidden="true">';
+  function _makeLines(n,container){
+    html = '<div class="lines" aria-hidden="true">';
     for (i=0; i<n; i++) { 
       html+='<div class="line"></div>'; 
     }
     html+='</div>';
-    return html;
+    return $(html).appendTo(container);
+
   }
 
-  // Place and dictate behavior for non-inline "floater" images
-  function initFloaterImages() {
+function FloaterImage($image,order) {
+
+  console.log('new FloaterImage '+order);
+
+  // Settings
+  this.maxHealthy = 2;
+
+  // My self referential vars
+  var me = this;
+  var $me = $image;
+
+  // My stats
+  this.neverShown = true;
+  this.order = order;
+  this.portrait = $me.hasClass('-portrait');
+  this.alive = false;
+  this.healthy = false;
+  this.animating = false;
+
+  // Insert elements for waypoints into the dom.
+  var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);
+  this.$waypointTop = $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
+  this.$waypointBottom =  $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
+
+  // Position those elements appropriately
+  this.positionWaypoints = function() {
     var numImages = $('.floater-image').length;
-    if(numImages) {
+    var scrollableHeight = $(document).height()-$(window).height(); // How many pixels can a user scroll on this page?
+    // Top waypoint
+    var pos = ((order-0.5)*scrollableHeight/numImages-5)+'px';
+    me.$waypointTop.css('top',pos);
+    // Bottom waypoint
+    pos = ((order+0.5+me.maxHealthy)*scrollableHeight/numImages)+'px'; 
+    me.$waypointBottom.css('top',pos);
+  };
+  // Do it now and on resize
+  this.positionWaypoints();
+  $(window).resize(function() {
+    me.positionWaypoints();
+  });
 
-      // Init waypoints
-      var maxVisible = 2; //Max number of images visible on screen
-      var scrollableHeight = $(document).height()-$(window).height(); // How many pixels can a user scroll on this page?
-      console.log(scrollableHeight);
-
-      i=0;
-      $('.floater-image').each( function() {
-        var $image = $(this);
-
-        // This is an invisible waypoint element positioned at the the 
-        // top-most point this image should be visible.
-        // It shows/hides the image as appropriate on scroll-by.
-        posTop = ((i-0.5)*scrollableHeight/numImages)+'px';
-        // Why offset by .5? This allows the images to overlap as you scroll.
-        // E.g, one transitions in before the previous transitions out.
-        $('<div class="invisible-waypoint" aria-hidden="true"></div>')
-        .appendTo('body')
-        .css('top',posTop)
-        .waypoint({
-          handler: function(direction) {
-            if(direction==='down'){
-              _revealFloaterImage($image);
-            }
-            if(direction==='up'){
-              _hideFloaterImage($image);
-            }
-          }
-        });
-
-        // Ditto for bottom-most point image should be visible
-        // if(i<=numImages-maxVisible){
-          posTop = ((i+0.5+maxVisible)*scrollableHeight/numImages)+'px';
-          $('<div class="invisible-waypoint" aria-hidden="true"></div>')
-          .appendTo('body')
-          .css('top',posTop)
-          .waypoint({
-            handler: function(direction) {
-              if(direction==='down'){
-                _hideFloaterImage($image);
-              }
-              if(direction==='up'){
-                _revealFloaterImage($image);
-              }
-            }
-          });
-        // }
-
-        i++;
-      });
-    }
-  }
-  function _revealFloaterImage($image) {
-    _positionFloaterImage($image);
-    $image.addClass('revealed');
-  }
-  function _hideFloaterImage($image) {
-    $image.removeClass('revealed');
-  }
-  function _positionFloaterImage($image) {
-    $image.attr( 'data-col', _chooseFloaterImageCol($image) );
-    $image.css( 'top', _chooseFloaterImageTop($image) );
-  }
-  function _floaterImageOnResize() {
-    var i=0;
-    var goodCols = _getPossibleFloaterImageCols($image);
-    console.log(goodCols);
-    $('.floater-image').each(function() {
-      var col = parseInt($(this).attr('data-col'));
-      if($.inArray(col,goodCols)===-1 || !$(this).hasClass('revealed')) { // If I'm not in a good col or I'm hidden, reposition me.
-        _positionFloaterImage($(this));
+  // Init waypoints
+  this.waypointTop =  me.$waypointTop.waypoint({
+    handler: function(direction) {
+      if(direction==='down'){
+        me.healthy = true;
+        console.log(me.order+' is healthy!');
       }
-      i++;
-    });
-  }
-  function _chooseFloaterImageTop($image) {
+      if(direction==='up'){
+        me.healthy = false;
+        console.log(me.order+' is unhealthy!');
+      }
+      // me.liveOrDie();
+    }
+  });
+  this.waypointBottom = me.$waypointBottom.waypoint({
+    handler: function(direction) {
+      if(direction==='down'){
+        me.healthy = false;
+        console.log(me.order+' is unhealthy!');
+      }
+      if(direction==='up'){
+        me.healthy = true;
+        console.log(me.order+' is healthy!');
+      }
+      // me.liveOrDie();
+    }
+  });
+
+  // Decide to Live Or Die
+  this.liveOrDie = function () {
+    if(!me.animating) {
+      if(me.alive && !me.healthy) {
+        me.die();
+      } 
+      if(!me.alive && me.healthy) {
+        me.live();
+      }
+    }
+  };
+  setInterval(me.liveOrDie, 100);
+
+  // Handle Living and Dying
+  this.live = function() {
+    me.position();
+    me.neverShown = false;
+    $me.addClass('alive');
+    me.animating = true;
+    console.log(me.order+' is becoming alive!');
+    _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
+      me.animating = false;
+      console.log(me.order+' is alive!');
+      me.alive = true;
+    }, false);
+  };
+  this.die = function()  {
+    me.animating = true;
+    console.log(me.order+' is dying!');
+    _blinds($me.find('.blind'),'show',2,function() { //'show' refers to show the blinds
+      me.animating = false;
+      console.log(me.order+' is dead!');
+      $me.removeClass('alive');
+      me.alive = false;
+    }, false);
+  };
+
+  // Positioning
+  // We are (fix) positioned by a choice of col (set to a data-attr and handled in css) and an inline top position
+  this.position = function () {
+    $me.attr( 'data-col', me.chooseCol() );
+    $me.css( 'top', me.choosePosTop() );
+  };
+  this.choosePosTop = function() {
+    // if(me.order===0) { // If I'm first, top=0
+    //   return '0';
+    // } 
     var randPercent = Math.random()*100;
-    return randPercent+'vh';
-  }
-  function _chooseFloaterImageCol($image) {
-    var possibleCols = _getPossibleFloaterImageCols($image);
-    var random = Math.random();
-    var col = possibleCols[Math.floor(random*possibleCols.length)];
+    return 'calc('+randPercent+'vh - '+($me.height()/2)+'px)';
+  };
+  this.chooseCol = function() {
+    var possibleCols = me.getPossibleCols();
+    // if(me.order===0) { // If I'm first, get leftmost col  //me.neverShown && 
+    //   return (me.portrait ? 0: -1);
+    // } 
+
+    var col = possibleCols[Math.floor(Math.random()*possibleCols.length)];
     return col;
-  }
-  function _getPossibleFloaterImageCols($image) {
+  };
+  // The choice of what columns are OK to positiong the image in can be an affair...
+  this.getPossibleCols = function() {
     var screenWidth = $(window).width();
 
     var badCols = [];
     // Mark content area off-limits
-    if(screenWidth<900) {
+    if(!breakpoint_large) {
       badCols = $.merge(badCols,[-1,0,1,2,3,4,5,6]);
-    }
-    if(screenWidth>=900) {
-      badCols = $.merge(badCols,[-2,0,1,2,3,4,5,6,7]);
+      if(me.portrait) {
+        $.merge(badCols,[-3]);
+      } else {
+        $.merge(badCols,[-2,-1]);
+      }
+    } else {
+      badCols = $.merge(badCols,[0,1,2,3,4,5,6,7]);
+      if(me.portrait) {
+        $.merge(badCols,[-3]);
+      } else {
+        $.merge(badCols,[-3,-1]);
+      }
     }
 
     var goodCols = [];
     var colWidth = $('.blind').width();
     //Loop through all cols where image would be visible
-    for (i=-2; i<Math.floor(screenWidth/colWidth); i++) { 
-      if($.inArray(i, badCols)===-1) { goodCols.push(i); } // If this I isn't bad, it's good.  Add it on, then.
+    for (i=-3; i<Math.floor(screenWidth/colWidth); i++) { 
+      if($.inArray(i, badCols)===-1) { goodCols.push(i); } // If this i isn't bad, it's good.  Add it on, then.
     }
     return goodCols;
+  };
+
+  // Handle Window Resizing
+  this.windowWasResized = function() {
+    var goodCols = me.getPossibleCols();
+    var col = parseInt($me.attr('data-col'));
+    if($.inArray(col,goodCols)===-1) { // If I'm not in a good col, reposition me.
+      me.position();
+    }
+  };
+  $(window).resize(function() {
+    me.windowWasResized();
+  });
+}
+
+function InlineImage($image,order) {
+
+  // My self referential vars
+  var me = this;
+  var $me = $image;
+
+  // My stats
+  this.portrait = $me.hasClass('-portrait');
+  this.alive = false;
+  this.order = order;
+
+  console.log('new InlineImage '+order);
+
+  // Handle Living
+  this.live = function() {
+    $me.addClass('alive');
+    console.log(me.order+' is becoming alive!');
+    _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
+      console.log(me.order+' is alive!');
+      me.alive = true;
+    }, false);
+  };
+
+  // Init waypoints
+  this.waypoint =  $me.waypoint({
+    offset: 'bottom-in-view',
+    handler: function(direction) {
+      if(direction==='down' && !me.alive){
+        me.live();
+      }
+    }
+  });
+
+}
+
+  // Create floaterImage objects for all "floater" images
+  function _initImages() {
+    var floaterImages = [];
+    $('.floater-image').each( function(i) {
+      floaterImages[i] = new FloaterImage($(this),i);
+    });
+
+    var inlineImages = [];
+    $('.inline-image').each( function(i) {
+      inlineImages[i] = new InlineImage($(this),i);
+    });
   }
 
   // Add functions to supplement CF7 form handling

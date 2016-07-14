@@ -9,6 +9,8 @@ html {
 
 body {
   overflow-x: hidden;
+  line-height: $lh;
+  @include font-regular;
 }
 
 
@@ -66,6 +68,7 @@ hr {
   margin-left: 10px;
   position: relative;
   padding: $lh*6 $teensy-pad $lh*5;
+  @include word-break;
   @include media-tiny {
     width: 3 * $col;
     margin-left: calc((100% - 3 * #{$col})/2 );
@@ -76,7 +79,7 @@ hr {
   }
   @include media-md {
     margin-left: $col * 2;
-    padding: $lh*6 $teensy-pad $lh;
+    padding: $lh*6 $teensy-pad $lh*5;
   }
   @include media-lg {
     margin-left: $col * 3;
@@ -123,27 +126,16 @@ hr {
   }
 
   // Floater Images
-  .floater-image {
+  .floater-image, .inline-image {
     opacity: 0;
-    display: none;
-    position: fixed;
     max-width: none;
+    overflow: hidden;
     visibility: hidden;
-    z-index: $z-floater-image;
-    transform: translateY(-50%);
-    transition: opacity 0.3s, visibility 0.3s 0s;
     background-size: cover;
-    background-position: center center;
     background-repeat: no-repeat;
-    @include media-md { 
-      display: block; 
-    }
-    @for $i from -2 through 15 {
-      &[data-col="#{$i}"] {
-        left: #{$i * $col};
-        @include media-huge { left: #{$i * $col-huge}; }
-      }
-    }
+    background-position: center center;
+    transition: opacity 0.3s, visibility 0.3s 0s;
+    // transform: translateY(-1000px);
     img {
       @extend .sr-only;
     }
@@ -163,11 +155,29 @@ hr {
         height: $col-huge * 4 * (4/5);
       }
     }
-    &.revealed {
+    &.alive {
       opacity: 1;
       visibility: visible;
       transition: opacity 0.3s, visibility 0s;
+      // transform: translateY(0);
     }
+  }
+  .floater-image {
+    display: none;
+    position: fixed;
+    z-index: $z-floater-image;
+    @include media-md { 
+      display: block; 
+    }
+    @for $i from -3 through 15 {
+      &[data-col="#{$i}"] {
+        left: #{$i * $col};
+        @include media-huge { left: #{$i * $col-huge}; }
+      }
+    }
+  }
+  .inline-image {
+    z-index: $z-inline-image;
   }
 
   // Lists
@@ -218,7 +228,7 @@ button{
   border-radius: 100%;
   background: red;
   border: 1px solid black;
-  // visibility: hidden;
+  visibility: hidden;
   z-index: 1000000;
   &.-footer {
     background: blue;

@@ -90,10 +90,18 @@
   visibility: hidden;
 }
 
-body { //Defaults
-  line-height: $lh;
-  @include font-regular;
-  @include word-break;
+@mixin enormous-title {
+  @include font-mono;
+  line-height: 50px;
+  font-size: 48px;
+  @include media-md {
+    line-height: 100px;
+    font-size: 96px;
+  }
+  position: relative;
+  top: -10px; // 0-10 (basline adjustment - top of line adjustment)
+  margin-top: 0;
+  margin-bottom: ( $lh * 2 ) - 15px; // Desired margin - amount of blank space already following the text within the line-height
 }
 
 @mixin big-title {
@@ -108,7 +116,7 @@ body { //Defaults
   top: -10px; // 0-10 (basline adjustment - top of line adjustment)
   margin-top: 0;
   margin-bottom: ( $lh * 2 ) - 15px; // Desired margin - amount of blank space already following the text within the line-height
-  }
+}
 
 @mixin small-title {
   @include font-bold;

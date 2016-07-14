@@ -93,7 +93,7 @@
   cursor: pointer;
 }
 
-.popup, .lines.-for-popup, .blinds.-for-popup  {
+.popup, .popup .lines, .popup .blinds  {
   left: $small-pad;
   @include media-tiny {
     left: calc((100% - 3 * #{$col})/2 );

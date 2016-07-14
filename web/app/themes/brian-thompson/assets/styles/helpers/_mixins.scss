@@ -51,9 +51,10 @@
 
 // Dashes
 @mixin dash {
+  @include font-mono;
+  font-size: 20px;
   position: absolute;
   content: '–';
-  @include font-bold;
   // color: $black;
 }
 @mixin dash-before($offset) {

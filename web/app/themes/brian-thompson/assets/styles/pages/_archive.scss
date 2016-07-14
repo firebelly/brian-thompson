@@ -54,6 +54,7 @@
         text-decoration: none;
       }
       button {
+        position: absolute;
         padding: 0 $lh/4;
         @include small-nb-mono;
         top: -2px;

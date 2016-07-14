@@ -5,7 +5,6 @@
   top: 0; 
   left: 0;
   width: 100%;
-  height: 100%;
   min-width: 15*$col; //Stop lines from wrapping;
   margin-left: -90px;
   @include media-tiny {
@@ -25,15 +24,14 @@
   height: 100%;
 }
 
-.lines {
-}
+
 
 
 // Lines
 .lines {
+  height: 100%;
   z-index: $z-lines;
   pointer-events: none;
-  
   &.page-transitioning {
     z-index: $z-lines-page-transitioning;
   }
@@ -42,23 +40,22 @@
     transition: background 0.5s;
   }
 }
-.lines.-for-popup {
-  z-index: $z-popup-lines;
-  min-width: 0;
-  margin-left: 0;
-}
+
 
 // Blinds
-.blinds .blind {
-  width: $col;
-  @include media-huge { width: $col-huge; }
-}
-.blinds.-page {
-  z-index: $z-page-blinds;
+.blinds {
+  height: 100%;
+  .blind {
+    width: $col;
+    @include media-huge { width: $col-huge; }
+  }
+  &.-page {
+    z-index: $z-page-blinds;
+  }
 }
 
 // Popup
-.blinds.-for-popup {
+.popup .blinds {
   z-index: $z-popup-blinds;
   overflow: hidden;
   position: fixed;
@@ -71,4 +68,18 @@
   .blind {
     width: 16.66666%
   }
+}
+.popup .lines {
+  z-index: $z-popup-lines;
+  min-width: 0;
+  margin-left: 0;
+}
+
+// Floater Image
+.floater-image .blinds {
+  z-index: $floater-image-blinds;
+}
+.floater-image .lines {
+  z-index: $floater-image-lines;
+  position: absolute;
 }

@@ -1,1 +1,76 @@
 // Home
+.home.page {
+  .page-header {
+    @extend .sr-only;
+  }
+  .body-wrap {
+    position: relative;
+  }
+  h1 {
+    @include enormous-title;
+    width: 6*$col;
+    @include media-huge {
+      width: 6*$col-huge
+    }
+  }
+  .section {
+    h2:before, h2:after {
+      display: none;
+    }
+    &.-one {
+      position: relative;
+
+    }
+    &.-two {
+
+      position: absolute;
+      top: 665px;
+      left: 4 * $col;
+      @include media-huge {
+        left: 4 * $col-huge;
+      }
+      .wrap {
+        width: 2 * $col;
+        @include media-huge {
+          width: 2 * $col-huge;
+        }
+      }
+
+    }
+    &.-three {
+      // position: absolute;
+      margin-top: 585px - $lh/2;
+      .wrap {
+        width: 3 * $col;
+        @include media-huge {
+          width: 3 * $col-huge;
+        }
+      }
+    }
+  }
+  .inline-image {
+    position: absolute;
+    &.-one {
+      top: 0;
+      left: -100%;
+      width: 5*$col;
+      height: 5*$col * 5/4;
+    }
+    &.-two {
+      top: 625px;
+      left: 0;
+    }
+    &.-three {
+      top: 868px;
+      left: 150%;
+    }
+    &.-four {
+      top: 1500px;
+      left: 75%;
+    }
+  }
+  .recent-posts {
+    display: none;
+  }
+
+}

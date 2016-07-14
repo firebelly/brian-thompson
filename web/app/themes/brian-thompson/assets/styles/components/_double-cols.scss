@@ -8,9 +8,10 @@
   .columns-item {
     position: relative; top: 0px; // Correct my baseline thing typography
 
-    max-width: 2*$col;
+    
     flex-basis: 100%;
     @include media-sm {
+      max-width: 2*$col;
       flex-basis: 50%;
       max-width: none;
     }

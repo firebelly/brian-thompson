@@ -6,7 +6,6 @@
   }
 }
 
-
 .process {
   ul.steps {
     list-style: none;
@@ -14,6 +13,8 @@
   }
   li.step {
     min-height: 8 * $lh;
+    max-width: 2 * $col;
+    // @include media-huge{ max-width: 2 * $col-huge; }
   }
   .popup {
     .body-wrap {
@@ -143,5 +144,28 @@
 .contact {
   .form-wrap {
     padding-bottom: $lh * 4.25;
+  }
+}
+
+.portals {
+  .portal {
+    position: relative;
+    padding-bottom: 65px;
+    img {
+      width: auto;
+    }
+    p.description {
+      @include dash-before($lh/2);
+    }
+
+    .login-wrap, {
+      width: calc(100% - 10px);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    .login {
+      float: right;
+    }
   }
 }
