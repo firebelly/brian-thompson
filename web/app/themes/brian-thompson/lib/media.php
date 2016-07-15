@@ -149,7 +149,7 @@ function get_floater_images($post_id = false) {
     }
   }
 
-  return ''; //$output;
+  return $output;
 }
 
 /**
