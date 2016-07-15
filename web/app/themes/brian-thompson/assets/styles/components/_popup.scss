@@ -16,8 +16,15 @@
     left: calc((100% - 4 * #{$col})/2);
   }
   @include media-md { 
-    left: 0; 
+    left: $col; 
   }
+  @include media-lg { 
+    left: 2*$col; 
+  }
+  @include media-huge { 
+    left: 2*$col-huge; 
+  }
+
 
   .lines{
     z-index: $z-popup-lines;
