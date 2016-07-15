@@ -481,7 +481,7 @@ var FBSage = (function($) {
       html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
     }
     html+='</div>';
-    return $(html).appendTo(container);
+    return $(html).prependTo(container);
   }
 
     // Add html markup and behavior for lines
@@ -501,7 +501,7 @@ var FBSage = (function($) {
       html+='<div class="line"></div>'; 
     }
     html+='</div>';
-    return $(html).appendTo(container);
+    return $(html).prependTo(container);
 
   }
 
