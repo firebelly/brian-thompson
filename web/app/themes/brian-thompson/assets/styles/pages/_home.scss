@@ -9,9 +9,6 @@
     h1 {
       @include enormous-title;
       width: 6 * $col;
-      @include media-huge {
-        width: 6 * $col-huge
-      }
     }
     height: 1600px;
   }
@@ -57,18 +54,31 @@
       left: -100%;
       width: 5 * $col;
       height: 5 * $col * 1.28333;
+      @include media-huge {
+        width: 5 * $col-huge;
+        height: 5 * $col-huge * 1.28333;
+      }
     }
     &.-two {
       top: 625px;
       left: -$col;
+      @include media-huge {
+        left: -$col-huge;
+      }
     }
     &.-three {
       top: 868px;
       left: 6 * $col;
+      @include media-huge {
+        left: 6 * $col-huge;
+      }
     }
     &.-four {
       top: 1180px;
       left: 3 * $col;
+      @include media-huge {
+        left: 3 * $col-huge;
+      }
     }
   }
 
