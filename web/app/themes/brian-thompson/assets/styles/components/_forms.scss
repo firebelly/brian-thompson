@@ -6,7 +6,7 @@
 .form-wrap {
   position: relative;
   width: 5 * $col;
-  left: -$col;
+  left: -$col - $teensy-pad;
   margin-top: 3*$lh;
   padding: 1.75*$lh $col 5*$lh;
   @include media-sm {
@@ -14,8 +14,8 @@
   }
   @include media-huge {
     width: 6 * $col-huge;
-    left: -$col-huge;
-  padding: 1.75*$lh $col-huge 5*$lh;
+    left: calc( -#{$col} - #{$teensy-pad});
+    padding: 1.75*$lh $col-huge 5*$lh;
   }
   .wpcf7-response-output {
     padding: 0 5px;
