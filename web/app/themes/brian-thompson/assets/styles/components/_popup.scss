@@ -20,13 +20,13 @@
   }
 
   .lines{
-    $z-popup-lines: 550;
+    z-index: $z-popup-lines;
   }
   .blinds{
-    $z-popup-blinds: 500;
+    z-index: $z-popup-blinds;
   }
   .content-holder{
-    $z-popup-content: 700;
+    z-index: $z-popup-content;
   }
 
   &.showing {
