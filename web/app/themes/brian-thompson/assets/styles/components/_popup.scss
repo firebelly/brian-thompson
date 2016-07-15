@@ -68,7 +68,7 @@
     min-width: $col;
     width: 25%;
     position: relative;
-    left: 3 * $col;
+    right: $col;
     @include media-md {
       position: absolute;
       right: auto;
