@@ -19,6 +19,15 @@
     left: 0; 
   }
 
+  .lines{
+    $z-popup-lines: 550;
+  }
+  .blinds{
+    $z-popup-blinds: 500;
+  }
+  .content-holder{
+    $z-popup-content: 700;
+  }
 
   &.showing {
     height: 100%;
