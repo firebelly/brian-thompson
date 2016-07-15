@@ -10,7 +10,7 @@
       @include no-word-break;
       @include media-md {
         position: absolute;
-        top: 25px;
+        top: 145px;
         right: calc( 100% + #{$teensy-pad} );
       }
     }
