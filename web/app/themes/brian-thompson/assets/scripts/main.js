@@ -413,7 +413,7 @@ var FBSage = (function($) {
       $('.popup .body-wrap').velocity('fadeIn',{ 
         duration: 200,
         complete: function() {
-          $('.popup:not(.holding-mobile-nav').velocity('scroll',200);
+          $('.popup').velocity('scroll',200);
           _isAnimating = false;
         }
       });
@@ -467,9 +467,9 @@ var FBSage = (function($) {
     $('.blind').velocity("transition.blindHide", {duration: 0});
 
     // Add image content blinds
-    _makeBlinds(3,'.floater-image.-portrait, .inline-image:not(.mobile-image).-portrait:not(.-one):not(.-one)');
+    // _makeBlinds(3,'.floater-image.-portrait, .inline-image:not(.mobile-image).-portrait:not(.-one):not(.-one)');
     _makeBlinds(5,'.inline-image.-one');
-    _makeBlinds(4,'.floater-image.-landscape, .inline-image:not(.mobile-image).-landscape');
+    // _makeBlinds(4,'.floater-image.-landscape, .inline-image:not(.mobile-image).-landscape');
     _makeBlinds(8,'.mobile-image');
 
 
