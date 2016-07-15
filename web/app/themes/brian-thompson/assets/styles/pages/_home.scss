@@ -81,12 +81,12 @@
   .lets-start {
     position: fixed;
     top: 0;
-    left: 9 * $col;
+    left: 9 * $col - 1px;
     width: 5px;
     height: 100%;
     z-index: $z-lets-start;
     @include media-huge {
-      left: 9 * $col-huge;
+      left: calc( 9 * #{$col-huge} - 1px);
     }
     button.start-button {
       @include small-mono;
