@@ -36,7 +36,8 @@
 
 .site-nav > .lines, 
 body > .lines, 
-body > .blinds {
+body > .blinds,
+.mobile-image >.blinds {
   .line, .blind {
     margin-left: -90px;
     @include media-tiny {
@@ -60,8 +61,9 @@ body > .lines,
 body > .blinds {
   z-index: $z-page-blinds;
 }
-
-
+.floater-image .lines {
+  z-index: $floater-image-lines;
+}
 
 // Lines & Page Blinds
 // .lines, .blinds.-page, .mobile-image .blinds {
