@@ -80,5 +80,8 @@
     position: absolute;
     top: calc(50vh + 100px); //390px;
     left: 5*$col;
+    @include media-huge {
+      left: 5 * $col-huge;
+    }
   }
 }

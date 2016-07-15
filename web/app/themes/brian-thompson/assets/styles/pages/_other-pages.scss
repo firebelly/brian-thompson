@@ -14,7 +14,7 @@
   li.step {
     min-height: 8 * $lh;
     max-width: 2 * $col;
-    // @include media-huge{ max-width: 2 * $col-huge; }
+    @include media-huge{ max-width: 2 * $col-huge; }
   }
   .popup {
     .body-wrap {
