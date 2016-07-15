@@ -23,11 +23,11 @@
       }
       @include media-lg {
         top: 2$teensy-pad;
-        left: calc( #{$col} - 1px);
+        left: $col;
       }
       @include media-huge {
-        width: calc( #{$col-huge} + 1px);
-        left: calc( #{$col-huge} - 1px);
+        width: $col-huge;
+        left: $col-huge;
       }
     }
   }

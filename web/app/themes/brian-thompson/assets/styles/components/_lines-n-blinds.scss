@@ -1,89 +1,142 @@
-// Lines & Page Blinds
-.lines, .blinds.-page, .mobile-image .blinds {
-  margin-left: -90px;
-  @include media-tiny {
-    margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col});
-  }
-  @include media-sm {
-    margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col});
-  }
-  @include media-md { 
-    margin-left: 0; 
-  }
-}
-.lines, .blinds.-page {
-  overflow: hidden;
-  position: fixed;
-  top: 0; 
+
+.lines, .blinds {
+  position: absolute;
+  top: 0;
   left: 0;
-  width: 100%;
-  min-width: 15*$col; //Stop lines from wrapping;
-  .line {
-    margin-left: calc( #{$col} - 1px);
-    @include media-huge { margin-left: calc( #{$col-huge} - 1px); }
-  }
-}
-.line, .blind {
-  float: left;
-  height: 100%;
-}
-
-
-
-
-// Lines
-.lines {
+  right: 0;
   height: 100%;
   z-index: $z-lines;
   pointer-events: none;
+  overflow-x: hidden;
+  // background: rgba(red,.5);
+}
+.line, .blind {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  // Determine position left
+  @for $i from 1 through 17 {
+    &:nth-of-type(#{$i}) {
+      left: ($i - 1) * $col;
+      @include media-huge {
+        left: ($i - 1)  * $col-huge;
+      }
+    }
+  }
+}
+.line {
+  width: 1px;
+}
+.blind {
+  width: $col;
+  @include media-huge {
+    width: $col-huge;
+  }
+}
+
+.site-nav > .lines, 
+body > .lines, 
+body > .blinds {
+  .line, .blind {
+    margin-left: -90px;
+    @include media-tiny {
+      margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col});
+    }
+    @include media-sm {
+      margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col});
+    }
+    @include media-md { 
+      margin-left: 0; 
+    }
+  }
+}
+
+body > .lines,
+.site-nav > .lines {
   &.page-transitioning {
     z-index: $z-lines-page-transitioning;
   }
-  .line {
-    width: 1px;
-    transition: background 0.5s;
-  }
+}
+body > .blinds {
+  z-index: $z-page-blinds;
 }
 
 
-// Blinds
-.blinds {
-  height: 100%;
-  .blind {
-    width: $col;
-    @include media-huge { width: $col-huge; }
-  }
-  &.-page {
-    z-index: $z-page-blinds;
-  }
-}
+// Lines & Page Blinds
+.lines, .blinds.-page, .mobile-image .blinds {
 
-// Popup
-.popup .blinds {
-  z-index: $z-popup-blinds;
-  overflow: hidden;
-  position: fixed;
-  top: 0; 
-  height: 100%;
-  width: 6 * $col;
-  @include media-huge {
-    width: 6 * $col-huge;
-  }
-  .blind {
-    width: 16.66666%
-  }
 }
-.popup .lines {
-  z-index: $z-popup-lines;
-  min-width: 0;
-  margin-left: 0;
-}
+// .lines, .blinds.-page {
+//   overflow: hidden;
+//   position: absolute;
+//   top: 0; 
+//   left: 0;
+//   width: 100%;
+//   min-width: 15*$col; //Stop lines from wrapping;
+//   .line {
+//     margin-left: calc( #{$col} - 1px);
+//     @include media-huge { margin-left: calc( #{$col-huge} - 1px); }
+//   }
+// }
+// .line, .blind {
+//   float: left;
+//   height: 100%;
+// }
 
-// Floater Image
-.floater-image .blinds {
-  z-index: $floater-image-blinds;
-}
-.floater-image .lines {
-  z-index: $floater-image-lines;
-  position: absolute;
-}
+// // Lines
+// .lines {
+//   height: 100%;
+//   z-index: $z-lines;
+//   pointer-events: none;
+//   &.page-transitioning {
+//     z-index: $z-lines-page-transitioning;
+//   }
+//   .line {
+//     width: 1px;
+//     transition: background 0.5s;
+//   }
+// }
+
+// // Blinds
+// .blinds {
+//   height: 100%;
+//   .blind {
+//     width: $col;
+//     @include media-huge { width: $col-huge; }
+//   }
+//   &.-page {
+//     z-index: $z-page-blinds;
+//   }
+// }
+
+// // Floater Image
+// .floater-image .blinds {
+//   z-index: $floater-image-blinds;
+// }
+// .floater-image .lines {
+//   z-index: $floater-image-lines;
+//   position: absolute;
+// }
+
+// .popup, .popup .lines, .popup .blinds  {
+//   left: $small-pad;
+//   @include media-tiny {
+//     left: calc((100% - 3 * #{$col})/2 );
+//   }
+//   @include media-sm {
+//     left: calc((100% - 4 * #{$col})/2 );
+//   }
+//   @include min-screen(600px) {
+//     left: calc((100% - 4 * #{$col})/2 );
+//   }
+//   @include media-md{
+//     left: 1*$col;
+//   }
+//   @include media-lg {
+//     left: 2*$col;
+//   }
+//   @include media-huge {
+//     left: 2*$col-huge;
+//     width: $col-huge*6;
+//   }
+// }

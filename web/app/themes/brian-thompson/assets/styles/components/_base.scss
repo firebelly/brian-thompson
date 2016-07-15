@@ -7,11 +7,14 @@ html {
   box-sizing: border-box;
   overflow-x: hidden;
   width: 100%;
+  min-height: 100%;
+  position: relative;
 }
 
 body {
   overflow-x: hidden;
   line-height: $lh;
+  height: 100%;
   @include font-regular;
 }
 

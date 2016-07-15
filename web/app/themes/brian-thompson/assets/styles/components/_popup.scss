@@ -4,21 +4,33 @@
 .popup {
   position: absolute;
   top: 0;
-  width: $col*6;
-  width: calc(100% - #{$small-pad});
+  right: 0;
+  height: 0;
+  z-index: $z-popup;
+
+  left: 10px;
   @include media-tiny {
-    width: $col*6;
+    left: calc((100% - 3 * #{$col})/2);
   }
-  @include media-huge {
-    width: $col-huge*6;
+  @include media-sm {
+    left: calc((100% - 4 * #{$col})/2);
+  }
+  @include media-md { 
+    left: 0; 
+  }
+
+
+  &.showing {
+    height: 100%;
   }
 
   a {
     border-bottom: none;
     text-decoration: underline;
   }
+
   .body-wrap {
-    z-index: $z-popup-content;
+    // z-index: $z-popup-content;
     margin-right: 0;
     margin-top: 0;
     padding-top:  $lh * 6;
@@ -93,25 +105,3 @@
   cursor: pointer;
 }
 
-.popup, .popup .lines, .popup .blinds  {
-  left: $small-pad;
-  @include media-tiny {
-    left: calc((100% - 3 * #{$col})/2 );
-  }
-  @include media-sm {
-    left: calc((100% - 4 * #{$col})/2 );
-  }
-  @include min-screen(600px) {
-    left: calc((100% - 4 * #{$col})/2 );
-  }
-  @include media-md{
-    left: 1*$col;
-  }
-  @include media-lg {
-    left: 2*$col;
-  }
-  @include media-huge {
-    left: 2*$col-huge;
-    width: $col-huge*6;
-  }
-}
