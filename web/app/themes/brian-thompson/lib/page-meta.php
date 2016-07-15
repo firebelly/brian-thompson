@@ -4,6 +4,7 @@
  */
 
 namespace Firebelly\PostTypes\Pages;
+use Firebelly\SiteOptions;
 
 /**
  * Add additional image dialogues to all pages
@@ -123,3 +124,18 @@ function hide_editor() {
     }
 }
 add_action( 'do_meta_boxes', __NAMESPACE__ . '\hide_editor' );
+
+
+/**
+ * Returns varias
+ */
+
+add_shortcode('adv-url', __NAMESPACE__ . '\adv_url');
+function adv_url() {
+  return SiteOptions\get_option('adv');
+}
+
+add_shortcode('brian-email', __NAMESPACE__ . '\brian_email');
+function brian_email() {
+  return SiteOptions\get_option('email');
+}
