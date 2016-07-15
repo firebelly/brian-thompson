@@ -113,12 +113,18 @@ function get_floater_images($post_id = false) {
     // Output featured image
     if($featured) {
       $output .= get_image_html( get_treated_url($featured, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+      $output .= get_image_html( get_treated_url($featured, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -top' );
     }
 
     // Output additional images
+    $i = 0;
     if($additional) {
       foreach ( (array) $additional as $attachment_id => $attachment_url ) {
         $output .= get_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+        if($i===0) { 
+          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -bottom' );
+        }
+        $i++;
       }
     }
   } else { // Go with stock images
@@ -126,15 +132,20 @@ function get_floater_images($post_id = false) {
     $n_total_stock = count(SiteOptions\get_option('stock_images'));
     if(!$n_total_stock) { return ''; }
 
-    $n_images_to_take = 3;  // How many images should we take?
+    $n_images_to_take = 4;  // How many images should we take?
     $n_images_to_take =  $n_total_stock >= $n_images_to_take ? $n_images_to_take : $n_total_stock;
     $all_stock_image_ids = array_keys( SiteOptions\get_option('stock_images') );
     shuffle( $all_stock_image_ids );
 
     $chosen_stock_image_ids = array_slice( $all_stock_image_ids, 0, $n_images_to_take );
 
+    $i = 0;
     foreach ( (array) $chosen_stock_image_ids as $stock_image_id ) {
       $output .= get_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+      if($i<2) { 
+        $output .= get_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image '.($i===0 ? '-top' : '-bottom') );
+      }
+      $i++;
     }
   }
 

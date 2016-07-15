@@ -467,9 +467,10 @@ var FBSage = (function($) {
     $('.blind').velocity("transition.blindHide", {duration: 0});
 
     // Add image content blinds
-    _makeBlinds(3,'.floater-image.-portrait, .inline-image.-portrait:not(.-one)');
+    _makeBlinds(3,'.floater-image.-portrait, .inline-image:not(.mobile-image).-portrait:not(.-one):not(.-one)');
     _makeBlinds(5,'.inline-image.-one');
-    _makeBlinds(4,'.floater-image.-landscape, .inline-image.-landscape');
+    _makeBlinds(4,'.floater-image.-landscape, .inline-image:not(.mobile-image).-landscape');
+    _makeBlinds(8,'.mobile-image');
 
 
   }
@@ -492,7 +493,7 @@ var FBSage = (function($) {
     // Lines behind popups
     _makeLines(5,'.popup').velocity('fadeOut',0);
     // Lines in front of images
-    _makeLines(6,'.floater-image, .inline-image');
+    _makeLines(5,'.floater-image');
   }
   function _makeLines(n,container){
     html = '<div class="lines" aria-hidden="true">';
@@ -701,7 +702,7 @@ function InlineImage($image,order) {
 
   // Init waypoints
   this.waypoint =  $me.waypoint({
-    offset: 'bottom-in-view',
+    offset: '100%',
     handler: function(direction) {
       if(direction==='down' && !me.alive){
         me.live();

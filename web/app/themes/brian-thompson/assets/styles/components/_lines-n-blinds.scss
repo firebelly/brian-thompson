@@ -1,11 +1,5 @@
 // Lines & Page Blinds
-.lines, .blinds.-page {
-  overflow: hidden;
-  position: fixed;
-  top: 0; 
-  left: 0;
-  width: 100%;
-  min-width: 15*$col; //Stop lines from wrapping;
+.lines, .blinds.-page, .mobile-image .blinds {
   margin-left: -90px;
   @include media-tiny {
     margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col});
@@ -13,7 +7,17 @@
   @include media-sm {
     margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col});
   }
-  @include media-md { margin-left: 0; }
+  @include media-md { 
+    margin-left: 0; 
+  }
+}
+.lines, .blinds.-page {
+  overflow: hidden;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  min-width: 15*$col; //Stop lines from wrapping;
   .line {
     margin-left: calc( #{$col} - 1px);
     @include media-huge { margin-left: calc( #{$col-huge} - 1px); }

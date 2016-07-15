@@ -5,10 +5,19 @@
 
 .form-wrap {
   position: relative;
-  width: calc( 1.5 * (100% + 2 * #{$teensy-pad}) - 1px);
-  left: calc(-.25 * (100% + 2 * #{$teensy-pad}) - #{$teensy-pad});
+  width: 5 * $col;
+  left: -$col;
   margin-top: 3*$lh;
-  padding: 1.75*$lh 25% 5*$lh;
+  margin-bottom: $lh * 4;
+  padding: 1.75*$lh $col 5*$lh;
+  @include media-sm {
+    width: 6 * $col;
+  }
+  @include media-huge {
+    width: 6 * $col-huge;
+    left: -$col-huge;
+  padding: 1.75*$lh $col-huge 5*$lh;
+  }
   .wpcf7-response-output {
     padding: 0 5px;
     border: 2px solid $blue;

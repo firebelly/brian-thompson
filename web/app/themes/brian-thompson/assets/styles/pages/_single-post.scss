@@ -75,4 +75,10 @@
       right: calc( 100% - (  2 * #{$col-huge} + 5px ) );
     }
   }
+
+  .recent-posts {
+    position: absolute;
+    top: calc(50vh + 100px); //390px;
+    left: 5*$col;
+  }
 }

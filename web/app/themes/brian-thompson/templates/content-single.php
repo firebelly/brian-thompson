@@ -18,4 +18,5 @@
       <?php include(locate_template('templates/share.php')); ?>
     </footer>
   </article>
+  <?php include(locate_template('templates/recent-posts.php')); ?>
 <?php endwhile; ?>

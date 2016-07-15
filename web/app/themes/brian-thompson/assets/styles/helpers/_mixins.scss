@@ -29,6 +29,10 @@
   border-radius: 100%;
   background: $black;
   z-index: $z-dots;
+  display: none;
+  @include media-md {
+    display: block;
+  }
 }
 @mixin first-line-dots($dist-to-baseline) {
   &:before{

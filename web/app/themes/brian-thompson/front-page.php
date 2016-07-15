@@ -18,21 +18,6 @@ Financial Planning</h2>
 <div class="section -three"><div class="wrap"><h2>An Advocate for Life</h2>
 <p>As your financial advisor, I’m also your ally. Your goals are my goals. I’m here to help, wherever life takes you. </p></div></div>
 
-<div class="recent-posts">
-  <h3><?php _e('Read the Latest', 'sage'); ?></h3>
-    <ul class="posts">
-      <?php
-      $args = [
-        'post_type'   => 'post',
-        'numberposts' => 3,
-        'orderby'     => 'date',
-      ];
-      $recent_posts = get_posts($args);
-      foreach ($recent_posts as $recent_post) : 
-        ?>
-        <li class="post">
-          <?php $post = $recent_post; include(locate_template('templates/content-recent.php')); ?>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-</div>
+<?php include(locate_template('templates/recent-posts.php')); ?>
+
+<div class="lets-start"><a href="<?= get_permalink( get_page_by_path( 'process' ) )?>" class="no-underline"><button class="white-arrow start-button"><div class="wrap">Let's Start</div></button></a></div>

@@ -1,0 +1,93 @@
+
+  // Inline images
+  img { //:not(.floater-image)
+    height: auto;
+    margin: $lh 0;
+    @include break-out-of-padding($teensy-pad,$teensy-pad);
+    &.alignnone {
+      max-width: none;
+      width: calc(100% + 6px);
+    }
+  }
+
+  // Floater Images
+  .floater-image, .inline-image {
+    opacity: 0;
+    max-width: none;
+    overflow: hidden;
+    visibility: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: opacity 0.3s, visibility 0.3s 0s;
+    // transform: translateY(-1000px);
+    img {
+      @extend .sr-only;
+    }
+    &.-portrait {
+       width: $col * 3;
+       height: $col * 3 * (5/4); // 5/4 is the aspect ratio
+       @include media-huge { 
+        width: $col-huge * 3; 
+        height: $col-huge * 3 * (5/4);
+      }
+    }
+    &.-landscape {
+       width: $col * 4;
+       height: $col * 4 * (4/5); // 5/4 is the aspect ratio
+       @include media-huge { 
+        width: $col-huge * 4; 
+        height: $col-huge * 4 * (4/5);
+      }
+    }
+    &.alive {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s, visibility 0s;
+      // transform: translateY(0);
+    }
+  }
+  .floater-image {
+    display: none;
+    position: fixed;
+    z-index: $z-floater-image;
+    @include media-md { 
+      display: block; 
+    }
+    @for $i from -3 through 15 {
+      &[data-col="#{$i}"] {
+        left: #{$i * $col};
+        @include media-huge { left: #{$i * $col-huge}; }
+      }
+    }
+  }
+  .inline-image {
+    z-index: $z-inline-image;
+  }
+
+  .mobile-image {
+    position: absolute;
+    left: calc( (100vw - 3 * #{$col} ) / -2);
+    @include media-sm {
+      left: calc( (100vw - 4 * #{$col} ) / -2);
+    }
+    @include min-screen(500px) {
+      // left: 0;
+    }
+    &.-landscape, &.-portrait { // Override
+      width: 100vw;
+      height: $col * 4 * (4/5); 
+      @include min-screen(500px) {
+        // width: $col * 4;
+      }
+    }
+    @include media-md {
+      display: none;
+    }
+    &.-top{
+      top: 0;
+    }
+    &.-bottom{
+      bottom: 0;
+    }
+  }

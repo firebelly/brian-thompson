@@ -15,7 +15,7 @@ body {
 .site-footer {
   position: relative;
   width: 100%;
-  z-index: $z-brand;
+  z-index: $z-footer;
   margin-top: $lh;
   @include clearfix;
   transition: transform $open-time $color-time;
@@ -46,9 +46,9 @@ body {
   .footer-tab {
     position: absolute;
     left: 0;
-    height: $lh;
+    height: $lh+2px;;
     width: 100%;
-    bottom: 100%;
+    bottom: calc(100% - 2px);
     transition: background $color-time;
     cursor: pointer;
     .footer-toggle {

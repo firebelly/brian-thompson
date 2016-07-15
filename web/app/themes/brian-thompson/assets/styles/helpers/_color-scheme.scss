@@ -205,6 +205,24 @@ $brand-secondary: $blue;
       color: $black;
     }
   }
+
+  // Recent Posts
+  .recent-posts {
+    .category a {
+      color: $title;
+      &:hover {
+        color: $text;
+      }
+    }
+  }
+
+  // Home
+  .lets-start {
+    background: $anti-bg;
+  }
+  .start-button {
+    color: $blue;
+  }
 }
 
 body {

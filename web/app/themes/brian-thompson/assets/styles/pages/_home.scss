@@ -3,26 +3,27 @@
   .page-header {
     @extend .sr-only;
   }
-  .body-wrap {
+  .body-wrap#primary-site-content {
     position: relative;
-  }
-  h1 {
-    @include enormous-title;
-    width: 6*$col;
-    @include media-huge {
-      width: 6*$col-huge
+    padding-top: 6 * $lh;
+    h1 {
+      @include enormous-title;
+      width: 6 * $col;
+      @include media-huge {
+        width: 6 * $col-huge
+      }
     }
+    height: 1600px;
   }
+
   .section {
     h2:before, h2:after {
       display: none;
     }
     &.-one {
       position: relative;
-
     }
     &.-two {
-
       position: absolute;
       top: 665px;
       left: 4 * $col;
@@ -30,6 +31,7 @@
         left: 4 * $col-huge;
       }
       .wrap {
+        padding: 0 $teensy-pad;
         width: 2 * $col;
         @include media-huge {
           width: 2 * $col-huge;
@@ -51,26 +53,50 @@
   .inline-image {
     position: absolute;
     &.-one {
-      top: 0;
+      top: 50px;
       left: -100%;
-      width: 5*$col;
-      height: 5*$col * 5/4;
+      width: 5 * $col;
+      height: 5 * $col * 1.28333;
     }
     &.-two {
       top: 625px;
-      left: 0;
+      left: -$col;
     }
     &.-three {
       top: 868px;
-      left: 150%;
+      left: 6 * $col;
     }
     &.-four {
-      top: 1500px;
-      left: 75%;
+      top: 1180px;
+      left: 3 * $col;
     }
   }
+
   .recent-posts {
-    display: none;
+    position: absolute;
+    top: 935px;
+    left: 5 * $col;
   }
 
+  .lets-start {
+    position: fixed;
+    top: 0;
+    left: 9 * $col;
+    width: 5px;
+    height: 100%;
+    z-index: $z-lets-start;
+    @include media-huge {
+      left: 9 * $col-huge;
+    }
+    button.start-button {
+      @include small-mono;
+      @include arrow-right(70px);
+      border-radius: 0;
+      position: absolute;
+      top: 35%; 
+      left: 100%;
+      width: 50px;
+    }
+  }
 }
+

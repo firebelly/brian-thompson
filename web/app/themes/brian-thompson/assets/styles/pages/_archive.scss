@@ -14,6 +14,7 @@
     left: 125%;
     width: 50%;
     padding: 0 $teensy-pad;
+    z-index: $z-category-nav;
     ul.categories {
       @include double-dash(20px,10px);
       list-style: none;
@@ -34,6 +35,7 @@
 
   .archive-listing {
     width: 100%;
+    padding-bottom: 25px;
     h2 {
       margin-bottom: $lh/2; 
       padding-right: $lh;
@@ -48,8 +50,11 @@
       @include small-mono;
       margin-bottom: $lh/2
     }
+  }
 
-    .read-more {
+  .read-more {
+    position: absolute;
+    bottom: 0;
       &:hover {
         text-decoration: none;
       }
@@ -65,5 +70,4 @@
         margin-top: $lh/4;
       }
     } 
-  }
 }

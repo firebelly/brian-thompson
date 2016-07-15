@@ -11,47 +11,50 @@
     
     flex-basis: 100%;
     @include media-sm {
-      max-width: 2*$col;
       flex-basis: 50%;
       max-width: none;
     }
     padding: 0 $teensy-pad;
 
-    &:not(.-first-wide) {
-      &:nth-of-type(2n) {
-        h2:after, h2:before {
-          display: none;
-        }
-      }
-      &:nth-of-type(2n+1) {
-        h2:before {
-          right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
-        }
-        h2:after {
-          left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
-        }
-      }
-    }
-  
-    &.-first-wide {
-      &:first-child {
-        flex-basis: 100%;
-      }
-      &:nth-of-type(2n+3) {
-        h2:after, h2:before {
-          display: none;
-        }
-      }
-      &:nth-of-type(2n+2) {
-        h2:before {
-          right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
-        }
-        h2:after {
-          left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
-        }
-      }
-    }
+    margin-bottom: 2*$lh;
 
   }
+  &:not(.-first-wide) {
+    .columns-item:nth-of-type(2n) {
+      h2:after, h2:before {
+        display: none;
+      }
+    }
+    .columns-item:nth-of-type(2n+1) {
+      h2:before {
+        right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+      }
+      h2:after {
+        left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+      }
+    }
+  }
+
+  &.-first-wide {
+    .columns-item:first-child {
+      @include media-sm {
+        flex-basis: 100%;
+      }
+    }
+    .columns-item:nth-of-type(2n+3) {
+      h2:after, h2:before {
+        display: none;
+      }
+    }
+    .columns-item:nth-of-type(2n+2) {
+      h2:before {
+        right: calc( (100% + #{$teensy-pad} * 2) * 1.5 - #{$teensy-pad} - 2px);  // Sorry. For expanation of math, see first-line-dots() mixin
+      }
+      h2:after {
+        left: calc( (100% + #{$teensy-pad} * 2) * 3.5 - #{$teensy-pad} - 3px);  // Sorry. For expanation of math, see first-line-dots() mixin
+      }
+    }
+  }
+
 }
 

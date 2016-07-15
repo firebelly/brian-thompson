@@ -5,6 +5,8 @@
 
 html {
   box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -12,7 +14,6 @@ body {
   line-height: $lh;
   @include font-regular;
 }
-
 
 a {
   text-decoration: none;
@@ -89,6 +90,13 @@ hr {
     width: 4 * $col-huge;
   }
 
+  &#primary-site-content {
+    padding: 245px $teensy-pad 320px;
+    @include media-md {
+      padding: $lh*6 $teensy-pad $lh*5;
+    }
+  }
+
   h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote {
     margin-top: 0;
   }
@@ -112,72 +120,6 @@ hr {
   }
   p, li, figcaption {
     @include copy;
-  }
-
-  // Inline images
-  img { //:not(.floater-image)
-    height: auto;
-    margin: $lh 0;
-    @include break-out-of-padding($teensy-pad,$teensy-pad);
-    &.alignnone {
-      max-width: none;
-      width: calc(100% + 6px);
-    }
-  }
-
-  // Floater Images
-  .floater-image, .inline-image {
-    opacity: 0;
-    max-width: none;
-    overflow: hidden;
-    visibility: hidden;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    transition: opacity 0.3s, visibility 0.3s 0s;
-    // transform: translateY(-1000px);
-    img {
-      @extend .sr-only;
-    }
-    &.-portrait {
-       width: $col * 3;
-       height: $col * 3 * (5/4); // 5/4 is the aspect ratio
-       @include media-huge { 
-        width: $col-huge * 3; 
-        height: $col-huge * 3 * (5/4);
-      }
-    }
-    &.-landscape {
-       width: $col * 4;
-       height: $col * 4 * (4/5); // 5/4 is the aspect ratio
-       @include media-huge { 
-        width: $col-huge * 4; 
-        height: $col-huge * 4 * (4/5);
-      }
-    }
-    &.alive {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.3s, visibility 0s;
-      // transform: translateY(0);
-    }
-  }
-  .floater-image {
-    display: none;
-    position: fixed;
-    z-index: $z-floater-image;
-    @include media-md { 
-      display: block; 
-    }
-    @for $i from -3 through 15 {
-      &[data-col="#{$i}"] {
-        left: #{$i * $col};
-        @include media-huge { left: #{$i * $col-huge}; }
-      }
-    }
-  }
-  .inline-image {
-    z-index: $z-inline-image;
   }
 
   // Lists
@@ -232,5 +174,30 @@ button{
   z-index: 1000000;
   &.-footer {
     background: blue;
+  }
+}
+
+.recent-posts {
+  width: $col;
+  padding: 0 $teensy-pad;
+  z-index: $z-recent-posts;
+  ul.posts {
+    list-style: none;
+  }
+  h5 {
+    @include small-title; 
+  }
+  h4 {
+    margin-bottom: $lh*1.75;
+  }
+  li.post {
+    margin-bottom: $lh*2;
+  }
+  p {
+    @include small-mono;
+    margin-bottom: 0;
+    &.category a {
+      text-decoration: underline;
+    }
   }
 }
