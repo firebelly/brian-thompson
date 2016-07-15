@@ -17,12 +17,15 @@
   }
   @include media-md { 
     left: $col; 
+    right: auto;
+    width: 6 * $col;
   }
   @include media-lg { 
     left: 2*$col; 
   }
   @include media-huge { 
     left: 2*$col-huge; 
+    width: 6 * $col-huge;
   }
 
 
@@ -70,9 +73,12 @@
     @include small-mono;
     @include arrow-right(57px);
     min-width: $col;
-    width: 25%;
+    width: $col;
     position: relative;
-    right: $col;
+    left: $col;
+    @include media-sm {
+      left: 2*$col;
+    }
     @include media-md {
       position: absolute;
       right: auto;
