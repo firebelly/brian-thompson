@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   line-height: $lh;
   height: 100%;
   @include font-regular;

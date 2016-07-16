@@ -510,7 +510,7 @@ function FloaterImage($image,order) {
   console.log('new FloaterImage '+order);
 
   // Settings
-  this.maxHealthy = 2;
+  // this.maxHealthy = 2;
 
   // My self referential vars
   var me = this;
@@ -532,12 +532,13 @@ function FloaterImage($image,order) {
   // Position those elements appropriately
   this.positionWaypoints = function() {
     var numImages = $('.floater-image').length;
-    var scrollableHeight = $(document).height()-$(window).height(); // How many pixels can a user scroll on this page?
+    var docHeight = $(document).height();
+    var scrollableHeight = docHeight-$(window).height(); // How many pixels can a user scroll on this page?
     // Top waypoint
     var pos = ((order-0.5)*scrollableHeight/numImages-5)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = ((order+0.5+me.maxHealthy)*scrollableHeight/numImages)+'px'; 
+    pos = ((order+1.5)*scrollableHeight/numImages)+'px'; 
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
