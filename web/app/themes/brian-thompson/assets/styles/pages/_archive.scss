@@ -53,19 +53,40 @@
   .read-more {
     // position: absolute;
     // bottom: 0;
-      &:hover {
-        text-decoration: none;
-      }
-      button {
-        position: absolute;
-        padding: 0 $lh/4;
-        @include small-nb-mono;
-        top: -2px;
-        left: -$teensy-pad;
-        @include arrow-right(25px);
-        max-height: 25px;
-        display: block;
-        margin-top: $lh/4;
-      }
-    } 
+    &:hover {
+      text-decoration: none;
+    }
+    button {
+      position: absolute;
+      padding: 0 $lh/4;
+      @include small-nb-mono;
+      top: -2px;
+      left: -$teensy-pad;
+      @include arrow-right(25px);
+      max-height: 25px;
+      display: block;
+      margin-top: $lh/4;
+    }
+  } 
+
+  ul.posts {
+    margin-bottom: 0;
+  }
+
+  .load-more{
+    @include dash-before($lh*1.25);
+    @include small-nb-mono;
+    width: $col + $teensy-pad * 2;
+    left: -$teensy-pad * 2;
+    padding: 0;
+    margin-top: $lh/4;
+    @include arrow-right(25px);
+    max-height: 25px;
+    &:before{
+      left: 1px;
+    }
+    @include media-huge {
+      width: $col-huge;
+    }
+  }
 }

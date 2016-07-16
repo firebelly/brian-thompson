@@ -38,7 +38,7 @@
   &:before{
     @include dot;
     top: $dist-to-baseline;
-    right: calc( (100% + #{$teensy-pad} * 2) * 1.25 - #{$teensy-pad} - 2px); 
+    right: calc( (100% + #{$teensy-pad} * 2) * 1.25 - #{$teensy-pad} - 3px); 
     // Sorry. 
     // (100% + 6px) : full width of content (correcting for container)
     // * 1.25  : we want 125% of that
@@ -49,23 +49,23 @@
   &:after{
     @include dot;
     top: $dist-to-baseline;
-    left: calc( (100% + #{$teensy-pad} * 2) * 1.75 - #{$teensy-pad} - 3px);  // See above.  Exception: Last number is 3px to center due to how browser rounds
+    left: calc( (100% + #{$teensy-pad} * 2) * 1.75 - #{$teensy-pad} - 2px);  // See above.  Exception: Last number is 3px to center due to how browser rounds
   }
 }
 
 // Dashes
 @mixin dash {
   @include font-mono;
-  font-size: 20px;
+  font-size: 40px;
   position: absolute;
-  content: '–';
-  // color: $black;
+  content: '-';
+  color: $black;
 }
 @mixin dash-before($offset) {
     &:before {
       @include dash;
       top: -1 * $offset; 
-      left: 0px;
+      left: -8px;
     }
     position: relative;
 }
@@ -73,7 +73,7 @@
     &:after {
       @include dash;
       bottom: -1 * $offset;
-      left: 0px;
+      left: -8px;
     }
     position: relative;
 }

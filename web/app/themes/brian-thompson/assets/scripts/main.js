@@ -36,7 +36,7 @@ var FBSage = (function($) {
 
     _initMobileNav();
     // _initSearch();
-    // _initLoadMore();
+    _initLoadMore();
 
     // Inject all of our svgs so we can grab them throughout the page with <svg class="..." role="img"><use xlink:href="#..."></use></svg> commands.
     _injectSvgSprite();
@@ -150,22 +150,24 @@ var FBSage = (function($) {
   // }
 
   function _initLoadMore() {
-    $document.on('click', '.load-more a', function(e) {
+    $document.on('click', '.load-more', function(e) {
+      console.log('clicked!');
       e.preventDefault();
-      var $load_more = $(this).closest('.load-more');
-      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
+      var $load_more = $(this);
+      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'post';
       var page = parseInt($load_more.attr('data-page-at'));
       var per_page = parseInt($load_more.attr('data-per-page'));
       var category = $load_more.attr('data-category');
-      var more_container = $load_more.parents('section,main').find('.load-more-container');
-      loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
+      var $more_container = $load_more.parents('section,main').find('.load-more-container');
+      loadingTimer = setTimeout(function() { $more_container.addClass('loading'); }, 500);
+
+      $load_more.velocity('fadeOut',200);
 
       $.ajax({
           url: wp_ajax_url,
           method: 'post',
           data: {
               action: 'load_more_posts',
-              post_type: post_type,
               page: page+1,
               per_page: per_page,
               category: category
@@ -173,15 +175,14 @@ var FBSage = (function($) {
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
-            more_container.append($data).removeClass('loading');
-            if (breakpoint_medium) {
-              more_container.masonry('appended', $data, true);
-            }
+            $data.appendTo($more_container).velocity('fadeIn',200);
             $load_more.attr('data-page-at', page+1);
 
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
                 $load_more.addClass('hide');
+            } else {
+              $load_more.velocity('fadeIn',200);
             }
           }
       });
@@ -507,7 +508,7 @@ var FBSage = (function($) {
 
 function FloaterImage($image,order) {
 
-  console.log('new FloaterImage '+order);
+  // console.log('new FloaterImage '+order);
 
   // Settings
   // this.maxHealthy = 2;
@@ -552,11 +553,11 @@ function FloaterImage($image,order) {
     handler: function(direction) {
       if(direction==='down'){
         me.healthy = true;
-        console.log(me.order+' is healthy!');
+        // console.log(me.order+' is healthy!');
       }
       if(direction==='up'){
         me.healthy = false;
-        console.log(me.order+' is unhealthy!');
+        // console.log(me.order+' is unhealthy!');
       }
       // me.liveOrDie();
     }
@@ -565,11 +566,11 @@ function FloaterImage($image,order) {
     handler: function(direction) {
       if(direction==='down'){
         me.healthy = false;
-        console.log(me.order+' is unhealthy!');
+        // console.log(me.order+' is unhealthy!');
       }
       if(direction==='up'){
         me.healthy = true;
-        console.log(me.order+' is healthy!');
+        // console.log(me.order+' is healthy!');
       }
       // me.liveOrDie();
     }
@@ -594,19 +595,19 @@ function FloaterImage($image,order) {
     me.neverShown = false;
     $me.addClass('alive');
     me.animating = true;
-    console.log(me.order+' is becoming alive!');
+    // console.log(me.order+' is becoming alive!');
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
       me.animating = false;
-      console.log(me.order+' is alive!');
+      // console.log(me.order+' is alive!');
       me.alive = true;
     }, false);
   };
   this.die = function()  {
     me.animating = true;
-    console.log(me.order+' is dying!');
+    // console.log(me.order+' is dying!');
     _blinds($me.find('.blind'),'show',2,function() { //'show' refers to show the blinds
       me.animating = false;
-      console.log(me.order+' is dead!');
+      // console.log(me.order+' is dead!');
       $me.removeClass('alive');
       me.alive = false;
     }, false);

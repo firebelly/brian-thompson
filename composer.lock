@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b57b96382707955ff41799bf62c886e",
-    "content-hash": "d1d8e22778eb745dd35c22b6ed7ebb02",
+    "hash": "62d472a9b9045b5f702081f04f327f16",
+    "content-hash": "d135bc351dd005b0b278041d22e0df28",
     "packages": [
         {
             "name": "composer/installers",
@@ -342,26 +342,6 @@
             "time": "2016-06-14 14:14:52"
         },
         {
-            "name": "wpackagist-plugin/addthis",
-            "version": "5.3.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/addthis/",
-                "reference": "tags/5.3.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/addthis.5.3.3.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/addthis/"
-        },
-        {
             "name": "wpackagist-plugin/akismet",
             "version": "3.1.11",
             "source": {
@@ -500,6 +480,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/limit-login-attempts/"
+        },
+        {
+            "name": "wpackagist-plugin/metronet-reorder-posts",
+            "version": "2.2.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/metronet-reorder-posts/",
+                "reference": "tags/2.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/metronet-reorder-posts.2.2.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/metronet-reorder-posts/"
         },
         {
             "name": "wpackagist-plugin/regenerate-thumbnails",

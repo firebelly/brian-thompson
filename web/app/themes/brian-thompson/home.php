@@ -12,11 +12,19 @@
   <?php get_search_form(); ?>
 <?php else : ?>
 
-  <ul class="posts columns-wrap -first-wide">
+  <ul class="posts columns-wrap -first-wide load-more-container">
     <?php while (have_posts()) : the_post(); ?>
       <li class="post columns-item">
-        <?php get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
+
+        <?php 
+        $blog_post = $post;
+        include(locate_template('templates/content.php'));
+        ?>
+
       </li>
     <?php endwhile; ?>
   </ul>
+
+  <?= \Firebelly\Ajax\load_more_button(); ?>
+
 <?php endif ?>
