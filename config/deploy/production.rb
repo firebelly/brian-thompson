@@ -1,5 +1,5 @@
 set :stage, :production
-set :login, 'firebelly'
+set :login, 'btf'
 set :application, 'btf'
 
 
