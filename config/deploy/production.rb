@@ -1,6 +1,7 @@
-set :stage, :staging
+set :stage, :production
 set :login, 'firebelly'
-set :domain, 'bt.firebelly.co'
+set :application, 'btf'
+
 
 # Simple Role Syntax
 # ==================
@@ -22,4 +23,4 @@ server fetch(:domain), user: fetch(:login), roles: %w{web app db}
 #    auth_methods: %w(password)
 #  }
 
-fetch(:default_env).merge!(wp_env: :staging)
+fetch(:default_env).merge!(wp_env: :production)

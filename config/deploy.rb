@@ -1,5 +1,5 @@
 set :application, 'brian_thompson'
-set :domain, 'bt.firebelly.co'
+set :domain, 'btfinancial.com'
 set :theme, 'brian-thompson'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/brian-thompson.git'
