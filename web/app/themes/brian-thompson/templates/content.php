@@ -6,5 +6,6 @@
       <?php the_excerpt(); ?>
     </div>
   </header>
+  <a href="<?= get_permalink(); ?>" class="read-more no-underline"><button class="white-arrow">Read More</button></a>
 </article>
-      <a href="<?= get_permalink(); ?>" class="read-more no-underline"><button class="white-arrow">Read More</button></a>
+

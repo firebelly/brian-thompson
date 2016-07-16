@@ -108,17 +108,24 @@ $brand-secondary: $blue;
   .blinds.-page .blind {
     background: $anti-bg;
   }
-  .popup .line {
-    background: choose(rgba($gray,.25),$lite-blue,not $scheme);
+  .popup {
+    .line {
+      background: choose(rgba($gray,.25),$lite-blue,not $scheme);
+    }
+    .blind {
+      background: $title;
+    }
   }
-  .popup .blind {
-    background: $title;
-  }
-  .popup.holding-mobile-nav .blind {
-    background: $black;
-  }
-  .popup.holding-mobile-nav .line {
-    background: rgba($gray,.25);
+  .popup.holding-mobile-nav {
+    a:hover {
+      color: $white;
+    }
+    .blind {
+      background: $black;
+    }
+    .line {
+      background: rgba($gray,.25);
+    }
   }
 
 

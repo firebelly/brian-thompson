@@ -28,14 +28,11 @@
 
   .columns-wrap .columns-item { 
     max-width: none;
-    // @include media-sm {
-    //   max-width: 2*$col;
-    // }
   }
 
   .archive-listing {
     width: 100%;
-    padding-bottom: 25px;
+    // padding-bottom: 25px;
     h2 {
       margin-bottom: $lh/2; 
       padding-right: $lh;
@@ -44,6 +41,7 @@
     .summary {
       @include dash-before($lh);
       padding-right: $lh;
+      @include word-break;
     }
 
     .meta p {
@@ -53,8 +51,8 @@
   }
 
   .read-more {
-    position: absolute;
-    bottom: 0;
+    // position: absolute;
+    // bottom: 0;
       &:hover {
         text-decoration: none;
       }
