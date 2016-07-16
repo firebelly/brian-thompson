@@ -95,7 +95,7 @@ function services_shortcode() {
     if ( isset( $service['full'] ) )
       $full = apply_filters('the_content', $service['full'] );
     if ( isset( $service['price'] ) || isset( $service['pricing_note'] ) ) {
-      $pricing .= '<ul class="pricetags">';
+      $pricing .= '<ul class="pricetags -number-'.$i.'">';
       if ( isset( $service['price'] ) ) {
         foreach ($service['price'] as $pricetag) {
           $pricetag_exploded = explode('--',$pricetag);

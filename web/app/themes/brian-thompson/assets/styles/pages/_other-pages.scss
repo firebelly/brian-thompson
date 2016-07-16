@@ -70,6 +70,15 @@
       margin-top: 1.25*$lh;
       @include break-out-of-padding($teensy-pad,$teensy-pad);
     }
+
+    .-number-0, .-number-1 {
+      li.pricetag:first-of-type {
+        background: $white;
+        p, p:before {
+          color: $blue;
+        }
+      }
+    }
     li.pricetag {
       // margin-left: auto;
       // padding: 2*$lh 0;
@@ -82,12 +91,6 @@
       padding-top: 1.75*$lh;
       padding-bottom: 2.25*$lh;
       margin-bottom: 0;
-      // &:first-of-type {
-      //   background: $white;
-      //   p, p:before {
-      //     color: $blue;
-      //   }
-      // }
       &.pricing-note {
         position: relative;
         text-align: left;
