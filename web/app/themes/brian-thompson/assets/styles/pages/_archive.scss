@@ -16,7 +16,7 @@
     padding: 0 $teensy-pad;
     z-index: $z-category-nav;
     ul.categories {
-      @include double-dash(20px,10px);
+      @include double-dash(25px,10px);
       list-style: none;
       li {      
         @include small-mono;
