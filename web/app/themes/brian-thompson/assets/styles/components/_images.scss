@@ -67,14 +67,17 @@
 
   .mobile-image {
     position: absolute;
-    left: calc( (100vw - 3 * #{$col} ) / -2);
+    left: -$small-pad;
+    @include media-tiny {
+      left: calc( (100vw - 3 * #{$col} ) / -2);
+    }
     @include media-sm {
       left: calc( (100vw - 4 * #{$col} ) / -2);
     }
     @include min-screen(500px) {
       // left: 0;
     }
-    &.-landscape, &.-portrait { // Override
+    &, &.-landscape, &.-portrait { // Override
       width: 100vw;
       height: $col * 4 * (4/5); 
       @include min-screen(500px) {
@@ -86,6 +89,7 @@
     }
     &.-top{
       top: 0;
+      // background-position: top;
     }
     &.-bottom{
       bottom: 0;

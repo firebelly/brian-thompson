@@ -5,50 +5,77 @@
   }
   .body-wrap#primary-site-content {
     position: relative;
-    padding-top: 6 * $lh;
-    h1 {
-      @include enormous-title;
-      width: 6 * $col;
+    height: auto;
+    max-width: 3 * $col;
+    @include media-md {
+      padding-top: 6 * $lh;
+      max-width: none;
     }
-    height: 1600px;
+    @include min-screen(1000px) {
+      height: 1600px;
+    }
+    h1 {
+      @include min-screen(1000px) {
+        @include enormous-title;
+        width: 6 * $col;
+      }
+    }
   }
 
   .section {
     h2:before, h2:after {
       display: none;
     }
-    &.-one {
-      position: relative;
-    }
-    &.-two {
-      position: absolute;
-      top: 665px;
-      left: 4 * $col;
-      @include media-huge {
-        left: 4 * $col-huge;
+    @include media-md {
+      &.-one {
+        position: relative;
       }
-      .wrap {
-        padding: 0 $teensy-pad;
-        width: 2 * $col;
-        @include media-huge {
-          width: 2 * $col-huge;
+      &.-two {
+        position: absolute;
+        top: 425px;
+        left: 2 * $col;
+        @include min-screen(1000px){
+          left: 4 * $col;
+          top: 665px;
         }
-      }
-
-    }
-    &.-three {
-      // position: absolute;
-      margin-top: 585px - $lh/2;
-      .wrap {
-        width: 3 * $col;
         @include media-huge {
-          width: 3 * $col-huge;
+          left: 4 * $col-huge;
+        }
+        .wrap {
+          padding: 0 $teensy-pad;
+          width: 2 * $col;
+          @include media-huge {
+            width: 2 * $col-huge;
+          }
+        }
+    
+      }
+      &.-three {
+        margin-top: 770px - $lh/2;
+        @include min-screen(1000px) {
+          margin-top: 585px - $lh/2;
+        }
+        .wrap {
+          width: 2 * $col - $teensy-pad * 2;;
+          @include min-screen(1000px) {
+            width: 3 * $col - $teensy-pad * 2;
+          }
+          @include media-huge {
+            width: (3 * #{$col-huge} - #{$teensy-pad} * 2);
+          }
         }
       }
     }
   }
+
   .inline-image {
     position: absolute;
+    &:not(.mobile-image) {
+      display: none;
+      @include media-md { 
+        display: block;
+      }
+    }
     &.-one {
       top: 50px;
       left: -100%;
@@ -67,15 +94,23 @@
       }
     }
     &.-three {
-      top: 868px;
-      left: 6 * $col;
+      top: 1025px;
+      left: 2 * $col;
+      @include min-screen(1000px) {
+        left: 6 * $col;
+        top: 868px;
+      }
       @include media-huge {
         left: 6 * $col-huge;
       }
     }
     &.-four {
+      left: -$col;
+      top: 1285px;
+      @include min-screen(1000px) {
+        left: 3 * $col;
       top: 1180px;
-      left: 3 * $col;
+      }
       @include media-huge {
         left: 3 * $col-huge;
       }
@@ -83,29 +118,111 @@
   }
 
   .recent-posts {
-    position: absolute;
-    top: 935px;
-    left: 5 * $col;
+    width: 100%;
+    position: relative;
+    left: -$teensy-pad;
+    @include media-md {
+      width: $col;
+      margin-top: 285px;
+      left: 4 * $col - $teensy-pad;
+
+    }
+    @include min-screen(1000px){
+      position: absolute;
+      margin-top: 0;
+      top: 935px;  
+      left: 5 * $col;
+    }
+    @include media-huge {
+      left: 5 * $col-huge;
+    }
+    h4 {
+      @include big-title;
+      margin-top: 2*$lh;
+      @include media-md {
+        @include small-mono;
+      }
+    }
   }
 
-  .lets-start {
-    position: fixed;
-    top: 0;
-    left: 9 * $col - 1px;
-    width: 5px;
-    height: 100%;
+  .start-line,.start-button {
     z-index: $z-lets-start;
+    @include media-sm {
+      position: fixed;
+      display: block;
+      left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
+      top: 0;
+      width: 5px;
+      height: 100%;
+    }
+    @include min-screen(600px) {
+      left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
+    }
+    @include media-md {
+      left: 6 * $col - 1px;
+    }
+    @include min-screen(800px) {
+      left: 7 * $col - 1px;
+    }
+    @include media-lg {
+      left: 8 * $col - 1px;
+    }
+    @include min-screen(1000px) {
+      left: 9 * $col - 1px;
+    }
     @include media-huge {
       left: calc( 9 * #{$col-huge} - 1px);
     }
-    button.start-button {
-      @include small-mono;
-      @include arrow-right(70px);
+  }
+  .start-line {
+    position: fixed;
+    display: none;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    @include media-sm {
+      display: block;
+    }
+  }
+
+  .start-button {
+    @include small-mono;
+    @include arrow-right(70px);
+    position: relative;
+      left: 1*$col;
+    @include min-screen(370px){
+      left: 2*$col;
+    }
+    @include media-sm{
+      margin-left: 5px;
+      position: fixed;
       border-radius: 0;
-      position: absolute;
       top: 35%; 
-      left: 100%;
       width: 50px;
+    }
+  }
+  .start-line,.start-button {
+    z-index: $z-lets-start;
+    @include media-sm {
+      left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
+    }
+    @include min-screen(600px) {
+      left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
+    }
+    @include media-md {
+      left: 6 * $col - 1px;
+    }
+    @include min-screen(800px) {
+      left: 7 * $col - 1px;
+    }
+    @include media-lg {
+      left: 8 * $col - 1px;
+    }
+    @include min-screen(1000px) {
+      left: 9 * $col - 1px;
+    }
+    @include media-huge {
+      left: calc( 9 * #{$col-huge} - 1px);
     }
   }
 }
