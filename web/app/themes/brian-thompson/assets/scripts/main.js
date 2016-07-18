@@ -416,6 +416,7 @@ var FBSage = (function($) {
         complete: function() {
           $popup = $('.popup');
           if(!$popup.hasClass('holding-mobile-nav')) { $popup.velocity('scroll',200); }
+          _initImages('.popup');
           _isAnimating = false;
         }
       });
@@ -714,15 +715,16 @@ function InlineImage($image,order) {
 
 }
 
-  // Create floaterImage objects for all "floater" images
-  function _initImages() {
+  // Init images
+  function _initImages(containing_selector) {
+    containing_selector = containing_selector || '';
     var floaterImages = [];
-    $('.floater-image').each( function(i) {
+    $(containing_selector+' .floater-image').each( function(i) {
       floaterImages[i] = new FloaterImage($(this),i);
     });
 
     var inlineImages = [];
-    $('.inline-image').each( function(i) {
+    $(containing_selector+' .inline-image').each( function(i) {
       inlineImages[i] = new InlineImage($(this),i);
     });
   }

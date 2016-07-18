@@ -29,6 +29,17 @@ function register_metaboxes() {
       'type' => 'wysiwyg',
     )
   );
+  $about_meta->add_field(
+    array(
+      'name'             => __( 'Brian Bio Pic', 'sage' ),
+      'desc'             => __( 'The image of Brian.' ),
+      'id'               => $prefix . 'bio_pick',
+      'type'             => 'file',
+      'options'          => array(
+        'url'            => false, // Hide the text input for the url
+      ),
+    )
+  );
 
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );

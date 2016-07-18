@@ -48,6 +48,24 @@
       width: calc(#{$col-huge} + 5px);
     }
   }
+  .popup {
+    .body-wrap {
+      padding-top: 0;
+    }
+    .biopick {
+      position: relative;
+      left: -$teensy-pad;
+      width: 2*$col;
+      height: 2*$col * 5/4;
+      @include media-huge {
+        width: 2*$col-huge;
+        height: 2*$col-huge * 5/4;
+      }
+    }
+    h2 {
+      margin-top: 2*$lh;
+    }
+  }
 }
 
 .services {
