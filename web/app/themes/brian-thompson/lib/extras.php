@@ -46,7 +46,7 @@ add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
 
 
 
-function remove_spaces( $content ) {
+function remove_spaces_from_wpfc7( $content ) {
   
   $find = '&nbsp;';
   $replace = '';
@@ -54,4 +54,15 @@ function remove_spaces( $content ) {
 
   return $content;  
 }
-add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\remove_spaces' );
+add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\remove_spaces_from_wpfc7' );
+
+
+function hack_wpfc7_labels( $content ) {
+  
+  $find = '<label';
+  $replace = '<label onClick="" ';
+  $content = str_replace( $find, $replace, $content);
+
+  return $content;  
+}
+add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\hack_wpfc7_labels' );
