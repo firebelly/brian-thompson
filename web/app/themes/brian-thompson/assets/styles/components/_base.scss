@@ -189,9 +189,13 @@ button{
   }
   h5 {
     @include small-title; 
+    @include media-md {
+      @include dash-after($lh);
+    }
   }
   h4 {
     margin-bottom: $lh*1.75;
+    @include dash-after($lh*.75);
   }
   li.post {
     margin-bottom: $lh*2;

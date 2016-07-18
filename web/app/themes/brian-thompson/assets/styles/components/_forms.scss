@@ -14,7 +14,7 @@
   }
   @include media-huge {
     width: 6 * $col-huge;
-    left: calc( -#{$col} - #{$teensy-pad});
+    left: calc( -#{$col-huge} - #{$teensy-pad});
     padding: 1.75*$lh $col-huge 5*$lh;
   }
   .wpcf7-response-output {
