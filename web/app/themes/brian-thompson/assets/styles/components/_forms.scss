@@ -111,12 +111,12 @@
         left: 0;
         width: 12px;
         height: 12px;
-        border-radius: 100%;
+        border-radius: 30%;
         border: 1px solid $gray;
         // transition: border 0.2s;
       }
       input[type="checkbox"]:checked + .wpcf7-list-item-label:before {
-        border: 2px solid $blue;
+        background: $blue;
       }
       label {
         cursor: pointer;

@@ -18,17 +18,28 @@
       @include min-screen(1000px) {
         @include enormous-title;
         width: 6 * $col;
+        &:before, &:after {
+          top: 85px;
+        }
       }
     }
   }
 
   .section {
-    h2:before, h2:after {
-      display: none;
+    h1{
+      &:before{
+        left: -$col;
+      }
     }
     @include media-md {
       &.-one {
         position: relative;
+      }
+      &.-two, &.-three {
+        @include dash-before(2*$lh);
+        &:before {
+          font-size: 48px;
+        }
       }
       &.-two {
         position: absolute;
@@ -41,6 +52,30 @@
         @include media-huge {
           left: 4 * $col-huge;
         }
+        h2 {
+          @include media-md { // Hacked af
+            &:before{
+              left: -3 * $col - $teensy-pad - 2px;
+            }
+            &:after {
+              left: 1 * $col - $teensy-pad - 2px;
+            }
+          }
+          @include min-screen(1000px){
+            &:before{
+              left: -5 * $col - $teensy-pad - 2px;
+              @include media-huge {
+                left: calc( -5 * #{$col-huge} - #{$teensy-pad} - 2px );
+              }
+            }
+            &:after {
+              left: 3 * $col - $teensy-pad - 2px;
+              @include media-huge {
+                left: calc( 3 * #{$col-huge} - #{$teensy-pad} - 2px );
+              }
+            }
+          }
+        }
         .wrap {
           padding: 0 $teensy-pad;
           width: 2 * $col;
@@ -48,7 +83,9 @@
             width: 2 * $col-huge;
           }
         }
-    
+        &:before {
+          left: -4px;
+        }
       }
       &.-three {
         margin-top: 770px - $lh/2;
@@ -144,6 +181,13 @@
       margin-top: 2*$lh;
       @include media-md {
         @include small-mono;
+        @include dash-after($lh*.75);
+      }
+    }
+    h5 {
+      @include media-md {
+        // @include dash-before($lh*1.5);
+        @include dash-after($lh);
       }
     }
   }

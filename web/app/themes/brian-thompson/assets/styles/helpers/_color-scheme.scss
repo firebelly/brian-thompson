@@ -233,6 +233,16 @@ $brand-secondary: $blue;
   .start-button {
     color: $blue;
   }
+  // .home.page .section {
+  //   @include media-md {
+  //     &.-two, &.-three {
+  //       &:before {
+  //         color: red;
+  //         display: none;
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 body {

@@ -38,18 +38,19 @@
   &:before{
     @include dot;
     top: $dist-to-baseline;
-    right: calc( (100% + #{$teensy-pad} * 2) * 1.25 - #{$teensy-pad} - 3px); 
-    // Sorry. 
-    // (100% + 6px) : full width of content (correcting for container)
-    // * 1.25  : we want 125% of that
-    // - $teensy-pad to correct for the padding that displaces the origin
-    // - 2px to center our 5px diameter dot (2px exposed, 1px covered by line, 2px exposed)
-    // And still rounding errors sometimes. Damn. I wish the
+    left: -1 * $col - $teensy-pad - 2px;
+    @include media-huge {
+      left: calc( -1 * #{$col-huge} - #{$teensy-pad} - 2px );
+    }
+
   }
   &:after{
     @include dot;
     top: $dist-to-baseline;
-    left: calc( (100% + #{$teensy-pad} * 2) * 1.75 - #{$teensy-pad} - 2px);  // See above.  Exception: Last number is 3px to center due to how browser rounds
+    left: 7 * $col - $teensy-pad - 2px;
+    @include media-huge {
+      left: calc( 7 * #{$col-huge} - #{$teensy-pad} - 2px );
+    }
   }
 }
 

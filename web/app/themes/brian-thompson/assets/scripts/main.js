@@ -68,7 +68,7 @@ var FBSage = (function($) {
     _initFooter();
 
     // Add color information to URL we are going to, handle transition effect
-    _initPageTransition();
+    _initPageTransitionLinks();
 
     // Handle revealing content of subsections
     _initPopup();
@@ -176,8 +176,8 @@ var FBSage = (function($) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
             $data.appendTo($more_container).velocity('fadeIn',200);
+            _initPageTransitionLinks();
             $load_more.attr('data-page-at', page+1);
-
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
                 $load_more.addClass('hide');
@@ -269,7 +269,7 @@ var FBSage = (function($) {
   }
 
   // Add color information to URL we are going to, handle transition effect
-  function _initPageTransition() {
+  function _initPageTransitionLinks() {
     // Hijack links
     $('a:not(.fake-link)').each(function() {
       $(this).click(function(e) {
