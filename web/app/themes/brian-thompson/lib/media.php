@@ -270,15 +270,15 @@ function get_treated_url($post_or_id, $options=[]) {
     $full_command = '';
     if ($type==='gray') {
       //convert keys.jpg -modulate 100,0 -size 256x1! gradient:#555555-#dddddd -clut keys-treated.jpg
-      $full_command = $convert_command.' '.$image_to_convert.' -modulate 100,0 -size 256x1! gradient:#555555-#dddddd -clut '.$treated_image;
+      $full_command = $convert_command.' '.$image_to_convert.' -modulate 100,0 -size 256x1! gradient:#555555-#dddddd -clut '.$treated_image+' -quality 75';
     } else {
       //convert peeps.jpg -brightness-contrast 3%x5% +level 10%,87%,.90 -channel B +level 5% peeps-treated.jpg
-      $full_command = $convert_command.' '.$image_to_convert.' -brightness-contrast 3%x5% +level 10%,87%,.90 -channel B +level 5% '.$treated_image;
+      $full_command = $convert_command.' '.$image_to_convert.' -brightness-contrast 3%x5% +level 10%,87%,.90 -channel B +level 5%,100% '.$treated_image+' -quality 75';
     }
 
     if($full_command) { exec($full_command); }
 
-  echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
+  // echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
   }
 
   // Finally, get the URL
