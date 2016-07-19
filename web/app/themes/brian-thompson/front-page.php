@@ -6,13 +6,6 @@ include(locate_template('index.php'));
 echo Firebelly\Media\get_front_page_images();
 ?>
 
-
-<!-- 
-<div class="section -one">
-
-  <?php the_content(); ?>
-</div> -->
-
 <div class="section -two"><div class="wrap">
   <?= apply_filters('the_content', get_post_meta(get_the_ID(), '_cmb2_section2', true)); ?>
 </div></div>

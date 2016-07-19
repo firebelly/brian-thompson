@@ -85,6 +85,9 @@
       top: $lh*5.25;
       left: calc( 100% + #{$teensy-pad} );
     }
+    @include media-huge {
+      width: $col-huge;
+    }
   }
 
   .close {

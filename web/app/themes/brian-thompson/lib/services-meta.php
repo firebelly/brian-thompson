@@ -58,7 +58,7 @@ function register_metaboxes() {
   ) );
   $services_meta->add_group_field( $service_group, array(
     'name'       => __( 'Pricing', 'sage' ),
-    'desc'       => __( 'Price in this format, separating with double dashes: Item -- Price -- Note', 'sage' ),
+    'desc'       => __( 'Item, Price, Note separated by new lines.', 'sage' ),
     'id'         => 'price',
     'type'       => 'textarea_code',
     'repeatable' => true,
@@ -98,7 +98,7 @@ function services_shortcode() {
       $pricing .= '<ul class="pricetags -number-'.$i.'">';
       if ( isset( $service['price'] ) ) {
         foreach ($service['price'] as $pricetag) {
-          $pricetag_exploded = explode('--',$pricetag);
+          $pricetag_exploded = preg_split('/[\r|\n]+/',$pricetag);
           $item = isset($pricetag_exploded[0]) ? '<p class="item">'.trim($pricetag_exploded[0]).'</p>' : '';
           $price = isset($pricetag_exploded[1]) ? trim($pricetag_exploded[1]) : '';
           $price_exploded = explode(' ',$price,2);
