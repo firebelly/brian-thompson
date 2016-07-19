@@ -28,6 +28,7 @@ $firebelly_includes = [
   'lib/cmb2-custom-fields.php',        // Custom CMB2
   'lib/page-meta.php',                 // General Page Meta/Admin Functions, Filters, Hooks
   'lib/about-meta.php',                // About Page Meta/Admin Functions, Filters, Hooks
+  'lib/home-meta.php',                // Home Page Meta/Admin Functions, Filters, Hooks
   'lib/services-meta.php',             // Services Page Meta/Admin Functions, Filters, Hooks
   'lib/process-meta.php',              // Process Page Meta/Admin Functions, Filters, Hooks
   'lib/appointments-meta.php',         // Appointments Page Meta/Admin Functions, Filters, Hooks
