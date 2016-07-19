@@ -278,7 +278,7 @@ function get_treated_url($post_or_id, $options=[]) {
 
     if($full_command) { exec($full_command); }
 
-  // echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
+  echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
   }
 
   // Finally, get the URL
