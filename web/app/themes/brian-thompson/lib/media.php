@@ -52,33 +52,50 @@ function get_front_page_images() {
 }
 
 
-// Add grayscale checkbox to media library items:
+// Add bw checkbox to media library items:
 // Adapted (stolen) from: https://gielberkers.com/add-checkbox-media-library-wordpress/
-function add_grayscale_checkbox($form_fields, $post){
-  $checked = get_post_meta( $post->ID, 'grayscale', false ) ? 'checked="checked"' : '';
-  $form_fields['grayscale'] = array(
-      'label' => 'I\'m grayscale.',
+function add_checkboxes($form_fields, $post){
+  $bw_checked = get_post_meta( $post->ID, 'bw_only', false ) ? 'checked="checked"' : '';
+  $form_fields['bw_only'] = array(
+      'label' => 'B/W Only',
       'input' => 'html',
       'html'  => "<input type=\"checkbox\"
-          name=\"attachments[{$post->ID}][grayscale]\"
-          id=\"attachments[{$post->ID}][grayscale]\"
-          value=\"1\" {$checked}/><br />");
+          name=\"attachments[{$post->ID}][bw_only]\"
+          id=\"attachments[{$post->ID}][bw_only]\"
+          value=\"1\" {$bw_checked}/><br />");
+
+  // $color_checked = get_post_meta( $post->ID, 'color_only', false ) ? 'checked="checked"' : '';
+  // $form_fields['color_only'] = array(
+  //     'label' => 'Color Only',
+  //     'input' => 'html',
+  //     'html'  => "<input type=\"checkbox\"
+  //         name=\"attachments[{$post->ID}][color_only]\"
+  //         id=\"attachments[{$post->ID}][color_only]\"
+  //         value=\"2\" {$color_checked}/><br />");
+
   return $form_fields;
 }
-add_filter('attachment_fields_to_edit', __NAMESPACE__ . '\\add_grayscale_checkbox', null, 2 );
+add_filter('attachment_fields_to_edit', __NAMESPACE__ . '\\add_checkboxes', 10, 2);
 
-function save_grayscale_checkbox($post, $attachment){
-    if(isset($attachment['grayscale'])) {
-        update_post_meta($post['ID'], 'grayscale', 1);
+function save_checkboxes($post, $attachment){
+    if(isset($attachment['bw_only'])) {
+        update_post_meta($post['ID'], 'bw_only', 1);
     } else {
-        update_post_meta($post['ID'], 'grayscale', 0);
+        update_post_meta($post['ID'], 'bw_only', 0);
     }
+    // if(isset($attachment['color_only'])) {
+    //     update_post_meta($post['ID'], 'color_only', 1);
+    // } else {
+    //     update_post_meta($post['ID'], 'color_only', 0);
+    // }
 }
-add_filter('attachment_fields_to_save', __NAMESPACE__ . '\\save_grayscale_checkbox', null , 2);
+add_filter('attachment_fields_to_save', __NAMESPACE__ . '\\save_checkboxes', 10, 2);
 
-function is_grayscale($thumb_id) {
-  return get_post_meta( $thumb_id, 'grayscale', false );
+function is_bw_only($thumb_id) {
+  return get_post_meta( $thumb_id, 'bw_only', false );
 }
+
+
 
 /**
  * Get thumbnail image for post
@@ -214,10 +231,16 @@ function get_treated_url($post_or_id, $options=[]) {
     return false; 
   } 
 
-  // Override 'color' treatment type if image is grayscale
-  if(is_grayscale($thumb_id) && $type === 'color') {
+  // Override 'color' treatment type if image is bw
+  if(is_bw_only($thumb_id) && $type === 'color') {
     $type = 'gray';
   }
+
+  // // Override 'color' treatment type if image is color only
+  // if(is_color_only($thumb_id) && $type === 'gray') {
+  //   $type = 'color';
+  // }
+
 
   // Get the image of proper size
   $image_to_convert = get_thumbnail_size_path($thumb_id,$size);

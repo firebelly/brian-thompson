@@ -10,6 +10,6 @@ include(locate_template('index.php'));
 
 <button class="black-arrow open-popup bio-button" data-content="#bio">Brian's Bio</button>
 <div class="sr-only" id="bio">
-  <?= Media\get_image_html( Media\get_treated_url(get_post_meta( get_the_ID(), '_cmb2_bio_pick_id', true ), ['type'=>'gray']),'inline-image biopick','portrait' ); ?>
+  <?= Media\get_image_html( Media\get_treated_url(get_post_meta( get_the_ID(), '_cmb2_bio_pick_id', true ), ['type'=>'color']),'inline-image biopick','portrait' ); ?>
   <?= apply_filters('the_content',get_post_meta( get_the_ID(), '_cmb2_bio', true )); ?>
 </div>
