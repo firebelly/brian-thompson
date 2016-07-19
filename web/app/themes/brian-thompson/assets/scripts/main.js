@@ -327,6 +327,7 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
+    console.log('begin animating blinds');
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
@@ -334,9 +335,14 @@ var FBSage = (function($) {
         delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
         duration: duration,
         easing: [1,0.75,0.5,1],
-        complete: (thisBlindNum!==finalBlindNum) ? undefined : function() {
+        complete: (thisBlindNum!==finalBlindNum) ? function() {
+
+          console.log('this blind: '+thisBlindNum+' final: '+finalBlindNum);
+        } : function() {
+          console.log('this blind: '+thisBlindNum+' final: '+finalBlindNum);
+          console.log('blinds animated');
           if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
-          if (onDone) { onDone(); }
+          if (onDone) { console.log('launching onDone()'); onDone(); }
         }
       });
     });
@@ -367,7 +373,7 @@ var FBSage = (function($) {
     $('.open-popup').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
-        _popupStartingBlindNum = _closestX( $('.popup .blind'), $(this).offset().left ).data('blind-num');
+        _popupStartingBlindNum = _closestX( $('.popup > .blinds .blind'), $(this).offset().left ).data('blind-num');
         var $content = $($(this).data('content'));
         _openPopup($content);
       }
@@ -392,12 +398,14 @@ var FBSage = (function($) {
     $('.popup .body-wrap').velocity('fadeOut',{
       duration: 200,
       complete: function () {
+        console.log('popup content faded out');
         $('.popup .lines').velocity('fadeOut',{ 
           duration: 200
         });
-        _blinds($('.popup .blind'),'hide',_popupStartingBlindNum, function() {
+        _blinds($('.popup > .blinds .blind'),'hide',_popupStartingBlindNum, function() {
             _isAnimating = false;
             $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
+            console.log('popup fully closed');
         });
       }
     });
@@ -408,7 +416,7 @@ var FBSage = (function($) {
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
     $('.popup .lines').velocity('fadeIn',200);
-    _blinds($('.popup .blind'),'show',_popupStartingBlindNum,function () {
+    _blinds($('.popup > .blinds .blind'),'show',_popupStartingBlindNum,function () {
       $('.popup .content-holder').empty();
       $content.clone(true, true).contents().appendTo('.popup .content-holder');
       $('.popup .body-wrap').velocity('fadeIn',{ 
@@ -416,7 +424,7 @@ var FBSage = (function($) {
         complete: function() {
           $popup = $('.popup');
           if(!$popup.hasClass('holding-mobile-nav')) { $popup.velocity('scroll',200); }
-          _initImages('.popup');
+          // _initImages('.popup');
           _isAnimating = false;
         }
       });
