@@ -1,15 +1,13 @@
 
   // Inline images
   .body-wrap {
-    // img { //
-    //   height: auto;
-    //   margin: $lh 0;
-    //   @include break-out-of-padding($teensy-pad,$teensy-pad);
-    //   &, &.alignnone {
-    //     max-width: none;
-    //     width: calc(100% + 6px);
-    //   }
-    // }
+    img:not(.sr-only) {
+      position: relative;
+      width: calc(100% + 2 * #{$teensy-pad});
+      max-width: none;
+      left: -$teensy-pad;
+      float: none;
+    }
   }
 
   // Floater Images
