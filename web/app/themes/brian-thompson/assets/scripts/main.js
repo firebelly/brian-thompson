@@ -151,7 +151,6 @@ var FBSage = (function($) {
 
   function _initLoadMore() {
     $document.on('click', '.load-more', function(e) {
-      console.log('clicked!');
       e.preventDefault();
       var $load_more = $(this);
       var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'post';
@@ -327,7 +326,6 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
-    console.log('begin animating blinds');
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
@@ -335,14 +333,9 @@ var FBSage = (function($) {
         delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
         duration: duration,
         easing: [1,0.75,0.5,1],
-        complete: (thisBlindNum!==finalBlindNum) ? function() {
-
-          console.log('this blind: '+thisBlindNum+' final: '+finalBlindNum);
-        } : function() {
-          console.log('this blind: '+thisBlindNum+' final: '+finalBlindNum);
-          console.log('blinds animated');
+        complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() {
           if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
-          if (onDone) { console.log('launching onDone()'); onDone(); }
+          if (onDone) { onDone(); }
         }
       });
     });
@@ -398,14 +391,12 @@ var FBSage = (function($) {
     $('.popup .body-wrap').velocity('fadeOut',{
       duration: 200,
       complete: function () {
-        console.log('popup content faded out');
         $('.popup .lines').velocity('fadeOut',{ 
           duration: 200
         });
         _blinds($('.popup > .blinds .blind'),'hide',_popupStartingBlindNum, function() {
             _isAnimating = false;
             $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
-            console.log('popup fully closed');
         });
       }
     });
@@ -517,11 +508,6 @@ var FBSage = (function($) {
 
 function FloaterImage($image,order) {
 
-  // console.log('new FloaterImage '+order);
-
-  // Settings
-  // this.maxHealthy = 2;
-
   // My self referential vars
   var me = this;
   var $me = $image;
@@ -562,26 +548,20 @@ function FloaterImage($image,order) {
     handler: function(direction) {
       if(direction==='down'){
         me.healthy = true;
-        // console.log(me.order+' is healthy!');
       }
       if(direction==='up'){
         me.healthy = false;
-        // console.log(me.order+' is unhealthy!');
       }
-      // me.liveOrDie();
     }
   });
   this.waypointBottom = me.$waypointBottom.waypoint({
     handler: function(direction) {
       if(direction==='down'){
         me.healthy = false;
-        // console.log(me.order+' is unhealthy!');
       }
       if(direction==='up'){
         me.healthy = true;
-        // console.log(me.order+' is healthy!');
       }
-      // me.liveOrDie();
     }
   });
 
@@ -604,19 +584,15 @@ function FloaterImage($image,order) {
     me.neverShown = false;
     $me.addClass('alive');
     me.animating = true;
-    // console.log(me.order+' is becoming alive!');
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
       me.animating = false;
-      // console.log(me.order+' is alive!');
       me.alive = true;
     }, false);
   };
   this.die = function()  {
     me.animating = true;
-    // console.log(me.order+' is dying!');
     _blinds($me.find('.blind'),'show',2,function() { //'show' refers to show the blinds
       me.animating = false;
-      // console.log(me.order+' is dead!');
       $me.removeClass('alive');
       me.alive = false;
     }, false);
@@ -699,14 +675,10 @@ function InlineImage($image,order) {
   this.alive = false;
   this.order = order;
 
-  console.log('new InlineImage '+order);
-
   // Handle Living
   this.live = function() {
     $me.addClass('alive');
-    console.log(me.order+' is becoming alive!');
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
-      console.log(me.order+' is alive!');
       me.alive = true;
     }, false);
   };
