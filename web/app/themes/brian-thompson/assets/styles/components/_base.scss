@@ -213,7 +213,7 @@ button{
 
 
 body.admin-bar {
-  &, .brand, .site-nav, .mobile-nav-open {
+  #primary-site-content, .brand, .site-nav, .mobile-nav-open {
     margin-top: 0;
     // @include min-screen(601px) {
       margin-top: 46px;
