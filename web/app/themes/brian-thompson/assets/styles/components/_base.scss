@@ -12,6 +12,8 @@ html {
 }
 
 body {
+  font-size: 12px;
+  letter-spacing: 0.02em;
   overflow: hidden;
   line-height: $lh;
   height: 100%;
@@ -207,4 +209,20 @@ button{
       text-decoration: underline;
     }
   }
+}
+
+
+body.admin-bar {
+  &, .brand, .site-nav, .mobile-nav-open {
+    margin-top: 0;
+    // @include min-screen(601px) {
+      margin-top: 46px;
+    // }
+    @include min-screen(783px) {
+      margin-top: 32px;
+    }
+  }
+}
+#wpadminbar {
+  position: fixed !important;
 }

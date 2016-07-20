@@ -22,7 +22,7 @@
         width: calc( #{$col} + 1px);
       }
       @include media-lg {
-        top: 2$teensy-pad;
+        top: 25px;
         left: $col;
       }
       @include media-huge {
