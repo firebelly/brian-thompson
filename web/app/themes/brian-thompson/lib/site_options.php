@@ -108,12 +108,6 @@ class FbSiteOptions {
       ),
     ) );   
     $cmb->add_field( array(
-      'name' => __( 'Copyright', 'firebelly' ),
-      'desc'    => __( 'Copyright statement for footer'),
-      'id'   => 'copyright',
-      'type' => 'text',
-    ) );   
-    $cmb->add_field( array(
       'name' => __( 'Contact Organization', 'firebelly' ),
       'id'   => 'org',
       'type' => 'text',
