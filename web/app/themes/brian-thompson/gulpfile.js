@@ -111,7 +111,8 @@ var cssTasks = function(filename) {
       ]
     })
     .pipe(cssNano, {
-      safe: true
+      safe: true,
+      autoprefixer: false
     })
     .pipe(function() {
       return gulpif(enabled.rev, rev());
