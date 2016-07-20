@@ -16,11 +16,14 @@
     }
     .category {
       position: relative;
+      p {
+        margin-bottom: $lh;
+      }
     }
   }
 
   .entry-content {
-    @include double-dash(25px,12px);
+    @include double-dash(29px,12px);
   }
 
   .nav-posts{

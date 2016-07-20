@@ -182,10 +182,17 @@ button{
   }
 }
 
+// Recent Posts Moduleπ
 .recent-posts {
   width: $col;
   padding: 0 $teensy-pad;
   z-index: $z-recent-posts;
+  h4 {
+    margin-bottom: 33px;
+    @include media-md {
+      @include dash-after(17px);
+    }
+  }
   ul.posts {
     list-style: none;
   }
@@ -193,11 +200,8 @@ button{
     @include small-title; 
     @include media-md {
       @include dash-after($lh);
+      margin-bottom: 23px;
     }
-  }
-  h4 {
-    margin-bottom: $lh*1.75;
-    @include dash-after($lh*.75);
   }
   li.post {
     margin-bottom: $lh*2;
@@ -211,7 +215,7 @@ button{
   }
 }
 
-
+// Stupid admin bar
 body.admin-bar {
   #primary-site-content, .brand, .site-nav, .mobile-nav-open {
     margin-top: 0;

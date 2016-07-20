@@ -48,6 +48,18 @@ $brand-secondary: $blue;
       &:not(.no-underline) { border-bottom: 1px solid $title; }
     }
 
+    .category {
+      a {
+        color: $title;
+        border-bottom: 0;
+        text-decoration: underline;
+        &:hover {
+          color: $text;
+          border-bottom: 0;
+        }
+      }
+    }
+
     a h1, a h2, h1 a, h2 a:not(.no-underline) {
       border-bottom: 0;
       @include gradient-underline($bg,$title,90%, calc(90% + 1px));
