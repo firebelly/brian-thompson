@@ -109,7 +109,7 @@ body {
 
   .contact-form-block, .title-block, .fineprint-block, .social-block, .contact-block {
     p{
-      @include small-nb-mono;
+      @include smaller-mono;
     }
   }
 
@@ -135,7 +135,7 @@ body {
       min-width: 102px; // Prevent word wrap of "Have Questions?"
     }
     .contact-button {
-      @include small-nb-mono;
+      @include smaller-mono;
       
       width: 100%;
       padding: 0;

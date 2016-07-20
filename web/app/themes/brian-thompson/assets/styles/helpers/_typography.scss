@@ -164,8 +164,8 @@
 
 }
 
-@mixin small-nb-mono {
-  @include font-nb-mono;
+@mixin smaller-mono {
+  @include font-mono;
   font-size: 10px;
   line-height: 15px;
   position: relative;

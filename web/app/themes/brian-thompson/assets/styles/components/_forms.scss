@@ -47,7 +47,7 @@
     margin-bottom: $lh;
   }
   button {
-    @include small-nb-mono;
+    @include smaller-mono;
     position: absolute;
     float: right;
     width: 25%;

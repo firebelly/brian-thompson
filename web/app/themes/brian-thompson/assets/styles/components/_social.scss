@@ -23,7 +23,7 @@
     button {
       width: 20px;
       padding: 0;
-      @include small-nb-mono;
+      @include smaller-mono;
       top: 0;
       @include arrow-right(25px);
       max-height: 25px;

@@ -59,7 +59,7 @@
     button {
       position: absolute;
       padding: 0 $lh/4;
-      @include small-nb-mono;
+      @include smaller-mono;
       top: -2px;
       left: -$teensy-pad;
       @include arrow-right(25px);
@@ -75,7 +75,7 @@
 
   .load-more{
     @include dash-before($lh*1.25);
-    @include small-nb-mono;
+    @include smaller-mono;
     width: $col + $teensy-pad * 2;
     left: -$teensy-pad * 2;
     padding: 0;
