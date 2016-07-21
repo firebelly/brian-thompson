@@ -117,6 +117,7 @@
       }
       input[type="checkbox"]:checked + .wpcf7-list-item-label:before {
         background: $blue;
+        border: 1px solid $blue;
       }
       label {
         cursor: pointer;

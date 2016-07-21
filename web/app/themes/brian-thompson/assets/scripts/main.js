@@ -712,8 +712,19 @@ function InlineImage($image,order) {
     });
   }
 
-  // Add functions to supplement CF7 form handling
+
   function _initContactForm() {
+    // Mess up CF7s forced markup so the damn thing will work on iphone.
+    $('.wpcf7-checkbox .wpcf7-list-item-label').each(function() {
+      $(this).replaceWith($('<label class="wpcf7-list-item-label">' + this.innerHTML + '</label>'));
+    });
+    $('.wpcf7-checkbox .wpcf7-list-item').each(function(i) {
+      var id = 'wpcf7-contact-form-checkbox-'+i;
+      $(this).find('.wpcf7-list-item-label').attr('for',id);
+      $(this).find('input[type="checkbox"]').attr('id',id);
+    });
+
+    // Add functions to supplement CF7 form handling
     $('.contact-form-submit').click(function(e){
       $('#wpcf7-f91-o1 .wpcf7-form').submit();
       $('.wpcf7-response-output').velocity('scroll',300);
