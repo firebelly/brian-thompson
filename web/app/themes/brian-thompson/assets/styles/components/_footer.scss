@@ -3,13 +3,15 @@
     $color-time: .15s;
     $open-time: .15s;
 
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-.body-wrap {
-  flex: 1;
+html:not(.ie) {
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  .body-wrap {
+    flex: 1;
+  }
 }
 
 .site-footer {
@@ -312,5 +314,6 @@ body {
     .footer-block {
       float: left;
       display: inline-block;
+      width: 2 * $col;
     }
   }

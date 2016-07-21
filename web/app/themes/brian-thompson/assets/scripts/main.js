@@ -85,6 +85,9 @@ var FBSage = (function($) {
     // Add functions to supplement CF7 form handling
     _initContactForm();
 
+    // Detect IE and add a class
+    _ieDetect();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -719,6 +722,13 @@ function InlineImage($image,order) {
       $('.form-accordian').velocity('slideUp',300);
       $('.form-wrap').css('padding-bottom','15px');
     });
+  }
+
+  // Detect IE and add a class
+  function _ieDetect() {  //http://stackoverflow.com/a/19868056
+    if( "ActiveXObject" in window ) {
+      $('html').addClass('ie');
+    }
   }
 
   // Public functions
