@@ -126,47 +126,48 @@ function get_floater_images($post_id = false) {
   $output = '';
 
   // Retrieve featured & additional images.  If neither set, take stock images
-  $featured = get_post_thumbnail_id($post_id);
+  $featured_id = get_post_thumbnail_id($post_id);
   $additional = \get_post_meta( $post_id, '_cmb2_additional_images', true );
-  if ($featured || $additional ) {
+  $additional_ids = $additional ? array_keys( $additional ) : false;
+
+    // Choose the backup stock images if there will be any need
+    $n_stock = count(SiteOptions\get_option('stock_images'));
+    if( ( !$featured_id || !$additional ) && $n_stock ) {
+      $stock_image_ids = array_keys( SiteOptions\get_option('stock_images') ); 
+      shuffle( $stock_image_ids );
+      // If user has selected featured image or additional images, remove them from the current stock pool!
+      if ( $featured_id ) { 
+        $stock_image_ids = array_diff($stock_image_ids, [$featured_id] ); 
+      }
+      if ( $additional_ids ) {
+        $stock_image_ids = array_diff($stock_image_ids, $additional_ids ); 
+      }
+      // Replace empty featured and/or additional images with stock images
+      if( !$featured_id ) {
+        $featured_id = array_slice( $stock_image_ids, 0, 1)[0]; // Take first of shuffled for featured image
+      }
+      if( !$additional_ids ) {
+        $additional_ids = array_slice( $stock_image_ids, 1, 3); // Take next 3 of shuffled for featured image
+      }
+    }
+
     // Output featured image
-    if($featured) {
-      $output .= get_image_html( get_treated_url($featured, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
-      $output .= get_image_html( get_treated_url($featured, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -top' );
+    if($featured_id) { // If there were not sufficient stock images our array_slice will return empty array
+      $output .= get_image_html( get_treated_url($featured_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+      $output .= get_image_html( get_treated_url($featured_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -top' );
     }
 
     // Output additional images
     $i = 0;
-    if($additional) {
-      foreach ( (array) $additional as $attachment_id => $attachment_url ) {
-        $output .= get_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
+    if($additional_ids) {
+      foreach ( (array) $additional_ids as $additional_id ) {
+        $output .= get_image_html( get_treated_url($additional_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
         if($i===0) { 
-          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -bottom' );
+          $output .= get_image_html( get_treated_url($additional_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -bottom' );
         }
         $i++;
       }
     }
-  } else { // Go with stock images
-
-    $n_total_stock = count(SiteOptions\get_option('stock_images'));
-    if(!$n_total_stock) { return ''; }
-
-    $n_images_to_take = 4;  // How many images should we take?
-    $n_images_to_take =  $n_total_stock >= $n_images_to_take ? $n_images_to_take : $n_total_stock;
-    $all_stock_image_ids = array_keys( SiteOptions\get_option('stock_images') );
-    shuffle( $all_stock_image_ids );
-
-    $chosen_stock_image_ids = array_slice( $all_stock_image_ids, 0, $n_images_to_take );
-
-    $i = 0;
-    foreach ( (array) $chosen_stock_image_ids as $stock_image_id ) {
-      $output .= get_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
-      if($i<2) { 
-        $output .= get_image_html( get_treated_url($stock_image_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image '.($i===0 ? '-top' : '-bottom') );
-      }
-      $i++;
-    }
-  }
 
   return $output;
 }
