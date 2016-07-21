@@ -139,7 +139,7 @@
   }
   ul#menu-main-menu {
     position: absolute;
-    top: $lh;
+    top: $lh*3;
     width: $col;
     @include media-tiny{
       left: auto;
@@ -148,6 +148,8 @@
     li:not(.menu-item-has-children) {
       padding-left: $teensy-pad;
       @include small-mono;
+      font-size: 12px;
+      margin-bottom: 1.5*$lh;
     }
     &, ul {
       @include delistify;
