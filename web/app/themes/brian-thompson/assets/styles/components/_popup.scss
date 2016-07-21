@@ -103,9 +103,9 @@
     background: transparent;
     position: absolute;
     top: 0;
-    right: -$lh/4 - $small-pad*2;
+    right: $small-pad*2;
     @include media-tiny{
-      right: -$lh/4;
+      right: 0;
     }
     @include media-md {
       top: $lh * 5;
