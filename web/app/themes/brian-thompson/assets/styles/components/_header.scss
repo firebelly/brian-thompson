@@ -41,6 +41,7 @@
     z-index: $z-hamburger;
     border: 0;
     background: transparent;
+    padding: 0 0 $lh/2 $lh;
     @include media-md {
       display: none;
     }
