@@ -14,12 +14,13 @@
     .btf-logo {
       position: absolute;
       width: 70px;
-      height: auto;
+      height: 36px;
       left: 10px;
       top: 8px;
       @include media-md {
         left: 0;
         width: calc( #{$col} + 1px);
+        height: auto;
       }
       @include media-lg {
         top: 25px;
@@ -139,7 +140,7 @@
   }
   ul#menu-main-menu {
     position: absolute;
-    top: $lh*4;
+    top: $lh*2.5;
     width: $col;
     @include media-tiny{
       left: auto;
@@ -149,7 +150,7 @@
       padding-left: $teensy-pad;
       @include small-mono;
       font-size: 12px;
-      margin-bottom: 1.5*$lh;
+      margin: 1.5*$lh 0;
     }
     &, ul {
       @include delistify;
@@ -157,6 +158,8 @@
     a {
       text-decoration: none;
       border-bottom: 0;
+      width: 100%;
+      padding: $lh*.75 0;
       &:before{
         @include font-regular;
         font-size: 12px;
@@ -165,7 +168,7 @@
         right: calc(100% + #{$teensy-pad});
       }
       &:hover {
-        text-decoration: underline;    
+        text-decoration: underline;
         &:before{
           right: calc(100% + 1px);
         }
