@@ -96,9 +96,11 @@
   }
 
   .close {
+    @include big-title;
+    padding: 0;
+    margin: 0;
     border: none;
     background: transparent;
-    @include big-title;
     position: absolute;
     top: 0;
     right: -$lh/4 - $small-pad*2;
