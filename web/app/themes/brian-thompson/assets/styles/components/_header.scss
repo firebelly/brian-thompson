@@ -139,7 +139,7 @@
   }
   ul#menu-main-menu {
     position: absolute;
-    top: $lh*3;
+    top: $lh*4;
     width: $col;
     @include media-tiny{
       left: auto;
