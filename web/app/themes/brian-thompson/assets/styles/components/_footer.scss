@@ -298,6 +298,7 @@ html:not(.ie) {
       .description-block {
         margin-top: 100px;
         flex-basis: 3 * $col;
+        position: relative;
         @include media-sm {
           flex-basis: 4 * $col;
         }
@@ -309,11 +310,36 @@ html:not(.ie) {
         @include media-huge {
           flex-basis: 2 * $col-huge;
         }
+        .cfp {
+          position: absolute;
+          width: $col;
+          left: 0;
+          bottom: calc(100% + #{$lh});
+          @include min-screen(800px) {
+            right: 100%;
+            top: 0;
+            bottom: auto;
+            left: auto;
+          }
+          @include media-huge {
+            width: $col-huge;
+          }
+          img {
+            width: 50px;
+            height: auto;
+            position: relative;
+            @include min-screen(800px) {
+              top: 3px;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
+        }
       }
     }
     .footer-block {
       float: left;
       display: inline-block;
-      width: 2 * $col;
+      min-width: $col;
     }
   }

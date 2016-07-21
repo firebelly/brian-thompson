@@ -43,6 +43,9 @@ use Firebelly\SiteOptions;
       </div>
       <div class="description-block footer-block">
         <?= apply_filters('the_content', SiteOptions\get_option('description')) ?>
+        <div class="cfp">
+          <img src="<?= \Roots\Sage\Assets\asset_path('images/cfp.png'); ?>">
+        </div>
       </div>
     </div>
   </div>
