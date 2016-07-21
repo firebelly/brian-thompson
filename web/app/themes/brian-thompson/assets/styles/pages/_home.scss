@@ -7,6 +7,7 @@
     position: relative;
     height: auto;
     max-width: 3 * $col;
+      padding-top: 275px;
     @include media-md {
       padding-top: 6 * $lh;
       max-width: none;
