@@ -77,7 +77,7 @@ function load_more_button($orig_query=false) {
   $total_pages = ceil( $total_posts / $per_page);
 
   //return the markup
-  $output = '<button class="load-more black-arrow" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'">See More Posts</div>';
+  $output = '<button class="load-more arrow -right -black -small" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'">See More Posts</div>';
   return $output;
 
 }

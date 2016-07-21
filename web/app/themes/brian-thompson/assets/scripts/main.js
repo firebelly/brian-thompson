@@ -88,6 +88,9 @@ var FBSage = (function($) {
     // Detect IE and add a class
     _ieDetect();
 
+    // Inject svg into arrow classes
+    _initArrows();
+
   } // end init()
 
   function _scrollBody(element, duration, delay) {
@@ -740,6 +743,12 @@ function InlineImage($image,order) {
     if( "ActiveXObject" in window ) {
       $('html').addClass('ie');
     }
+  }
+
+  // Inject svg into arrow classes
+  function _initArrows() {
+    $('<svg class="arrowhead -right" aria-hidden="true"><use xlink:href="#arrowhead-right"></use></svg>').appendTo('.arrow.-right');
+    $('<svg class="arrowhead -left" aria-hidden="true"><use xlink:href="#arrowhead-left"></use></svg>').appendTo('.arrow.-left');
   }
 
   // Public functions

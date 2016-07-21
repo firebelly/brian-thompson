@@ -188,13 +188,9 @@
 
   .start-line,.start-button {
     z-index: $z-lets-start;
+    left: 1*$col;
     @include media-sm {
-      position: fixed;
-      display: block;
       left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
-      top: 0;
-      width: 5px;
-      height: 100%;
     }
     @include min-screen(600px) {
       left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
@@ -215,6 +211,7 @@
       left: calc( 9 * #{$col-huge} - 1px);
     }
   }
+
   .start-line {
     position: fixed;
     display: none;
@@ -228,12 +225,7 @@
 
   .start-button {
     @include small-mono;
-    @include arrow-right(70px);
     position: relative;
-      left: 1*$col;
-    @include min-screen(370px){
-      left: 2*$col;
-    }
     @include media-sm{
       margin-left: 5px;
       position: fixed;
@@ -242,29 +234,6 @@
       width: 50px;
     }
   }
-  .start-line,.start-button {
-    z-index: $z-lets-start;
-    @include media-sm {
-      left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
-    }
-    @include min-screen(600px) {
-      left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
-    }
-    @include media-md {
-      left: 6 * $col - 1px;
-    }
-    @include min-screen(800px) {
-      left: 7 * $col - 1px;
-    }
-    @include media-lg {
-      left: 8 * $col - 1px;
-    }
-    @include min-screen(1000px) {
-      left: 9 * $col - 1px;
-    }
-    @include media-huge {
-      left: calc( 9 * #{$col-huge} - 1px);
-    }
-  }
+
 }
 

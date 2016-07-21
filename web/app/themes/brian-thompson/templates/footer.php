@@ -16,13 +16,13 @@ use Firebelly\SiteOptions;
         <p>Connect</p>
         <ul class="social-links">
           <li class="social-link">
-            <a href="<?= esc_url('https://facebook.com/'.SiteOptions\get_option('facebook_id')) ?>" class="url"><button class="black-arrow"><svg class="social-icon -facebook" role="img"><use xlink:href="#facebook"></use></svg><span class="sr-only">Facebook</span></button></a>
+            <a href="<?= esc_url('https://facebook.com/'.SiteOptions\get_option('facebook_id')) ?>" class="url"><button class="arrow -right -black -small"><svg class="social-icon -facebook" role="img"><use xlink:href="#facebook"></use></svg><span class="sr-only">Facebook</span></button></a>
           </li>
           <li class="social-link">
-            <a href="<?= esc_url('https://twitter.com/'.SiteOptions\get_option('twitter_id')) ?>" class="url"><button class="black-arrow"><svg class="social-icon -twitter" role="img"><use xlink:href="#twitter"></use></svg><span class="sr-only">Twitter</span></button></a>
+            <a href="<?= esc_url('https://twitter.com/'.SiteOptions\get_option('twitter_id')) ?>" class="url"><button class="arrow -right -black -small"><svg class="social-icon -twitter" role="img"><use xlink:href="#twitter"></use></svg><span class="sr-only">Twitter</span></button></a>
           </li>
           <li class="social-link">
-            <a class="email" href="<?= esc_url('mailto:'.SiteOptions\get_option('email')) ?>"><button class="black-arrow"><svg class="social-icon -email" role="img"><use xlink:href="#email"></use></svg><span class="sr-only">Email</span></button></a>
+            <a class="email" href="<?= esc_url('mailto:'.SiteOptions\get_option('email')) ?>"><button class="arrow -right -black -small"><svg class="social-icon -email" role="img"><use xlink:href="#email"></use></svg><span class="sr-only">Email</span></button></a>
           </li>
         </ul>
       </div>
@@ -39,7 +39,7 @@ use Firebelly\SiteOptions;
     <div class="group-two">
       <div class="contact-form-block footer-block">
         <p class="have-questions">Have Questions?</p>
-        <a href="<?= get_permalink(get_page_by_path('contact')) ?>"><button class="contact-button black-arrow">Contact Brian</button></a>
+        <a href="<?= get_permalink(get_page_by_path('contact')) ?>"><button class="contact-button arrow -right -black -small">Contact Brian</button></a>
       </div>
       <div class="description-block footer-block">
         <?= apply_filters('the_content', SiteOptions\get_option('description')) ?>

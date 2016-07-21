@@ -51,8 +51,6 @@
   }
 
   .read-more {
-    // position: absolute;
-    // bottom: 0;
     &:hover {
       text-decoration: none;
     }
@@ -62,7 +60,6 @@
       @include smaller-mono;
       top: -2px;
       left: -$teensy-pad;
-      @include arrow-right(25px);
       max-height: 25px;
       display: block;
       margin-top: $lh/4;

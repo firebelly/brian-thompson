@@ -51,7 +51,6 @@
     }
   }
   .next-post {
-    @include arrow-right(70px);
     position: absolute;
     left: 6.5 * $col - 5px;
     @include min-screen(800px) {
@@ -65,7 +64,6 @@
     }
   }
   .prev-post {
-    @include arrow-left(70px);
     position: absolute;
     right: calc( 100% - ( 1.5 * #{$col} + 5px ) );
     @include min-screen(800px) {

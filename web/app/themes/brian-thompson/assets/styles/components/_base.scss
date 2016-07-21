@@ -147,14 +147,6 @@ hr {
 
 }
 
-button{
-  transition: color 0.2s, background 0.2s, fill 0.2s;
-  &:focus {
-    outline: 0;
-  }
-}
-
-
 // Almighty Global Overlay
 .almighty-global-overlay {
   position: fixed;

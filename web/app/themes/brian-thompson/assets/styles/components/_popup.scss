@@ -76,7 +76,6 @@
 
   .next-content {
     @include small-mono;
-    @include arrow-right(57px);
     min-width: $col;
     width: $col;
     position: relative;

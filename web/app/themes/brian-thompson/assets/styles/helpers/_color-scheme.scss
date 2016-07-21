@@ -74,9 +74,12 @@ $brand-secondary: $blue;
     h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
-    .white-arrow:hover {
+    .arrow.-white:hover {
       background: choose($black,$white,$scheme);
       color: choose($white,$black,$scheme);
+      .arrowhead {
+        fill: choose($black,$white,$scheme);
+      }
     }
     .close, .close:before {
       color: $white;
@@ -102,8 +105,11 @@ $brand-secondary: $blue;
         color: $blue;
       }
     }
-    .black-arrow:hover {
+    .arrow.-black:hover {
       background: $white;
+      .arrowhead {
+        fill: $white;
+      }
     }
   }
 
@@ -202,22 +208,34 @@ $brand-secondary: $blue;
   }
 
   // Arrows
-  .white-arrow {
+  .arrow.-white {
     background: $true-white;
     color: $title;
+    .arrowhead {
+      fill: $true-white;
+    }
     &:hover {
       background: $title;
       color: $true-white;
+      .arrowhead {
+        fill: $title;
+      }
     }
   }
-  .black-arrow{
+  .arrow.-black {
     background: $black;
     color: $white;
     fill: $white;
+    .arrowhead {
+      fill: $black;
+    }
     &:hover {
       background: $true-white;
       color: $black;
       fill: $black;
+      .arrowhead {
+        fill: $true-white;
+      }
     }
   }
 

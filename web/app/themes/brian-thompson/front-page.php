@@ -15,7 +15,7 @@ echo Firebelly\Media\get_front_page_images();
 </div></div>
 
 <div class="start-line" aria-hidden="true"></div>
-<a href="<?= get_permalink( get_page_by_path( 'process' ) )?>" class="no-underline"><button class="white-arrow start-button"><div class="wrap">Let's Start</div></button></a>
+<a href="<?= get_permalink( get_page_by_path( 'process' ) )?>" class="no-underline"><button class="arrow -white -huge -right start-button"><div class="wrap">Let's Start</div></button></a>
 
 <?php include(locate_template('templates/recent-posts.php')); ?>
 

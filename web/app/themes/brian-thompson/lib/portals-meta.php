@@ -83,7 +83,7 @@ function get_portals() {
         <p class="description">{$description}</p>
         <div class="login-wrap">
           <hr>
-          <a href="{$url}" class="login no-underline"><button class="black-arrow">Login</button></a>
+          <a href="{$url}" class="login no-underline"><button class="arrow -right -black -small">Login</button></a>
         </div>
       </li>
 HTML;

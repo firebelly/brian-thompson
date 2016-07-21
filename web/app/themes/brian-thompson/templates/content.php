@@ -8,6 +8,6 @@
       <?= Firebelly\Utils\get_excerpt($blog_post,30); ?>
     </div>
   </header>
-  <a href="<?= get_the_permalink($blog_post->ID); ?>" class="read-more no-underline"><button class="white-arrow">Read More</button></a>
+  <a href="<?= get_the_permalink($blog_post->ID); ?>" class="read-more no-underline"><button class="arrow -white -right -small">Read More</button></a>
 </article>
 

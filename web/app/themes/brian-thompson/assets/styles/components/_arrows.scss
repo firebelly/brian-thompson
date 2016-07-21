@@ -1,0 +1,58 @@
+// Arrows
+.arrow {
+  border: 0;
+  outline: 0;
+  border-radius: 0px;
+  position: relative;
+
+  &.-left {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  &.-right {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  &.-small {
+    height: 25px;
+    .arrowhead {
+      width: 13px //12.68px;
+    }
+  }
+  &.-big {
+    height: 57px;
+    .arrowhead {
+      width: 28px; //28.9px;
+    }
+  }
+  &.-huge {
+    height: 70px;
+    .arrowhead {
+      width: 35px; //35.49px;
+    }
+  }
+
+  .arrowhead {
+    top: 0;
+    height: 100%;
+    position: absolute;
+    &.-right {
+      left: 100%;
+    }
+    &.-left {
+      right: 100%;
+    }
+  }
+}
+
+
+button{
+  transition: color 0.2s, background 0.2s, fill 0.2s;
+  .arrowhead {
+    transition: fill 0.2s;
+  }
+  &:focus {
+    outline: 0;
+  }
+}

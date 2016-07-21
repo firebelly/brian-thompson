@@ -70,7 +70,7 @@ function get_steps() {
 
     $next = ($i % count($steps))+1;
     $next_word = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine'][$next];
-    $arrow='<button class="white-arrow switch-content next-content" data-content="#step-'.$next.'" aria-hidden="true">Step '.$next_word.'</button>';
+    $arrow='<button class="arrow -white switch-content next-content -right -big" data-content="#step-'.$next.'" aria-hidden="true">Step '.$next_word.'</button>';
 
     $content_to_reveal = '<div id="step-'.$i.'" class="sr-only"><h2 class="big-title"  aria-hidden="true">'.$i.'</h2><div class="description"><h3  aria-hidden="true">'.esc_html( $step['title'] ).'</h3>'.apply_filters('the_content', $step['description'] ).'</div>'.$arrow.'</div>';
 

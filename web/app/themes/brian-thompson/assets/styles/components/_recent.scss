@@ -1,0 +1,32 @@
+// Recent Posts Moduleπ
+.recent-posts {
+  width: $col;
+  padding: 0 $teensy-pad;
+  z-index: $z-recent-posts;
+  h4 {
+    margin-bottom: 33px;
+    @include media-md {
+      @include dash-after(17px);
+    }
+  }
+  ul.posts {
+    list-style: none;
+  }
+  h5 {
+    @include small-title; 
+    @include media-md {
+      @include dash-after($lh);
+      margin-bottom: 23px;
+    }
+  }
+  li.post {
+    margin-bottom: $lh*2;
+  }
+  p {
+    @include small-mono;
+    margin-bottom: 0;
+    &.category a {
+      text-decoration: underline;
+    }
+  }
+}

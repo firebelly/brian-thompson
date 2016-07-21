@@ -286,3 +286,10 @@ function get_treated_url($post_or_id, $options=[]) {
   $duo_url = $upload_dir['baseurl'] . $treated_dir . $treated_filename;
   return $duo_url;
 }
+
+// Allow SVG via media uploader
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
