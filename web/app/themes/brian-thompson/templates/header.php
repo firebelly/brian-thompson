@@ -1,6 +1,6 @@
 <header class="site-header" role="banner">
   <h1 class="brand"><a href="<?= esc_url(home_url('/')); ?>">
-    <svg class="btf-logo" role="img" width="101" height="53"><use xlink:href="#btf-logo"></use></svg>
+    <svg class="btf-logo" role="img"><use xlink:href="#btf-logo"></use></svg>
     </a></h1> 
     <nav class="site-nav -big" role="navigation">
       <?php
