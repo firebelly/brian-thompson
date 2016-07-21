@@ -20,14 +20,15 @@
       @include media-md {
         left: 0;
         width: calc( #{$col} + 1px);
-        height: auto;
+        height: calc( (#{$col} + 1px) * 53/100);
       }
       @include media-lg {
         top: 25px;
         left: $col;
       }
       @include media-huge {
-        width: $col-huge;
+        width: calc( #{$col-huge} + 1px);
+        height: calc( (#{$col-huge} + 1px) * 53/100);
         left: $col-huge;
       }
     }
