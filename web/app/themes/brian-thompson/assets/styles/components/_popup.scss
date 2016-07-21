@@ -97,7 +97,7 @@
 
   .close {
     @include big-title;
-    padding: 0;
+    padding: 0 0 $lh $lh;
     margin: 0;
     border: none;
     background: transparent;
