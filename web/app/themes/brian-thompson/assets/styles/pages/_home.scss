@@ -15,8 +15,8 @@
       height: 1600px;
     }
     h1 {
+      @include enormous-title;
       @include min-screen(1000px) {
-        @include enormous-title;
         width: 6 * $col;
         &:before, &:after {
           top: 85px;
@@ -58,7 +58,7 @@
               left: -3 * $col - $teensy-pad - 2px;
             }
             &:after {
-              left: 1 * $col - $teensy-pad - 2px;
+              left: 5 * $col - $teensy-pad - 2px;
             }
           }
           @include min-screen(1000px){
