@@ -104,6 +104,7 @@ function build_tags() {
 
   // Make sure there were images passed as an array and loop through/output each
   if (!empty($metatag_images)) {
+    $metatag_images = array_reverse($metatag_images);
     foreach ($metatag_images as $image) {
       echo '<meta property="og:image" content="' . esc_url(apply_filters('fb_metatag_image', $image)) . '"/>' . "\n";
     }
