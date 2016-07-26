@@ -189,6 +189,9 @@ var FBSage = (function($) {
             } else {
               $load_more.velocity('fadeIn',200);
             }
+
+            $(window).resize(); //document size has changed -- trigger any function possibly dependent
+            _initArrows();
           }
       });
     });
@@ -213,6 +216,7 @@ var FBSage = (function($) {
 
     _resizeMobileNav();
     _resizeFooter();
+
   }
 
   // Add global overlay for clickouts
@@ -540,7 +544,7 @@ function FloaterImage($image,order) {
     var pos = ((order-0.5)*scrollableHeight/numImages-5)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = ((order+1.5)*scrollableHeight/numImages)+'px'; 
+    pos = Math.min(((order+1.5)*scrollableHeight/numImages),$(document).height())+'px'; 
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
@@ -658,7 +662,7 @@ function FloaterImage($image,order) {
   };
 
   // Handle Window Resizing
-  this.windowWasResized = function() {
+  this.onResize = function() {
     var goodCols = me.getPossibleCols();
     var col = parseInt($me.attr('data-col'));
     if($.inArray(col,goodCols)===-1) { // If I'm not in a good col, reposition me.
@@ -666,7 +670,7 @@ function FloaterImage($image,order) {
     }
   };
   $(window).resize(function() {
-    me.windowWasResized();
+    me.onResize();
   });
 }
 
@@ -747,8 +751,16 @@ function InlineImage($image,order) {
 
   // Inject svg into arrow classes
   function _initArrows() {
-    $('<svg class="arrowhead -right" aria-hidden="true"><use xlink:href="#arrowhead-right"></use></svg>').appendTo('.arrow.-right');
-    $('<svg class="arrowhead -left" aria-hidden="true"><use xlink:href="#arrowhead-left"></use></svg>').appendTo('.arrow.-left');
+    $('.arrow.-right').each(function() {
+      if(!$(this).find('.arrowhead').length) {
+        $('<svg class="arrowhead -right" aria-hidden="true"><use xlink:href="#arrowhead-right"></use></svg>').appendTo($(this));
+      }
+    });
+    $('.arrow.-left').each(function() {
+      if(!$(this).find('.arrowhead').length) {
+        $('<svg class="arrowhead -left" aria-hidden="true"><use xlink:href="#arrowhead-left"></use></svg>').appendTo($(this));
+      }
+    });
   }
 
   // Public functions
