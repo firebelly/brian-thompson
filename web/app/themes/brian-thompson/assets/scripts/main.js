@@ -142,7 +142,7 @@ var FBSage = (function($) {
       });
   }
   function _resizeMobileNav() {
-    if(breakpoint_medium && $('.popup ul#menu-main-menu').length) {
+    if(breakpoint_medium && $('.popup.showing ul#menu-main-menu').length) {
       _closePopup();
     }
   }
