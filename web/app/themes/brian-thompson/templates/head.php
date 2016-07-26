@@ -19,4 +19,5 @@ use Roots\Sage\Assets;
     ga('send', 'pageview');
   </script>
   <!-- End Google Analytics -->
+  <meta name="google-site-verification" content="q4jCIQyCLHUUgYeELkqYwMKQbVnBGP9hYetNmbthGHY" />
 </head>
