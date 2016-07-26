@@ -173,9 +173,12 @@
 .portals {
   .portal {
     position: relative;
-    padding-bottom: 65px;
+    padding-bottom: $lh * 2;
+    margin-bottom: $lh * 5;
     img {
-      width: auto;
+      width: $col;
+      height: auto;
+      margin-bottom: 2*$lh;
     }
     p.description {
       @include dash-before($lh/2);

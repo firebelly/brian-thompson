@@ -279,7 +279,7 @@ function get_treated_url($post_or_id, $options=[]) {
 
     if($full_command) { exec($full_command); }
 
-  echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
+  // echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
   }
 
   // Finally, get the URL
@@ -288,8 +288,8 @@ function get_treated_url($post_or_id, $options=[]) {
 }
 
 // Allow SVG via media uploader
-function cc_mime_types($mimes) {
+function allow_svg($mimes) {
   $mimes['svg'] = 'image/svg+xml';
   return $mimes;
 }
-add_filter('upload_mimes', 'cc_mime_types');
+add_filter('upload_mimes', __NAMESPACE__ . '\\allow_svg');
