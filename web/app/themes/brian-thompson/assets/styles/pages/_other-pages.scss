@@ -181,14 +181,20 @@
       @include dash-before($lh/2);
     }
 
-    .login-wrap, {
+    .login-wrap {
       width: calc(100% - 10px);
       position: absolute;
       bottom: 0;
-      left: 0;
+      
     }
     .login {
-      float: right;
+      position: absolute;
+      right: 15px;
+      button {
+        position: relative;
+        width: 70px;
+        min-width: 0;
+      }
     }
   }
 }
