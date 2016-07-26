@@ -48,7 +48,6 @@
   }
   button {
     @include smaller-mono;
-    position: absolute;
     float: right;
     width: 25%;
     min-width: $col;
