@@ -544,7 +544,8 @@ function FloaterImage($image,order) {
     var pos = ((order-0.5)*scrollableHeight/numImages-5)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = Math.min(((order+1.5)*scrollableHeight/numImages),$(document).height())+'px'; 
+    pos = Math.min(((order+1.5)*scrollableHeight/numImages),$('#primary-site-content').height())+'px'; 
+    // console.log(pos+'  '+$(document).height());
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
@@ -611,14 +612,16 @@ function FloaterImage($image,order) {
   // Positioning
   // We are (fix) positioned by a choice of col (set to a data-attr and handled in css) and an inline top position
   this.position = function () {
-    $me.attr( 'data-col', me.chooseCol() );
-    $me.css( 'top', me.choosePosTop() );
+    if(breakpoint_medium){
+      $me.attr( 'data-col', me.chooseCol() );
+      $me.css( 'top', me.choosePosTop() );
+    }
   };
   this.choosePosTop = function() {
     // if(me.order===0) { // If I'm first, top=0
     //   return '0';
     // } 
-    var randPercent = Math.random()*100;
+    var randPercent = Math.random()*60+20;
     return 'calc('+randPercent+'vh - '+($me.height()/2)+'px)';
   };
   this.chooseCol = function() {
