@@ -10,11 +10,32 @@
 .blog, .archive {
 
   .category-nav {
-    position: absolute; 
-    left: 125%;
-    width: 50%;
-    padding: 0 $teensy-pad;
-    z-index: $z-category-nav;
+    position: relative;
+    width: 100%;
+    margin-bottom: 2*$lh;
+    @include screen(420px,629px) {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        width: 4*$col;
+      }
+      li {
+        flex-basis: 2*$col;
+      }
+    }
+    @include min-screen(630px) {
+      position: absolute; 
+      left: 4 * $col;
+      width: 130px;
+      padding: 0 $teensy-pad;
+      z-index: $z-category-nav;
+    }
+    @include min-screen(830px) {
+      left: 5 * $col;
+    }
+    @include screen(900px,930px) {
+      left: 4 * $col;
+    }
     ul.categories {
       @include double-dash(25px,10px);
       list-style: none;
@@ -77,7 +98,7 @@
     width: $col + $teensy-pad * 2;
     left: -$teensy-pad * 2;
     padding: 0;
-    margin-top: $lh/4;
+    margin-top: $lh*1.25;
     margin-bottom: $lh;
     max-height: 25px;
     &:before{

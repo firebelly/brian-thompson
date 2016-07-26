@@ -7,16 +7,13 @@
   @include break-out-of-padding($teensy-pad,$teensy-pad);
   .columns-item {
     position: relative; top: 0px; // Correct my baseline thing typography
-
-    
     flex-basis: 100%;
+    padding: 0 $teensy-pad;
+    margin-bottom: 2*$lh;
     @include media-sm {
       flex-basis: 50%;
       max-width: none;
     }
-    padding: 0 $teensy-pad;
-
-    margin-bottom: 2*$lh;
 
   }
   &:not(.-first-wide) {

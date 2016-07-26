@@ -182,14 +182,14 @@ var FBSage = (function($) {
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
-            $data.appendTo($more_container).velocity('fadeIn',200);
+            $data.appendTo($more_container).velocity('fadeIn',400);
             _initPageTransitionLinks();
             $load_more.attr('data-page-at', page+1);
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
                 $load_more.addClass('hide');
             } else {
-              $load_more.velocity('fadeIn',200);
+              $load_more.velocity('fadeIn',400);
             }
 
             $(window).resize(); //document size has changed -- trigger any function possibly dependent

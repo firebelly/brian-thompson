@@ -116,6 +116,11 @@
   hyphens: manual;
 }
 
+@mixin smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 // Hide fonts while loading from Typekit
 .wf-loading {
   visibility: hidden;
