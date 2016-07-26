@@ -175,7 +175,7 @@ html:not(.ie) {
       @include smaller-mono;
       
       width: 100%;
-      padding: 0;
+      // padding: 0;
         margin-top: $lh/4;
       max-height: 25px;
       @include min-screen(800px) {
