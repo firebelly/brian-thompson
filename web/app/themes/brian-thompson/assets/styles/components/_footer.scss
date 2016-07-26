@@ -62,7 +62,7 @@ html:not(.ie) {
       content: ' ';
       position: absolute;
       width: calc((100% - 24px)/2);
-      height: $lh;
+      height: $lh+2px;
       transition: background $color-time;
     }
     &:before {
