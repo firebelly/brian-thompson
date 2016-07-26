@@ -162,11 +162,12 @@
     width: 100%;
     position: relative;
     left: -$teensy-pad;
+    z-index: 0;
     @include media-md {
       width: $col;
       margin-top: 285px;
       left: 4 * $col - $teensy-pad;
-
+      z-index: $z-recent-posts;
     }
     @include min-screen(1000px){
       position: absolute;
@@ -187,7 +188,7 @@
   }
 
   .start-line,.start-button {
-    z-index: $z-lets-start;
+    z-index: 0;
     left: 1*$col;
     @include media-sm {
       left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
@@ -196,6 +197,7 @@
       left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
     }
     @include media-md {
+      z-index: $z-lets-start;
       left: 6 * $col - 1px;
     }
     @include min-screen(800px) {

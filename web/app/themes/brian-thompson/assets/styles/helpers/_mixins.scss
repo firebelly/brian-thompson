@@ -83,53 +83,6 @@
   @include dash-after($bot);
 }
 
-
-// Arrows
-@mixin arrow-right($height) {
-  // @include no-word-break;
-  // height: $height;
-  // position: relative;
-  // border-top-left-radius: 3px;
-  // border-bottom-left-radius: 3px;
-  // // display: inline-block;
-  // border: 0;
-  // z-index: 5;
-  // &:after {
-  //   content: ' ';
-  //   height: $height * .707107; //  h/sqrt(2); HIGH SCHOOL TRIG, BITCH!!!
-  //   width: $height * .707107; //  h/sqrt(2);
-  //   transform: translate(50%,-50%) rotate(45deg) ;
-  //   position: absolute;
-  //   top: 50%;
-  //   right: 0;
-  //   background: inherit;
-  //   border-top-right-radius: 3px;
-  //   z-index: -1;
-  // }
-}
-@mixin arrow-left($height) {
-  // @include no-word-break;
-  // height: $height;
-  // position: relative;
-  // border-top-right-radius: 3px;
-  // border-bottom-right-radius: 3px;
-  // // display: inline-block;
-  // border: 0;
-  // z-index: 5;
-  // &:after {
-  //   content: ' ';
-  //   height: $height * .707107; //  h/sqrt(2);
-  //   width: $height * .707107; //  h/sqrt(2);
-  //   transform: translate(-50%,-50%) rotate(45deg) ;
-  //   position: absolute;
-  //   top: 50%;
-  //   left: 0;
-  //   background: inherit;
-  //   border-bottom-left-radius: 3px;
-  //   z-index: -1;
-  // }
-}
-
 // Underline
 @mixin gradient-underline ($bg,$line,$start,$stop) {
   background: linear-gradient(rgba($bg,0), rgba($bg,0) $start, rgba($line,1) $start, rgba($line,1) $stop, rgba($bg,0) $stop);

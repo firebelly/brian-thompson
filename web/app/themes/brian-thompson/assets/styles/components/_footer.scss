@@ -163,7 +163,6 @@ html:not(.ie) {
       width: 100%;
       padding: 0;
         margin-top: $lh/4;
-      @include arrow-right(25px);
       max-height: 25px;
       @include min-screen(800px) {
         position: relative;
@@ -251,6 +250,11 @@ html:not(.ie) {
       }
       .social-block {
         flex-basis: $col;
+        @include screen(800px,1100px) {
+            li.social-link:first-child { 
+              margin-left:  -5px;
+            }
+        }
         @include min-screen(800px) {
           flex-basis: 2 * $col;
           order: 2;
@@ -306,10 +310,13 @@ html:not(.ie) {
         position: absolute;
         right: 0;
         bottom: 100%;
+        // @include {
+
+        // }
         @include min-screen(800px) {
           position: static;
-        }
-        @include min-screen(800px) {
+          right: auto;
+          bottom: auto;
           order: 2;
         }
         @include media-huge {
@@ -358,6 +365,11 @@ html:not(.ie) {
         }
       }
     }
+    // .social-block, .contact-form-block {
+    //   @include screen(420px,440px){
+    //     padding-right: 20px;
+    //   }
+    // }
     .footer-block {
       float: left;
       display: inline-block;
