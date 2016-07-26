@@ -38,10 +38,10 @@
     height: 100%;
     position: absolute;
     &.-right {
-      left: 100%;
+      left: calc(100% - 1px);
     }
     &.-left {
-      right: 100%;
+      right: calc(100% - 1px);
     }
   }
 }
