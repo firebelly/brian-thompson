@@ -1,18 +1,7 @@
 // Footer
 
-    $color-time: .15s;
-    $open-time: .15s;
-
-html:not(.ie) {
-  body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  .body-wrap {
-    flex: 1;
-  }
-}
+$color-time: .15s;
+$open-time: .15s;
 
 .site-footer {
   position: relative;
