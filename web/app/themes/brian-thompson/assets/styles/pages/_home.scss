@@ -159,14 +159,11 @@
   }
 
   .recent-posts {
-    width: 100%;
-    position: relative;
-    left: -$teensy-pad;
-    z-index: 0;
+    margin-top: 2*$lh;
     @include media-md {
       width: $col;
       margin-top: 285px;
-      left: 4 * $col - $teensy-pad;
+      left: 4 * $col;
       z-index: $z-recent-posts;
     }
     @include min-screen(1000px){
@@ -174,16 +171,10 @@
       margin-top: 0;
       top: 935px;  
       left: 5 * $col;
+      padding: 0 $teensy-pad;
     }
     @include media-huge {
       left: 5 * $col-huge;
-    }
-    h4 {
-      @include big-title;
-      margin-top: 2*$lh;
-      @include media-md {
-        @include small-mono;
-      }
     }
   }
 
@@ -192,13 +183,13 @@
     left: 2*$col - $teensy-pad + 1px;
     border-radius: 0;
     @include media-sm {
+      z-index: $z-lets-start;
       left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col});
     }
     @include min-screen(600px) {
       left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col});
     }
     @include media-md {
-      z-index: $z-lets-start;
       left: 6 * $col - 1px;
     }
     @include min-screen(800px) {

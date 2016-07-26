@@ -4,6 +4,7 @@
   h4 {
     margin-bottom: $lh/2;
   }
+  @include clearfix;
 }
 .site-footer {
   li.social-link {

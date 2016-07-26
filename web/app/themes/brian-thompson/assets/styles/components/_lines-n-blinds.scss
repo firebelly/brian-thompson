@@ -63,7 +63,7 @@ body > .blinds {
   z-index: $z-page-blinds;
 }
 .floater-image .lines {
-  z-index: $floater-image-lines;
+  z-index: $z-floater-image-lines;
 }
 
 // Lines & Page Blinds
@@ -115,10 +115,10 @@ body > .blinds {
 
 // // Floater Image
 // .floater-image .blinds {
-//   z-index: $floater-image-blinds;
+//   z-index: $z-floater-image-blinds;
 // }
 // .floater-image .lines {
-//   z-index: $floater-image-lines;
+//   z-index: $z-floater-image-lines;
 //   position: absolute;
 // }
 

@@ -1,26 +1,29 @@
 // Recent Posts Moduleπ
 .recent-posts {
-  width: $col;
-  padding: 0 $teensy-pad;
-  z-index: $z-recent-posts;
+  position: relative;
+  width: 100%;
+  z-index: 0;
+  padding: 0;
+  margin-top: 2 * $lh;
   h4 {
+    // @include small-title;
+    margin-top: 2*$lh;
+    @include small-mono;
+    @include dash-after(17px);
     margin-bottom: 33px;
-    @include media-md {
-      @include dash-after(17px);
-    }
   }
   ul.posts {
     list-style: none;
   }
-  h5 {
-    @include small-title; 
-    @include media-md {
-      @include dash-after($lh);
-      margin-bottom: 23px;
-    }
-  }
   li.post {
     margin-bottom: $lh*2;
+  }
+  h5 {
+    @include small-title; 
+    @include dash-after($lh);
+    @include min-screen(800px) {
+      margin-bottom: 23px;
+    }
   }
   p {
     @include small-mono;

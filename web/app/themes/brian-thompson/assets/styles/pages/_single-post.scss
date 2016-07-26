@@ -27,33 +27,42 @@
   }
 
   .nav-posts{
-    position: fixed;
-    width: 100%;
-    top: 50vh;
-    left: 0;
-    z-index: $z-post-nav;
+    margin-top: $lh*2;
+    padding-bottom: $lh*7;
+    position: relative;
+    @include break-out-of-padding($teensy-pad, $teensy-pad);
+    @include media-md {
+      padding-bottom: 0;
+      position: fixed;
+      width: 100%;
+      top: 50vh;
+      left: 0;
+      z-index: $z-post-nav;
+    }
   }
 
   .next-post, .prev-post {
     @include font-mono;
     color: $blue;
-    z-index: 100;
     padding: 15px;
     font-size: 10px;
     background: $white;
-
-    display: none;
-    transform: translateY(-50%);
+      position: absolute;
     @include media-md {
-      display: block;
+      transform: translateY(-50%);
     }
     .wrap {
       max-width: 35px;
     }
   }
   .next-post {
-    position: absolute;
-    left: 6.5 * $col - 5px;
+    left: 2 * $col - 5px;
+    @include media-sm {
+      left: 3 * $col - 5px;
+    }
+    @include media-md {
+      left: 6.5 * $col - 5px;
+    }
     @include min-screen(800px) {
       left: 7 * $col - 5px;
     }
@@ -65,8 +74,13 @@
     }
   }
   .prev-post {
-    position: absolute;
-    right: calc( 100% - ( 1.5 * #{$col} + 5px ) );
+    right: 2 * $col - 5px;
+    @include media-sm {
+      right: 3 * $col - 5px;
+    }
+    @include media-md {
+      right: calc( 100% - ( 1.5 * #{$col} + 5px ) );
+    }
     @include min-screen(800px) {
       right: calc( 100% - (  1 * #{$col} + 5px ) );
     }
@@ -79,9 +93,14 @@
   }
 
   .recent-posts {
-    position: absolute;
-    top: calc(50vh + 100px); //390px;
-    left: 5*$col;
+    @include min-screen(800px) {
+      width: $col;
+      position: absolute;
+      padding: 0 $teensy-pad;
+      top: calc(50vh + 100px); //390px;
+      left: 5*$col;
+      z-index: $z-recent-posts;
+    }
     @include media-huge {
       left: 5 * $col-huge;
     }

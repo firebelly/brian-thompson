@@ -9,13 +9,11 @@
       <?php the_content(); ?>
     </div>
     <footer>
+      <?php include(locate_template('templates/share.php')); ?>
       <div class="nav-posts">
-        <div class="main-area-wrap">
           <?php previous_post_link( '%link','<button class="prev-post arrow -white  -huge -left"><div class="wrap">Prev Post</div></button>' ); ?>
           <?php next_post_link( '%link','<button class="next-post arrow -white -huge -right"><div class="wrap">Next Post</div></button>' ); ?>
-        </div>
       </div>
-      <?php include(locate_template('templates/share.php')); ?>
     </footer>
   </article>
   <?php include(locate_template('templates/recent-posts.php')); ?>
