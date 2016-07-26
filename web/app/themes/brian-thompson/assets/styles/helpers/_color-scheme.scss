@@ -170,21 +170,27 @@ $brand-secondary: $blue;
     fill: $text;
     a { background: transparent; }
   }
+
+  // Footer
   .site-footer {
     background: $anti-bg;
     &, a { 
       color: $anti-text; 
     }
-    a:hover { color: $anti-title; }
+    a:hover { 
+      color: $anti-title; 
+    }
     .footer-tab {
-      background: $anti-bg;
+      &:after, &:before {
+        background: $anti-bg;
+      }
+      .footer-hole {
+        fill: $anti-bg;
+      }
       .footer-toggle {
         background: transparent;
         color: $text;
-        &:before {
-          background: $bg;
-        }
-        &:after {
+        &:before, &:after {
           background: $anti-bg;
         }
       }
@@ -192,12 +198,17 @@ $brand-secondary: $blue;
     @include media-md {
       &.closed {
         .footer-tab {
-          background: $black;
+          &:after, &:before {
+            background: $black;
+          }
           .footer-toggle {
             color: $white;
-            &:after {
+            &:after, &:before {
               background: $black;
             }
+          }
+          .footer-hole {
+            fill: $black;
           }
         }
       }

@@ -232,7 +232,7 @@ var FBSage = (function($) {
   }
 
   function _initFooter() {
-    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button></div>';  
+    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';  
     $(html).prependTo('.site-footer').click(function(e) {
       e.preventDefault();
       if( $('.site-footer').hasClass('closed') ){
