@@ -189,12 +189,13 @@
 
   .start-line,.start-button {
     z-index: 0;
-    left: 1*$col;
+    left: 2*$col - $teensy-pad + 1px;
+    border-radius: 0;
     @include media-sm {
-      left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col} );
+      left: calc( (100% - 4 * #{$col})/2 + 3 * #{$col});
     }
     @include min-screen(600px) {
-      left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col} );
+      left: calc( (100% - 4 * #{$col})/2 + 4 * #{$col});
     }
     @include media-md {
       z-index: $z-lets-start;
@@ -228,12 +229,14 @@
   .start-button {
     @include small-mono;
     position: relative;
+    margin-left: 0;
+    width: 60px;
     @include media-sm{
+      width: 50px;
       margin-left: 5px;
       position: fixed;
       border-radius: 0;
       top: 35%; 
-      width: 50px;
     }
   }
 

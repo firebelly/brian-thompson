@@ -76,14 +76,17 @@
 
   .next-content {
     @include small-mono;
-    min-width: $col;
     width: $col;
     position: relative;
-    left: $col;
+    left: $col - $teensy-pad + 1px;
     @include media-sm {
-      left: 2*$col;
+      left: 2*$col - $teensy-pad + 1px;
+    }
+    @include max-screen($breakpoint-medium - 1px) {
+      border-radius: 0;
     }
     @include media-md {
+      width: $col;
       position: absolute;
       right: auto;
       top: $lh*5.25;

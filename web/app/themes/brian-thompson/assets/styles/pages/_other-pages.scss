@@ -103,6 +103,7 @@
       @include media-huge {
         flex-basis: $col-huge;
       }
+      align-self: flex-end;
       text-align: center;
       top: 0;
       padding-top: 1.75*$lh;
@@ -117,7 +118,7 @@
           max-width: none;
         }
         .wrap {
-          position: absolute;
+          // position: absolute;
           bottom: 2.25*$lh;
           padding: 0 $lh/4;
         }
