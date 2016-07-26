@@ -80,7 +80,21 @@ html:not(.ie) {
       height: 25px;
       transition: fill $color-time;
     }
-
+    .icon-plus,.icon-minus {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .icon-minus {
+      width: 9px;
+      height: 2px;
+      left: 8px;
+    }
+    .icon-plus {
+      width: 9px;
+      height: 9px;
+      left: 8px;
+    }
     .footer-toggle {
       position: absolute;
       top: 0;

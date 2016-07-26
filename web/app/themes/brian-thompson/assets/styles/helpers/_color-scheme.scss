@@ -189,7 +189,7 @@ $brand-secondary: $blue;
       }
       .footer-toggle {
         background: transparent;
-        color: $text;
+        fill: $text;
         &:before, &:after {
           background: $anti-bg;
         }
@@ -202,7 +202,7 @@ $brand-secondary: $blue;
             background: $black;
           }
           .footer-toggle {
-            color: $white;
+            fill: $white;
             &:after, &:before {
               background: $black;
             }

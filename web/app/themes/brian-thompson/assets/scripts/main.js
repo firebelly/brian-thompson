@@ -25,6 +25,12 @@ var FBSage = (function($) {
     // Whether we are animating (to elsewhere block certain behaviors in this case)
     _isAnimating = false;
 
+    // Inject svg into arrow classes
+    _initArrows();
+
+    // Add html markup and behavior for footer
+    _initFooter();
+
     // Add global overlay for clickouts
     _initGlobalOverlay();
 
@@ -64,9 +70,6 @@ var FBSage = (function($) {
       }
     });
 
-    // Add html markup and behavior for footer
-    _initFooter();
-
     // Add color information to URL we are going to, handle transition effect
     _initPageTransitionLinks();
 
@@ -88,8 +91,7 @@ var FBSage = (function($) {
     // Detect IE and add a class
     _ieDetect();
 
-    // Inject svg into arrow classes
-    _initArrows();
+
 
   } // end init()
 
@@ -232,7 +234,7 @@ var FBSage = (function($) {
   }
 
   function _initFooter() {
-    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle">+</button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';  
+    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle"><svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg></button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';  
     $(html).prependTo('.site-footer').click(function(e) {
       e.preventDefault();
       if( $('.site-footer').hasClass('closed') ){
@@ -262,13 +264,13 @@ var FBSage = (function($) {
   function _closeFooter(animDur) {
     animDur = animDur || 200;
     $('.site-footer').addClass('closed');
-    setTimeout(function() { $('.footer-toggle').empty().append('+'); }, 200);
+    $('.footer-toggle').empty().append('<svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg>'); 
   }
   function _openFooter(animDur) {
     if(!$('.popup.showing').length) {
       animDur = animDur || 200;
       $('.site-footer').removeClass('closed');
-      $('.footer-toggle').empty().append('–');
+      $('.footer-toggle').empty().append('<svg class="icon-minus" aria-hidden="true"><use xlink:href="#icon-minus"></use></svg>');
     }
   }
   function _resizeFooter() {
