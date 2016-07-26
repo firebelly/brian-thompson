@@ -736,6 +736,7 @@ function InlineImage($image,order) {
 
     // Add functions to supplement CF7 form handling
     $('.contact-form-submit').click(function(e){
+      e.preventDefault();
       $('#wpcf7-f91-o1 .wpcf7-form').submit();
       $('.wpcf7-response-output').velocity('scroll',300);
     });
