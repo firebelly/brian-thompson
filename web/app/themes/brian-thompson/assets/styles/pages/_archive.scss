@@ -36,6 +36,10 @@
     @include screen(900px,930px) {
       left: 4 * $col;
     }
+    @include media-huge {
+
+      left: 5 * $col-huge;
+    }
     ul.categories {
       @include double-dash(25px,10px);
       list-style: none;
