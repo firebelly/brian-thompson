@@ -34,19 +34,19 @@
     width: 100%;
     // padding-bottom: 25px;
     h2 {
-      margin-bottom: $lh/2; 
+      margin-bottom: $lh*.5; 
       padding-right: $lh;
     }
 
     .summary {
-      @include dash-before($lh);
+      @include dash-before($lh+1px);
       padding-right: $lh;
       @include word-break;
     }
 
     .meta p {
       @include small-mono;
-      margin-bottom: $lh/2
+      margin-bottom: $lh*.75;
     }
   }
 
@@ -59,10 +59,11 @@
       padding: 0 $lh/4;
       @include smaller-mono;
       top: -2px;
-      left: -$teensy-pad;
+      left: -$teensy-pad+1px;
       max-height: 25px;
       display: block;
       margin-top: $lh/4;
+      border-radius: 0;
     }
   } 
 

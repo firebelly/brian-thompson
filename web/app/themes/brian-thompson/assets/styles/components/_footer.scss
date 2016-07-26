@@ -250,6 +250,12 @@ html:not(.ie) {
       }
       .social-block {
         flex-basis: $col;
+        @include screen(300px,340px){
+          margin-left: -20px;
+        }
+        @include screen(420px,440px){
+          margin-left: -20px;
+        }
         @include screen(800px,1100px) {
             li.social-link:first-child { 
               margin-left:  -5px;
@@ -310,9 +316,12 @@ html:not(.ie) {
         position: absolute;
         right: 0;
         bottom: 100%;
-        // @include {
-
-        // }
+        @include screen(300px,340px){
+          right: 20px;
+        }
+        @include screen(420px,440px){
+          right: 20px;
+        }
         @include min-screen(800px) {
           position: static;
           right: auto;
@@ -365,11 +374,6 @@ html:not(.ie) {
         }
       }
     }
-    // .social-block, .contact-form-block {
-    //   @include screen(420px,440px){
-    //     padding-right: 20px;
-    //   }
-    // }
     .footer-block {
       float: left;
       display: inline-block;
