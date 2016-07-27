@@ -41,7 +41,7 @@ var FBSage = (function($) {
     $('main').fitVids();
 
     _initMobileNav();
-    // _initSearch();
+    _initSearch();
     _initLoadMore();
 
     // Inject all of our svgs so we can grab them throughout the page with <svg class="..." role="img"><use xlink:href="#..."></use></svg> commands.
@@ -50,11 +50,12 @@ var FBSage = (function($) {
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
-        // _hideSearch();
-        // _hideMobileNav();
         _closePopup();
+        _closeSearch();
       }
+
     });
+
 
     // Smoothscroll links
     $('a.smoothscroll').click(function(e) {
@@ -165,6 +166,7 @@ var FBSage = (function($) {
       var page = parseInt($load_more.attr('data-page-at'));
       var per_page = parseInt($load_more.attr('data-per-page'));
       var category = $load_more.attr('data-category');
+      var search = $load_more.attr('data-search');
       var $more_container = $load_more.parents('section,main').find('.load-more-container');
       loadingTimer = setTimeout(function() { $more_container.addClass('loading'); }, 500);
 
@@ -177,7 +179,8 @@ var FBSage = (function($) {
               action: 'load_more_posts',
               page: page+1,
               per_page: per_page,
-              category: category
+              category: category,
+              search: search
           },
           success: function(data) {
             var $data = $(data);
@@ -309,6 +312,30 @@ var FBSage = (function($) {
         }
       });
     });
+
+    // Similarly for search form submits....
+    $('.search-form').submit(function(e) {
+      e.preventDefault();
+      if(!_isAnimating) { // Don't be able to click links while we are already transitioning to a new page
+
+        _isAnimating = true;
+
+        // Throw lines to front and change their color
+        $('.lines').addClass('page-transitioning');
+
+        // Find starting blind
+        var startingBlindNum = _closestX( $('.blinds.-page .blind'), $(this).offset().left ).data('blind-num'); //Math.floor($(this).offset().left / $('.blinds.-page .blind').width()); // Which blind # corresponds to the X location of this link
+
+        // Reference var
+        var searchForm = this;
+
+        // Trigger blinds, submit on complete
+        _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
+          searchForm.submit();
+        });
+
+      }
+    });
   }
   function _get_hostname(url) {
     // Get the hostname from url using regexp
@@ -367,7 +394,64 @@ var FBSage = (function($) {
     return closestElement;
   }
 
-  // Add color information to URL we are going to, handle transition effect
+
+  function _initSearch() {
+
+    $('.page-header .search-field').attr('placeholder','...').focus();
+
+    $('.search-popup .body-wrap').velocity('fadeOut',0);
+    $('.open-search').click(function(e) {
+      e.preventDefault();
+      _openSearch();
+    });
+    $('.search-popup .close').click(function(e) {
+      e.preventDefault();
+      _closeSearch();
+    });
+  }
+
+  function _openSearch() {
+    if(!_isAnimating) {
+      _closeFooter();
+      _isAnimating = true;
+      $('.search-popup').addClass('showing');
+      $('.search-popup .lines').velocity('fadeIn',200);
+      var startingBlindNum = _closestX( $('.search-popup > .blinds .blind'), $('.open-search').offset().left ).data('blind-num'); // Which blind # corresponds to the X location of this link
+      _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () {
+        // console.log('blinds onDone triggered');
+        $('.search-popup .body-wrap').velocity('fadeIn',{ 
+          duration: 200,
+          complete: function() {
+            $('.search-popup .search-field').focus();
+            _isAnimating = false;
+          }
+        });
+      });
+    }
+  }
+
+  function _closeSearch() {
+      console.log('closing!');
+    if(!_isAnimating && $('.search-popup.showing').length){
+      console.log('not animating!');
+      _isAnimating = true;
+      $('.search-popup .body-wrap').velocity('fadeOut',{
+        duration: 200,
+        complete: function () {
+          $('.search-popup .lines').velocity('fadeOut',{ 
+            duration: 200
+          });
+          _blinds($('.search-popup > .blinds .blind'),'hide',0, function() {
+              _isAnimating = false;
+              $('.search-popup').removeClass('showing').removeClass('holding-mobile-nav');
+          });
+        }
+      });
+    }
+  }
+
+
+  // Initialize popup for modals and for mobile nav
   function _initPopup() {
     // Here is a global variable to remember which blind was the first to open;
     _popupStartingBlindNum = 0;
@@ -392,26 +476,26 @@ var FBSage = (function($) {
     });
 
     $('.almighty-global-overlay, .popup .close').click(function() {
-      if(!_isAnimating) {
         _closePopup();
-      }
     });
   }  
   function _closePopup() {
-    _isAnimating = true;
-    _returnToYourSlumberAlmightyOverlay();
-    $('.popup .body-wrap').velocity('fadeOut',{
-      duration: 200,
-      complete: function () {
-        $('.popup .lines').velocity('fadeOut',{ 
-          duration: 200
-        });
-        _blinds($('.popup > .blinds .blind'),'hide',_popupStartingBlindNum, function() {
-            _isAnimating = false;
-            $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
-        });
-      }
-    });
+    if(!_isAnimating && $('.popup.showing').length) {
+      _isAnimating = true;
+      _returnToYourSlumberAlmightyOverlay();
+      $('.popup .body-wrap').velocity('fadeOut',{
+        duration: 200,
+        complete: function () {
+          $('.popup .lines').velocity('fadeOut',{ 
+            duration: 200
+          });
+          _blinds($('.popup > .blinds .blind'),'hide',0, function() {
+              _isAnimating = false;
+              $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
+          });
+        }
+      });
+    }
   }
   function _openPopup($content) {
     _closeFooter();
@@ -459,7 +543,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindHide", {
       defaultDuration: 500,
       calls: [
-        [ { translateX: '-50%', scaleX: '0.0001'} ]
+        [ { translateX: '-50%', scaleX: '0.0001'}, 0.98 ]
       ]
     });
 
@@ -476,6 +560,9 @@ var FBSage = (function($) {
 
     // Ditto page transition blinds
     _makeBlinds(15,'body','-page -hidden');
+
+    // Ditto page transition blinds
+    _makeBlinds(15,'.search-popup','-hidden');
 
         //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
     $('.blind').velocity("transition.blindHide", {duration: 0});
@@ -505,6 +592,8 @@ var FBSage = (function($) {
     _makeLines(15,'.site-nav');
     // Lines behind popups
     _makeLines(7,'.popup').velocity('fadeOut',0);
+    // Lines behind popups
+    _makeLines(15,'.search-popup').velocity('fadeOut',0);
     // Lines in front of images
     _makeLines(6,'.floater-image');
   }
@@ -679,7 +768,10 @@ function FloaterImage($image,order) {
   });
 }
 
-function InlineImage($image,order) {
+function InlineImage($image,order,delay) {
+
+  if(typeof delay==='undefined') { delay = 500; }
+  this.delay = delay;
 
   // My self referential vars
   var me = this;
@@ -699,14 +791,16 @@ function InlineImage($image,order) {
   };
 
   // Init waypoints
-  this.waypoint =  $me.waypoint({
-    offset: '100%',
-    handler: function(direction) {
-      if(direction==='down' && !me.alive){
-        me.live();
+  setTimeout(function() {
+    me.waypoint =  $me.waypoint({
+      offset: '100%',
+      handler: function(direction) {
+        if(direction==='down' && !me.alive){
+          me.live();
+        }
       }
-    }
-  });
+    });
+  },this.delay);
 
 }
 

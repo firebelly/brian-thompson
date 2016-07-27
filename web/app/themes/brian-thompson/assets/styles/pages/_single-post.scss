@@ -97,7 +97,7 @@
       width: $col;
       position: absolute;
       padding: 0 $teensy-pad;
-      top: calc(50vh + 100px); //390px;
+      top: calc(50vh); 
       left: 5*$col;
       z-index: $z-recent-posts;
     }

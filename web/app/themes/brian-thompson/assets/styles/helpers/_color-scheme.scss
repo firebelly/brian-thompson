@@ -71,7 +71,7 @@ $brand-secondary: $blue;
     a:hover {
       color: $anti-title;
     }
-    h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
+    &,h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
     .arrow.-white:hover {
@@ -90,6 +90,20 @@ $brand-secondary: $blue;
       color: $anti-title;
     }
   }
+
+  // Search Popup
+  .search-popup .body-wrap {
+    &,h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
+      color: $white;
+    }
+  }
+  &.search .page-header .search-field {
+    color: $title;
+    &:hover {
+      background: rgba($black,.2);
+    }
+  }
+
 
   // Form Pages
   .form-wrap {
@@ -134,7 +148,7 @@ $brand-secondary: $blue;
       background: $title;
     }
   }
-  .popup.holding-mobile-nav {
+  .popup.holding-mobile-nav, .search-popup {
     a:hover {
       color: $white;
     }
@@ -145,7 +159,6 @@ $brand-secondary: $blue;
       background: rgba($gray,.25);
     }
   }
-
 
   // Nav
   .site-nav {
@@ -163,7 +176,9 @@ $brand-secondary: $blue;
   .hamburger {
     fill: $text;
   }
-
+  .icon-search {
+    fill: $text;
+  }
 
   // Logo
   .btf-logo {

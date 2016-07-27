@@ -6,9 +6,11 @@
   right: 0;
   height: 100%;
   z-index: $z-lines;
-  pointer-events: none;
   overflow-x: hidden;
   // background: rgba(red,.5);
+  &.-hidden{
+    pointer-events: none;
+  }
 }
 .line, .blind {
   position: absolute;
@@ -35,9 +37,12 @@
   }
 }
 
+// Positioning of global blinds
 .site-nav > .lines, 
 body > .lines, 
 body > .blinds,
+.search-popup > .blinds,
+.search-popup > .lines,
 .mobile-image >.blinds {
   .line, .blind {
     margin-left: -90px;
@@ -62,85 +67,14 @@ body > .lines,
 body > .blinds {
   z-index: $z-page-blinds;
 }
+
 .floater-image .lines {
   z-index: $z-floater-image-lines;
 }
 
-// Lines & Page Blinds
-// .lines, .blinds.-page, .mobile-image .blinds {
-
-// }
-// // .lines, .blinds.-page {
-//   overflow: hidden;
-//   position: absolute;
-//   top: 0; 
-//   left: 0;
-//   width: 100%;
-//   min-width: 15*$col; //Stop lines from wrapping;
-//   .line {
-//     margin-left: calc( #{$col} - 1px);
-//     @include media-huge { margin-left: calc( #{$col-huge} - 1px); }
-//   }
-// }
-// .line, .blind {
-//   float: left;
-//   height: 100%;
-// }
-
-// // Lines
-// .lines {
-//   height: 100%;
-//   z-index: $z-lines;
-//   pointer-events: none;
-//   &.page-transitioning {
-//     z-index: $z-lines-page-transitioning;
-//   }
-//   .line {
-//     width: 1px;
-//     transition: background 0.5s;
-//   }
-// }
-
-// // Blinds
-// .blinds {
-//   height: 100%;
-//   .blind {
-//     width: $col;
-//     @include media-huge { width: $col-huge; }
-//   }
-//   &.-page {
-//     z-index: $z-page-blinds;
-//   }
-// }
-
-// // Floater Image
-// .floater-image .blinds {
-//   z-index: $z-floater-image-blinds;
-// }
-// .floater-image .lines {
-//   z-index: $z-floater-image-lines;
-//   position: absolute;
-// }
-
-// .popup, .popup .lines, .popup .blinds  {
-//   left: $small-pad;
-//   @include media-tiny {
-//     left: calc((100% - 3 * #{$col})/2 );
-//   }
-//   @include media-sm {
-//     left: calc((100% - 4 * #{$col})/2 );
-//   }
-//   @include min-screen(600px) {
-//     left: calc((100% - 4 * #{$col})/2 );
-//   }
-//   @include media-md{
-//     left: 1*$col;
-//   }
-//   @include media-lg {
-//     left: 2*$col;
-//   }
-//   @include media-huge {
-//     left: 2*$col-huge;
-//     width: $col-huge*6;
-//   }
-// }
+.search-popup > .lines {
+  z-index: $z-search-lines;
+}
+.search-popup > .blinds {
+  z-index: $z-search-blinds;
+}

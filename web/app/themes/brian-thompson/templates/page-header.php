@@ -10,8 +10,18 @@ if ( !is_front_page() ) {
     echo Media\get_floater_images();
   endif;
 }
-?>
 
-<div class="page-header">
-  <h1><?= Titles\title(); ?></h1>
-</div>
+if ( is_search() ) {
+  echo '<div class="page-header">';
+  echo '  <h1>Results for</h1>';
+  get_search_form();
+  echo '</div>';
+} else {
+  echo '<div class="page-header">';
+  echo '  <h1><?= Titles\title(); ?></h1>';
+  echo '</div>';
+}
+
+
+
+

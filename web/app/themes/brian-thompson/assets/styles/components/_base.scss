@@ -209,11 +209,8 @@ hr {
 
 // Stupid admin bar
 body.admin-bar {
-  #primary-site-content, .brand, .site-nav, .mobile-nav-open {
-    margin-top: 0;
-    // @include min-screen(601px) {
+  #primary-site-content, .brand, .site-nav, .mobile-nav-open, .open-search, .search-popup .close, .search-popup .body-wrap {
       margin-top: 46px;
-    // }
     @include min-screen(783px) {
       margin-top: 32px;
     }

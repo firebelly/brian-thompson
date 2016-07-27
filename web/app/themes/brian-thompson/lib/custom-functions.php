@@ -3,15 +3,13 @@
 namespace Firebelly\Utils;
 
 /**
- * Bump up # search results
+ * Remove pages/posts from search
  */
-function search_queries( $query ) {
-  if ( !is_admin() && is_search() ) {
-    $query->set( 'posts_per_page', 40 );
-  }
-  return $query;
+function remove_pages_from_search() {
+  global $wp_post_types;
+  $wp_post_types['page']->exclude_from_search = true;
 }
-add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
+add_action('init', __NAMESPACE__ . '\\remove_pages_from_search');
 
 /**
  * Custom li'l excerpt function

@@ -25,6 +25,7 @@ function load_more_posts() {
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $category = !empty($_REQUEST['category']) ? $_REQUEST['category'] : '';
+  $search = !empty($_REQUEST['search']) ? $_REQUEST['search'] : '';
   $offset = ($page-1) * $per_page;
   $args = [
     'offset' => $offset,
@@ -33,6 +34,10 @@ function load_more_posts() {
   // Filter by Category?
   if (!empty($category)) {
     $args['cat'] = $category;
+  }
+  // Search Query?
+  if (!empty($search)) {
+    $args['s'] = $search;
   }
 
   $posts = get_posts($args);
@@ -68,16 +73,28 @@ function load_more_button($orig_query=false) {
 
   //extract query vars
   $category = isset($orig_query->queried_object->term_id) ? $orig_query->queried_object->term_id : '';
-  // $search_query = isset($orig_query->query_vars['s']) ? $orig_query->query_vars['s'] : '';
+  $search_query = isset($orig_query->query_vars['s']) ? $orig_query->query_vars['s'] : '';
   $per_page = isset($orig_query->query['posts_per_page']) ? $orig_query->query['posts_per_page'] : get_option( 'posts_per_page', 10 );
   // $orderby = isset($orig_query->query['orderby']) ? $orig_query->query['orderby'] : '';
 
   //get total post count for all posts in all pages of query
   $total_posts = wp_count_posts('post')->publish;
+
+  if($category) {
+    $term = get_term_by('id',$category,'category');
+    $total_posts = $term->count;
+  } elseif ($search_query) {
+    $total_posts = $wp_query->found_posts;
+  } else {
+    $total_posts = wp_count_posts('post')->publish;
+  }
   $total_pages = ceil( $total_posts / $per_page);
 
   //return the markup
-  $output = '<button class="load-more arrow -right -black -small" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'">See More Posts</div>';
+  $output = '';
+  if( $total_pages > 1 ) {
+    $output = '<button class="load-more arrow -right -black -small" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'" data-search="'.$search_query.'">See More Posts</div>';
+  }
   return $output;
 
 }

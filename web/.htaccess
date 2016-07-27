@@ -1,6 +1,8 @@
 # BEGIN redirects
 RewriteEngine On
 RewriteBase /
+# RewriteCond %{HTTP_HOST} !^btfinancial.com$ [NC]
+# RewriteRule ^(.*)$ http://btfinancial.com/$1 [R=301,L]
 RewriteRule ^post/([0-9]+).*$ /posts/$1/ [R=301,L]
 RewriteRule ^tagged/(.*)$ /posts/tag/$1/ [R=301,L]
 # END redirects
