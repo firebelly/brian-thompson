@@ -91,16 +91,22 @@ $brand-secondary: $blue;
     }
   }
 
-  // Search Popup
+  // Search
   .search-popup .body-wrap {
     &,h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
   }
-  &.search .page-header .search-field {
-    color: $title;
-    &:hover {
-      background: rgba($black,.2);
+  &.search {
+    .page-header .search-field {
+      color: $title;
+      &:hover {
+        background: rgba($black,.2);
+      }
+    }
+    .highlight {
+      background: $anti-bg;
+      color: $anti-text;
     }
   }
 

@@ -324,56 +324,6 @@ var FBSage = (function($) {
     return host ? host : null;
   }
 
-  // Handle animating blinds
-  function _blinds($blinds,showOrHideTheBlinds,startingBlindNum,onDone,useHiddenClass,duration) {
-    // Defaults
-    $blinds = $blinds || $('.blind');
-    showOrHideTheBlinds = showOrHideTheBlinds || 'show';
-    startingBlindNum = startingBlindNum || 0;
-    onDone = onDone || undefined;
-    duration = duration || 200;
-    useHiddenClass = typeof useHiddenClass === 'undefined' ? true : useHiddenClass;
-
-    // We gotta find the container because so we can add/remove classes.
-    $container = $blinds.closest('.blinds');
-
-    // Which is the final onscreen blind to open or close?
-    var numBlinds = $blinds.filter(function () {
-      return $(this).offset().left < $(window).width();
-    }).length; // Number of on-screen blinds
-    var finalBlindNum = startingBlindNum > numBlinds - startingBlindNum ? 0 : numBlinds-1;
-
-    if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
-
-    // Animate each blind.
-    $($blinds).each(function() {
-      var thisBlindNum = $(this).data('blind-num');
-      var $me = $(this);
-      $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
-        delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
-        duration: duration,
-        easing: [1,0.75,0.5,1],
-        complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() {
-          if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
-          if (onDone) { onDone(); }
-        }
-      });
-    });
-  }
-  function _closestX($elements,x){
-    var closestDist = 9999;
-    var closestElement = false;
-    if ($elements.length) {
-      $elements.each(function() {
-        var dist = Math.abs( $(this).offset().left-x );
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestElement = $(this);
-        }
-      });
-    }
-    return closestElement;
-  }
 
 
   function _initSearch() {
@@ -517,12 +467,62 @@ var FBSage = (function($) {
     });
   }
 
+  // Handle animating blinds
+  function _blinds($blinds,showOrHideTheBlinds,startingBlindNum,onDone,useHiddenClass,duration) {
+    // Defaults
+    $blinds = $blinds || $('.blind');
+    showOrHideTheBlinds = showOrHideTheBlinds || 'show';
+    startingBlindNum = startingBlindNum || 0;
+    onDone = onDone || undefined;
+    duration = duration || 200;
+    useHiddenClass = typeof useHiddenClass === 'undefined' ? true : useHiddenClass;
+
+    // We gotta find the container because so we can add/remove classes.
+    $container = $blinds.closest('.blinds');
+
+    // Which is the final onscreen blind to open or close?
+    var numBlinds = $blinds.filter(function () {
+      return $(this).offset().left < $(window).width();
+    }).length; // Number of on-screen blinds
+    var finalBlindNum = startingBlindNum > numBlinds - startingBlindNum ? 0 : numBlinds-1;
+
+    if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
+
+    // Animate each blind.
+    $($blinds).each(function() {
+      var thisBlindNum = $(this).data('blind-num');
+      $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindIn' : 'transition.blindOut') , { 
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
+        duration: duration,
+        easing: [1,0.75,0.5,1],
+        complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() {
+          if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
+          if (onDone) { onDone(); }
+        }
+      });
+    });
+  }
+  function _closestX($elements,x){
+    var closestDist = 9999;
+    var closestElement = false;
+    if ($elements.length) {
+      $elements.each(function() {
+        var dist = Math.abs( $(this).offset().left-x );
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestElement = $(this);
+        }
+      });
+    }
+    return closestElement;
+  }
+
     // Add html markup and behavior for venetian blinds.  We have two sets of these.
   function _initBlinds() {
     // Register velocity animations
     // Why handle this with velocity?  Why not add/remove a class?  Because velocity has a 'complete' callback and we need to time some things to fire precisely with animation completion (like going to destination url). That's why.
     $.Velocity
-    .RegisterEffect("transition.blindHide", {
+    .RegisterEffect("transition.blindOut", {
       defaultDuration: 500,
       calls: [
         [ { translateX: '-50%', scaleX: '0.0001'}, 0.98 ]
@@ -530,7 +530,7 @@ var FBSage = (function($) {
     });
 
     $.Velocity
-    .RegisterEffect("transition.blindShow", {
+    .RegisterEffect("transition.blindIn", {
       defaultDuration: 500,
       calls: [
         [ { translateX: '0', scaleX: '1'} ]
@@ -547,7 +547,7 @@ var FBSage = (function($) {
     _makeBlinds(15,'.search-popup','-hidden');
 
         //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
-    $('.blind').velocity("transition.blindHide", {duration: 0});
+    $('.blind').velocity("transition.blindOut", {duration: 0});
 
     // Add image content blinds
     _makeBlinds(8,'.floater-image, .inline-image');

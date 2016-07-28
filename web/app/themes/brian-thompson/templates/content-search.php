@@ -1,9 +1,13 @@
-<article <?php post_class(); ?>>
+
+
+<article class="<?= implode(' ',get_post_class('archive-listing', $blog_post->ID)); ?>" role="article">
   <header>
-    <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-    <?php if (get_post_type() === 'post') { get_template_part('templates/entry-meta'); } ?>
+    <h3 class="title"><a href="<?= get_the_permalink($blog_post->ID); ?>"><?= Firebelly\Utils\highlight_search_term(get_the_title($blog_post->ID),$search_query) ?></a></h3>
+    <?php include(locate_template('templates/entry-meta.php')); ?>
+    <div class="summary">
+      <?= Firebelly\Utils\get_search_excerpt($blog_post,$search_query); ?>
+    </div>
   </header>
-  <div class="entry-summary">
-    <?php the_excerpt(); ?>
-  </div>
+  <a href="<?= get_the_permalink($blog_post->ID); ?>" class="read-more no-underline"><button class="arrow -white -right -small">Read More</button></a>
 </article>
+

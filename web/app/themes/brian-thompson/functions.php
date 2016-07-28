@@ -37,7 +37,8 @@ $firebelly_includes = [
   'lib/post-meta-boxes.php',           // Post Meta/Admin Functions, Filters, Hooks
   'lib/site_options.php',              // Site Options
   'lib/nav-functions.php',             // Functions pertaining to navs
-  'lib/fb_metatags.php',             // Functions pertaining to navs
+  'lib/fb_metatags.php',               // Generate metatags for social media sharing
+  'lib/search-functions.php',          // Functions pertaining to search
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

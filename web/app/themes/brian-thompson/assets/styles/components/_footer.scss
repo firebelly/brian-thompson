@@ -46,7 +46,10 @@ $open-time: .15s;
     width: 100%;
     bottom: calc(100% - 2px);
     transition: background $color-time;
-    cursor: pointer;
+    cursor: default;
+    @include media-md {
+      cursor: pointer;
+    }
     &:before, &:after {
       content: ' ';
       position: absolute;

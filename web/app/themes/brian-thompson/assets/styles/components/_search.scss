@@ -29,23 +29,32 @@
   }
 }
 
-body.search .page-header {
-  h1 {
-    margin-bottom: 0;
-  }
-  .search-field {
-    @include big-title;
-    width: 100%;
-    background: transparent;
-    border: none;
-    appearance: none;
-    height: 70px;
-    transition: background 0.2s;
-    @include media-md {
-      height: 60px;
+body.search {
+  .page-header {
+    h1 {
+      margin-bottom: 0;
     }
-    &:focus {
-      outline: none;
+    .search-field {
+      @include big-title;
+      width: 100%;
+      background: transparent;
+      border: none;
+      appearance: none;
+      height: 70px;
+      transition: background 0.2s;
+      @include media-md {
+        height: 60px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  h2.results-type {
+    @include big-title;
+    @include first-line-dots(30px);
+    @include media-md {
+      @include first-line-dots(40px);
     }
   }
 }
