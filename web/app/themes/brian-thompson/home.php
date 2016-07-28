@@ -3,7 +3,7 @@
 <?php if(is_home()) { echo apply_filters('the_content',get_post(get_option('page_for_posts'))->post_content); } // We need to do this to get the content from the posts page.  I.e. the page "Blog."
 ?>
 
-<?php if(!is_search()) { include(locate_template('templates/category-nav.php')); } ?>
+<?php include(locate_template('templates/category-nav.php')); ?>
 
 <?php if (!have_posts()) : ?>
   <h2> No posts found.</h2>
