@@ -18,7 +18,7 @@ if ( is_search() ) {
   echo '</div>';
 } else {
   echo '<div class="page-header">';
-  echo '  <h1><?= Titles\title(); ?></h1>';
+  echo '  <h1>'.Titles\title().'</h1>';
   echo '</div>';
 }
 

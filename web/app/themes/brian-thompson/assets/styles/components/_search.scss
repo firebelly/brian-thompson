@@ -49,3 +49,34 @@ body.search .page-header {
     }
   }
 }
+
+.open-search {
+  position: fixed;
+  top: 10px;
+  right: 55px;
+  @include media-md {
+    display: none;
+  }
+  // @include min-screen(950px) {
+  //   right: auto;
+  //   left: 9 * $col + 10px;
+  // }
+  // @for $i from 10 to 14 {
+  //   @include min-screen(100px * $i +50px) {
+  //     left: $i * $col + 10px;
+  //   }
+  // }
+  // @include media-huge {
+  //   left: calc(14 * #{$col-huge} + 10px);
+  // }
+  padding: 5px;
+  z-index: $z-nav;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  appearance: none;
+  .icon-search{
+    height: 21px;
+    width: 21px;
+  }
+}

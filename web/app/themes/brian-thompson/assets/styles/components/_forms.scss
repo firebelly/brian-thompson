@@ -127,4 +127,12 @@
     position: relative;
     top: -$lh;
   }
+  .contact-button, .contact-form-submit {
+    @include screen(420px,440px) {
+      margin-right: 20px;
+    }
+    @include screen(320px,340px) {
+      margin-right: 20px;
+    }
+  }
 }

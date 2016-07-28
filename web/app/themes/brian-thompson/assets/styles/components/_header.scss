@@ -34,37 +34,6 @@
     }
   }
 
-  .open-search {
-    position: fixed;
-    top: 10px;
-    right: 55px;
-    @include media-md {
-      right: 10px;
-    }
-    @include min-screen(950px) {
-      right: auto;
-      left: 9 * $col + 10px;
-    }
-    @for $i from 10 to 14 {
-      @include min-screen(100px * $i +50px) {
-        left: $i * $col + 10px;
-      }
-    }
-    @include media-huge {
-      left: calc(14 * #{$col-huge} + 10px);
-    }
-    padding: 5px;
-    z-index: $z-nav;
-    background: transparent;
-    border: 0;
-    outline: 0;
-    appearance: none;
-    .icon-search{
-      height: 21px;
-      width: 21px;
-    }
-  }
-
   .mobile-nav-open {
     position: fixed;
     top: 10px;
@@ -178,6 +147,9 @@
     @include media-tiny{
       left: auto;
       right: 0;
+    }
+    li.menu-item-search {
+      display: none;
     }
     li:not(.menu-item-has-children) {
       padding-left: $teensy-pad;

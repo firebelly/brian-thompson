@@ -8,7 +8,7 @@ var FBSage = (function($) {
       breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
-      breakpoint_array = [480,768,900],
+      breakpoint_array = [480,800,900],
       $document,
       $sidebar,
       loadingTimer,
@@ -113,26 +113,6 @@ var FBSage = (function($) {
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/brian-thompson/assets/svgs/build/svgs-defs.svg');
   }
-
-  // function _initSearch() {
-  //   $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
-  //     if ($('.search-form').hasClass('active')) {
-
-  //     } else {
-  //       e.preventDefault();
-  //       $('.search-form').addClass('active');
-  //       $('.search-field:first').focus();
-  //     }
-  //   });
-  //   $('.search-form .close-button').on('click', function() {
-  //     _hideSearch();
-  //     _hideMobileNav();
-  //   });
-  // }
-
-  // function _hideSearch() {
-  //   $('.search-form').removeClass('active');
-  // }
 
   // Handles main nav
   function _initMobileNav() {
@@ -368,6 +348,7 @@ var FBSage = (function($) {
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
+      var $me = $(this);
       $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindShow' : 'transition.blindHide') , { 
         delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
         duration: duration,
@@ -400,7 +381,8 @@ var FBSage = (function($) {
     $('.page-header .search-field').attr('placeholder','...').focus();
 
     $('.search-popup .body-wrap').velocity('fadeOut',0);
-    $('.open-search').click(function(e) {
+    $('a[href="#search"]').closest('li').addClass('menu-item-search');
+    $('.open-search, a[href="#search"]').click(function(e) {
       e.preventDefault();
       _openSearch();
     });
