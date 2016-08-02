@@ -22,10 +22,10 @@ function highlight_search_term( $content, $search_query ) {
   // Loop through them all and add OR ('|') delimiters so we can put it into preg_replace
   $keyword_regex = '';
   foreach ($keywords as $keyword) {
-    $keyword_regex = preg_quote($keyword).'|';
+    $keyword_regex .= preg_quote($keyword).'|';
   }
   $keyword_regex = rtrim($keyword_regex, '|'); //Get rid of the final extra  '|', if there.
-
+  echo '<script>console.log(\''.$keyword_regex.'\');</script>';
   // Wrap all matches in our highlight span
   $content = preg_replace("/(".$keyword_regex.")/i", "<span class=\"search-term-match highlight\">$1</span>", $content); 
 
