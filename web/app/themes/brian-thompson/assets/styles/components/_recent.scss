@@ -24,6 +24,7 @@
     @include min-screen(800px) {
       margin-bottom: 23px;
     }
+    @include word-break;
   }
   p {
     @include small-mono;
