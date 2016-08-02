@@ -8,9 +8,8 @@ namespace Firebelly\Search;
 
 // Clean up content
 function clean($content) {
-    $content = strip_shortcodes( $content );
-    $content = apply_filters( 'the_content', $content );
     $content = strip_tags( $content );
+    $content = strip_shortcodes( $content );
     $content = str_replace( ']]>', ']]&gt;', $content );
     return $content;
 }
@@ -29,34 +28,11 @@ function highlight_search_term( $content, $search_term ) {
 
 // Given a search term, what terms will WP search try to match?
 function get_keywords($search_term) {
-  $search_term = str_replace(['"',"'"], '', $search_term);
+  $search_term = trim(str_replace(['"',"'"], '', $search_term));
   $keywords = [];
   $keywords[] = $search_term;
   $keywords = array_merge( $keywords, explode(" ", $search_term ) );
   return $keywords;
-}
-
-// Recusrsive function that (after maybe_unserializing) will
-// A: return the string, if it is passed a string
-// B: loop through elements of an array and call itself on them, if it is passed an array
-// The result is that a nested array with potential serialization at different levels is flattened into an array of strings
-function return_string_or_unpack($thing) {
-  // If it's a serialized string, unpack it.
-  if (is_string($thing)) { 
-    $thing = maybe_unserialize($thing); 
-  }
-
-  $return = [];
-  // So now we either have an array or a string (or something else, in which case ignore it.)
-  if (is_array($thing)) {
-    foreach ($thing as $value) {
-      $return = array_merge($return,return_string_or_unpack($value));
-    }
-  }
-  if (is_string($thing)) {
-    $return[] = $thing;
-  }
-  return $return;
 }
 
 // Gets an search excerpt surrounding the first found WP Search term with all search terms highlighted.  
@@ -65,13 +41,6 @@ function get_search_excerpt($post, $search_term) {
     // Whare can the seach term be hiding?
     $hiding_places = [];
     $hiding_places[] = clean($post->post_content);
-
-    // Get all strings in custom fields
-    $custom = get_post_custom($post->ID);
-    $custom_strings = return_string_or_unpack($custom);
-
-    //Add those strings to our list of hiding places
-    $hiding_places = array_merge($hiding_places, $custom_strings);
 
     $word_padding = 20;
     // Return first match

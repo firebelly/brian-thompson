@@ -57,6 +57,9 @@ body.search {
       @include first-line-dots(40px);
     }
   }
+  .highlight {
+    transition: background 0.2s, color 0.2s;
+  }
 }
 
 .open-search {

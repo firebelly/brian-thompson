@@ -89,7 +89,8 @@ var FBSage = (function($) {
     // Scroll down to hash afer page load OR open popup with hash content
     $(window).load(function() {
       if (window.location.hash) {
-        if($(window.location.hash).hasClass('content-for-popup')){
+        if($(window.location.hash).hasClass('linkable-popup')){
+          _scrollBody($('body'));
           setTimeout(function() {
             _openPopup($(window.location.hash));
           },1000);
