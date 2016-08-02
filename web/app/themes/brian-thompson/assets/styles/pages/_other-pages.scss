@@ -103,13 +103,13 @@
       @include media-huge {
         flex-basis: $col-huge;
       }
-      align-self: flex-end;
       text-align: center;
       top: 0;
       padding-top: 1.75*$lh;
       padding-bottom: 2.25*$lh;
       margin-bottom: 0;
       &.pricing-note {
+        align-self: flex-end;
         position: relative;
         text-align: left;
         vertical-align: bottom;

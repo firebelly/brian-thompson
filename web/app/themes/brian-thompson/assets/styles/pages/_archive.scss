@@ -37,7 +37,6 @@
       left: 4 * $col;
     }
     @include media-huge {
-
       left: 5 * $col-huge;
     }
     ul.categories {
@@ -73,6 +72,7 @@
       @include small-mono;
       margin-bottom: $lh*.75;
     }
+
   }
 
   .read-more {

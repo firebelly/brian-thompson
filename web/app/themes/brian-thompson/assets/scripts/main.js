@@ -64,13 +64,6 @@ var FBSage = (function($) {
       _scrollBody($(href));
     });
 
-    // Scroll down to hash afer page load
-    $(window).load(function() {
-      if (window.location.hash) {
-        _scrollBody($(window.location.hash));
-      }
-    });
-
     // Add color information to URL we are going to, handle transition effect
     _initPageTransitionLinks();
 
@@ -92,6 +85,19 @@ var FBSage = (function($) {
     // Detect IE and add a class
     _ieDetect();
 
+
+    // Scroll down to hash afer page load OR open popup with hash content
+    $(window).load(function() {
+      if (window.location.hash) {
+        if($(window.location.hash).hasClass('content-for-popup')){
+          setTimeout(function() {
+            _openPopup($(window.location.hash));
+          },1000);
+        } else {
+          _scrollBody($(window.location.hash));
+        }
+      }
+    });
 
 
   } // end init()
