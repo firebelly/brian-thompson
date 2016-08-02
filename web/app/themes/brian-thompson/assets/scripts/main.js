@@ -428,6 +428,7 @@ var FBSage = (function($) {
   function _closePopup() {
     if(!_isAnimating && $('.popup.showing').length) {
       _isAnimating = true;
+      history.replaceState(null, null, window.location.pathname);
       _returnToYourSlumberAlmightyOverlay();
       $('.popup .body-wrap').velocity('fadeOut',{
         duration: 200,
@@ -446,7 +447,7 @@ var FBSage = (function($) {
   function _openPopup($content) {
     _closeFooter();
     _isAnimating = true;
-    if($content.hasClass('linkable-popup')){ history.pushState(null, null, '#'+$content.attr('id')); }
+    if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
     $('.popup .lines').velocity('fadeIn',200);
@@ -465,7 +466,7 @@ var FBSage = (function($) {
   }
   function _switchPopupContent($content) {
     _isAnimating = true;
-    if($content.hasClass('linkable-popup')){ history.pushState(null, null, '#'+$content.attr('id')); }
+    if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
     $('.popup .body-wrap').velocity('fadeOut',{ 
       duration: 200,
       complete: function() {
