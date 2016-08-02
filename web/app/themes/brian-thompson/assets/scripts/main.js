@@ -446,6 +446,7 @@ var FBSage = (function($) {
   function _openPopup($content) {
     _closeFooter();
     _isAnimating = true;
+    if($content.hasClass('linkable-popup')){ history.pushState(null, null, '#'+$content.attr('id')); }
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay();
     $('.popup .lines').velocity('fadeIn',200);
@@ -457,7 +458,6 @@ var FBSage = (function($) {
         complete: function() {
           $popup = $('.popup');
           if(!$popup.hasClass('holding-mobile-nav')) { $popup.velocity('scroll',200); }
-          // _initImages('.popup');
           _isAnimating = false;
         }
       });
@@ -465,6 +465,7 @@ var FBSage = (function($) {
   }
   function _switchPopupContent($content) {
     _isAnimating = true;
+    if($content.hasClass('linkable-popup')){ history.pushState(null, null, '#'+$content.attr('id')); }
     $('.popup .body-wrap').velocity('fadeOut',{ 
       duration: 200,
       complete: function() {
