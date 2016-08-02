@@ -266,7 +266,8 @@ var FBSage = (function($) {
   function _resizeFooter() {
     var footerHeight = $('.site-footer').outerHeight();
     $('#primary-site-content').css('margin-bottom',(breakpoint_medium ? footerHeight : 0));
-    $('.invisible-waypoint.-footer').css('bottom', -footerHeight+1);
+    var adminBarCorrection = $('#wpadminbar').length ? 32 : 0;
+    $('.invisible-waypoint.-footer').css('bottom', -footerHeight+1 + adminBarCorrection);
   }
 
   // Add color information to URL we are going to, handle transition effect
@@ -493,10 +494,6 @@ var FBSage = (function($) {
     // We gotta find the container because so we can add/remove classes.
     $container = $blinds.closest('.blinds');
 
-    if (showOrHideTheBlinds === 'show') {
-      // $container.find('.blind').attr('style','transform: translateX(-50%) scaleX(0.0001); display: none;');
-    }
-
     // Which is the final onscreen blind to open or close?
     var numBlinds = $blinds.filter(function () {
       return $(this).offset().left < $(window).width();
@@ -518,9 +515,6 @@ var FBSage = (function($) {
           } 
           if (onDone) {
             onDone();
-          }
-          if (showOrHideTheBlinds === 'hide') {
-            // $container.find('.blind').attr('style','');
           }
         }
       });
@@ -549,7 +543,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindOut", {
       defaultDuration: 500,
       calls: [
-        [ { translateX: '-50%', scaleX: '0.0001'}, 0.98 ]
+        [ {translateX: '-50%', scaleX: '0.001'} ]
       ]
     });
 
@@ -636,12 +630,13 @@ function FloaterImage($image,order) {
   this.positionWaypoints = function() {
     var numImages = $('.floater-image').length;
     var docHeight = $(document).height();
+    var adminBarCorrection = $('#wpadminbar').length ? 32 : 0;
     var scrollableHeight = docHeight-$(window).height(); // How many pixels can a user scroll on this page?
     // Top waypoint
-    var pos = ((order-0.5)*scrollableHeight/numImages-5)+'px';
+    var pos = ((order-0.5)*scrollableHeight/numImages-5-adminBarCorrection)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = Math.min(((order+1.5)*scrollableHeight/numImages),$('#primary-site-content').height())+'px'; 
+    pos = Math.min(((order+1.5)*scrollableHeight/numImages-adminBarCorrection),$('#primary-site-content').height())+'px'; 
     // console.log(pos+'  '+$(document).height());
     me.$waypointBottom.css('top',pos);
   };
