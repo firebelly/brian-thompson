@@ -6,7 +6,7 @@
   right: 0;
   height: 100%;
   z-index: $z-lines;
-  overflow-x: hidden;
+  overflow: hidden;
   // background: rgba(red,.5);
   &.-hidden{
     pointer-events: none;
@@ -14,8 +14,8 @@
 }
 .line, .blind {
   position: absolute;
-  top: 0;
-  height: 100%;
+  top: -5px;
+  height: calc( 100% + 10px );
   // Determine position left
   @for $i from 1 through 17 {
     &:nth-of-type(#{$i}) {
