@@ -6,7 +6,7 @@ namespace Firebelly\Search;
  * Custom li'l search excerpt function
  */
 
-// Clean up content
+// Clean up some content
 function clean($content) {
     $content = strip_tags( $content );
     $content = strip_shortcodes( $content );
@@ -15,50 +15,65 @@ function clean($content) {
 }
 
 // Wrap WP search terms in a span.
-function highlight_search_term( $content, $search_term ) {
-  $keywords = get_keywords($search_term);
+function highlight_search_term( $content, $search_query ) {
+  // What are all the possible keywords that WP will look for given the searh_query?
+  $keywords = get_keywords($search_query);
 
+  // Loop through them all and add OR ('|') delimiters so we can put it into preg_replace
+  $keyword_regex = '';
   foreach ($keywords as $keyword) {
-    $content = preg_replace("/(".$keyword.")/i", "<span class=\"search-term-match highlight\">$1</span>", $content); 
+    $keyword_regex = preg_quote($keyword).'|';
   }
+  $keyword_regex = rtrim($keyword_regex, '|'); //Get rid of the final extra  '|', if there.
 
-  $content = preg_replace("/(".$search_term.")/i", "<span class=\"search-term-match highlight\">$1</span>", $content); 
+  // Wrap all matches in our highlight span
+  $content = preg_replace("/(".$keyword_regex.")/i", "<span class=\"search-term-match highlight\">$1</span>", $content); 
+
   return $content;
 }
 
 // Given a search term, what terms will WP search try to match?
-function get_keywords($search_term) {
-  $search_term = trim(str_replace(['"',"'"], '', $search_term));
+function get_keywords($search_query) {
+  // Clean up the search_query
+  $search_query = esc_html($search_query);
+  $search_query = str_replace(['"',"'"], '', $search_query);
+  $search_query = trim($search_query);
+  $search_query = preg_replace('/\s+/', ' ', $search_query);
+
+  // From what I've read, WP searches the string itself, and each individual word in the string, so put all those options in an $keywords array.
   $keywords = [];
-  $keywords[] = $search_term;
-  $keywords = array_merge( $keywords, explode(" ", $search_term ) );
+  $keywords[] = $search_query;
+  $keywords = array_merge( $keywords, explode(" ", $search_query ) );
+
   return $keywords;
 }
 
-// Gets an search excerpt surrounding the first found WP Search term with all search terms highlighted.  
-// (Also checks custom fields.)
-function get_search_excerpt($post, $search_term) {
+// Gets a search excerpt surrounding the first found WP Search term.  All containted search terms will be highlighted.
+function get_search_excerpt($post, $search_query) {
     // Whare can the seach term be hiding?
     $hiding_places = [];
     $hiding_places[] = clean($post->post_content);
 
-    $word_padding = 20;
+    $word_padding = 20;  // Number of words on each side of matched string
     // Return first match
-    $keywords = get_keywords($search_term);
-    foreach ($keywords as $keyword) {
-      foreach ($hiding_places as $hiding_place) {
+    $keywords = get_keywords($search_query); // What was WP matching in the search?  We'll match for it, too!
+    foreach ($keywords as $keyword) { // Check each keyword
+      foreach ($hiding_places as $hiding_place) { //Check each hiding place
         $location = stripos($hiding_place,$keyword);
-        if ($location) {
+        if ($location) { // If found...
           $before = substr($hiding_place, 0, $location);
           $after = substr($hiding_place, $location );
 
-          $before_trim = strrev(wp_trim_words( strrev($before), $word_padding, '' )). //Double reverse to get LAST words of string.
+          //Hackily use wp_trim_words to trim by WORDS instead of characters
+          $before_trim = strrev(wp_trim_words( strrev($before), $word_padding, '' )). //Double reverse to get LAST words of string. --HACKY
             (preg_match('/\s/', substr($before, -1, 1))? ' ' : ''); //Append a space if it originally ended in a space (wp_trim will remove whitespace)
           $after_trim = wp_trim_words( $after , $word_padding, '' );
 
+          // Make our excerpt
           $excerpt = '&hellip;'.$before_trim.$after_trim.'&hellip;';
-          $excerpt = highlight_search_term( $excerpt, $search_term );
+          $excerpt = highlight_search_term( $excerpt, $search_query );
 
+          // We found a match, we are done.
           return $excerpt;
         }
       }
