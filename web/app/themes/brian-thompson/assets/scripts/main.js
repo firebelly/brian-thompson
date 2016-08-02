@@ -335,7 +335,13 @@ var FBSage = (function($) {
 
   function _initSearch() {
 
-    $('.page-header .search-field').attr('placeholder','...').focus();
+    // If we are on the search page, focus the search bar and move cursor to end.
+    var $inputOnSearchPage = $('.page-header .search-field');
+    if($inputOnSearchPage.length) {
+      $inputOnSearchPage.attr('placeholder','...').focus();
+      var len = $inputOnSearchPage.val().length;
+      $inputOnSearchPage[0].setSelectionRange(len, len);
+    }
 
     $('.search-popup .body-wrap').velocity('fadeOut',0);
     $('a[href="#search"]').closest('li').addClass('menu-item-search');
@@ -487,6 +493,10 @@ var FBSage = (function($) {
     // We gotta find the container because so we can add/remove classes.
     $container = $blinds.closest('.blinds');
 
+    if (showOrHideTheBlinds === 'show') {
+      // $container.find('.blind').attr('style','transform: translateX(-50%) scaleX(0.0001); display: none;');
+    }
+
     // Which is the final onscreen blind to open or close?
     var numBlinds = $blinds.filter(function () {
       return $(this).offset().left < $(window).width();
@@ -503,8 +513,15 @@ var FBSage = (function($) {
         duration: duration,
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() {
-          if (useHiddenClass && showOrHideTheBlinds === 'hide') { $container.addClass('-hidden'); } //display: none so no interfering with pointer events
-          if (onDone) { onDone(); }
+          if (useHiddenClass && showOrHideTheBlinds === 'hide') { 
+            $container.addClass('-hidden'); //display: none so no interfering with pointer events
+          } 
+          if (onDone) {
+            onDone();
+          }
+          if (showOrHideTheBlinds === 'hide') {
+            // $container.find('.blind').attr('style','');
+          }
         }
       });
     });

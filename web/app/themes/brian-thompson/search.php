@@ -40,7 +40,7 @@ $search_query = isset($wp_query->query_vars['s']) ? $wp_query->query_vars['s'] :
   <?php endif ?>
 
   <?php if($post_results) : ?>
-    <h2 class="results-type">Blog Posts</h2>
+    <h2 class="results-type">Blog</h2>
     <ul class="posts columns-wrap">
       <?php foreach ($post_results as  $post_result) : ?>
         <li class="post columns-item">

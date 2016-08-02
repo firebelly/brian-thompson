@@ -51,10 +51,20 @@ body.search {
     }
   }
   h2.results-type {
-    @include big-title;
-    @include first-line-dots(30px);
-    @include media-md {
-      @include first-line-dots(40px);
+    // @include big-title;
+    // @include first-line-dots(30px);
+    // @include media-md {
+    //   @include first-line-dots(40px);
+    // }
+    @include small-mono;
+    &:before, &:after {
+      display: none;
+    }
+    @include min-screen(520px) {
+      position: absolute;
+      top: auto;
+      right: calc( 100% + #{$teensy-pad} );
+      // width: $col;
     }
   }
   .highlight {

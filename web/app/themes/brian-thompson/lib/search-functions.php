@@ -35,7 +35,7 @@ function highlight_search_term( $content, $search_query ) {
 function get_keywords($search_query) {
   // Clean up the search_query
   $search_query = esc_html($search_query);
-  $search_query = str_replace(['"',"'"], '', $search_query);
+  $search_query = str_replace(['"',"'",'/'], '', $search_query);
   $search_query = trim($search_query);
   $search_query = preg_replace('/\s+/', ' ', $search_query);
 

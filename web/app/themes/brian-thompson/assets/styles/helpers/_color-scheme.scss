@@ -98,13 +98,11 @@ $brand-secondary: $blue;
   &.search {
     .page-header .search-field {
       color: $title;
-      &:hover {
-        background: rgba($black,.2);
-      }
+      background: rgba($black,.2);
     }
     .highlight {
-      background: $anti-bg;
-      color: $anti-text;
+      background: choose(rgba($black,.08),rgba($black,.5),$scheme);
+      color: choose($blue,$white,$scheme);
     }
     // a:hover .highlight {
     //   background: $black;
