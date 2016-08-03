@@ -7,7 +7,7 @@ $search_query = isset($wp_query->query_vars['s']) ? $wp_query->query_vars['s'] :
 ?>
 
 <?php if (!have_posts()) : ?>
-  <h2> No posts found.</h2>
+  <h2> No matches found.</h2>
   <p> How about some <a href="<?=get_permalink( get_option('page_for_posts' ) )?>">light reading</a> instead? </p>
 <?php else: ?>
 
