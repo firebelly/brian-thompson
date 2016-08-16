@@ -44,8 +44,7 @@ function excerpt_more() {
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
 
-
-
+// Get rid of annoying nbsp characters that wfpc7 outputs and mess up formatting
 function remove_spaces_from_wpfc7( $content ) {
   
   $find = '&nbsp;';
@@ -55,14 +54,3 @@ function remove_spaces_from_wpfc7( $content ) {
   return $content;  
 }
 add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\remove_spaces_from_wpfc7' );
-
-
-function hack_wpfc7_labels( $content ) {
-  
-  $find = '<label';
-  $replace = '<label onClick="" ';
-  $content = str_replace( $find, $replace, $content);
-
-  return $content;  
-}
-add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\hack_wpfc7_labels' );
