@@ -32,13 +32,13 @@ $open-time: .15s;
           &:after {
             transform: translateY(0);
             transition: transform $color-time $open-time ease-in, background $color-time $open-time;
-            // border-radius: 0;
           }
         }
       }
     }
   }
 
+  // The part you click to open/close the footer
   .footer-tab {
     position: absolute;
     left: 0;
@@ -122,9 +122,6 @@ $open-time: .15s;
     }
   }
 
-
-
-
   a {
     text-decoration: underline
   }
@@ -147,8 +144,6 @@ $open-time: .15s;
     max-width: 100px;
     clear: both;
   }
-
-
 
   p.org {
     @include font-mono;
@@ -179,7 +174,7 @@ $open-time: .15s;
   }
 }
 
-  // Positioning
+  // Positioning of footer blocks
   .site-footer {
     .footer-wrap {
       display: flex;
@@ -240,10 +235,6 @@ $open-time: .15s;
         flex-basis: 2 * $col;
          @include min-screen(800px) {
           order: 3;
-          // position: absolute;
-          // right: calc( 100% + #{$col} );
-          // min-width: 1 * $col;
-          // top: 4 * $lh;
           margin-top: $lh;
         }
         @include min-screen(1100px) {
@@ -270,8 +261,6 @@ $open-time: .15s;
         @include min-screen(800px) {
           flex-basis: 2 * $col;
           order: 2;
-          // position: relative; 
-          // left: -2 * $col;
           position: absolute;
           right: calc( 100% + #{$col} );
           min-width: 1 * $col;

@@ -1,8 +1,4 @@
-// Forms
-
-
-// Page Form Wrapper and Containing Forms
-
+// All Form-based pages have a big white wrapper
 .form-wrap {
   position: relative;
   width: 5 * $col;
@@ -17,7 +13,8 @@
     left: calc( -#{$col-huge} - #{$teensy-pad});
     padding: 1.75*$lh $col-huge 5*$lh;
   }
-  .wpcf7-response-output {
+
+  .wpcf7-response-output { // Response messages from Contact Form 7 e.g., 'that's not a valid email' etc.
     padding: 0 5px;
     border: 2px solid $blue;
     @include copy;
@@ -27,9 +24,11 @@
   .wpcf7-not-valid-tip {
     color: $blue;
   }
+
   .ajax-loader, input[type="submit"] {
     display: none;
   }
+
   form {
     .form-accordian{ 
       transition: opacity 1s; 
@@ -43,9 +42,11 @@
       }
     }
   }
+
   h3 {
     margin-bottom: $lh;
   }
+
   button {
     @include smaller-mono;
     float: right;
@@ -53,6 +54,7 @@
     min-width: $col;
     padding: 0;
   }
+
   fieldset {
     border: 0;
     border-bottom: 1px solid $white;
@@ -62,6 +64,7 @@
     p { margin-bottom: $lh/2; }
     margin-bottom: $lh * 2;
   }
+
   input[type="text"],input[type="email"], textarea {
     @include copy;
     line-height: $lh;
@@ -80,29 +83,35 @@
     }
   }
   input[type="text"] { top: -2px; }
+
   textarea {
     height: 6 * $lh;
     resize: none;
     margin-bottom: $lh/2;
   }
+
   legend {
     margin-bottom: $lh * .75;
   }
-  .wpcf7-checkbox {
+
+  .wpcf7-checkbox { // The forced markup of WPCF7 is annoying... ALSO note that I butcher the default markup with javascript
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+
     .wpcf7-list-item {
       margin: 0 0 $lh;
       flex-basis: 50%;
       padding: 0 $lh;
       position: relative;
+
       input[type="checkbox"] {
         position: absolute;
         top: 0;
         left: 0;
         visibility: hidden;
       }
+
       .wpcf7-list-item-label:before {
         content: '';
         position: absolute;
@@ -112,21 +121,24 @@
         height: 12px;
         border-radius: 30%;
         border: 1px solid $gray;
-        // transition: border 0.2s;
       }
+
       input[type="checkbox"]:checked + .wpcf7-list-item-label:before {
         background: $blue;
         border: 1px solid $blue;
       }
+
       label {
         cursor: pointer;
       }
     }
   }
+
   .contact-form-submit {
     position: relative;
     top: -$lh;
   }
+  
   .contact-button, .contact-form-submit {
     @include screen(420px,440px) {
       margin-right: 20px;

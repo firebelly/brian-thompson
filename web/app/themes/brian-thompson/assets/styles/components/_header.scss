@@ -11,6 +11,7 @@
     left: 0;
     z-index: $z-brand;
     margin: 0;
+
     .btf-logo {
       position: absolute;
       width: 70px;
@@ -45,6 +46,7 @@
     @include media-md {
       display: none;
     }
+
     .hamburger {
       width: 20px;
       height: 17.5px;
@@ -55,6 +57,7 @@
     z-index: $z-nav;
     width: 100%;
     overflow: hidden;
+
     &, .lines {
       height: 50px;
       @include media-md {
@@ -71,6 +74,7 @@
     font-size: 10px;
     line-height: 15px;
     letter-spacing: 0;
+
     ul#menu-main-menu { 
       display: none;
       position: relative;
@@ -87,6 +91,7 @@
         left: 3 * $col-huge;
       }
     }
+
     li {
       position: relative;
       float: left;
@@ -98,25 +103,28 @@
       @include media-huge {
         width: $col-huge;
       }
+
       a {
         max-width: 100px;
         &:hover {
           text-decoration: underline;
         }
+        &:before {
+          content: " ";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 0;
+        }
       }
-      a:before {
-        content: " ";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 0;
-      }
+      
       &.current-menu-item a:before, a:hover:before {
         height: 5px;
       }
     }
-    .menu-item-has-children {
+
+    .menu-item-has-children { // This is for the double menu item
       float: left;
       padding: 0;
       a { display: none }
@@ -136,10 +144,12 @@
   }
 }
 
-.popup {
+.popup { // The nav is thrown in a popup for tablet/mobile
+ 
   &.holding-mobile-nav .body-wrap {
     position: fixed;
   }
+
   ul#menu-main-menu {
     position: absolute;
     top: $lh*2.5;
@@ -148,18 +158,22 @@
       left: auto;
       right: 0;
     }
+
     li.menu-item-search {
       display: none;
     }
+
     li:not(.menu-item-has-children) {
       padding-left: $teensy-pad;
       @include small-mono;
       font-size: 12px;
       margin: 1.5*$lh 0;
     }
+
     &, ul {
       @include delistify;
     }
+
     a {
       text-decoration: none;
       border-bottom: 0;
@@ -179,6 +193,7 @@
         }
       }
     }
+    
     .menu-item-has-children {
       position: relative;
       top: 5px;

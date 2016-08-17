@@ -7,11 +7,11 @@
   height: 100%;
   z-index: $z-lines;
   overflow: hidden;
-  // background: rgba(red,.5);
   &.-hidden{
     pointer-events: none;
   }
 }
+
 .line, .blind {
   position: absolute;
   top: -5px;
@@ -26,10 +26,12 @@
     }
   }
 }
+
 .line {
   width: 1px;
   opacity: .5;
 }
+
 .blind {
   width: $col;
   @include media-huge {
@@ -37,7 +39,7 @@
   }
 }
 
-// Positioning of global blinds
+// Positioning of all blinds that span the whole page (as opposed )
 .site-nav > .lines, 
 body > .lines, 
 body > .blinds,
@@ -47,10 +49,10 @@ body > .blinds,
   .line, .blind {
     margin-left: -90px;
     @include media-tiny {
-      margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col});
+      margin-left: calc((100% - 3 * #{$col})/2 - 1 * #{$col}); // This is an obnoxious way of centering
     }
     @include media-sm {
-      margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col});
+      margin-left: calc((100% - 4 * #{$col})/2 - 2 * #{$col}); // This is an obnoxious way of centering
     }
     @include media-md { 
       margin-left: 0; 
@@ -58,12 +60,14 @@ body > .blinds,
   }
 }
 
+// Specific sets of lines n blinds
 body > .lines,
 .site-nav > .lines {
   &.page-transitioning {
     z-index: $z-lines-page-transitioning;
   }
 }
+
 body > .blinds {
   z-index: $z-page-blinds;
 }
@@ -75,6 +79,7 @@ body > .blinds {
 .search-popup > .lines {
   z-index: $z-search-lines;
 }
+
 .search-popup > .blinds {
   z-index: $z-search-blinds;
 }
