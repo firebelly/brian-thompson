@@ -34,6 +34,7 @@
     display: block;
   }
 }
+
 @mixin first-line-dots($dist-to-baseline) {
   &:before{
     @include dot;
@@ -62,6 +63,7 @@
   content: '-';
   color: $black;
 }
+
 @mixin dash-before($offset) {
     &:before {
       @include dash;
@@ -70,6 +72,7 @@
     }
     position: relative;
 }
+
 @mixin dash-after($offset)  {
     &:after {
       @include dash;
@@ -78,6 +81,7 @@
     }
     position: relative;
 }
+
 @mixin double-dash($top,$bot) {
   @include dash-before($top);
   @include dash-after($bot);

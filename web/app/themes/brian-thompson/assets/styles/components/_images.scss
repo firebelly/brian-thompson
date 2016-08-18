@@ -1,97 +1,89 @@
-
-  // Inline images
-  .body-wrap {
-    img:not(.sr-only) {
-      position: relative;
-      width: calc(100% + 2 * #{$teensy-pad});
-      max-width: none;
-      left: -$teensy-pad;
-      float: none;
-    }
-  }
-
-  // Floater Images
-  .floater-image, .inline-image {
-    opacity: 0;
+// Images in general
+.body-wrap {
+  img:not(.sr-only) {
+    position: relative;
+    width: calc(100% + 2 * #{$teensy-pad});
     max-width: none;
-    overflow: hidden;
-    visibility: hidden;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    transition: opacity 0.3s, visibility 0.3s 0s;
-    // transform: translateY(-1000px);
-    img {
-      @extend .sr-only;
-    }
-    &.-portrait {
-       width: $col * 3;
-       height: $col * 3 * (5/4); // 5/4 is the aspect ratio
-       @include media-huge { 
-        width: $col-huge * 3; 
-        height: $col-huge * 3 * (5/4);
-      }
-    }
-    &.-landscape {
-       width: $col * 4;
-       height: $col * 4 * (4/5); // 5/4 is the aspect ratio
-       @include media-huge { 
-        width: $col-huge * 4; 
-        height: $col-huge * 4 * (4/5);
-      }
-    }
-    &.alive {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.3s, visibility 0s;
-      // transform: translateY(0);
+    left: -$teensy-pad;
+    float: none;
+  }
+}
+
+.floater-image, .inline-image {
+  opacity: 0;
+  max-width: none;
+  overflow: hidden;
+  visibility: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: opacity 0.3s, visibility 0.3s 0s;
+  img {
+    @extend .sr-only;
+  }
+  &.-portrait {
+     width: $col * 3;
+     height: $col * 3 * (5/4); // 5/4 is the aspect ratio
+     @include media-huge { 
+      width: $col-huge * 3; 
+      height: $col-huge * 3 * (5/4);
     }
   }
-  .floater-image {
-    display: none;
-    position: fixed;
-    z-index: $z-floater-image;
-    @include media-md { 
-      display: block; 
+  &.-landscape {
+     width: $col * 4;
+     height: $col * 4 * (4/5); // 5/4 is the aspect ratio
+     @include media-huge { 
+      width: $col-huge * 4; 
+      height: $col-huge * 4 * (4/5);
     }
-    @for $i from -3 through 15 {
-      &[data-col="#{$i}"] {
-        left: #{$i * $col};
-        @include media-huge { left: #{$i * $col-huge}; }
-      }
-    }
-  }
-  .inline-image {
-    z-index: $z-inline-image;
   }
 
-  .mobile-image {
-    position: absolute;
-    left: -$small-pad;
-    @include media-tiny {
-      left: calc( (100vw - 3 * #{$col} ) / -2);
-    }
-    @include media-sm {
-      left: calc( (100vw - 4 * #{$col} ) / -2);
-    }
-    @include min-screen(500px) {
-      // left: 0;
-    }
-    &, &.-landscape, &.-portrait { // Override
-      width: 100vw;
-      height: $col * 4 * (4/5); 
-      @include min-screen(500px) {
-        // width: $col * 4;
-      }
-    }
-    @include media-md {
-      display: none;
-    }
-    &.-top{
-      top: 0;
-      // background-position: top;
-    }
-    &.-bottom{
-      bottom: 0;
+  &.alive { // Image is showing
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s, visibility 0s;
+  }
+}
+
+.floater-image {
+  display: none;
+  position: fixed;
+  z-index: $z-floater-image;
+  @include media-md { 
+    display: block; 
+  }
+  @for $i from -3 through 15 {
+    &[data-col="#{$i}"] {
+      left: #{$i * $col};
+      @include media-huge { left: #{$i * $col-huge}; }
     }
   }
+}
+
+.inline-image {
+  z-index: $z-inline-image;
+}
+
+.mobile-image {
+  position: absolute;
+  left: -$small-pad;
+  @include media-tiny {
+    left: calc( (100vw - 3 * #{$col} ) / -2);
+  }
+  @include media-sm {
+    left: calc( (100vw - 4 * #{$col} ) / -2);
+  }
+  &, &.-landscape, &.-portrait { // Override
+    width: 100vw;
+    height: $col * 4 * (4/5); 
+  }
+  @include media-md {
+    display: none;
+  }
+  &.-top{
+    top: 0;
+  }
+  &.-bottom{
+    bottom: 0;
+  }
+}

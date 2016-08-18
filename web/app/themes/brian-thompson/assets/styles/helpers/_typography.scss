@@ -1,6 +1,5 @@
 // Typography
 
-
 // Font Faces
 @font-face {
     font-family: 'NB International Regular';
@@ -76,31 +75,38 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @mixin font-regular {
   font-family: "NB International Regular", sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
 @mixin font-bold {
   font-family: "NB International Bold", sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
 @mixin font-italic {
   font-family: "NB International Italic", sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
 @mixin font-bold-italic {
   font-family: "NB International Bold Italic", sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
 @mixin font-mono {
   font-family: "BTF Mono", monospace;
   font-weight: normal;
   font-style: normal;
 }
+
+// Word Breaking 
 
 @mixin word-break() {
   overflow-wrap: break-word;
@@ -116,6 +122,8 @@
   hyphens: manual;
 }
 
+// Font Smoothing
+
 @mixin smooth {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -125,6 +133,8 @@
 .wf-loading {
   visibility: hidden;
 }
+
+// There are only a few text styles on this site.  Make em mixins:
 
 @mixin enormous-title {
   @include font-mono;

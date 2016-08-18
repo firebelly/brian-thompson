@@ -55,6 +55,7 @@
       max-width: 35px;
     }
   }
+
   .next-post {
     left: 2 * $col - 5px;
     @include media-sm {
@@ -70,6 +71,7 @@
       left: calc( 8 * #{$col-huge} - 5px );
     }
   }
+
   .prev-post {
     right: 2 * $col - 5px;
     @include media-sm {
@@ -89,6 +91,7 @@
     }
   }
 
+  // Override defaults
   .recent-posts {
     @include min-screen(800px) {
       width: #{$col * 2};

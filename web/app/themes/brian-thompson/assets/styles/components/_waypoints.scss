@@ -1,0 +1,14 @@
+.invisible-waypoint {
+  position: absolute;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: red;
+  border: 1px solid black;
+  visibility: hidden;
+  z-index: 1000000;
+  &.-footer {
+    background: blue;
+  }
+}

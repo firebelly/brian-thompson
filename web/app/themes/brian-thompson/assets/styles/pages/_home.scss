@@ -1,6 +1,7 @@
 // Home
 .home.page {
 
+  // Overriding the default headline dot position because of the double column recent-posts module
   .body-wrap {
     h1:after,
     h2:after {
@@ -14,11 +15,12 @@
   .page-header {
     @extend .sr-only;
   }
+
   .body-wrap#primary-site-content {
     position: relative;
     height: auto;
     max-width: 3 * $col;
-      padding-top: 275px;
+    padding-top: 275px;
     @include media-md {
       padding-top: 6 * $lh;
       max-width: none;
@@ -26,6 +28,7 @@
     @include min-screen(1000px) {
       height: 1600px;
     }
+
     h1 {
       @include enormous-title;
       @include min-screen(1000px) {
@@ -37,22 +40,27 @@
     }
   }
 
-  .section {
+  .section { // There are three zig-zagged blocks of text
+ 
     h1{
       &:before{
         left: -$col;
       }
     }
+
     @include media-md {
+
       &.-one {
         position: relative;
       }
+
       &.-two, &.-three {
         @include dash-before(2*$lh);
         &:before {
           font-size: 48px;
         }
       }
+
       &.-two {
         position: absolute;
         top: 425px;
@@ -64,8 +72,13 @@
         @include media-huge {
           left: 4 * $col-huge;
         }
-        h2 {
-          @include media-md { // Hacked af
+
+        h2 {  // Respecify the position of all the title dots (they are relative to title)
+          &:before {
+            left: -4px;
+          }
+
+          @include media-md {
             &:before{
               left: -3 * $col - $teensy-pad - 2px;
             }
@@ -88,6 +101,7 @@
             }
           }
         }
+
         .wrap {
           padding: 0 $teensy-pad;
           width: 2 * $col;
@@ -95,15 +109,14 @@
             width: 2 * $col-huge;
           }
         }
-        &:before {
-          left: -4px;
-        }
       }
+
       &.-three {
         margin-top: 770px - $lh/2;
         @include min-screen(1000px) {
           margin-top: 585px - $lh/2;
         }
+
         .wrap {
           width: 2 * $col - $teensy-pad * 2;;
           @include min-screen(1000px) {
@@ -117,14 +130,16 @@
     }
   }
 
-  .inline-image {
+  .inline-image { // The zigzagged images
     position: absolute;
+
     &:not(.mobile-image) {
       display: none;
       @include media-md { 
         display: block;
       }
     }
+
     &.-one {
       top: 50px;
       left: -100%;
@@ -138,6 +153,7 @@
         height: 5 * $col-huge * 1.28333;
       }
     }
+
     &.-two {
       top: 625px;
       left: -$col;
@@ -145,6 +161,7 @@
         left: -$col-huge;
       }
     }
+
     &.-three {
       top: 1025px;
       left: 2 * $col;
@@ -156,6 +173,7 @@
         left: 6 * $col-huge;
       }
     }
+
     &.-four {
       left: -$col;
       top: 1285px;
@@ -169,6 +187,7 @@
     }
   }
 
+  // Override recent post defaults
   .recent-posts {
     margin-top: 2*$lh;
     @include media-md {
@@ -189,6 +208,7 @@
     }
   }
 
+  // That neato Lets start line
   .start-line,.start-button {
     z-index: 0;
     left: 2*$col - $teensy-pad + 1px;
@@ -241,6 +261,5 @@
       top: 35%; 
     }
   }
-
 }
 

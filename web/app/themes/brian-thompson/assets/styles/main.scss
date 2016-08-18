@@ -20,9 +20,10 @@
 
 // Components
 @import "components/base";
-@import "components/user-content";
+@import "components/adminbar";
+@import "components/overlay";
+@import "components/waypoints";
 @import "components/header";
-@import "components/nav";
 @import "components/search";
 @import "components/forms";
 @import "components/footer";
@@ -38,7 +39,6 @@
 @import "pages/home";
 @import "pages/archive";
 @import "pages/single-post";
-@import "pages/search-results";
 @import "pages/other-pages";
 
 // WP specifics

@@ -9,7 +9,6 @@ use Firebelly\SiteOptions;
 // Compress jpegs
 add_filter( 'jpeg_quality', create_function( '', 'return 90;' ) );
 
-
 // Get Inline Images for Front Page;
 function get_front_page_images() {
 
@@ -51,9 +50,10 @@ function get_front_page_images() {
   return $output;
 }
 
-
-// Add bw checkbox to media library items:
+// Add B/W ONLY checkbox to media library items:
 // Adapted (stolen) from: https://gielberkers.com/add-checkbox-media-library-wordpress/
+
+// Add the box
 function add_checkboxes($form_fields, $post){
   $bw_checked = get_post_meta( $post->ID, 'bw_only', false ) ? 'checked="checked"' : '';
   $form_fields['bw_only'] = array(
@@ -64,33 +64,21 @@ function add_checkboxes($form_fields, $post){
           id=\"attachments[{$post->ID}][bw_only]\"
           value=\"1\" {$bw_checked}/><br />");
 
-  // $color_checked = get_post_meta( $post->ID, 'color_only', false ) ? 'checked="checked"' : '';
-  // $form_fields['color_only'] = array(
-  //     'label' => 'Color Only',
-  //     'input' => 'html',
-  //     'html'  => "<input type=\"checkbox\"
-  //         name=\"attachments[{$post->ID}][color_only]\"
-  //         id=\"attachments[{$post->ID}][color_only]\"
-  //         value=\"2\" {$color_checked}/><br />");
-
   return $form_fields;
 }
 add_filter('attachment_fields_to_edit', __NAMESPACE__ . '\\add_checkboxes', 10, 2);
 
+// Handle saving
 function save_checkboxes($post, $attachment){
     if(isset($attachment['bw_only'])) {
         update_post_meta($post['ID'], 'bw_only', 1);
     } else {
         update_post_meta($post['ID'], 'bw_only', 0);
     }
-    // if(isset($attachment['color_only'])) {
-    //     update_post_meta($post['ID'], 'color_only', 1);
-    // } else {
-    //     update_post_meta($post['ID'], 'color_only', 0);
-    // }
 }
 add_filter('attachment_fields_to_save', __NAMESPACE__ . '\\save_checkboxes', 10, 2);
 
+// Detect the checkbox
 function is_bw_only($thumb_id) {
   return get_post_meta( $thumb_id, 'bw_only', false );
 }

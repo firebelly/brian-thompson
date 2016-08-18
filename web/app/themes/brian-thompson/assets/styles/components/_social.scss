@@ -1,20 +1,22 @@
   // Social
-
 .share {
   h4 {
     margin-bottom: $lh/2;
   }
   @include clearfix;
 }
+
 .site-footer {
   li.social-link {
     margin-top: ( $lh / 2 );
   }
 }
+
 ul.social-links {
   @include delistify;
   margin: 0;
 }
+
 li.social-link {
   margin-bottom: $lh * .75;
   margin-left: 20px; 
@@ -30,20 +32,24 @@ li.social-link {
     max-height: 25px;
   }
 }
+
 .social-icon {
   position: absolute;
+
   &.-facebook {
     top: 7px;
     left: 9px;
     width: 6px;
     height: 11.5px;
   }
+
   &.-twitter {
     top: 7px;
     left: 5.5px;
     width:  13.5px;
     height: 11px;
   }
+  
   &.-email {
     top: 8px;
     left: 5px;

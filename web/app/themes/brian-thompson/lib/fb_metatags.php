@@ -16,7 +16,7 @@ function build_tags() {
     return;
   }
 
-  //Add Twitter tags
+  // Add Twitter tags
   echo '<meta name="twitter:card" content="summary_large_image" />';
   echo '<meta name="twitter:site" content="@'.\Firebelly\SiteOptions\get_option('twitter_id').'" />';
   echo '<meta name="twitter:creator" content="@'.\Firebelly\SiteOptions\get_option('twitter_id').'" />';
@@ -26,10 +26,6 @@ function build_tags() {
   if ($facebook_app_id) {
     echo '<meta property="fb:app_id" content="' . esc_attr($facebook_app_id) . '"/>' . "\n";
   }
-  // Not using this yet
-  // if ($facebook_admin_ids) {
-  //   echo '<meta property="fb:admins" content="' . esc_attr($facebook_admin_ids) . '"/>' . "\n";
-  // }
 
   // URL
   if (is_front_page()) {

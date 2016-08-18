@@ -1,4 +1,7 @@
-// Colors
+// COLOR SCHEME
+// Because of the alternating color scheme, all the color information is stored here.  This helps accomodate the DRY mixin structure below.
+
+// Color Variables
 $true-white: #fff;
 $white: #e8e8e8;
 $gray: #c7c7c7;
@@ -8,8 +11,7 @@ $lite-blue: #4092fb;
 $brand-primary: $white;
 $brand-secondary: $blue;
 
-// Color Scheme
-
+// A function to pick one option or another (to be used for color)
 @function choose($option_true,$option_false,$choice) {
   @if $choice {
     @return $option_true;
@@ -18,7 +20,10 @@ $brand-secondary: $blue;
   }
 }
 
-@mixin color-scheme ($scheme) { // Scheme Template
+// The scheme template, will be called below with which $scheme is appropriate for the page
+@mixin color-scheme ($scheme) {
+
+  // Some choices we'll use frequently
   $text: choose($black,$white,$scheme);
   $anti-text: choose($black,$white,not $scheme);
   $bg: choose($white,$blue,$scheme);
@@ -26,20 +31,29 @@ $brand-secondary: $blue;
   $title: choose($blue,$black,$scheme);
   $anti-title: choose($blue,$black,not $scheme);
 
+  // Base Colors
   color: $text;
   background: $bg;
+
+  // Headings
   h1,h4,.step h2 {
     color: $title;
   }
   h1, h2,.step h2 {
     &:before, &:after {
-      background: $black;
+      background: $black; // If always the same color, just specify directly.
     }
   }
+
+  // hr
   hr {
     background: $text;
   }
+
+  // Body-Wrap specific stlying (particularly links)
   .body-wrap {
+
+    // Normal links
     a {
       color: $text;
       &:hover {
@@ -48,6 +62,7 @@ $brand-secondary: $blue;
       &:not(.no-underline) { border-bottom: 1px solid $title; }
     }
 
+    // Category Links
     a.category, .category a {
         color: $title;
         border-bottom: 0;
@@ -58,20 +73,26 @@ $brand-secondary: $blue;
         }
     }
 
+    // Heading links
     a h1, a h2, h1 a, h2 a:not(.no-underline) {
       border-bottom: 0;
       @include gradient-underline($bg,$title,90%, calc(90% + 1px));
     }
+
   }
 
-  // Popup
+  // Popups -- We have some different colors we need here
   .popup .body-wrap {
+
+    // Base styles
     a:hover {
       color: $anti-title;
     }
     &,h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
     }
+
+    // UI
     .arrow.-white:hover {
       background: choose($black,$white,$scheme);
       color: choose($white,$black,$scheme);
@@ -83,13 +104,8 @@ $brand-secondary: $blue;
       color: $white;
     }
   }
-  li.pricetag {
-    .cost, .cost:before, .unit {
-      color: $anti-title;
-    }
-  }
 
-  // Search
+  // Search Popup
   .search-popup .body-wrap {
     &,h1,h2,h3,h4,h5,h6,p,a,*:after,*:before{
       color: $white;
@@ -98,20 +114,17 @@ $brand-secondary: $blue;
   &.search {
     .page-header .search-field {
       color: $title;
-      background: rgba($black,.2);
+      &:hover {
+        background: rgba($black,.2);
+      }
     }
     .highlight {
       background: choose(rgba($black,.08),rgba($black,.5),$scheme);
       color: choose($blue,$white,$scheme);
     }
-    // a:hover .highlight {
-    //   background: $black;
-    //   color: $white;
-    // }
   }
 
-
-  // Form Pages
+  // Forms
   .form-wrap {
     background: $true-white;
     color: $black;
@@ -201,11 +214,13 @@ $brand-secondary: $blue;
     a:hover { 
       color: $anti-title; 
     }
+
+    // The open/close footer nipple
     .footer-tab {
       &:after, &:before {
         background: $anti-bg;
       }
-      .footer-hole {
+      .footer-hole { // When visible
         fill: $anti-bg;
       }
       .footer-toggle {
@@ -288,30 +303,29 @@ $brand-secondary: $blue;
     }
   }
 
-  // Home
+  // Services Page
+  li.pricetag {
+    .cost, .cost:before, .unit {
+      color: $anti-title;
+    }
+  }
+
+  // Home Page
   .start-line {
     background: $anti-bg;
   }
   .start-button {
     color: $blue;
   }
-  // .home.page .section {
-  //   @include media-md {
-  //     &.-two, &.-three {
-  //       &:before {
-  //         color: red;
-  //         display: none;
-  //       }
-  //     }
-  //   }
-  // }
 }
 
+
+// So now we call
 body {
   &.white-color-scheme {
-    @include color-scheme(true);
+    @include color-scheme(true); // Yields the first choice for each choose function
   }
   &.blue-color-scheme {
-    @include color-scheme(false);
+    @include color-scheme(false); // Yields the second choice for each choose function
   }
 }

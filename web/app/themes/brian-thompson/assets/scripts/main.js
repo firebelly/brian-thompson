@@ -56,7 +56,6 @@ var FBSage = (function($) {
 
     });
 
-
     // Smoothscroll links
     $('a.smoothscroll').click(function(e) {
       e.preventDefault();
@@ -85,7 +84,6 @@ var FBSage = (function($) {
     // Detect IE and add a class
     _ieDetect();
 
-
     // Scroll down to hash afer page load OR open popup with hash content
     $(window).load(function() {
       if (window.location.hash) {
@@ -99,7 +97,6 @@ var FBSage = (function($) {
         }
       }
     });
-
 
   } // end init()
 
@@ -135,16 +132,6 @@ var FBSage = (function($) {
     }
   }
 
-  // function _showMobileNav() {
-  //   $('.menu-toggle').addClass('menu-open');
-  //   $('.site-nav').addClass('active');
-  // }
-
-  // function _hideMobileNav() {
-  //   $('.menu-toggle').removeClass('menu-open');
-  //   $('.site-nav').removeClass('active');
-  // }
-
   function _initLoadMore() {
     $document.on('click', '.load-more', function(e) {
       e.preventDefault();
@@ -157,7 +144,7 @@ var FBSage = (function($) {
       var $more_container = $load_more.parents('section,main').find('.load-more-container');
       loadingTimer = setTimeout(function() { $more_container.addClass('loading'); }, 500);
 
-      $load_more.velocity('fadeOut',200);
+      $load_more.velocity('fadeOut',200); // Hide the button
 
       $.ajax({
           url: wp_ajax_url,
@@ -172,14 +159,14 @@ var FBSage = (function($) {
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
-            $data.appendTo($more_container).velocity('fadeIn',400);
+            $data.appendTo($more_container).velocity('fadeIn',400); // Fade in the content
             _initPageTransitionLinks();
             $load_more.attr('data-page-at', page+1);
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
                 $load_more.addClass('hide');
             } else {
-              $load_more.velocity('fadeIn',400);
+              $load_more.velocity('fadeIn',400); // Otherwise fade it in, because we faded it out
             }
 
             $(window).resize(); //document size has changed -- trigger any function possibly dependent
@@ -188,16 +175,6 @@ var FBSage = (function($) {
       });
     });
   }
-
-  // // Track ajax pages in Analytics
-  // function _trackPage() {
-  //   if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
-  // }
-
-  // // Track events in Analytics
-  // function _trackEvent(category, action) {
-  //   if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
-  // }
 
   // Called in quick succession as window is resized
   function _resize() {
@@ -211,7 +188,7 @@ var FBSage = (function($) {
 
   }
 
-  // Add global overlay for clickouts
+  // Add global overlay for clickouts of the mobile nav, popups and footer
   function _initGlobalOverlay() {
     var html = '<div class="almighty-global-overlay -hidden" aria-hidden="true"></div>';
     $(html).appendTo('body');
@@ -223,9 +200,11 @@ var FBSage = (function($) {
     $('.almighty-global-overlay').addClass('-hidden');
   }
 
+  // Build the footer
   function _initFooter() {
+    // Add some non-semantic markup
     var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle"><svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg></button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';  
-    $(html).prependTo('.site-footer').click(function(e) {
+    $(html).prependTo('.site-footer').click(function(e) { // Open or close the footer on click
       e.preventDefault();
       if( $('.site-footer').hasClass('closed') ){
         _openFooter();
@@ -234,11 +213,9 @@ var FBSage = (function($) {
       }
     });
 
-    _resizeFooter();
-
+    // Add a waypoint to handle the auto closing of the footer
     $footerWaypoint = $('<div class="invisible-waypoint -footer" aria-hidden="true"></div>')
     .appendTo('#primary-site-content');
-    _resizeFooter();
     $footerWaypoint.waypoint({
       offset: 'bottom-in-view',
       handler: function(direction) {
@@ -250,22 +227,27 @@ var FBSage = (function($) {
         }
       }
     });
+
+    // Do all the resizing chores once up front
+    _resizeFooter();
   }  
-  function _closeFooter(animDur) {
-    animDur = animDur || 200;
+  function _closeFooter() {
     $('.site-footer').addClass('closed');
+    // Replace +/-
     $('.footer-toggle').empty().append('<svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg>'); 
   }
-  function _openFooter(animDur) {
+  function _openFooter() {
     if(!$('.popup.showing').length) {
-      animDur = animDur || 200;
       $('.site-footer').removeClass('closed');
+      // Replace +/-
       $('.footer-toggle').empty().append('<svg class="icon-minus" aria-hidden="true"><use xlink:href="#icon-minus"></use></svg>');
     }
   }
   function _resizeFooter() {
     var footerHeight = $('.site-footer').outerHeight();
+    // Add a margin to the content the size of the footer
     $('#primary-site-content').css('margin-bottom',(breakpoint_medium ? footerHeight : 0));
+    // Position the waypoint that auto opens and closes the footer
     var adminBarCorrection = $('#wpadminbar').length ? 32 : 0;
     $('.invisible-waypoint.-footer').css('bottom', -footerHeight+1 + adminBarCorrection);
   }
@@ -280,7 +262,7 @@ var FBSage = (function($) {
           e.preventDefault();
         } else {
 
-          var linkUrl = $(this)[0].href; // Get my dest url
+          var linkUrl = $(this)[0].href; // Get my destination url
           if( _get_hostname(linkUrl) === document.location.hostname ) { // Apply transition only if its an in-site URL!  Otherwise, skip this and proceed to default link behavior
             _isAnimating = true;
             e.preventDefault();
@@ -336,7 +318,7 @@ var FBSage = (function($) {
 
   function _initSearch() {
 
-    // If we are on the search page, focus the search bar and move cursor to end.
+    // If we are on the search page, focus the in-page search bar and move cursor to end.
     var $inputOnSearchPage = $('.page-header .search-field');
     if($inputOnSearchPage.length) {
       $inputOnSearchPage.attr('placeholder','...').focus();
@@ -344,8 +326,13 @@ var FBSage = (function($) {
       $inputOnSearchPage[0].setSelectionRange(len, len);
     }
 
+    // Hide the search popup
     $('.search-popup .body-wrap').velocity('fadeOut',0);
+
+    // Add a class to the search item in the main nav (to select easily and also to make it disappear at tablet size where there will be an icon)
     $('a[href="#search"]').closest('li').addClass('menu-item-search');
+
+    // Trigger open and close the search popup when clicking appropriate things
     $('.open-search, a[href="#search"]').click(function(e) {
       e.preventDefault();
       _openSearch();
@@ -357,17 +344,26 @@ var FBSage = (function($) {
   }
 
   function _openSearch() {
-    if(!_isAnimating) {
-      _closeFooter();
+    if(!_isAnimating) { // Don't do this if we are already animating something else important
       _isAnimating = true;
+
+      // Get that footer outta here
+      _closeFooter();
+
+      // Fade in and add a class
       $('.search-popup').addClass('showing');
       $('.search-popup .lines').velocity('fadeIn',200);
+
+      // Find the blind thats closest to the open search button
       var startingBlindNum = _closestX( $('.search-popup > .blinds .blind'), $('.open-search').offset().left ).data('blind-num'); // Which blind # corresponds to the X location of this link
-      _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () {
-        // console.log('blinds onDone triggered');
+      
+      // Trigger the blinds
+      _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () { 
+        // When done fade in the content
         $('.search-popup .body-wrap').velocity('fadeIn',{ 
           duration: 200,
           complete: function() {
+            // When done fading in content, focus and release _isAnimating
             $('.search-popup .search-field').focus();
             _isAnimating = false;
           }
@@ -377,19 +373,22 @@ var FBSage = (function($) {
   }
 
   function _closeSearch() {
-      console.log('closing!');
-    if(!_isAnimating && $('.search-popup.showing').length){
-      console.log('not animating!');
+    if(!_isAnimating && $('.search-popup.showing').length){  // Don't do this if there is no search popup OR we are already animating something else important
       _isAnimating = true;
+
+      // Hide content
       $('.search-popup .body-wrap').velocity('fadeOut',{
         duration: 200,
         complete: function () {
+          // Hide popup lines
           $('.search-popup .lines').velocity('fadeOut',{ 
             duration: 200
           });
+          // Unblind the blinds
           _blinds($('.search-popup > .blinds .blind'),'hide',0, function() {
-              _isAnimating = false;
-              $('.search-popup').removeClass('showing').removeClass('holding-mobile-nav');
+            // Cleanup classes and release _isAnimating
+            $('.search-popup').removeClass('showing').removeClass('holding-mobile-nav');
+            _isAnimating = false;
           });
         }
       });
@@ -399,20 +398,26 @@ var FBSage = (function($) {
 
   // Initialize popup for modals and for mobile nav
   function _initPopup() {
-    // Here is a global variable to remember which blind was the first to open;
+    // Here is a global variable to remember which blind was the first to open
     _popupStartingBlindNum = 0;
+
+    // Inject popup html and hide it
     var html = '<div class="popup" aria-hidden="true"><div class="body-wrap"><div class="content-holder"></div><button class="close" aria-hidden="true">x</button></div></div>';
     $(html).appendTo('body');
     $('.popup .body-wrap').velocity('fadeOut',0);
 
+    // Open popups when clicking .open-popup
     $('.open-popup').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
+        // Choose the blind closest to the .open-popup link
         _popupStartingBlindNum = _closestX( $('.popup > .blinds .blind'), $(this).offset().left ).data('blind-num');
+        // Open the popup with the corresponding content
         var $content = $($(this).data('content'));
         _openPopup($content);
       }
     });
+    // Swith popup content when a popup is already open
     $('.switch-content').click(function(e) {
       e.preventDefault();
       if(!_isAnimating) {
@@ -421,6 +426,7 @@ var FBSage = (function($) {
       }
     });
 
+    // Close popups on clickout or when clicking the X
     $('.almighty-global-overlay, .popup .close').click(function() {
         _closePopup();
     });
@@ -428,15 +434,22 @@ var FBSage = (function($) {
   function _closePopup() {
     if(!_isAnimating && $('.popup.showing').length) {
       _isAnimating = true;
+
+      // Edit browser history (this will change nothing if it was not a linkable popup, otherwise it removes the popup from history)
       history.replaceState(null, null, window.location.pathname);
+
+      // Close the clickout overlay
       _returnToYourSlumberAlmightyOverlay();
-      $('.popup .body-wrap').velocity('fadeOut',{
+      $('.popup .body-wrap').velocity('fadeOut',{ // Fade out content
         duration: 200,
-        complete: function () {
+        complete: function () { // When done...
+          // Fade out lines
           $('.popup .lines').velocity('fadeOut',{ 
             duration: 200
           });
+          // Animate blinfs
           _blinds($('.popup > .blinds .blind'),'hide',0, function() {
+              // When done clean up classes and release _isAnimating
               _isAnimating = false;
               $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
           });
@@ -445,37 +458,51 @@ var FBSage = (function($) {
     }
   }
   function _openPopup($content) {
-    _closeFooter();
+    //This opens a popup with the content contained in $content
+
     _isAnimating = true;
+    _closeFooter(); // Get pesky footer outta the way
+
+    // If we are a linkable popup put us in browser history
     if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
+    
     $('.popup').addClass('showing');
-    _awakenTheAlmightyOverlay();
-    $('.popup .lines').velocity('fadeIn',200);
+    _awakenTheAlmightyOverlay(); // Add an overlay outside the popup to close on click
+    $('.popup .lines').velocity('fadeIn',200); // Fade in the lines
+
+    // Animate the blinds
     _blinds($('.popup > .blinds .blind'),'show',_popupStartingBlindNum,function () {
-      $('.popup .content-holder').empty();
-      $content.clone(true, true).contents().appendTo('.popup .content-holder');
-      $('.popup .body-wrap').velocity('fadeIn',{ 
+      // When done animating the last blind
+      $('.popup .content-holder').empty(); // Get rid of last content
+      $content.clone(true, true).contents().appendTo('.popup .content-holder'); // Add new content
+      $('.popup .body-wrap').velocity('fadeIn',{ // Fade in content
         duration: 200,
-        complete: function() {
+        complete: function() { // When faded in...
           $popup = $('.popup');
-          if(!$popup.hasClass('holding-mobile-nav')) { $popup.velocity('scroll',200); }
-          _isAnimating = false;
+          if(!$popup.hasClass('holding-mobile-nav')) { $popup.velocity('scroll',200); } // Scroll to top if not fixed nav
+          _isAnimating = false; // Release _isAnimating
         }
       });
     });
   }
   function _switchPopupContent($content) {
+    //This switches an open popups content with the content contained in $content
+
     _isAnimating = true;
+
+    // If we are a linkable popup put us in browser history
     if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
+
+    // Fade out the content
     $('.popup .body-wrap').velocity('fadeOut',{ 
       duration: 200,
       complete: function() {
-        $('.popup .content-holder').empty();
-        $content.clone(true, true).contents().appendTo('.popup .content-holder');
-        $('.popup .body-wrap').velocity('fadeIn',{ 
+        $('.popup .content-holder').empty(); // Out with the old
+        $content.clone(true, true).contents().appendTo('.popup .content-holder'); // In with the new
+        $('.popup .body-wrap').velocity('fadeIn',{ // Fade in new content
           duration: 200,
           complete: function() {
-            $('.popup').velocity('scroll',200);
+            $('.popup').velocity('scroll',200); // Scroll to it
             _isAnimating = false;
           }
         });
@@ -511,7 +538,7 @@ var FBSage = (function($) {
         delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
         duration: duration,
         easing: [1,0.75,0.5,1],
-        complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() {
+        complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() { // This function fires when the last blind has finished animating
           if (useHiddenClass && showOrHideTheBlinds === 'hide') { 
             $container.addClass('-hidden'); //display: none so no interfering with pointer events
           } 
@@ -523,6 +550,7 @@ var FBSage = (function($) {
     });
   }
   function _closestX($elements,x){
+    // Finds the closest element in the set $elements to a given x position
     var closestDist = 9999;
     var closestElement = false;
     if ($elements.length) {
@@ -566,14 +594,11 @@ var FBSage = (function($) {
     // Ditto page transition blinds
     _makeBlinds(15,'.search-popup','-hidden');
 
-        //We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
+    // We want to open them with velocity.  They close as expected when you do this.  Otherwise, they can be buggy.
     $('.blind').velocity("transition.blindOut", {duration: 0});
 
     // Add image content blinds
     _makeBlinds(8,'.floater-image, .inline-image');
-    // _makeBlinds(4,'.floater-image.-landscape, .inline-image:not(.mobile-image).-landscape');
-    // _makeBlinds(8,'.mobile-image');
-
 
   }
   function _makeBlinds(n,container,cssClass) {
@@ -586,7 +611,7 @@ var FBSage = (function($) {
     return $(html).prependTo(container);
   }
 
-    // Add html markup and behavior for lines
+  // Add html markup and behavior for lines
   function _initLines() {
     // Page Lines
     _makeLines(15,'body');
@@ -606,25 +631,25 @@ var FBSage = (function($) {
     }
     html+='</div>';
     return $(html).prependTo(container);
-
   }
 
-function FloaterImage($image,order) {
+function FloaterImage($image,orderNum) {
+  // Each FLoaterImage has 2 waypoints.  It is either healthy or unhealthy, alive or dead.  Being between the waypoints makes it healthy.  
+  // If it is unhealthy and alive, it will die as soon as it can (it's not animating).  Also vice versa.  
 
   // My self referential vars
   var me = this;
   var $me = $image;
 
   // My stats
-  this.neverShown = true;
-  this.order = order;
+  this.orderNum = orderNum;
   this.portrait = $me.hasClass('-portrait');
   this.alive = false;
   this.healthy = false;
   this.animating = false;
 
-  // Insert elements for waypoints into the dom.
-  var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);
+  // Insert elements for waypoints into the dom.  The waypoints will show/hide the images
+  var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);  // I gave these random colors (but the same color for each image) to aid debugging
   this.$waypointTop = $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
   this.$waypointBottom =  $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
 
@@ -632,14 +657,13 @@ function FloaterImage($image,order) {
   this.positionWaypoints = function() {
     var numImages = $('.floater-image').length;
     var docHeight = $(document).height();
-    var adminBarCorrection = $('#wpadminbar').length ? 32 : 0;
+    var adminBarCorrection = $('#wpadminbar').length ? 32 : 0; // Wp admin bar for logged in user
     var scrollableHeight = docHeight-$(window).height(); // How many pixels can a user scroll on this page?
     // Top waypoint
-    var pos = ((order-0.5)*scrollableHeight/numImages-5-adminBarCorrection)+'px';
+    var pos = ((orderNum-0.5)*scrollableHeight/numImages-5-adminBarCorrection)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = Math.min(((order+1.5)*scrollableHeight/numImages-adminBarCorrection),$('#primary-site-content').height())+'px'; 
-    // console.log(pos+'  '+$(document).height());
+    pos = Math.min(((orderNum+1.5)*scrollableHeight/numImages-adminBarCorrection),$('#primary-site-content').height())+'px'; 
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
@@ -685,8 +709,7 @@ function FloaterImage($image,order) {
 
   // Handle Living and Dying
   this.live = function() {
-    me.position();
-    me.neverShown = false;
+    me.position(); 
     $me.addClass('alive');
     me.animating = true;
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
@@ -712,27 +735,21 @@ function FloaterImage($image,order) {
     }
   };
   this.choosePosTop = function() {
-    // if(me.order===0) { // If I'm first, top=0
-    //   return '0';
-    // } 
     var randPercent = Math.random()*60+20;
     return 'calc('+randPercent+'vh - '+($me.height()/2)+'px)';
   };
   this.chooseCol = function() {
     var possibleCols = me.getPossibleCols();
-    // if(me.order===0) { // If I'm first, get leftmost col  //me.neverShown && 
-    //   return (me.portrait ? 0: -1);
-    // } 
 
     var col = possibleCols[Math.floor(Math.random()*possibleCols.length)];
     return col;
   };
-  // The choice of what columns are OK to positiong the image in can be an affair...
+  // The choice of what columns are OK to position the image in can be an affair...
   this.getPossibleCols = function() {
     var screenWidth = $(window).width();
 
     var badCols = [];
-    // Mark content area off-limits
+    // What are the bad columns?
     if(!breakpoint_large) {
       badCols = $.merge(badCols,[-1,0,1,2,3,4,5,6]);
       if(me.portrait) {
@@ -771,7 +788,7 @@ function FloaterImage($image,order) {
   });
 }
 
-function InlineImage($image,order,delay) {
+function InlineImage($image,delay) {
 
   if(typeof delay==='undefined') { delay = 500; }
   this.delay = delay;
@@ -783,18 +800,18 @@ function InlineImage($image,order,delay) {
   // My stats
   this.portrait = $me.hasClass('-portrait');
   this.alive = false;
-  this.order = order;
 
-  // Handle Living
+  // Handle Living (No dying for these inline images)
   this.live = function() {
-    $me.addClass('alive');
+    $me.addClass('alive'); // Class me
+    // Open the blinds
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
       me.alive = true;
     }, false);
   };
 
-  // Init waypoints
-  setTimeout(function() {
+  // Init the waypoint that makes me become alive
+  setTimeout(function() { // But wait for delay to do so
     me.waypoint =  $me.waypoint({
       offset: '100%',
       handler: function(direction) {
@@ -808,22 +825,25 @@ function InlineImage($image,order,delay) {
 }
 
   // Init images
-  function _initImages(containing_selector) {
-    containing_selector = containing_selector || '';
+  function _initImages() {
+    // Make the fix-position floating images
     var floaterImages = [];
-    $(containing_selector+' .floater-image').each( function(i) {
+    $('.floater-image').each( function(i) {
       floaterImages[i] = new FloaterImage($(this),i);
     });
 
+    // Make the absolute positioned images
     var inlineImages = [];
-    $(containing_selector+' .inline-image').each( function(i) {
-      inlineImages[i] = new InlineImage($(this),i);
+    $('.inline-image').each( function(i) {
+      inlineImages[i] = new InlineImage($(this),i*250+500); // Stagger the delays 250ms with the first one at 500ms.
     });
   }
 
 
   function _initContactForm() {
     // Mess up CF7s forced markup so the damn thing will work on iphone.
+    // Spans/Checkboxes cannot be nested inside labels
+    // If they are clicking on the label text will not check/uncheck the box.  This breaks custom checkboxes
     $('.wpcf7-checkbox .wpcf7-list-item-label').each(function() {
       $(this).replaceWith($('<label class="wpcf7-list-item-label">' + this.innerHTML + '</label>'));
     });
@@ -833,19 +853,20 @@ function InlineImage($image,order,delay) {
       $(this).find('input[type="checkbox"]').attr('id',id);
     });
 
-    // Add functions to supplement CF7 form handling
+    // We have our ouwn custom submit form
     $('.contact-form-submit').click(function(e){
       e.preventDefault();
-      $('#wpcf7-f91-o1 .wpcf7-form').submit();
-      $('.wpcf7-response-output').velocity('scroll',300);
+      $('#wpcf7-f91-o1 .wpcf7-form').submit(); // Submit the form from our custom button
+      $('.wpcf7-response-output').velocity('scroll',300); //Scroll to form response message if there is one
     });
+    // On successful msubmission and mail sent
     $('.wpcf7').on('wpcf7:mailsent', function(e) {
-      $('.form-accordian').velocity('slideUp',300);
-      $('.form-wrap').css('padding-bottom','15px');
+      $('.form-accordian').velocity('slideUp',300); // Fold up the form
+      $('.form-wrap').css('padding-bottom','15px'); // Pad the bottom
     });
   }
 
-  // Detect IE and add a class
+  // Detect IE and add a class for ie fixes (mainly flexbox stuff)
   function _ieDetect() {  //http://stackoverflow.com/a/19868056
     if( "ActiveXObject" in window ) {
       $('html').addClass('ie');

@@ -74,7 +74,6 @@ hr {
   margin-left: 10px;
   position: relative;
   padding: $lh*6 $teensy-pad $lh*5;
-  // @include word-break;
   @include media-tiny {
     width: 3 * $col;
     margin-left: calc((100% - 3 * #{$col})/2 );
@@ -148,77 +147,4 @@ hr {
     }
   }
 
-}
-
-// Almighty Global Overlay
-.almighty-global-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  z-index: $z-overlay;
-}
-
-.invisible-waypoint {
-  position: absolute;
-  left: 30px;
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  background: red;
-  border: 1px solid black;
-  visibility: hidden;
-  z-index: 1000000;
-  &.-footer {
-    background: blue;
-  }
-}
-
-// Recent Posts Moduleπ
-.recent-posts {
-  width: $col;
-  padding: 0 $teensy-pad;
-  z-index: $z-recent-posts;
-  h4 {
-    margin-bottom: 33px;
-    @include media-md {
-      @include dash-after(17px);
-    }
-  }
-  ul.posts {
-    list-style: none;
-  }
-  h5 {
-    @include small-title; 
-    @include media-md {
-      @include dash-after($lh);
-      margin-bottom: 23px;
-    }
-  }
-  li.post {
-    margin-bottom: $lh*2;
-  }
-  p {
-    @include small-mono;
-    margin-bottom: 0;
-    &.category a {
-      text-decoration: underline;
-    }
-  }
-}
-
-// Stupid admin bar
-body.admin-bar {
-  #primary-site-content, .brand, .site-nav, .mobile-nav-open, .open-search, .search-popup .close, .search-popup .body-wrap {
-      margin-top: 46px;
-    @include min-screen(783px) {
-      margin-top: 32px;
-    }
-  }
-}
-#wpadminbar {
-  position: fixed !important;
 }
