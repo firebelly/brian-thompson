@@ -84,10 +84,13 @@ hr {
     margin-left: calc((100% - 4 * #{$col})/2 );
   }
   @include media-md {
-    margin-left: $col * 2;
+    margin-left: $col * 1;
     padding: $lh*6 $teensy-pad $lh*2;
   }
   @include media-lg {
+    margin-left: $col * 2;
+  }
+  @include min-screen(1000px) {
     margin-left: $col * 3;
   }
   @include media-huge {

@@ -260,7 +260,7 @@ function get_treated_url($post_or_id, $options=[]) {
   $treated_image = $base_dir . $treated_filename;
 
   // If treated file doesn't exist, create it
-  if (!file_exists($treated_image)) {
+  // if (!file_exists($treated_image)) {
     // If the duo directory doesn't exist, create it first
     if(!file_exists($base_dir)) {
       mkdir($base_dir);
@@ -271,16 +271,16 @@ function get_treated_url($post_or_id, $options=[]) {
     $full_command = '';
     if ($type==='gray') {
       //convert keys.jpg -modulate 100,0 -size 256x1! gradient:#555555-#dddddd -clut keys-treated.jpg
-      $full_command = $convert_command.' '.$image_to_convert.' -modulate 100,0 -size 256x1! gradient:#555555-#dddddd -clut -quality 75 '.$treated_image;
+      $full_command = $convert_command.' '.$image_to_convert.' -modulate 100,0 -size 256x1! gradient:#555555-#BDBDBD -clut -quality 75 '.$treated_image;
     } else {
       //convert peeps.jpg -brightness-contrast 3%x5% +level 10%,87%,.90 -channel B +level 5% peeps-treated.jpg
-      $full_command = $convert_command.' '.$image_to_convert.' -brightness-contrast 3%x5% +level 10%,87%,.90 -channel B +level 5%,100% -quality 75 '.$treated_image;
+      $full_command = $convert_command.' '.$image_to_convert.' -brightness-contrast 3%x5% +level 20%,87%,.90 -channel B +level 10%,100% -quality 75 '.$treated_image;
     }
 
     if($full_command) { exec($full_command); }
 
   // echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
-  }
+  // }
 
   // Finally, get the URL
   $duo_url = $upload_dir['baseurl'] . $treated_dir . $treated_filename;

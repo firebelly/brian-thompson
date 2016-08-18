@@ -31,7 +31,7 @@
     padding-bottom: $lh*7;
     position: relative;
     @include break-out-of-padding($teensy-pad, $teensy-pad);
-    @include media-md {
+    @include media-lg {
       padding-bottom: 0;
       position: fixed;
       width: 100%;
@@ -60,13 +60,10 @@
     @include media-sm {
       left: 3 * $col - 5px;
     }
-    @include media-md {
-      left: 6.5 * $col - 5px;
-    }
-    @include min-screen(800px) {
+    @include media-lg {
       left: 7 * $col - 5px;
     }
-    @include media-lg {
+    @include min-screen(1000px) {
       left: 8 * $col - 5px;
     }
     @include media-huge {
@@ -79,12 +76,12 @@
       right: 3 * $col - 5px;
     }
     @include media-md {
-      right: calc( 100% - ( 1.5 * #{$col} + 5px ) );
-    }
-    @include min-screen(800px) {
-      right: calc( 100% - (  1 * #{$col} + 5px ) );
+      right: calc( 100% - ( 1 * #{$col} + 5px ) );
     }
     @include media-lg {
+      right: calc( 100% - (  1 * #{$col} + 5px ) );
+    }
+    @include min-screen(1000px) {
       right: calc( 100% - (  2 * #{$col} + 5px ) );
     }
     @include media-huge {
@@ -94,7 +91,7 @@
 
   .recent-posts {
     @include min-screen(800px) {
-      width: $col;
+      width: #{$col * 2};
       position: absolute;
       padding: 0 $teensy-pad;
       top: calc(50vh + 50px); 

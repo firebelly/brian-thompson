@@ -1,5 +1,16 @@
 // Home
 .home.page {
+
+  .body-wrap {
+    h1:after,
+    h2:after {
+      left: 8 * $col - $teensy-pad - 2px;
+      @include media-huge {
+        left: calc( 8 * #{$col-huge} - #{$teensy-pad} - 2px );
+      }
+    }
+  }
+
   .page-header {
     @extend .sr-only;
   }
@@ -59,7 +70,7 @@
               left: -3 * $col - $teensy-pad - 2px;
             }
             &:after {
-              left: 5 * $col - $teensy-pad - 2px;
+              left: 6 * $col - $teensy-pad - 2px;
             }
           }
           @include min-screen(1000px){
@@ -70,9 +81,9 @@
               }
             }
             &:after {
-              left: 3 * $col - $teensy-pad - 2px;
+              left: 4 * $col - $teensy-pad - 2px;
               @include media-huge {
-                left: calc( 3 * #{$col-huge} - #{$teensy-pad} - 2px );
+                left: calc( 4 * #{$col-huge} - #{$teensy-pad} - 2px );
               }
             }
           }
@@ -161,12 +172,12 @@
   .recent-posts {
     margin-top: 2*$lh;
     @include media-md {
-      width: $col;
+      width: #{$col * 2};
       margin-top: 285px;
-      left: 4 * $col;
+      left: 3 * $col;
       z-index: $z-recent-posts;
     }
-    @include min-screen(1000px){
+    @include min-screen(1000px) {
       position: absolute;
       margin-top: 0;
       top: 935px;  
@@ -199,10 +210,10 @@
       left: 8 * $col - 1px;
     }
     @include min-screen(1000px) {
-      left: 9 * $col - 1px;
+      left: 10 * $col - 1px;
     }
     @include media-huge {
-      left: calc( 9 * #{$col-huge} - 1px);
+      left: calc( 10 * #{$col-huge} - 1px);
     }
   }
 
