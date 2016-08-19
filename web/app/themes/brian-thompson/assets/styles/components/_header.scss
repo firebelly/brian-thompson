@@ -97,6 +97,9 @@
       float: left;
       width: $col;
       padding: 10px $teensy-pad 0;
+      @include media-md {
+        z-index: $z-nav-items;
+      }
       @include media-lg {
         padding: 25px $teensy-pad 0; 
       }
@@ -193,7 +196,7 @@
         }
       }
     }
-    
+
     .menu-item-has-children {
       position: relative;
       top: 5px;

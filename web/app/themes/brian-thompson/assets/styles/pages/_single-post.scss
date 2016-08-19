@@ -2,6 +2,51 @@
 
 .single-post {
 
+  // Some shifts to accomadate the wider recent-posts module
+  .body-wrap {
+    @include media-md {
+      margin-left: $col * 1;
+    }
+    @include min-screen(900px) {
+      margin-left: $col * 2;
+    }
+    @include min-screen(1000px) {
+      margin-left: $col * 3;
+    }
+  }
+
+  .site-header {
+    .brand .btf-logo {
+      @include min-screen(900px) {
+        left: 0;
+        top: 8px;
+      }
+      @include min-screen(1000px) {
+        left: $col;
+        top: 25px;
+      }
+    }
+    .site-nav {
+      ul#menu-main-menu {
+        @include min-screen(900px) {
+          left: $col * 2;
+        }
+        @include min-screen(1000px) {
+          left: $col * 3;
+        }
+
+        & > li:not(.menu-item-has-children), .menu-item-has-children li:first-child {
+          @include min-screen(900px) {
+            padding-top: 10px;
+          }
+          @include min-screen(1000px) {
+            padding-top: 25px;
+          }
+        }
+      }
+    }
+  }
+
   .entry-meta {
     p {
       @include small-mono;

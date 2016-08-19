@@ -191,7 +191,7 @@
   .recent-posts {
     margin-top: 2*$lh;
     @include media-md {
-      width: #{$col * 2};
+      width: $col * 2;
       margin-top: 285px;
       left: 3 * $col;
       z-index: $z-recent-posts;
@@ -200,8 +200,11 @@
       position: absolute;
       margin-top: 0;
       top: 935px;  
-      left: 5 * $col;
+      left: 4 * $col;
       padding: 0 $teensy-pad;
+    }
+    @include min-screen(1100px) {
+      left: 5 * $col;
     }
     @include media-huge {
       left: 5 * $col-huge;
@@ -230,6 +233,9 @@
       left: 8 * $col - 1px;
     }
     @include min-screen(1000px) {
+      left: 9 * $col - 1px;
+    }
+    @include min-screen(1100px) {
       left: 10 * $col - 1px;
     }
     @include media-huge {

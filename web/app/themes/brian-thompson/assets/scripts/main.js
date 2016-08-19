@@ -750,19 +750,21 @@ function FloaterImage($image,orderNum) {
 
     var badCols = [];
     // What are the bad columns?
-    if(!breakpoint_large) {
-      badCols = $.merge(badCols,[-1,0,1,2,3,4,5,6]);
-      if(me.portrait) {
-        $.merge(badCols,[-3]);
-      } else {
-        $.merge(badCols,[-2,-1]);
-      }
-    } else {
+    if ($('.single-post').length && $(window).width() >= 800 && $(window).width() < 900 ) {
+      badCols = $.merge(badCols,[-3,-2,-1,0,1,2,3,4,5]);
+    } else if(breakpoint_large) {
       badCols = $.merge(badCols,[0,1,2,3,4,5,6,7]);
       if(me.portrait) {
         $.merge(badCols,[-3]);
       } else {
         $.merge(badCols,[-3,-1]);
+      }
+    } else {
+      badCols = $.merge(badCols,[-1,0,1,2,3,4,5,6]);
+      if(me.portrait) {
+        $.merge(badCols,[-3]);
+      } else {
+        $.merge(badCols,[-2,-1]);
       }
     }
 
