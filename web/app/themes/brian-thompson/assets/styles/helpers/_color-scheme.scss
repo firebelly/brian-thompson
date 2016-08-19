@@ -181,7 +181,6 @@ $brand-secondary: $blue;
 
   // Nav
   .site-nav {
-    background: $bg;
     .current-menu-item a{
       color: $title;
     }
@@ -192,9 +191,15 @@ $brand-secondary: $blue;
       }
     }
   }
+
+  .site-nav-bg {
+    background: $bg;
+  }
+  
   .hamburger {
     fill: $text;
   }
+
   .icon-search {
     fill: $text;
   }

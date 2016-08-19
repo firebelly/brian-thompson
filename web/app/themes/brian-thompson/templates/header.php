@@ -9,6 +9,7 @@ use Firebelly\SiteOptions;
       <svg class="btf-logo" role="img"><use xlink:href="#btf-logo"></use></svg>
     </a>
   </h1> 
+  <div class="site-nav-bg"></div>
   <nav class="site-nav -big" role="navigation">
     <?php
     if (has_nav_menu('primary_navigation')) :
