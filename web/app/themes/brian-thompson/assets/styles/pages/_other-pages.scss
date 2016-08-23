@@ -13,8 +13,15 @@
   }
   li.step {
     min-height: 8 * $lh;
-    max-width: 2 * $col;
-    @include media-huge{ max-width: 2 * $col-huge; }
+    width: 2 * $col;
+    @include media-huge{ width: 2 * $col-huge; }
+    h2 {
+      margin-bottom: 18px;
+    }
+    h3 {
+      @include dash-before(29px);
+      max-width: 185px; // This specific width creates line-wraps that prevent ugly widows with this text
+    }
   }
   .popup {
     .body-wrap {
