@@ -14,11 +14,13 @@
     width: 100%;
     margin-bottom: 2*$lh;
     @include screen(420px,629px) {
+
       ul {
         display: flex;
         flex-wrap: wrap;
         width: 4*$col;
       }
+
       li {
         flex-basis: 2*$col;
       }
@@ -39,9 +41,11 @@
     @include media-huge {
       left: 5 * $col-huge;
     }
+
     ul.categories {
       @include double-dash(25px,10px);
       list-style: none;
+
       li {      
         @include small-mono;
         margin: 0;
@@ -56,7 +60,7 @@
 
   .archive-listing {
     width: 100%;
-    // padding-bottom: 25px;
+    
     h2 {
       margin-bottom: $lh*.5; 
       padding-right: $lh;
