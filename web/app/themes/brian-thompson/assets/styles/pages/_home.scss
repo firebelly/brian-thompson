@@ -194,7 +194,7 @@
       width: $col * 2;
       margin-top: 285px;
       left: 3 * $col;
-      z-index: $z-recent-posts;
+      z-index: $z-recent-posts-home;
     }
     @include min-screen(1000px) {
       position: absolute;
