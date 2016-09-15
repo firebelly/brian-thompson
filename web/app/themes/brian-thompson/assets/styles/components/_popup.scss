@@ -119,8 +119,8 @@
       @include small-mono;
       @include no-word-break;
       position: absolute;
-      top: $lh/2 - 2px;;
-      right: 100%;
+      top: 4px;
+      left: -18px;
       display: none;
       @include media-md {
         display: block;
