@@ -8,18 +8,18 @@ include(locate_template('index.php'));
 
 <div class="form-wrap">
 	<div id="mc_embed_signup">
-		<form action="//brianthompsonfinancial.us9.list-manage.com/subscribe/post?u=6636f414d5f7e9a04624c3c16&amp;id=4e9c4d0045" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<form action="//brianthompsonfinancial.us9.list-manage.com/subscribe/post?u=6636f414d5f7e9a04624c3c16&amp;id=4e9c4d0045" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 			<div id="mc_embed_signup_scroll">
 				<h3>Your Details</h3>
 				<fieldset>
 					<div class="mc-field-group">
-						<p><input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email*"></p>
+						<p><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email*" required></p>
 					</div>
 					<div class="mc-field-group">
-						<p><input type="text" value="" name="FNAME" class="" id="mce-FNAME" placeholder="First name"></p>
+						<p><input type="text" name="FNAME" id="mce-FNAME" placeholder="First name"></p>
 					</div>
 					<div class="mc-field-group">
-						<p><input type="text" value="" name="LNAME" class="" id="mce-LNAME" placeholder="Last name"></p>
+						<p><input type="text" name="LNAME" id="mce-LNAME" placeholder="Last name"></p>
 					</div>
 
 					<div id="mce-responses" class="clear">
