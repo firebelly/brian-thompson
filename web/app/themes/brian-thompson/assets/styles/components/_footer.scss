@@ -154,16 +154,19 @@ $open-time: .15s;
     @include no-word-break;
   }
 
-  .contact-form-block {  
-    p.have-questions {
-      min-width: 102px; // Prevent word wrap of "Have Questions?"
+  .contact-form-block {
+    p {
+      white-space: nowrap; // Prevent word wrap of "Have Questions?"
+      &.stay-informed {
+        margin-top: 14px;
+      }
     }
     .contact-button {
       @include smaller-mono;
-      
+
       width: 100%;
       // padding: 0;
-        margin-top: $lh/4;
+      margin-top: $lh/4;
       max-height: 25px;
       @include min-screen(800px) {
         position: relative;
@@ -254,7 +257,7 @@ $open-time: .15s;
           margin-left: -20px;
         }
         @include screen(800px,1100px) {
-            li.social-link:first-child { 
+            li.social-link:first-child {
               margin-left:  -5px;
             }
         }
@@ -283,7 +286,7 @@ $open-time: .15s;
           flex-basis: 2 * $col;
           order: 2;
           margin-bottom: 0;
-          // position: relative; 
+          // position: relative;
           // left: -2 * $col;
         }
         @include min-screen(1100px) {

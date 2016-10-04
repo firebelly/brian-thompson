@@ -39,7 +39,9 @@ use Firebelly\SiteOptions;
     <div class="group-two">
       <div class="contact-form-block footer-block">
         <p class="have-questions">Have Questions?</p>
-        <a href="<?= get_permalink(get_page_by_path('contact')) ?>"><button class="contact-button arrow -right -black -small">Contact Brian</button></a>
+        <a href="/contact"><button class="contact-button arrow -right -black -small">Contact Brian</button></a>
+        <p class="stay-informed">Stay Informed</p>
+        <a href="/sign-up"><button class="contact-button arrow -right -black -small">News Signup</button></a>
       </div>
       <div class="description-block footer-block">
         <?= apply_filters('the_content', SiteOptions\get_option('description')) ?>
