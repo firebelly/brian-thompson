@@ -203,7 +203,7 @@ var FBSage = (function($) {
   // Build the footer
   function _initFooter() {
     // Add some non-semantic markup
-    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle"><svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg></button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';  
+    var html = '<div class="footer-tab" aria-hidden="true"><button class="footer-toggle"><svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg></button><svg class="footer-hole" aria-hidden="true"><use xlink:href="#footer-hole"></use></svg></div>';
     $(html).prependTo('.site-footer').click(function(e) { // Open or close the footer on click
       e.preventDefault();
       if( $('.site-footer').hasClass('closed') ){
@@ -230,11 +230,11 @@ var FBSage = (function($) {
 
     // Do all the resizing chores once up front
     _resizeFooter();
-  }  
+  }
   function _closeFooter() {
     $('.site-footer').addClass('closed');
     // Replace +/-
-    $('.footer-toggle').empty().append('<svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg>'); 
+    $('.footer-toggle').empty().append('<svg class="icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"></use></svg>');
   }
   function _openFooter() {
     if(!$('.popup.showing').length) {
@@ -356,11 +356,11 @@ var FBSage = (function($) {
 
       // Find the blind thats closest to the open search button
       var startingBlindNum = _closestX( $('.search-popup > .blinds .blind'), $('.open-search').offset().left ).data('blind-num'); // Which blind # corresponds to the X location of this link
-      
+
       // Trigger the blinds
-      _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () { 
+      _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () {
         // When done fade in the content
-        $('.search-popup .body-wrap').velocity('fadeIn',{ 
+        $('.search-popup .body-wrap').velocity('fadeIn',{
           duration: 200,
           complete: function() {
             // When done fading in content, focus and release _isAnimating
@@ -381,7 +381,7 @@ var FBSage = (function($) {
         duration: 200,
         complete: function () {
           // Hide popup lines
-          $('.search-popup .lines').velocity('fadeOut',{ 
+          $('.search-popup .lines').velocity('fadeOut',{
             duration: 200
           });
           // Unblind the blinds
@@ -430,7 +430,7 @@ var FBSage = (function($) {
     $('.almighty-global-overlay, .popup .close').click(function() {
         _closePopup();
     });
-  }  
+  }
   function _closePopup() {
     if(!_isAnimating && $('.popup.showing').length) {
       _isAnimating = true;
@@ -444,7 +444,7 @@ var FBSage = (function($) {
         duration: 200,
         complete: function () { // When done...
           // Fade out lines
-          $('.popup .lines').velocity('fadeOut',{ 
+          $('.popup .lines').velocity('fadeOut',{
             duration: 200
           });
           // Animate blinfs
@@ -465,7 +465,7 @@ var FBSage = (function($) {
 
     // If we are a linkable popup put us in browser history
     if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
-    
+
     $('.popup').addClass('showing');
     _awakenTheAlmightyOverlay(); // Add an overlay outside the popup to close on click
     $('.popup .lines').velocity('fadeIn',200); // Fade in the lines
@@ -494,7 +494,7 @@ var FBSage = (function($) {
     if($content.hasClass('linkable-popup')){ history.replaceState(null, null, '#'+$content.attr('id')); }
 
     // Fade out the content
-    $('.popup .body-wrap').velocity('fadeOut',{ 
+    $('.popup .body-wrap').velocity('fadeOut',{
       duration: 200,
       complete: function() {
         $('.popup .content-holder').empty(); // Out with the old
@@ -534,14 +534,14 @@ var FBSage = (function($) {
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
-      $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindIn' : 'transition.blindOut') , { 
-        delay: (Math.abs(startingBlindNum-thisBlindNum)*70), 
+      $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindIn' : 'transition.blindOut') , {
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*70),
         duration: duration,
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() { // This function fires when the last blind has finished animating
-          if (useHiddenClass && showOrHideTheBlinds === 'hide') { 
+          if (useHiddenClass && showOrHideTheBlinds === 'hide') {
             $container.addClass('-hidden'); //display: none so no interfering with pointer events
-          } 
+          }
           if (onDone) {
             onDone();
           }
@@ -604,8 +604,8 @@ var FBSage = (function($) {
   function _makeBlinds(n,container,cssClass) {
     cssClass = cssClass || '';
     var html = '<div class="blinds '+cssClass+'" aria-hidden="true">';
-    for (i=0; i<n; i++) { 
-      html+='<div class="blind" data-blind-num="'+i+'"></div>'; 
+    for (i=0; i<n; i++) {
+      html+='<div class="blind" data-blind-num="'+i+'"></div>';
     }
     html+='</div>';
     return $(html).prependTo(container);
@@ -626,16 +626,16 @@ var FBSage = (function($) {
   }
   function _makeLines(n,container){
     html = '<div class="lines" aria-hidden="true">';
-    for (i=0; i<n; i++) { 
-      html+='<div class="line"></div>'; 
+    for (i=0; i<n; i++) {
+      html+='<div class="line"></div>';
     }
     html+='</div>';
     return $(html).prependTo(container);
   }
 
 function FloaterImage($image,orderNum) {
-  // Each FLoaterImage has 2 waypoints.  It is either healthy or unhealthy, alive or dead.  Being between the waypoints makes it healthy.  
-  // If it is unhealthy and alive, it will die as soon as it can (it's not animating).  Also vice versa.  
+  // Each FLoaterImage has 2 waypoints.  It is either healthy or unhealthy, alive or dead.  Being between the waypoints makes it healthy.
+  // If it is unhealthy and alive, it will die as soon as it can (it's not animating).  Also vice versa.
 
   // My self referential vars
   var me = this;
@@ -663,7 +663,7 @@ function FloaterImage($image,orderNum) {
     var pos = ((orderNum-0.5)*scrollableHeight/numImages-5-adminBarCorrection)+'px';
     me.$waypointTop.css('top',pos);
     // Bottom waypoint
-    pos = Math.min(((orderNum+1.5)*scrollableHeight/numImages-adminBarCorrection),$('#primary-site-content').height())+'px'; 
+    pos = Math.min(((orderNum+1.5)*scrollableHeight/numImages-adminBarCorrection),$('#primary-site-content').height())+'px';
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
@@ -699,7 +699,7 @@ function FloaterImage($image,orderNum) {
     if(!me.animating) {
       if(me.alive && !me.healthy) {
         me.die();
-      } 
+      }
       if(!me.alive && me.healthy) {
         me.live();
       }
@@ -709,7 +709,7 @@ function FloaterImage($image,orderNum) {
 
   // Handle Living and Dying
   this.live = function() {
-    me.position(); 
+    me.position();
     $me.addClass('alive');
     me.animating = true;
     _blinds($me.find('.blind'),'hide',0,function() { //'hide' refers to hide the blinds
@@ -771,7 +771,7 @@ function FloaterImage($image,orderNum) {
     var goodCols = [];
     var colWidth = $('.blind').width();
     //Loop through all cols where image would be visible
-    for (i=-3; i<Math.floor(screenWidth/colWidth); i++) { 
+    for (i=-3; i<Math.floor(screenWidth/colWidth); i++) {
       if($.inArray(i, badCols)===-1) { goodCols.push(i); } // If this i isn't bad, it's good.  Add it on, then.
     }
     return goodCols;
@@ -855,7 +855,7 @@ function InlineImage($image,delay) {
       $(this).find('input[type="checkbox"]').attr('id',id);
     });
 
-    // We have our ouwn custom submit form
+    // We have our own custom submit form
     $('.contact-form-submit').click(function(e){
       e.preventDefault();
       $('#wpcf7-f91-o1 .wpcf7-form').submit(); // Submit the form from our custom button
@@ -863,7 +863,7 @@ function InlineImage($image,delay) {
     });
     // On successful msubmission and mail sent
     $('.wpcf7').on('wpcf7:mailsent', function(e) {
-      $('.form-accordian').velocity('slideUp',300); // Fold up the form
+      $('.form-accordion').velocity('slideUp',300); // Fold up the form
       $('.form-wrap').css('padding-bottom','15px'); // Pad the bottom
     });
   }
