@@ -357,7 +357,8 @@ var FBSage = (function($) {
       $('.search-popup .lines').velocity('fadeIn',200);
 
       // Find the blind thats closest to the open search button
-      var startingBlindNum = _closestX( $('.search-popup > .blinds .blind'), $('.open-search').offset().left ).data('blind-num'); // Which blind # corresponds to the X location of this link
+      var searchLink = $('.open-search:visible,.menu-item-search:visible').first();
+      var startingBlindNum = _closestX( $('.search-popup > .blinds .blind'), searchLink.offset().left ).data('blind-num'); // Which blind # corresponds to the X location of this link
 
       // Trigger the blinds
       _blinds($('.search-popup > .blinds .blind'),'show',startingBlindNum ,function () {
