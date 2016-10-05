@@ -13,6 +13,9 @@
     @include min-screen(1000px) {
       margin-left: $col * 3;
     }
+    @include media-huge {
+      margin-left: $col-huge * 3;
+    }
   }
 
   .site-header {
@@ -28,13 +31,6 @@
     }
     .site-nav {
       ul#menu-main-menu {
-        @include min-screen(900px) {
-          left: $col * 2;
-        }
-        @include min-screen(1000px) {
-          left: $col * 3;
-        }
-
         & > li:not(.menu-item-has-children), .menu-item-has-children li:first-child {
           @include min-screen(900px) {
             padding-top: 10px;
@@ -86,13 +82,14 @@
     }
   }
 
-  .next-post, .prev-post {
+  a[rel=next], a[rel=prev] {
     @include font-mono;
+    border: none !important;
     color: $blue;
-    padding: 15px;
-    font-size: 10px;
-    background: $white;
-      position: absolute;
+    button {
+      padding: 15px;
+    }
+    position: absolute;
     @include media-md {
       transform: translateY(-50%);
     }
@@ -101,7 +98,7 @@
     }
   }
 
-  .next-post {
+  a[rel=next] {
     left: 2 * $col - 5px;
     @include media-sm {
       left: 3 * $col - 5px;
@@ -117,7 +114,7 @@
     }
   }
 
-  .prev-post {
+  a[rel=prev] {
     right: 2 * $col - 5px;
     @include media-sm {
       right: 3 * $col - 5px;
@@ -142,7 +139,7 @@
       width: #{$col * 2};
       position: absolute;
       padding: 0 $teensy-pad;
-      top: calc(50vh + 50px); 
+      top: calc(50vh + 50px);
       left: 5*$col;
       z-index: $z-recent-posts;
     }

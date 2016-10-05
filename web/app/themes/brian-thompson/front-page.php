@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 // Page template as normal
-include(locate_template('index.php'));  
+include(locate_template('index.php'));
 
 echo Firebelly\Media\get_front_page_images();
 ?>
@@ -15,7 +15,7 @@ echo Firebelly\Media\get_front_page_images();
 </div></div>
 
 <div class="start-line" aria-hidden="true"></div>
-<a href="<?= get_permalink( get_page_by_path( 'process' ) )?>" class="no-underline"><button class="arrow -white -huge -right start-button"><div class="wrap">Let's Start</div></button></a>
+<a href="<?= get_permalink( get_page_by_path( 'process' ) )?>" class="no-underline start-button"><button class="arrow -white -huge -right">Let's Start</button></a>
 
 <?php include(locate_template('templates/recent-posts.php')); ?>
 

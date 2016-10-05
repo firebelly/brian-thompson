@@ -41,7 +41,7 @@
   }
 
   .section { // There are three zig-zagged blocks of text
- 
+
     h1{
       &:before{
         left: -$col;
@@ -135,7 +135,7 @@
 
     &:not(.mobile-image) {
       display: none;
-      @include media-md { 
+      @include media-md {
         display: block;
       }
     }
@@ -145,8 +145,8 @@
       left: -100%;
       width: 5 * $col;
       height: 5 * $col * 1.28333;
-      @include media-lg { 
-        top: 80px; 
+      @include media-lg {
+        top: 80px;
       }
       @include media-huge {
         width: 5 * $col-huge;
@@ -199,7 +199,7 @@
     @include min-screen(1000px) {
       position: absolute;
       margin-top: 0;
-      top: 935px;  
+      top: 935px;
       left: 4 * $col;
       padding: 0 $teensy-pad;
     }
@@ -259,12 +259,14 @@
     position: relative;
     margin-left: 0;
     width: 60px;
+    button {
+      border-radius: 0;
+    }
     @include media-sm{
       width: 50px;
       margin-left: 5px;
       position: fixed;
-      border-radius: 0;
-      top: 35%; 
+      top: 35%;
     }
   }
 }
