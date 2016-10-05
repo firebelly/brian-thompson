@@ -257,13 +257,12 @@ var FBSage = (function($) {
     // Hijack links
     $('a:not(.fake-link)').each(function() {
       $(this).click(function(e) {
-
         if(_isAnimating) { // Don't be able to click links while we are already transitioning to a new page
           e.preventDefault();
         } else {
-
           var linkUrl = $(this)[0].href; // Get my destination url
-          if( _get_hostname(linkUrl) === document.location.hostname ) { // Apply transition only if its an in-site URL!  Otherwise, skip this and proceed to default link behavior
+          // Apply transition only if its an in-site URL (or metaKey is held down)!  Otherwise, skip this and proceed to default link behavior
+          if( !e.metaKey && _get_hostname(linkUrl) === document.location.hostname ) {
             _isAnimating = true;
             e.preventDefault();
 
@@ -273,11 +272,14 @@ var FBSage = (function($) {
             // Find starting blind
             var startingBlindNum = _closestX( $('.blinds.-page .blind'), $(this).offset().left ).data('blind-num'); //Math.floor($(this).offset().left / $('.blinds.-page .blind').width()); // Which blind # corresponds to the X location of this link
 
-            // Trigger blinds, go to href on complete
+            // Trigger blinds
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
-              window.location.href = linkUrl;
+              // window.location.href = linkUrl;
+              // Experimenting with triggering href earlier w/ timeout, see below (nate)
             });
-
+            setTimeout(function() {
+              location.href = linkUrl;
+            }, 250);
           }
         }
       });
@@ -551,6 +553,7 @@ var FBSage = (function($) {
   }
   function _closestX($elements,x){
     // Finds the closest element in the set $elements to a given x position
+    $elements.show();
     var closestDist = 9999;
     var closestElement = false;
     if ($elements.length) {
@@ -562,6 +565,7 @@ var FBSage = (function($) {
         }
       });
     }
+    $elements.hide();
     return closestElement;
   }
 
@@ -634,7 +638,7 @@ var FBSage = (function($) {
   }
 
 function FloaterImage($image,orderNum) {
-  // Each FLoaterImage has 2 waypoints.  It is either healthy or unhealthy, alive or dead.  Being between the waypoints makes it healthy.
+  // Each FloaterImage has 2 waypoints.  It is either healthy or unhealthy, alive or dead.  Being between the waypoints makes it healthy.
   // If it is unhealthy and alive, it will die as soon as it can (it's not animating).  Also vice versa.
 
   // My self referential vars
@@ -861,7 +865,7 @@ function InlineImage($image,delay) {
       $('#wpcf7-f91-o1 .wpcf7-form').submit(); // Submit the form from our custom button
       $('.wpcf7-response-output').velocity('scroll',300); //Scroll to form response message if there is one
     });
-    // On successful msubmission and mail sent
+    // On successful submission and mail sent
     $('.wpcf7').on('wpcf7:mailsent', function(e) {
       $('.form-accordion').velocity('slideUp',300); // Fold up the form
       $('.form-wrap').css('padding-bottom','15px'); // Pad the bottom
