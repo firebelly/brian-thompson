@@ -62,12 +62,13 @@
   position: absolute;
   content: '-';
   color: $black;
+  pointer-events: none;
 }
 
 @mixin dash-before($offset) {
     &:before {
       @include dash;
-      top: -1 * $offset; 
+      top: -1 * $offset;
       left: -8px;
     }
     position: relative;
