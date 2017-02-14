@@ -109,16 +109,16 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.6.1",
+            "version": "4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3"
+                "reference": "ac7b1792641d1fb61cb2901db292903b31694057"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ac7b1792641d1fb61cb2901db292903b31694057",
+                "reference": "ac7b1792641d1fb61cb2901db292903b31694057",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2016-09-07 15:01:47"
+            "time": "2017-01-26 18:32:19"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -363,7 +363,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.2.2.1",
+            "version": "2.2.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -383,15 +383,15 @@
         },
         {
             "name": "wpackagist-plugin/contact-form-7",
-            "version": "4.5.1",
+            "version": "4.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/contact-form-7/",
-                "reference": "tags/4.5.1"
+                "reference": "tags/4.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/contact-form-7.4.5.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/contact-form-7.4.6.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -403,15 +403,15 @@
         },
         {
             "name": "wpackagist-plugin/contact-form-7-dynamic-text-extension",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/contact-form-7-dynamic-text-extension/",
-                "reference": "tags/2.0.1"
+                "reference": "tags/2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/contact-form-7-dynamic-text-extension.2.0.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/contact-form-7-dynamic-text-extension.2.0.2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -503,15 +503,15 @@
         },
         {
             "name": "wpackagist-plugin/search-and-replace",
-            "version": "3.1.0",
+            "version": "3.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-and-replace/",
-                "reference": "tags/3.1.0"
+                "reference": "tags/3.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-and-replace.3.1.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/search-and-replace.3.1.2.zip",
                 "reference": null,
                 "shasum": null
             },
