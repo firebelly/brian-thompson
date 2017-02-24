@@ -564,7 +564,7 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
-    var singleBlindDuration = 350/Math.abs(finalBlindNum-startingBlindNum);
+    var singleBlindDuration = 30; 
 
     // Animate each blind.
     $($blinds).each(function() {
