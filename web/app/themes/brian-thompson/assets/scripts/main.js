@@ -293,7 +293,7 @@ var FBSage = (function($) {
             });
             setTimeout(function() {
               location.href = linkUrl;
-            }, 250);
+            }, 200);
           }
         }
       });
