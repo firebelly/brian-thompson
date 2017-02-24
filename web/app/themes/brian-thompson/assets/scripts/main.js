@@ -5,10 +5,12 @@
 var FBSage = (function($) {
 
   var screen_width = 0,
+      breakpoint_nano = false,
+      breakpoint_tiny = false,
       breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
-      breakpoint_array = [480,800,900],
+      breakpoint_huge = false,
       $document,
       $sidebar,
       loadingTimer,
@@ -53,7 +55,6 @@ var FBSage = (function($) {
         _closePopup();
         _closeSearch();
       }
-
     });
 
     // Smoothscroll links
@@ -179,13 +180,24 @@ var FBSage = (function($) {
   // Called in quick succession as window is resized
   function _resize() {
     screenWidth = document.documentElement.clientWidth;
-    breakpoint_small = (screenWidth > breakpoint_array[0]);
-    breakpoint_medium = (screenWidth > breakpoint_array[1]);
-    breakpoint_large = (screenWidth > breakpoint_array[2]);
+
+    // Check breakpoint indicator in DOM ( :after { content } is controlled by CSS media queries )
+    var breakpointIndicatorString = window.getComputedStyle(
+      document.querySelector('#breakpoint-indicator'), ':after'
+    ).getPropertyValue('content')
+    .replace(/['"]+/g, '');
+
+    breakpoint_huge = breakpointIndicatorString === 'huge';
+    breakpoint_large = breakpointIndicatorString === 'large' || breakpoint_huge;
+    breakpoint_medium = breakpointIndicatorString === 'medium' || breakpoint_large;
+    breakpoint_small = breakpointIndicatorString === 'small' || breakpoint_medium;
+    breakpoint_tiny = breakpointIndicatorString === 'tiny' || breakpoint_small;
+    breakpoint_nano = breakpointIndicatorString === 'nano' || breakpoint_tiny;
 
     _resizeMobileNav();
     _resizeFooter();
     _fitBodyToPopup();
+
   }
 
   // Add global overlay for clickouts of the mobile nav, popups and footer
@@ -674,6 +686,7 @@ function FloaterImage($image,orderNum) {
   this.animating = false;
   this.invincible = false;
 
+  // Init....
   // Insert elements for waypoints into the dom.  The waypoints will show/hide the images
   var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);  // I gave these random colors (but the same color for each image) to aid debugging
   this.$waypointTop = $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
@@ -759,6 +772,7 @@ function FloaterImage($image,orderNum) {
   // Positioning
   // We are (fix) positioned by a choice of col (set to a data-attr and handled in css) and an inline top position
   this.position = function () {
+    console.log(breakpoint_medium);
     if(breakpoint_medium){
       $me.attr( 'data-col', me.chooseCol() );
       $me.css( 'top', me.choosePosTop() );
@@ -818,6 +832,9 @@ function FloaterImage($image,orderNum) {
   $(window).resize(function() {
     me.onResize();
   });
+
+  //Position
+  this.position();
 }
 
 function InlineImage($image,delay) {

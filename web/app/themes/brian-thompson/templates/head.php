@@ -20,4 +20,5 @@ use Roots\Sage\Assets;
   </script>
   <!-- End Google Analytics -->
   <meta name="google-site-verification" content="q4jCIQyCLHUUgYeELkqYwMKQbVnBGP9hYetNmbthGHY" />
+  <div id="breakpoint-indicator"></div>
 </head>
