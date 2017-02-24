@@ -274,7 +274,9 @@ var FBSage = (function($) {
 
             // Trigger blinds
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
+              // console.time('transition');
               // window.location.href = linkUrl;
+              // console.timeEnd('transition');
               // Experimenting with triggering href earlier w/ timeout, see below (nate)
             });
             setTimeout(function() {
@@ -550,11 +552,13 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
+    var singleBlindDuration = 350/Math.abs(finalBlindNum-startingBlindNum);
+
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
       $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindIn' : 'transition.blindOut') , {
-        delay: (Math.abs(startingBlindNum-thisBlindNum)*70),
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*singleBlindDuration),
         duration: duration,
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() { // This function fires when the last blind has finished animating
