@@ -182,7 +182,7 @@ function services_shortcode() {
 
     $next = (($i+1) % count($services));
     $arrow='<button class="arrow -white switch-content next-content -right -big" data-content=".service-'.$next.'" aria-hidden="true">Next Service</button>';
-    $content_to_reveal = '<div id="'.$slug.'" class="sr-only linkable-popup service-'.$i.'"><h2>'.$title.'</h2>'.$full.$pricing.$arrow.'</div>';
+    $content_to_reveal = '<div id="'.$slug.'" class="sr-only linkable-popup service-'.$i.'"><h2>'.$title.'</h2><div class="user-content">'.$full.'</div>'.$pricing.$arrow.'</div>';
 
     $output .= '<li class="service"><h2><a href="#" class="fake-link open-popup" data-content=".service-'.$i.'">'.$title.'</a></h2>'.$excerpt.$content_to_reveal.'</li>';
   }
