@@ -169,7 +169,7 @@ var FBSage = (function($) {
               $load_more.velocity('fadeIn',400); // Otherwise fade it in, because we faded it out
             }
 
-            $(window).resize(); //document size has changed -- trigger any function possibly dependent
+            _resize(); //document size has changed -- trigger any function possibly dependent
             _initArrows();
           }
       });
@@ -185,7 +185,7 @@ var FBSage = (function($) {
 
     _resizeMobileNav();
     _resizeFooter();
-
+    _fitBodyToPopup();
   }
 
   // Add global overlay for clickouts of the mobile nav, popups and footer
@@ -455,6 +455,7 @@ var FBSage = (function($) {
               // When done clean up classes and release _isAnimating
               _isAnimating = false;
               $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
+              _fitBodyToPopup();
           });
         }
       });
@@ -478,6 +479,9 @@ var FBSage = (function($) {
       // When done animating the last blind
       $('.popup .content-holder').empty(); // Get rid of last content
       $content.clone(true, true).contents().appendTo('.popup .content-holder'); // Add new content
+
+      _fitBodyToPopup();
+
       $('.popup .body-wrap').velocity('fadeIn',{ // Fade in content
         duration: 200,
         complete: function() { // When faded in...
@@ -502,6 +506,9 @@ var FBSage = (function($) {
       complete: function() {
         $('.popup .content-holder').empty(); // Out with the old
         $content.clone(true, true).contents().appendTo('.popup .content-holder'); // In with the new
+        
+        _fitBodyToPopup();
+
         $('.popup .body-wrap').velocity('fadeIn',{ // Fade in new content
           duration: 200,
           complete: function() {
@@ -511,6 +518,15 @@ var FBSage = (function($) {
         });
       }
     });
+  }
+
+  function _fitBodyToPopup() {
+    if ($('.popup').hasClass('showing')) {
+      var popupHeight = $('.popup .body-wrap').outerHeight() + (breakpoint_medium ? 105+52+105 : 0);
+      $('body').css('min-height',popupHeight);
+    } else {
+      $('body').css('min-height','');
+    }
   }
 
   // Handle animating blinds
@@ -672,10 +688,10 @@ function FloaterImage($image,orderNum) {
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
-  this.positionWaypoints();
   $(window).resize(function() {
     me.positionWaypoints();
   });
+  this.positionWaypoints();
 
   // Init waypoints
   this.waypointTop =  me.$waypointTop.waypoint({
