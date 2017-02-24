@@ -672,6 +672,7 @@ function FloaterImage($image,orderNum) {
   this.alive = false;
   this.healthy = false;
   this.animating = false;
+  this.invincible = false;
 
   // Insert elements for waypoints into the dom.  The waypoints will show/hide the images
   var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);  // I gave these random colors (but the same color for each image) to aid debugging
@@ -722,7 +723,7 @@ function FloaterImage($image,orderNum) {
   // Decide to Live Or Die
   this.liveOrDie = function () {
     if(!me.animating) {
-      if(me.alive && !me.healthy) {
+      if(me.alive && !me.healthy && !me.invincible) {
         me.die();
       }
       if(!me.alive && me.healthy) {
@@ -741,6 +742,10 @@ function FloaterImage($image,orderNum) {
       me.animating = false;
       me.alive = true;
     }, false);
+    me.invincible = true;
+    setTimeout(function() {
+      me.invincible = false;
+    }, 4000); // I didn't like that images could appear and instantly disappear.  So I make them temporarily invincible to ensure a min lifespan.
   };
   this.die = function()  {
     me.animating = true;
