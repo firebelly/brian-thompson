@@ -1,5 +1,8 @@
 #breakpoint-indicator{ // We can use this to tell JS which breakpoint we are on! Nifty!
-  display: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
   &::after {
     @include media-nano {
       content: 'nano';

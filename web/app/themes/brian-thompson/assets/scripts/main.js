@@ -772,7 +772,6 @@ function FloaterImage($image,orderNum) {
   // Positioning
   // We are (fix) positioned by a choice of col (set to a data-attr and handled in css) and an inline top position
   this.position = function () {
-    console.log(breakpoint_medium);
     if(breakpoint_medium){
       $me.attr( 'data-col', me.chooseCol() );
       $me.css( 'top', me.choosePosTop() );
