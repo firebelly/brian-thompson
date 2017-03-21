@@ -179,11 +179,11 @@
 }
 
 .portals {
-  .portal {
+  .body-wrap .portal {
     position: relative;
     padding-bottom: $lh * 2;
     margin-bottom: $lh * 5;
-    img {
+    .thumb {
       width: $col;
       height: auto;
       margin-bottom: 2*$lh;

@@ -1,6 +1,6 @@
 // Images in general
 .body-wrap {
-  img:not(.sr-only) {
+  img {
     position: relative;
     width: calc(100% + 2 * #{$teensy-pad});
     max-width: none;
@@ -19,7 +19,7 @@
   background-position: center center;
   transition: opacity 0.3s, visibility 0.3s 0s;
   img {
-    @extend .sr-only;
+    @include visually-hide;
   }
   &.-portrait {
      width: $col * 3;

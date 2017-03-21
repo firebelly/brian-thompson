@@ -79,7 +79,7 @@ function get_portals() {
     $output .= <<<HTML
       <li class="portal columns-item">
         <h3 class='sr-only'>{$portal['title']}</h3>
-        <img src="{$thumbnail_url}">
+        <img src="{$thumbnail_url}" class="thumb">
         <p class="description">{$description}</p>
         <div class="login-wrap">
           <hr>
