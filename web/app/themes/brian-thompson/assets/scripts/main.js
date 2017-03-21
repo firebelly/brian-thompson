@@ -14,7 +14,8 @@ var FBSage = (function($) {
       $document,
       $sidebar,
       loadingTimer,
-      page_at;
+      page_at,
+      isProbablySafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
 
   function _init() {
     // touch-friendly fast clicks
@@ -286,14 +287,22 @@ var FBSage = (function($) {
 
             // Trigger blinds
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
-              // console.time('transition');
-              // window.location.href = linkUrl;
-              // console.timeEnd('transition');
-              // Experimenting with triggering href earlier w/ timeout, see below (nate)
+              // The below timeout seems to be too quick for Safari.  
+              // So if our user agent sniffing thinks we are Safari, 
+              // we'll be boy scouts and change href EXACTLY when animation ends
+              if(isProbablySafari) {
+                // console.time('transition');
+                window.location.href = linkUrl;
+                // console.timeEnd('transition');
+              }
             });
-            setTimeout(function() {
-              location.href = linkUrl;
-            }, 200);
+
+            // The default is to just wait 200ms.  This seems to work best for most browsers that are not Safari.  On those browsers, firing this on the animation finished callback feels too sluggish.
+            if(!isProbablySafari) {
+              setTimeout(function() {
+                location.href = linkUrl;
+              }, 200);
+            }
           }
         }
       });
