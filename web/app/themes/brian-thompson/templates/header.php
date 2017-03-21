@@ -6,7 +6,7 @@ use Firebelly\SiteOptions;
   <h1 class="brand">
     <a href="<?= esc_url(home_url('/')); ?>">
       <span class="sr-only"><?= SiteOptions\get_option('org') ?></span>
-      <svg class="btf-logo" role="img"><use xlink:href="#btf-logo"></use></svg>
+      <svg class="btf-logo" role="img"><use xlink:href="#btt-logo"></use></svg>
     </a>
   </h1> 
   <div class="site-nav-bg"></div>
