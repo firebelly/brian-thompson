@@ -20,8 +20,8 @@ function get_front_page_images() {
 
   // Output featured image
   if($featured) {
-    $output .= get_image_html( get_treated_url($featured, ['type'=>'gray']),'inline-image -one','portrait' );
-    $output .= get_image_html( get_treated_url($featured, ['type'=>'gray']), 'inline-image mobile-image -top' );
+    $output .= get_image_html( get_treated_url($featured, ['type'=>'color']),'inline-image -one','portrait' );
+    $output .= get_image_html( get_treated_url($featured, ['type'=>'color']), 'inline-image mobile-image -top' );
   }
 
   // Output additional images
@@ -30,7 +30,7 @@ function get_front_page_images() {
     foreach ( (array) $additional as $attachment_id => $attachment_url ) {
       switch ($i) {
         case 0:
-          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'color']),'inline-image -two','landscape' );
+          $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'gray']),'inline-image -two','landscape' );
           $output .= get_image_html( get_treated_url($attachment_id, ['type'=>'color']), 'inline-image mobile-image -bottom' );
           break;
         case 1:
