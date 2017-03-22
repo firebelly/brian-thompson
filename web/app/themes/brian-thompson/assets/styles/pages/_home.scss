@@ -26,7 +26,7 @@
       max-width: none;
     }
     @include min-screen(1000px) {
-      height: 1600px;
+      height: 1800px;
     }
 
     h1 {
@@ -37,6 +37,12 @@
           top: 85px;
         }
       }
+    }
+  }
+
+  .site-main {
+    button.arrow {
+      margin-bottom: $lh;
     }
   }
 
@@ -65,7 +71,7 @@
         position: absolute;
         top: 425px;
         left: 2 * $col;
-        @include min-screen(1000px){
+        @include min-screen(1000px) {
           left: 4 * $col;
           top: 665px;
         }
@@ -86,7 +92,7 @@
               left: 6 * $col - $teensy-pad - 2px;
             }
           }
-          @include min-screen(1000px){
+          @include min-screen(1000px) {
             &:before{
               left: -5 * $col - $teensy-pad - 2px;
               @include media-huge {
@@ -125,6 +131,14 @@
           @include media-huge {
             width: (3 * #{$col-huge} - #{$teensy-pad} * 2);
           }
+        }
+      }
+
+      &.-four {
+        @include min-screen(1000px) {
+          margin-top: 180px;
+          margin-bottom: 180px;
+          @include dash-after($lh);
         }
       }
     }
