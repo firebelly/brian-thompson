@@ -21,9 +21,6 @@ use Firebelly\SiteOptions;
     endif;
     ?>
   </nav>
-  <button class="open-search" aria-hidden="true">
-    <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
-  </button>
 </header>
 
 <div class="search-popup">
