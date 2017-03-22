@@ -33,7 +33,7 @@ use Firebelly\SiteOptions;
       <div class="fineprint-block footer-block">
         <p class="disclaimer"><a href="<?= get_permalink(get_page_by_path('disclaimer')) ?>">Disclaimer</a></p>
         <p class="adv"><a href="<?= SiteOptions\get_option('adv') ?>">ADV Part 2a</a></p>
-        <div class="copyright"><p>BTF &copy;<?php echo date("Y") ?></p></div>
+        <div class="copyright"><p>BTT &copy;<?php echo date("Y") ?></p></div>
       </div>
     </div>
     <div class="group-two">
