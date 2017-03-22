@@ -42,6 +42,17 @@ function register_metaboxes() {
       ),
     )
   );
+  $home_meta->add_field(
+    array(
+      'name'             => __( 'Section 4', 'sage' ),
+      'desc'             => __( 'Third section of content on the home page' ),
+      'id'               => $prefix . 'section4',
+      'type'             => 'wysiwyg',
+      'options'          => array(
+        'textarea_rows'            => 6, // Hide the text input for the url
+      ),
+    )
+  );
 
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
