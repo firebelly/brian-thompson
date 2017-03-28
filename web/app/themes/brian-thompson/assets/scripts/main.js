@@ -502,6 +502,7 @@ var FBSage = (function($) {
       // When done animating the last blind
       $('.popup .content-holder').empty(); // Get rid of last content
       $content.clone(true, true).contents().appendTo('.popup .content-holder'); // Add new content
+      $('.popup').attr('id', $content.attr('id') + 'Popup');
 
       _fitBodyToPopup();
 
@@ -529,7 +530,8 @@ var FBSage = (function($) {
       complete: function() {
         $('.popup .content-holder').empty(); // Out with the old
         $content.clone(true, true).contents().appendTo('.popup .content-holder'); // In with the new
-        
+        $('.popup').attr('id', $content.attr('id') + 'Popup');
+
         _fitBodyToPopup();
 
         $('.popup .body-wrap').velocity('fadeIn',{ // Fade in new content

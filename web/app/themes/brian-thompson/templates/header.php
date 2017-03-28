@@ -11,15 +11,22 @@ use Firebelly\SiteOptions;
   </h1> 
   <div class="site-nav-bg"></div>
   <nav class="site-nav -big" role="navigation">
-    <?php
-    if (has_nav_menu('primary_navigation')) :
-      wp_nav_menu([
-        'theme_location' => 'primary_navigation', 
-        'menu_class' => 'nav',
-        'depth' => 2,
-      ]);
-    endif;
-    ?>
+    <div class="menu-main-menu-container">    
+      <ul id="menu-main-menu" class='nav popup-nav'>
+        <li class="menu-item">
+          <button class="open-popup" data-content="#about">About</button>
+        </li>
+        <li class="menu-item">
+          <button class="open-popup" data-content="#services">Services</button>
+        </li>
+        <li class="menu-item">
+          <button class="open-popup" data-content="#contact">Contact</button>
+        </li>
+        <li class="menu-item">
+          <button class="open-popup" data-content="#appointments">Make An Appointment</button>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 

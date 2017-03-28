@@ -35,10 +35,10 @@ function register_metaboxes() {
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
 
 
-function remove_page_attributes() {
-    remove_meta_box('pageparentdiv', 'page', 'side');
-}
-add_action( 'admin_menu', __NAMESPACE__ . '\remove_page_attributes' );
+// function remove_page_attributes() {
+//     remove_meta_box('pageparentdiv', 'page', 'side');
+// }
+// add_action( 'admin_menu', __NAMESPACE__ . '\remove_page_attributes' );
 
 /** 
  * ADAPTED FROM:

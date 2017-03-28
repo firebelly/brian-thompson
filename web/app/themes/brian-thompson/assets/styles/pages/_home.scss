@@ -26,7 +26,7 @@
       max-width: none;
     }
     @include min-screen(1000px) {
-      height: 1800px;
+      // height: 1800px;
     }
 
     h1 {
@@ -37,12 +37,6 @@
           top: 85px;
         }
       }
-    }
-  }
-
-  .site-main {
-    button.arrow {
-      margin-bottom: $lh;
     }
   }
 
@@ -131,14 +125,6 @@
           @include media-huge {
             width: (3 * #{$col-huge} - #{$teensy-pad} * 2);
           }
-        }
-      }
-
-      &.-four {
-        @include min-screen(1000px) {
-          margin-top: 180px;
-          margin-bottom: 180px;
-          @include dash-after($lh);
         }
       }
     }
@@ -284,4 +270,3 @@
     }
   }
 }
-

@@ -42,6 +42,9 @@
 @import "pages/single-post";
 @import "pages/other-pages";
 
+// Mods for BTT
+@import "components/btt-mods";
+
 // WP specifics
 @import 'helpers/wp-classes';
 @import 'helpers/tinymce';
