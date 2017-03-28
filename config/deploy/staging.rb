@@ -1,6 +1,7 @@
 set :stage, :staging
-set :login, 'firebelly'
-set :domain, 'bt.firebelly.co'
+set :login, 'bttax'
+set :application, 'btt_staging'
+set :domain, 'bttax.webfactional.com'
 
 # Simple Role Syntax
 # ==================
