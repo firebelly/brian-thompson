@@ -619,7 +619,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindOut", {
       defaultDuration: 500,
       calls: [
-        [ {translateX: '-50%', scaleX: '0.001'} ]
+        [ {scaleX: '0.001'} ]
       ]
     });
 
@@ -627,7 +627,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindIn", {
       defaultDuration: 500,
       calls: [
-        [ { translateX: '0', scaleX: '1'} ]
+        [ { scaleX: '1'} ]
       ]
     });
 

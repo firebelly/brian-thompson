@@ -37,6 +37,7 @@
   @include media-huge {
     width: $col-huge;
   }
+  transform-origin: left;
 }
 
 // Positioning of all blinds that span the whole page (as opposed )
