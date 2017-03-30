@@ -3,4 +3,4 @@
 <h3>Contact</h3>
 <?= apply_filters('the_content', get_post_meta(get_the_ID(),'_cmb2_contact_callout',true)); ?>
 <hr>
-<a href="<?= get_permalink(get_page_by_path('home/contact')) ?>" class="no-underline"><button class="contact-button arrow -right -black -small open-popup" data-content="#contact">Contact Brian</button></a>
+<button class="contact-button arrow -right -black -small switch-content" data-content="#contact">Contact Brian</button>

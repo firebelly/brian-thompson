@@ -26,7 +26,7 @@ echo Firebelly\Media\get_front_page_images();
 <div class="start-line" aria-hidden="true"></div>
 <span class="open-popup no-underline start-button" data-content="#appointments"><button class="arrow -white -huge -right">Let's Start</button></span>
 
-<div class="modal-pages">
+<div class="popup-pages">
   <?php
 
   $args = array(
@@ -37,8 +37,8 @@ echo Firebelly\Media\get_front_page_images();
       'orderby'        => 'menu_order'
    );
 
-
   $parent = new WP_Query( $args );
+  $i = 0;
 
   if ( $parent->have_posts() ) : ?>
 
@@ -49,7 +49,7 @@ echo Firebelly\Media\get_front_page_images();
               <?php get_template_part('page-'.$post->post_name); ?>
 
           </div>
-
+  
       <?php endwhile; ?>
 
   <?php endif; wp_reset_query(); ?>

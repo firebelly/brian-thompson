@@ -71,8 +71,13 @@
 }
 
 // Modal Page Content
-.modal-pages {
+.popup-pages {
   // display: none;
+}
+
+// Change the transform-origin of the blinds
+.blind {
+  transform-origin: left;
 }
 
 // Modal Page styles
@@ -80,6 +85,31 @@
 
   button.arrow {
     @include small-mono;
+
+    &.-right {
+    }
+
+    &.popup-pagination {
+      right: 0;
+      top: auto;
+      bottom: 0;
+      height: 57px;
+      position: absolute;
+
+      @include media-md {
+        top: 100px;
+        right: -$col;
+        bottom: auto;
+      }
+
+      @include media-huge {
+        right: -$col-huge;
+      }
+
+      .arrowhead {
+        left: calc(100% - 4px);
+      }
+    }
   }
 
   &#aboutPopup {

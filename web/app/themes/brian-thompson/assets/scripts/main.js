@@ -71,6 +71,9 @@ var FBSage = (function($) {
     // Handle revealing content of subsections
     _initPopup();
 
+    // Add popup pagination for BTT homepage
+    _popupPagination();
+
     // Add html markup and behavior for venetian blinds
     _initBlinds();
 
@@ -433,7 +436,7 @@ var FBSage = (function($) {
     $('.popup .body-wrap').velocity('fadeOut',0);
 
     // Open popups when clicking .open-popup
-    $('.open-popup').click(function(e) {
+    $document.on('click', '.open-popup', function(e) {
       e.preventDefault();
       if(!_isAnimating) {
         // Choose the blind closest to the .open-popup link
@@ -444,7 +447,7 @@ var FBSage = (function($) {
       }
     });
     // Swith popup content when a popup is already open
-    $('.switch-content').click(function(e) {
+    $document.on('click', '.switch-content', function(e) {
       e.preventDefault();
       if(!_isAnimating) {
         var $content = $($(this).data('content'));
@@ -545,6 +548,27 @@ var FBSage = (function($) {
     });
   }
 
+  function _popupPagination() {
+    // Check for popup-pages
+    if ($('.popup-pages').length) {
+
+      var pages = $('.popup-pages .linkable-popup');
+      var i;
+
+      for (i=0;i<pages.length;i++) {
+        var $page = $(pages[i]);
+        var nextPageId;
+        if (i === pages.length - 1) {
+          nextPageId = $(pages[0]).attr('id');
+        } else {
+          nextPageId = $(pages[i+1]).attr('id');
+        }
+        $page.prepend('<button class="popup-pagination switch-content arrow -white -huge -right" data-content="#'+nextPageId+'">'+nextPageId+'<svg class="arrowhead -right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowhead-right"></use></svg></button>');
+      }
+
+    }
+  }
+
   function _fitBodyToPopup() {
     if ($('.popup').hasClass('showing')) {
       var popupHeight = $('.popup .body-wrap').outerHeight() + (breakpoint_medium ? 105+52+105 : 0);
@@ -621,7 +645,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindOut", {
       defaultDuration: 500,
       calls: [
-        [ {translateX: '-50%', scaleX: '0.001'} ]
+        [ {translateX: '0', scaleX: '0.001'} ]
       ]
     });
 
