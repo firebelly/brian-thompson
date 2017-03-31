@@ -45,8 +45,10 @@ echo Firebelly\Media\get_front_page_images();
       <?php while ( $parent->have_posts() ) : $parent->the_post(); ?>
 
           <div id="<?= $post->post_name; ?>" class="sr-only linkable-popup">
-              
-              <?php get_template_part('page-'.$post->post_name); ?>
+          
+              <div class="user-content">
+                <?php get_template_part('page-'.$post->post_name); ?>
+              </div>
 
           </div>
   
