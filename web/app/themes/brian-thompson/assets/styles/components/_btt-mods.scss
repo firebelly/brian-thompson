@@ -65,10 +65,20 @@
 
   .section {
     &.-four {
-      @include min-screen(1000px) {
+      @include media-md {
         margin-top: 180px;
         margin-bottom: 180px;
         @include dash-after($lh);
+      }
+
+      .wrap {
+        width: 2 * $col - $teensy-pad * 2;;
+        @include min-screen(1000px) {
+          width: 3 * $col - $teensy-pad * 2;
+        }
+        @include media-huge {
+          width: (3 * #{$col-huge} - #{$teensy-pad} * 2);
+        }
       }
     }
   }
