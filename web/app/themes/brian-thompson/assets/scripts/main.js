@@ -562,8 +562,6 @@ var FBSage = (function($) {
     // Check for popup-pages
     if ($('.popup-pages').length) {
 
-      console.log('uhoh');
-
       var pages = $('.popup-pages .linkable-popup');
       var i;
 
