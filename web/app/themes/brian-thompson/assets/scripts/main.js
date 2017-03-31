@@ -90,7 +90,7 @@ var FBSage = (function($) {
     _ieDetect();
 
     // Scroll down to hash afer page load OR open popup with hash content
-    $(window).load(function() {
+    $(window).on('load', function() {
       if (window.location.hash) {
         if($(window.location.hash).hasClass('linkable-popup')){
           _scrollBody($('body'));
@@ -130,6 +130,16 @@ var FBSage = (function($) {
       .appendTo('.site-header').click(function() {
         $('.popup').addClass('holding-mobile-nav');
       });
+
+    // Remove holding-mobile-nav class when opening a popup from the mobile nav
+    $document.on('click', '.holding-mobile-nav .open-popup', function(e) {
+      e.preventDefault();
+      if(!_isAnimating) {
+        var $content = $($(this).data('content'));
+        _switchPopupContent($content);
+      }
+      $('.popup').removeClass('holding-mobile-nav');
+    });
   }
   function _resizeMobileNav() {
     if(breakpoint_medium && $('.popup.showing ul#menu-main-menu').length) {
@@ -551,6 +561,8 @@ var FBSage = (function($) {
   function _popupPagination() {
     // Check for popup-pages
     if ($('.popup-pages').length) {
+
+      console.log('uhoh');
 
       var pages = $('.popup-pages .linkable-popup');
       var i;
