@@ -146,10 +146,15 @@
     .body-wrap {
 
       h1 {
+        font-size: 30px;
         margin-top: 1em;
         margin-bottom: 0;
         &:first-of-type {
           margin-top: 0;
+        }
+
+        @include media-md {
+          font-size: 48px;
         }
       }
 
