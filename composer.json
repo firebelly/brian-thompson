@@ -36,7 +36,7 @@
     "php": ">=5.5",
     "composer/installers": "~1.0.12",
     "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": ">=4.5.3",
+    "johnpbloch/wordpress-core": ">=2",
     "oscarotero/env": "^1.0",
     "roots/wp-password-bcrypt": "1.0.0",
     "wpackagist-plugin/duplicate-post": "2.6",
@@ -49,7 +49,8 @@
     "wpackagist-plugin/contact-form-7": ">=4.4.2",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6", 
     "wpackagist-plugin/contact-form-7-dynamic-text-extension": ">=2.0.1",
-    "wpackagist-plugin/search-and-replace": ">=3.1.0"
+    "wpackagist-plugin/search-and-replace": ">=3.1.0",
+    "wpackagist-plugin/redirection": "2.5"
   },
   "extra": {
     "installer-paths": {
