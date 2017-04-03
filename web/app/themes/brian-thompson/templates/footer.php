@@ -31,7 +31,6 @@ use Firebelly\SiteOptions;
         <p class="tel"><?= SiteOptions\get_option('phone') ?></p>
       </div>
       <div class="fineprint-block footer-block">
-        <p class="disclaimer"><a class="open-popup fake-link" data-content="#disclaimer" href="#disclaimer">Disclaimer</a></p>
         <div class="copyright"><p>BTT &copy;<?php echo date("Y") ?></p></div>
       </div>
     </div>
