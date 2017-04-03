@@ -97,8 +97,10 @@
 // Modal Page styles
 .popup {
 
-  h1, h2 {
-    @include big-title;
+  &:not(#aboutPopup) {  
+    h1, h2 {
+      @include big-title;
+    }
   }
 
   button.arrow {
