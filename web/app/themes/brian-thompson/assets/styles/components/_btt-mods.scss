@@ -97,6 +97,10 @@
 // Modal Page styles
 .popup {
 
+  h1, h2 {
+    @include big-title;
+  }
+
   button.arrow {
     @include small-mono;
 
@@ -187,7 +191,8 @@
 
   // Appointments/ Contact
   &#appointmentsPopup,
-  &#contactPopup {
+  &#contactPopup,
+  &#sign-upPopup {
     .lines {
       display: none !important;
     }
@@ -220,7 +225,6 @@
 
       h1, h2 {
         color: $blue;
-        @include big-title;
       }
     }
   }

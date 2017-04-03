@@ -1,11 +1,5 @@
-<?php
-use Firebelly\Utils;
-
-// Page template as normal
-include(locate_template('index.php'));
-
-?>
-
+<h2>Sign Up</h2>
+<?= apply_filters('the_content',$post->post_content) ?>
 <div class="form-wrap">
 	<div id="mc_embed_signup">
 		<form action="//brianthompsonfinancial.us9.list-manage.com/subscribe/post?u=6636f414d5f7e9a04624c3c16&amp;id=4e9c4d0045" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">

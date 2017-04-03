@@ -562,7 +562,7 @@ var FBSage = (function($) {
     // Check for popup-pages
     if ($('.popup-pages').length) {
 
-      var pages = $('.popup-pages .linkable-popup');
+      var pages = $('.popup-pages .linkable-popup:not(#sign-up):not(#disclaimer)');
       var i;
 
       for (i=0;i<pages.length;i++) {
