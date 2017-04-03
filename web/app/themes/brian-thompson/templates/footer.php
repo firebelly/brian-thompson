@@ -31,7 +31,7 @@ use Firebelly\SiteOptions;
         <p class="tel"><?= SiteOptions\get_option('phone') ?></p>
       </div>
       <div class="fineprint-block footer-block">
-        <p class="disclaimer"><a href="<?= get_permalink(get_page_by_path('disclaimer')) ?>">Disclaimer</a></p>
+        <p class="disclaimer"><a class="open-popup fake-link" data-content="#disclaimer" href="#disclaimer">Disclaimer</a></p>
         <p class="adv"><a href="<?= SiteOptions\get_option('adv') ?>">ADV Part 2a</a></p>
         <div class="copyright"><p>BTT &copy;<?php echo date("Y") ?></p></div>
       </div>
@@ -41,7 +41,7 @@ use Firebelly\SiteOptions;
         <p class="have-questions">Have Questions?</p>
         <a href="/contact"><button class="contact-button open-popup arrow -right -black -small" data-content="#contact">Contact Brian</button></a>
         <p class="stay-informed">Stay Informed</p>
-        <a href="/sign-up"><button class="contact-button arrow -right -black -small">News Signup</button></a>
+        <a class="open-popup fake-link" data-content="#sign-up" href="#sign-up"><button class="contact-button arrow -right -black -small">News Signup</button></a>
       </div>
       <div class="description-block footer-block">
         <?= apply_filters('the_content', SiteOptions\get_option('description')) ?>
