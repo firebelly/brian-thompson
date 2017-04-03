@@ -116,7 +116,7 @@
     }
 
     &.popup-pagination {
-      right: 28px;
+      right: 0px;
       top: auto;
       bottom: 0;
       height: 57px;
@@ -206,6 +206,13 @@
     }
     .blind {
       background: $true-white;
+    }
+    .popup-pagination {
+      color: $true-white;
+      background: $black;
+      svg {
+        fill: $black;
+      }
     }
 
     .body-wrap {
