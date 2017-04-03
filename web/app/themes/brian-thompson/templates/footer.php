@@ -32,7 +32,6 @@ use Firebelly\SiteOptions;
       </div>
       <div class="fineprint-block footer-block">
         <p class="disclaimer"><a class="open-popup fake-link" data-content="#disclaimer" href="#disclaimer">Disclaimer</a></p>
-        <p class="adv"><a href="<?= SiteOptions\get_option('adv') ?>">ADV Part 2a</a></p>
         <div class="copyright"><p>BTT &copy;<?php echo date("Y") ?></p></div>
       </div>
     </div>
