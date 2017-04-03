@@ -39,7 +39,7 @@ use Firebelly\SiteOptions;
     <div class="group-two">
       <div class="contact-form-block footer-block">
         <p class="have-questions">Have Questions?</p>
-        <a href="/contact"><button class="contact-button open-popup arrow -right -black -small" data-content="#contact">Contact Brian</button></a>
+        <a class="open-popup fake-link" data-content="#contact" href="/contact"><button class="contact-button arrow -right -black -small" data-content="#contact">Contact Brian</button></a>
         <p class="stay-informed">Stay Informed</p>
         <a class="open-popup fake-link" data-content="#sign-up" href="#sign-up"><button class="contact-button arrow -right -black -small">News Signup</button></a>
       </div>
