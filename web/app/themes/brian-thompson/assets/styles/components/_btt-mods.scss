@@ -53,7 +53,7 @@
 
 .home.page {
   .site-main {
-    button.arrow {
+    button.arrow:not(.-huge) {
       margin-left: -10px;
       margin-bottom: $lh;
       @include small-mono;
