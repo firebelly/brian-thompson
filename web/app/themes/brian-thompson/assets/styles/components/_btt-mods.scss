@@ -64,11 +64,32 @@
   }
 
   .section {
+    &.-two {
+      @include media-md {
+        top: 580px;
+      }
+      @include min-screen(1000px) {
+        top: 665px;
+      }
+    }
+
+    &.-three {
+      @include media-md {
+        margin-top: 505px;
+      }
+      @include min-screen(1000px) {
+        margin-top: 450px;
+      }
+    }
+
     &.-four {
       @include media-md {
-        margin-top: 180px;
+        margin-top: 376px;
         margin-bottom: 180px;
         @include dash-after($lh);
+      }
+      @include min-screen(1000px) {
+        margin-top: 150px;
       }
 
       .wrap {
