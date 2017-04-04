@@ -272,3 +272,22 @@
   }
 
 }
+
+// Footer
+.site-footer {
+  .footer-wrap {
+    @include media-md {
+      min-height: 200px;
+    }
+    @include min-screen(1100px) {
+      min-height: 1px;
+    }
+  }
+
+  .group-two .contact-form-block {
+    top: -84px;
+    @include media-md {
+      top: auto;
+    }
+  }
+}
