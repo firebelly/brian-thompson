@@ -95,17 +95,8 @@
       @include break-out-of-padding($teensy-pad,$teensy-pad);
     }
 
-    .-number-0, .-number-1 {
-      li.pricetag:first-of-type {
-        background: $white;
-        p, p:before {
-          color: $blue;
-        }
-      }
-    }
+
     li.pricetag {
-      // margin-left: auto;
-      // padding: 2*$lh 0;
       flex-basis: $col;
       @include media-huge {
         flex-basis: $col-huge;
@@ -125,7 +116,6 @@
           max-width: none;
         }
         .wrap {
-          // position: absolute;
           bottom: 2.25*$lh;
           padding: 0 $lh/4;
         }
@@ -138,7 +128,7 @@
       .item {
         margin-bottom: $lh * 1.25;
       }
-      .cost {
+      .number {
         top: -$teensy-pad;
         margin-bottom: 0;
         @include font-mono;

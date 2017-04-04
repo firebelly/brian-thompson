@@ -111,16 +111,50 @@ function register_metaboxes() {
       'textarea_rows' => get_option('default_post_edit_rows', 8), // rows="..."
     ),
   ) );
-  $services_meta->add_field( array(
-    'name'       => __( 'Pricing', 'sage' ),
-    'desc'       => __( 'Item, Price, Note separated by new lines.', 'sage' ),
-    'id'         => $prefix.'price',
-    'type'       => 'textarea_code',
-    'repeatable' => true,
-    'options' => array(
-      'textarea_rows' => 1
-    ),
+  $pricetag_group = $services_meta->add_field(
+    array(
+      'name'  => __( 'Pricetags', 'sage' ),
+      'id'    => $prefix . 'pricetags',
+      'type'  => 'group',
+      'options'     => array(
+        'group_title'   => __( 'Pricetag {#}', 'sage' ),
+        'add_button'    => __( 'Add Another Pricetag', 'sage' ),
+        'remove_button' => __( 'Remove Pricetag', 'sage' ),
+        'sortable'      => true, // beta
+      ),
+    )
+  );
+  $services_meta->add_group_field( $pricetag_group, array(
+    'name' => __( 'Title', 'sage' ),
+    'id'   => 'title',
+    'type' => 'text',
+    'desc' => 'Name of the item (e.g. "First Level Planning")',
   ) );
+  $services_meta->add_group_field( $pricetag_group, array(
+    'name' => __( 'Number', 'sage' ),
+    'id'   => 'number',
+    'type' => 'text',
+    'desc' => 'The big bold number (e.g. "$150")',
+  ) );
+  $services_meta->add_group_field( $pricetag_group, array(
+    'name' => __( 'Unit', 'sage' ),
+    'id'   => 'unit',
+    'type' => 'text',
+    'desc' => 'The unit under the big bold number (e.g. "per month")',
+  ) );
+  $services_meta->add_group_field( $pricetag_group, array(
+    'name' => __( 'Note', 'sage' ),
+    'id'   => 'note',
+    'type' => 'text',
+    'desc' => 'A short (approx 5 words) note about the price (e.g. "with a $750 up-front fee")',
+  ) );
+  $services_meta->add_group_field( $pricetag_group, array(
+    'name' => 'Highlight Pricetag',
+    'desc' => 'Check here to highlight this pricetag with a different color scheme.  Best to pick just one to highlight.',
+    'id'   => 'highlight',
+    'type' => 'checkbox',
+  ) );
+
   $services_meta->add_field( array(
     'name' => __( 'Pricing Note', 'sage' ),
     'id'   => $prefix.'pricing_note',
@@ -155,22 +189,20 @@ function services_shortcode() {
     $excerpt = '<div class="excerpt">'.apply_filters('the_content', get_post_meta( $service->ID, '_cmb2_excerpt', true ) ).'</div>';
     $full = apply_filters('the_content', $service->post_content );
 
-    $pricetags = get_post_meta( $service->ID, '_cmb2_price', true );
+    $pricetags = get_post_meta( $service->ID, '_cmb2_pricetags', true );
     $pricing_note = get_post_meta( $service->ID, '_cmb2_pricing_note', true );
   
     if ( $pricetags || $pricing_note ) {
-      $pricing .= '<ul class="pricetags -number-'.$i.'">';
+      $pricing .= '<ul class="pricetags">';
       if ( $pricetags ) {
         foreach ($pricetags as $pricetag) {
-          $pricetag_exploded = preg_split('/[\r|\n]+/',$pricetag);
-          $item = isset($pricetag_exploded[0]) ? '<p class="item">'.trim($pricetag_exploded[0]).'</p>' : '';
-          $price = isset($pricetag_exploded[1]) ? trim($pricetag_exploded[1]) : '';
-          $price_exploded = explode(' ',$price,2);
-          $cost = isset($price_exploded[0]) ? '<p class="cost">'.trim($price_exploded[0]).'</p>' : '';
-          $unit = isset($price_exploded[1]) ? '<p class="unit">'.trim($price_exploded[1]).'</p>' : '';
-          $note = isset($pricetag_exploded[2]) ? '<p class="note">'.trim($pricetag_exploded[2]).'</p>' : '';
+          $item = isset($pricetag['title']) ? '<p class="item">'.trim($pricetag['title']).'</p>' : '';
+          $cost = isset($pricetag['number']) ? '<p class="number">'.trim($pricetag['number']).'</p>' : '';
+          $unit = isset($pricetag['unit']) ? '<p class="unit">'.trim($pricetag['unit']).'</p>' : '';
+          $note = isset($pricetag['note']) ? '<p class="note">'.trim($pricetag['note']).'</p>' : '';
+          $highlight = isset($pricetag['highlight']) ? ($pricetag['highlight'] ? ' highlight' : '') : '';
 
-          $pricing .='<li class="pricetag">'.$item.$cost.$unit.$note.'</li>';
+          $pricing .='<li class="pricetag'.$highlight.'">'.$item.$cost.$unit.$note.'</li>';
         }
       }
       if ( $pricing_note ) {
