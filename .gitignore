@@ -33,7 +33,7 @@ bin
 
 # Fonts
 web/app/themes/typeforce/assets/fonts/*
-!web/app/themes/typeforce/assets/fonts/btfmonov6-regular-edited-descender-webfont*
+!web/app/themes/typeforce/assets/fonts/btfmonov6*
 
 # Mac OSX
 .DS_Store
