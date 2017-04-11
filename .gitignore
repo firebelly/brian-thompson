@@ -33,6 +33,9 @@ bin
 
 # Fonts
 web/app/themes/typeforce/assets/fonts/*
-config/.DS_Store
+!web/app/themes/typeforce/assets/fonts/btfmonov6-regular-edited-descender-webfont*
+
+# Mac OSX
 .DS_Store
+
 log/capistrano.log
