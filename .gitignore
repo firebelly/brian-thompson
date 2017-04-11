@@ -32,8 +32,8 @@ bin
 .gems
 
 # Fonts
-web/app/themes/typeforce/assets/fonts/*
-!web/app/themes/typeforce/assets/fonts/btfmonov6*
+web/app/themes/brian-thompson/assets/fonts/*
+!web/app/themes/brian-thompson/assets/fonts/btfmonov6*
 
 # Mac OSX
 .DS_Store
