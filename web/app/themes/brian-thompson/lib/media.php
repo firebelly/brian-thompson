@@ -121,14 +121,14 @@ function get_floater_images($post_id = false) {
     // Choose the backup stock images if there will be any need
     $n_stock = count(SiteOptions\get_option('stock_images'));
     if( ( !$featured_id || !$additional ) && $n_stock ) {
-      $stock_image_ids = array_keys( SiteOptions\get_option('stock_images') ); 
+      $stock_image_ids = array_keys( SiteOptions\get_option('stock_images') );
       shuffle( $stock_image_ids );
       // If user has selected featured image or additional images, remove them from the current stock pool!
-      if ( $featured_id ) { 
-        $stock_image_ids = array_diff($stock_image_ids, [$featured_id] ); 
+      if ( $featured_id ) {
+        $stock_image_ids = array_diff($stock_image_ids, [$featured_id] );
       }
       if ( $additional_ids ) {
-        $stock_image_ids = array_diff($stock_image_ids, $additional_ids ); 
+        $stock_image_ids = array_diff($stock_image_ids, $additional_ids );
       }
       // Replace empty featured and/or additional images with stock images
       if( !$featured_id ) {
@@ -150,7 +150,7 @@ function get_floater_images($post_id = false) {
     if($additional_ids) {
       foreach ( (array) $additional_ids as $additional_id ) {
         $output .= get_image_html( get_treated_url($additional_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]) );
-        if($i===0) { 
+        if($i===0) {
           $output .= get_image_html( get_treated_url($additional_id, ['type'=>(rand(0,1) ? 'color' : 'gray')]), 'inline-image mobile-image -bottom' );
         }
         $i++;
@@ -161,8 +161,8 @@ function get_floater_images($post_id = false) {
 }
 
 /**
- * Get the file path (not URL) to a thumbnail of a particular size.  
- * (get_attached_file() only returns paths to full-sized thumbnails.)  
+ * Get the file path (not URL) to a thumbnail of a particular size.
+ * (get_attached_file() only returns paths to full-sized thumbnails.)
  * @param  int            $thumb_id - attachment id of thumbnail
  * @param  string|array   $size - thumbnail size string (e.g. 'full') or array [w,h]
  * @return path           file path to properly sized thumbnail
@@ -181,7 +181,7 @@ function get_thumbnail_size_path($thumb_id,$size) {
 
   // Replace the filename in our path with the filename of the properly sized image
   $exploded_path = explode ( '/' , $old_path );
-  $exploded_path[count($exploded_path)-1] = $filename; 
+  $exploded_path[count($exploded_path)-1] = $filename;
   $new_path = implode ( '/' , $exploded_path );
 
   return $new_path;
@@ -206,7 +206,7 @@ function get_treated_url($post_or_id, $options=[]) {
   if (is_object($post_or_id)) {
     if (has_post_thumbnail($post_or_id->ID)) {
       $thumb_id = get_post_thumbnail_id($post_or_id->ID);
-    } else { 
+    } else {
       return false;  //thumbnail not found
     }
   } else {
@@ -216,9 +216,9 @@ function get_treated_url($post_or_id, $options=[]) {
   $full_image = get_attached_file($thumb_id, true); //this only returns images of size 'full'
 
   // Do not proceed if full image not found
-  if (!file_exists($full_image)) { 
-    return false; 
-  } 
+  if (!file_exists($full_image)) {
+    return false;
+  }
 
   // Override 'color' treatment type if image is bw
   if(is_bw_only($thumb_id) && $type === 'color') {
@@ -235,8 +235,8 @@ function get_treated_url($post_or_id, $options=[]) {
   $image_to_convert = get_thumbnail_size_path($thumb_id,$size);
 
   // Do not proceed if sized image not found
-  if (!file_exists($image_to_convert)) { 
-    return false; 
+  if (!file_exists($image_to_convert)) {
+    return false;
   }
 
   $upload_dir = wp_upload_dir();
@@ -248,7 +248,7 @@ function get_treated_url($post_or_id, $options=[]) {
   $treated_image = $base_dir . $treated_filename;
 
   // If treated file doesn't exist, create it
-  // if (!file_exists($treated_image)) {
+  if (!file_exists($treated_image)) {
     // If the duo directory doesn't exist, create it first
     if(!file_exists($base_dir)) {
       mkdir($base_dir);
@@ -266,9 +266,7 @@ function get_treated_url($post_or_id, $options=[]) {
     }
 
     if($full_command) { exec($full_command); }
-
-  // echo '<script>console.log(\'MESSAGE FROM PHP:'.$full_command.'\');</script>';
-  // }
+  }
 
   // Finally, get the URL
   $duo_url = $upload_dir['baseurl'] . $treated_dir . $treated_filename;
