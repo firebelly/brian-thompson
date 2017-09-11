@@ -5,14 +5,17 @@
 var FBSage = (function($) {
 
   var screen_width = 0,
+      breakpoint_nano = false,
+      breakpoint_tiny = false,
       breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
-      breakpoint_array = [480,800,900],
+      breakpoint_huge = false,
       $document,
       $sidebar,
       loadingTimer,
-      page_at;
+      page_at,
+      isProbablySafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
 
   function _init() {
     // touch-friendly fast clicks
@@ -53,7 +56,6 @@ var FBSage = (function($) {
         _closePopup();
         _closeSearch();
       }
-
     });
 
     // Smoothscroll links
@@ -169,7 +171,7 @@ var FBSage = (function($) {
               $load_more.velocity('fadeIn',400); // Otherwise fade it in, because we faded it out
             }
 
-            $(window).resize(); //document size has changed -- trigger any function possibly dependent
+            _resize(); //document size has changed -- trigger any function possibly dependent
             _initArrows();
           }
       });
@@ -179,12 +181,23 @@ var FBSage = (function($) {
   // Called in quick succession as window is resized
   function _resize() {
     screenWidth = document.documentElement.clientWidth;
-    breakpoint_small = (screenWidth > breakpoint_array[0]);
-    breakpoint_medium = (screenWidth > breakpoint_array[1]);
-    breakpoint_large = (screenWidth > breakpoint_array[2]);
+
+    // Check breakpoint indicator in DOM ( :after { content } is controlled by CSS media queries )
+    var breakpointIndicatorString = window.getComputedStyle(
+      document.querySelector('#breakpoint-indicator'), ':after'
+    ).getPropertyValue('content')
+    .replace(/['"]+/g, '');
+
+    breakpoint_huge = breakpointIndicatorString === 'huge';
+    breakpoint_large = breakpointIndicatorString === 'large' || breakpoint_huge;
+    breakpoint_medium = breakpointIndicatorString === 'medium' || breakpoint_large;
+    breakpoint_small = breakpointIndicatorString === 'small' || breakpoint_medium;
+    breakpoint_tiny = breakpointIndicatorString === 'tiny' || breakpoint_small;
+    breakpoint_nano = breakpointIndicatorString === 'nano' || breakpoint_tiny;
 
     _resizeMobileNav();
     _resizeFooter();
+    _fitBodyToPopup();
 
   }
 
@@ -274,12 +287,22 @@ var FBSage = (function($) {
 
             // Trigger blinds
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
-              // window.location.href = linkUrl;
-              // Experimenting with triggering href earlier w/ timeout, see below (nate)
+              // The below timeout seems to be too quick for Safari.  
+              // So if our user agent sniffing thinks we are Safari, 
+              // we'll be boy scouts and change href EXACTLY when animation ends
+              if(isProbablySafari) {
+                // console.time('transition');
+                window.location.href = linkUrl;
+                // console.timeEnd('transition');
+              }
             });
-            setTimeout(function() {
-              location.href = linkUrl;
-            }, 250);
+
+            // The default is to just wait 200ms.  This seems to work best for most browsers that are not Safari.  On those browsers, firing this on the animation finished callback feels too sluggish.
+            if(!isProbablySafari) {
+              setTimeout(function() {
+                location.href = linkUrl;
+              }, 200);
+            }
           }
         }
       });
@@ -455,6 +478,7 @@ var FBSage = (function($) {
               // When done clean up classes and release _isAnimating
               _isAnimating = false;
               $('.popup').removeClass('showing').removeClass('holding-mobile-nav');
+              _fitBodyToPopup();
           });
         }
       });
@@ -478,6 +502,9 @@ var FBSage = (function($) {
       // When done animating the last blind
       $('.popup .content-holder').empty(); // Get rid of last content
       $content.clone(true, true).contents().appendTo('.popup .content-holder'); // Add new content
+
+      _fitBodyToPopup();
+
       $('.popup .body-wrap').velocity('fadeIn',{ // Fade in content
         duration: 200,
         complete: function() { // When faded in...
@@ -502,6 +529,9 @@ var FBSage = (function($) {
       complete: function() {
         $('.popup .content-holder').empty(); // Out with the old
         $content.clone(true, true).contents().appendTo('.popup .content-holder'); // In with the new
+        
+        _fitBodyToPopup();
+
         $('.popup .body-wrap').velocity('fadeIn',{ // Fade in new content
           duration: 200,
           complete: function() {
@@ -511,6 +541,15 @@ var FBSage = (function($) {
         });
       }
     });
+  }
+
+  function _fitBodyToPopup() {
+    if ($('.popup').hasClass('showing')) {
+      var popupHeight = $('.popup .body-wrap').outerHeight() + (breakpoint_medium ? 105+52+105 : 0);
+      $('body').css('min-height',popupHeight);
+    } else {
+      $('body').css('min-height','');
+    }
   }
 
   // Handle animating blinds
@@ -534,11 +573,13 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
+    var singleBlindDuration = 30; 
+
     // Animate each blind.
     $($blinds).each(function() {
       var thisBlindNum = $(this).data('blind-num');
       $(this).velocity( (showOrHideTheBlinds === 'show' ? 'transition.blindIn' : 'transition.blindOut') , {
-        delay: (Math.abs(startingBlindNum-thisBlindNum)*70),
+        delay: (Math.abs(startingBlindNum-thisBlindNum)*singleBlindDuration),
         duration: duration,
         easing: [1,0.75,0.5,1],
         complete: (thisBlindNum!==finalBlindNum) ? undefined  : function() { // This function fires when the last blind has finished animating
@@ -578,7 +619,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindOut", {
       defaultDuration: 500,
       calls: [
-        [ {translateX: '-50%', scaleX: '0.001'} ]
+        [ {scaleX: '0.001'} ]
       ]
     });
 
@@ -586,7 +627,7 @@ var FBSage = (function($) {
     .RegisterEffect("transition.blindIn", {
       defaultDuration: 500,
       calls: [
-        [ { translateX: '0', scaleX: '1'} ]
+        [ { scaleX: '1'} ]
       ]
     });
 
@@ -652,7 +693,9 @@ function FloaterImage($image,orderNum) {
   this.alive = false;
   this.healthy = false;
   this.animating = false;
+  this.invincible = false;
 
+  // Init....
   // Insert elements for waypoints into the dom.  The waypoints will show/hide the images
   var r = Math.floor(Math.random()*255); var g = Math.floor(Math.random()*255); var b = Math.floor(Math.random()*255);  // I gave these random colors (but the same color for each image) to aid debugging
   this.$waypointTop = $('<div class="invisible-waypoint" aria-hidden="true" style="background: rgb('+r+','+g+','+b+');"></div>').appendTo('body');
@@ -672,10 +715,10 @@ function FloaterImage($image,orderNum) {
     me.$waypointBottom.css('top',pos);
   };
   // Do it now and on resize
-  this.positionWaypoints();
   $(window).resize(function() {
     me.positionWaypoints();
   });
+  this.positionWaypoints();
 
   // Init waypoints
   this.waypointTop =  me.$waypointTop.waypoint({
@@ -702,7 +745,7 @@ function FloaterImage($image,orderNum) {
   // Decide to Live Or Die
   this.liveOrDie = function () {
     if(!me.animating) {
-      if(me.alive && !me.healthy) {
+      if(me.alive && !me.healthy && !me.invincible) {
         me.die();
       }
       if(!me.alive && me.healthy) {
@@ -721,6 +764,10 @@ function FloaterImage($image,orderNum) {
       me.animating = false;
       me.alive = true;
     }, false);
+    me.invincible = true;
+    setTimeout(function() {
+      me.invincible = false;
+    }, 4000); // I didn't like that images could appear and instantly disappear.  So I make them temporarily invincible to ensure a min lifespan.
   };
   this.die = function()  {
     me.animating = true;
@@ -793,6 +840,9 @@ function FloaterImage($image,orderNum) {
   $(window).resize(function() {
     me.onResize();
   });
+
+  //Position
+  this.position();
 }
 
 function InlineImage($image,delay) {

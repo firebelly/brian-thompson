@@ -96,6 +96,15 @@
       width: $col-huge;
     }
   }
+
+  .user-content {
+    ul, ol {
+      padding-left: 2em;
+      @include min-screen(600px) {
+        padding-left: 0;
+      }
+    }
+  }
 }
 
 .popup, .search-popup {

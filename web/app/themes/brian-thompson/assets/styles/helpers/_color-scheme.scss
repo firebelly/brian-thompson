@@ -309,9 +309,15 @@ $brand-secondary: $blue;
   }
 
   // Services Page
-  li.pricetag {
-    .cost, .cost:before, .unit {
-      color: $anti-title;
+  .popup li.pricetag {
+      &.highlight {
+        background: $white;
+        p, p:before {
+          color: choose($blue,$black,$scheme);
+        }
+      }
+    .number, .unit,.number:before {
+      color: choose($black,$blue,$scheme);
     }
   }
 

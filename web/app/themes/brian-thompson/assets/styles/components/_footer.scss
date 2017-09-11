@@ -168,7 +168,7 @@ $open-time: .15s;
       // padding: 0;
       margin-top: $lh/4;
       max-height: 25px;
-      @include min-screen(800px) {
+      @include media-md {
         position: relative;
         margin-top: $lh/2;
         left: -6px;
@@ -190,8 +190,9 @@ $open-time: .15s;
       @include media-sm {
         padding-left: calc((100% - 4 * #{$col})/2 );
       }
-      @include min-screen(800px) {
+      @include media-md {
         padding-left: 2 * $col;
+        flex-wrap: nowrap;
       }
       @include media-lg {
         padding-left: 3 * $col;
@@ -210,7 +211,7 @@ $open-time: .15s;
       }
     }
     .group-one {
-      @include min-screen(800px) {
+      @include media-md {
         order: 2;
         flex-basis: 2 * $col;
       }
@@ -225,7 +226,7 @@ $open-time: .15s;
         @include media-sm {
           flex-basis: 3 * $col;
         }
-        @include min-screen(800px) {
+        @include media-md {
           flex-basis: 2 * $col;
           order: 1;
         }
@@ -236,7 +237,7 @@ $open-time: .15s;
       .fineprint-block {
         position: static;
         flex-basis: 2 * $col;
-         @include min-screen(800px) {
+         @include media-md {
           order: 3;
           margin-top: $lh;
         }
@@ -256,18 +257,18 @@ $open-time: .15s;
         @include screen(420px,440px){
           margin-left: -20px;
         }
-        @include screen(800px,1100px) {
+        @include screen(800px,1099px) {
             li.social-link:first-child {
               margin-left:  -5px;
             }
         }
-        @include min-screen(800px) {
-          flex-basis: 2 * $col;
+        @include media-md {
+          flex-basis: 1.5 * $col;
           order: 2;
           position: absolute;
           right: calc( 100% + #{$col} );
           min-width: 1 * $col;
-          top: 4 * $lh;
+          top: 128px;;
         }
         @include min-screen(1100px) {
           position: static;
@@ -282,8 +283,8 @@ $open-time: .15s;
         @include media-sm {
           flex-basis: 4 * $col;
         }
-        @include min-screen(800px) {
-          flex-basis: 2 * $col;
+        @include media-md {
+          flex-basis: 1.5 * $col;
           order: 2;
           margin-bottom: 0;
           // position: relative;
@@ -299,9 +300,10 @@ $open-time: .15s;
       }
     }
     .group-two {
-      @include min-screen(800px) {
+      @include media-md {
         order: 1;
         flex-basis: 4 * $col;
+      flex-shrink: 0;
       }
       @include min-screen(1200px) {
         flex-basis: 5 * $col;
@@ -320,7 +322,7 @@ $open-time: .15s;
         @include screen(420px,440px){
           right: 20px;
         }
-        @include min-screen(800px) {
+        @include media-md {
           position: static;
           right: auto;
           bottom: auto;
@@ -337,7 +339,7 @@ $open-time: .15s;
         @include media-sm {
           flex-basis: 4 * $col;
         }
-        @include min-screen(800px) {
+        @include media-md {
           flex-basis: 2 * $col;
           order: 1;
           margin-top: 0;
@@ -350,7 +352,7 @@ $open-time: .15s;
           width: $col;
           left: 0;
           bottom: calc(100% + #{$lh});
-          @include min-screen(800px) {
+          @include media-md {
             right: 100%;
             top: 0;
             bottom: auto;
@@ -363,7 +365,7 @@ $open-time: .15s;
             width: 50px;
             height: auto;
             position: relative;
-            @include min-screen(800px) {
+            @include media-md {
               top: 3px;
               left: 50%;
               transform: translateX(-50%);
