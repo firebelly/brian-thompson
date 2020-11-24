@@ -1,5 +1,5 @@
 set :stage, :production
-set :login, 'btf'
+set :login, 'btfinancial'
 set :application, 'btf'
 
 
