@@ -1,7 +1,7 @@
 set :stage, :staging
-set :login, 'bttax'
+set :login, 'brianthompsontax'
 set :application, 'btt_staging'
-set :domain, 'bttax.webfactional.com'
+set :domain, 'brianthompsontax.opalstacked.com'
 
 # Simple Role Syntax
 # ==================

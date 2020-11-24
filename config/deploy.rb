@@ -1,15 +1,15 @@
 set :application, 'btt'
 set :domain, 'brianthompsontax.com'
 set :theme, 'brian-thompson'
-set :login, 'bttax'
+set :login, 'brianthompsontax'
 set :repo_url, 'git@github.com:firebelly/brian-thompson.git'
-set :php, 'php70'
+set :php, 'php74'
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
 set :branch, :btt
 
-set :deploy_to, -> { "/home/#{fetch(:login)}/webapps/#{fetch(:application)}" }
+set :deploy_to, -> { "/home/#{fetch(:login)}/apps/#{fetch(:application)}" }
 
 set :tmp_dir, -> { "/home/#{fetch(:login)}/tmp" }
 
