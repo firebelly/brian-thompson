@@ -3,8 +3,7 @@ RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_URI} !\.well-known
 RewriteCond %{HTTP_HOST} !^btfinancial.com [NC]
-RewriteCond %{HTTP_HOST} !^btfinancial.opalstacked.com [NC]
-RewriteCond %{HTTP_HOST} !^btf.firebelly.co [NC]
+RewriteCond %{HTTP_HOST} !^stage.btfinancial.com [NC]
 RewriteCond %{HTTP_HOST} !^btf.localhost [NC]
 RewriteRule ^(.*)$ https://btfinancial.com/$1 [R=301,L]
 

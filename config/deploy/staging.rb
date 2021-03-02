@@ -1,6 +1,7 @@
 set :stage, :staging
-set :login, 'firebelly'
-set :domain, 'bt.firebelly.co'
+set :application, 'btf-staging'
+set :login, 'btfinancial'
+set :domain, 'stage.btfinancial.com'
 
 # Simple Role Syntax
 # ==================
