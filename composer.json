@@ -36,10 +36,10 @@
     "php": ">=5.5",
     "composer/installers": "~1.0.12",
     "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": ">=4.7.3",
+    "johnpbloch/wordpress": ">=5.0",
     "oscarotero/env": "^1.0",
-    "roots/wp-password-bcrypt": "1.0.0",
-    "wpackagist-plugin/duplicate-post": "2.6",
+    "roots/wp-password-bcrypt": "^1.0.0",
+    "wpackagist-plugin/duplicate-post": ">=4.0",
     "wpackagist-plugin/limit-login-attempts" : "*",
     "wpackagist-plugin/wordpress-importer" : "*",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
@@ -50,8 +50,9 @@
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",
     "wpackagist-plugin/contact-form-7-dynamic-text-extension": ">=2.0.1",
     "wpackagist-plugin/search-and-replace": ">=3.1.0",
-    "wpackagist-plugin/redirection": "2.5",
-    "wpackagist-plugin/wp-mail-smtp":"2.5.1"
+    "wpackagist-plugin/redirection": ">=5.0",
+    "wpackagist-plugin/wp-mail-smtp":">=2.6",
+    "wpackagist-plugin/disable-gutenberg": "^2.0"
   },
   "extra": {
     "installer-paths": {
