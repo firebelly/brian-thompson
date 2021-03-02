@@ -58,28 +58,32 @@ require "#{fetch(:local_abs_path)}/config/webfaction.rb"
 namespace :deploy do
   task :compile_assets do
     run_locally do
-      within fetch(:local_theme_path) do
-        execute :gulp, '--production'
-      end
+      execute "cd #{fetch(:local_theme_path)} && npx gulp --production"
     end
   end
 
   task :ungulp do
     run_locally do
-      within fetch(:local_theme_path) do
-        execute :gulp, '--development'
-      end
+      execute "cd #{fetch(:local_theme_path)} && npx gulp --development"
     end
   end
 
   task :copy_assets do
-    invoke 'deploy:compile_assets'
+    # `NOASSETS=1 cap staging deploy` will skip compiling & uploading assets, instead cp previous dist dir
+    if ENV['NOASSETS'] != 1
+      invoke 'deploy:compile_assets'
 
-    on roles(:web) do
-      upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
+      on roles(:web) do
+        upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
+      end
+
+      invoke 'deploy:ungulp'
+    else
+      # just copy dist dir
+      on roles(:app) do
+        execute "cp -R #{Pathname.new(fetch(:previous_release)).join(fetch(:theme_path)).join('dist')} #{release_path.join(fetch(:theme_path))}/"
+      end
     end
-
-    invoke 'deploy:ungulp'
   end
 end
 
