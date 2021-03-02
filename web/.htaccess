@@ -4,8 +4,9 @@ RewriteBase /
 RewriteCond %{REQUEST_URI} !\.well-known
 RewriteCond %{HTTP_HOST} !^btfinancial.com [NC]
 RewriteCond %{HTTP_HOST} !^btfinancial.opalstacked.com [NC]
-RewriteCond %{HTTP_HOST} !^bt.firebelly.co [NC]
-RewriteRule ^(.*)$ http://btfinancial.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^btf.firebelly.co [NC]
+RewriteCond %{HTTP_HOST} !^btf.localhost [NC]
+RewriteRule ^(.*)$ https://btfinancial.com/$1 [R=301,L]
 
 RewriteRule ^post/([0-9]+).*$ /posts/$1/ [R=301,L]
 RewriteRule ^tagged/(.*)$ /posts/tag/$1/ [R=301,L]
