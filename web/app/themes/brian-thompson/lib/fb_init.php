@@ -31,14 +31,14 @@ add_filter('mce_buttons_2', __NAMESPACE__ . '\mce_buttons_2');
 
 function simplify_tinymce($settings) {
   // What goes into the 'formatselect' list
-  $settings['block_formats'] = 'H2=h2;H3=h3;Paragraph=p';
+  $settings['block_formats'] = 'Large Headline=h3;Small Headline=h4;Paragraph=p';
 
   $settings['inline_styles'] = 'false';
   if (!empty($settings['formats']))
     $settings['formats'] = substr($settings['formats'],0,-1).",underline: { inline: 'u', exact: true} }";
   else
     $settings['formats'] = "{ underline: { inline: 'u', exact: true} }";
-  
+
   // What goes into the toolbars. Add 'wp_adv' to get the Toolbar toggle button back
   $settings['toolbar1'] = 'styleselect,bold,italic,underline,strikethrough,formatselect,bullist,numlist,blockquote,link,unlink,hr,wp_more,outdent,indent,AccordionShortcode,AccordionItemShortcode,fullscreen';
   $settings['toolbar2'] = '';
@@ -51,30 +51,30 @@ function simplify_tinymce($settings) {
   // Clear most formatting when pasting text directly in the editor
   $settings['paste_as_text'] = 'true';
 
-  $style_formats = array( 
-    // array( 
+  $style_formats = array(
+    // array(
     //   'title' => 'Two Column',
     //   'block' => 'div',
     //   'classes' => 'two-column',
     //   'wrapper' => true,
-    // ),  
-    // array( 
+    // ),
+    // array(
     //   'title' => 'Three Column',
     //   'block' => 'div',
     //   'classes' => 'three-column',
     //   'wrapper' => true,
     // ),
-    array( 
+    array(
       'title' => 'Button',
       'block' => 'span',
       'classes' => 'button',
     ),
-    // array( 
+    // array(
     //   'title' => '» Arrow Link',
     //   'block' => 'span',
     //   'classes' => 'arrow-link',
     // ),
- );  
+ );
   $settings['style_formats'] = json_encode($style_formats);
 
   return $settings;

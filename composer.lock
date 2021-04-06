@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc2e902680d6f6271a3c762175e68493",
+    "content-hash": "722e8bb1f4e53dcd56ff5c8c3e5b6895",
     "packages": [
         {
             "name": "composer/installers",
@@ -107,21 +107,63 @@
             "time": "2016-04-13T19:46:30+00:00"
         },
         {
-            "name": "johnpbloch/wordpress",
-            "version": "5.6.2",
+            "name": "jjgrainger/posttypes",
+            "version": "2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "784b3440c9a11c3b65b988cc441db332ab0e6c49"
+                "url": "https://github.com/jjgrainger/PostTypes.git",
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/784b3440c9a11c3b65b988cc441db332ab0e6c49",
-                "reference": "784b3440c9a11c3b65b988cc441db332ab0e6c49",
+                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/a87584606e9ef726f7621c1d71a184fdf7282172",
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.6.2",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.*",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PostTypes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Grainger",
+                    "email": "hello@jjgrainger.co.uk",
+                    "homepage": "https://jjgrainger.co.uk"
+                }
+            ],
+            "description": "Simple WordPress custom post types.",
+            "homepage": "https://github.com/jjgrainger/posttype",
+            "time": "2020-04-12T13:01:12+00:00"
+        },
+        {
+            "name": "johnpbloch/wordpress",
+            "version": "5.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnpbloch/wordpress.git",
+                "reference": "22ea3c6aa631e296c528f58a67371fb2a5e674f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/22ea3c6aa631e296c528f58a67371fb2a5e674f2",
+                "reference": "22ea3c6aa631e296c528f58a67371fb2a5e674f2",
+                "shasum": ""
+            },
+            "require": {
+                "johnpbloch/wordpress-core": "5.7.0",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
@@ -143,20 +185,20 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2021-02-22T15:30:37+00:00"
+            "time": "2021-03-09T20:32:28+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.6.2",
+            "version": "5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "e48e723c0d7e38c5580631e6ffea29a4388c5dd0"
+                "reference": "8b057056692ca196aaa7a7ddd915f29426922c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/e48e723c0d7e38c5580631e6ffea29a4388c5dd0",
-                "reference": "e48e723c0d7e38c5580631e6ffea29a4388c5dd0",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/8b057056692ca196aaa7a7ddd915f29426922c6d",
+                "reference": "8b057056692ca196aaa7a7ddd915f29426922c6d",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +206,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.6.2"
+                "wordpress/core-implementation": "5.7.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -184,7 +226,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2021-02-22T15:30:31+00:00"
+            "time": "2021-03-09T20:32:23+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -396,20 +438,6 @@
                 "polyfill",
                 "portable"
             ],
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -472,29 +500,19 @@
                 "env",
                 "environment"
             ],
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-20T14:39:13+00:00"
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "4.1.8",
+            "version": "4.1.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/4.1.8"
+                "reference": "tags/4.1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -504,7 +522,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -512,7 +530,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1612800893"
+                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1614826089"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -611,6 +629,24 @@
             "homepage": "https://wordpress.org/plugins/intuitive-custom-post-order/"
         },
         {
+            "name": "wpackagist-plugin/libsyn-podcasting",
+            "version": "1.2.2.9",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/libsyn-podcasting/",
+                "reference": "tags/1.2.2.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/libsyn-podcasting.1.2.2.9.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/libsyn-podcasting/"
+        },
+        {
             "name": "wpackagist-plugin/limit-login-attempts",
             "version": "1.7.1",
             "source": {
@@ -630,15 +666,15 @@
         },
         {
             "name": "wpackagist-plugin/regenerate-thumbnails",
-            "version": "3.1.4",
+            "version": "3.1.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/regenerate-thumbnails/",
-                "reference": "tags/3.1.4"
+                "reference": "tags/3.1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.3.1.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.3.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -728,6 +764,5 @@
     "platform": {
         "php": ">=5.5"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }

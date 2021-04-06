@@ -31,6 +31,44 @@ function register_metaboxes() {
       ),
     )
   );
+
+  // Podcast Page
+  $podcast_meta = new_cmb2_box( array(
+    'id'            => 'podcast_metabox',
+    'title'         => __( 'Podcast Settings', 'sage' ),
+    'object_types'  => array( 'page'),
+    'show_on'       => array( 'key' => 'slug', 'value' => 'podcast'),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    )
+  );
+  $podcast_links = $podcast_meta->add_field(
+    array(
+      'name'  => __( 'Podcast Links', 'sage' ),
+      'id'    => $prefix . 'podcast_links',
+      'desc'  => 'Links to podcast on various platforms',
+      'type'  => 'group',
+      'options'     => array(
+        'group_title'   => __( 'Link {#}', 'sage' ),
+        'add_button'    => __( 'Add Another Link', 'sage' ),
+        'remove_button' => __( 'Remove Link', 'sage' ),
+        'sortable'      => true, // beta
+      ),
+    )
+  );
+  $podcast_meta->add_group_field( $podcast_links, array(
+    'name' => __( 'Name', 'sage' ),
+    'id'   => 'name',
+    'type' => 'text',
+    'desc' => 'Name of the platform (ex: Apple Podcasts)',
+  ) );
+  $podcast_meta->add_group_field( $podcast_links, array(
+    'name' => __( 'URL', 'sage' ),
+    'id'   => 'url',
+    'type' => 'text_url',
+    'desc' => 'Full URL of podcast link.',
+  ) );
 }
 add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_metaboxes' );
 
@@ -40,7 +78,7 @@ function remove_page_attributes() {
 }
 add_action( 'admin_menu', __NAMESPACE__ . '\remove_page_attributes' );
 
-/** 
+/**
  * ADAPTED FROM:
  * Metabox for Page Slug
  * @author Tom Morton

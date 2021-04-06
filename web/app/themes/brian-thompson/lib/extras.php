@@ -25,7 +25,7 @@ function body_class($classes) {
 add_filter('body_class', __NAMESPACE__ . '\\body_class');
 
 /**
- * Use the magic of cookies to get the correct color class 
+ * Use the magic of cookies to get the correct color class
  * so we alternate colors every page.
  */
 function get_color_class() {
@@ -46,11 +46,11 @@ add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
 
 // Get rid of annoying nbsp characters that wfpc7 outputs and mess up formatting
 function remove_spaces_from_wpfc7( $content ) {
-  
+
   $find = '&nbsp;';
   $replace = '';
   $content = str_replace( $find, $replace, $content);
 
-  return $content;  
+  return $content;
 }
 add_filter( 'wpcf7_form_elements', __NAMESPACE__ . '\\remove_spaces_from_wpfc7' );

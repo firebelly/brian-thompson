@@ -38,6 +38,7 @@ $firebelly_includes = [
   'lib/nav-functions.php',             // Functions pertaining to navs
   'lib/fb_metatags.php',               // Generate metatags for social media sharing
   'lib/search-functions.php',          // Functions pertaining to search
+  'lib/cpt-podcast.php',               // Podcast Custom Post Type
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

@@ -1,1 +1,12 @@
-
+// Mobile + Desktop
+.mobile-only {
+  @include media-md {
+    display: none;
+  }
+}
+.desktop-only {
+  display: none;
+  @include media-md {
+    display: block;
+  }
+}

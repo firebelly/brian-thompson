@@ -22,6 +22,7 @@ function is_ajax() {
 function load_more_posts() {
 
   // Get our request details
+  $post_type = !empty($_REQUEST['post_type']) ? $_REQUEST['post_type'] : 'post';
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $category = !empty($_REQUEST['category']) ? $_REQUEST['category'] : '';
@@ -32,6 +33,7 @@ function load_more_posts() {
 
   // Begin aggregating args to grab posts in a sec
   $args = [
+    'post_type' => $post_type,
     'offset' => $offset,
     'posts_per_page' => $per_page,
   ];
@@ -50,11 +52,15 @@ function load_more_posts() {
   $posts = get_posts($args);
 
   // Spit out markup
-  if ($posts): 
+  if ($posts):
     foreach ($posts as $post) {
       $blog_post = $post;
       echo '<li class="post columns-item">';
-      include(locate_template('templates/content.php'));
+      if ($post_type == 'podcast') {
+        include(locate_template('templates/content-podcast.php'));
+      } else {
+        include(locate_template('templates/content.php'));
+      }
       echo '</li>';
     }
   endif;
@@ -80,6 +86,7 @@ function load_more_button($orig_query=false) {
   }
 
   // Extract query vars
+  $post_type = isset($orig_query->query['post_type']) ? $orig_query->query['post_type'] : 'post';
   $category = isset($orig_query->queried_object->term_id) ? $orig_query->queried_object->term_id : '';
   $search_query = isset($orig_query->query_vars['s']) ? $orig_query->query_vars['s'] : '';
   $per_page = isset($orig_query->query['posts_per_page']) ? $orig_query->query['posts_per_page'] : get_option( 'posts_per_page', 10 );
@@ -91,14 +98,14 @@ function load_more_button($orig_query=false) {
   } elseif ($search_query) {
     $total_posts = $wp_query->found_posts;
   } else {
-    $total_posts = wp_count_posts('post')->publish;
+    $total_posts = wp_count_posts($post_type)->publish;
   }
   $total_pages = ceil( $total_posts / $per_page);
 
   // Return the markup
   $output = '';
   if( $total_pages > 1 ) {
-    $output = '<button class="load-more arrow -right -black -small" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'" data-search="'.$search_query.'">See More Posts</div>';
+    $output = '<button class="load-more arrow -right -black -small" data-page-at="1" data-per-page="'.$per_page.'" data-total-pages="'.$total_pages.'" data-category="'.$category.'" data-search="'.$search_query.'" data-post-type="'.$post_type.'">See More Posts</div>';
   }
   return $output;
 

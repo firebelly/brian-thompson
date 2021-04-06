@@ -106,7 +106,7 @@ class FbSiteOptions {
       'options'          => array(
         'textarea_rows'  => 5, // Hide the text input for the url
       ),
-    ) );   
+    ) );
     $cmb->add_field( array(
       'name' => __( 'Contact Organization', 'firebelly' ),
       'id'   => 'org',
@@ -155,6 +155,15 @@ class FbSiteOptions {
       ),
     ) );
     $cmb->add_field( array(
+      'name' => __( 'Default Podcast Artwork', 'firebelly' ),
+      'desc'    => __( 'This will be used if unable to find an image for a podcast episode', 'firebelly' ),
+      'id'   => 'default_podcast_image',
+      'type' => 'file',
+      'options'          => array(
+        'url'            => false, // Hide the text input for the url
+      ),
+    ) );
+    $cmb->add_field( array(
       'name' => __( 'ADV Part 2A', 'firebelly' ),
       'desc'    => __( 'A PDF of the ADV Part 2A', 'firebelly' ),
       'id'   => 'adv',
@@ -171,7 +180,7 @@ class FbSiteOptions {
       'options'          => array(
         'url'            => false, // Hide the text input for the url
       ),
-    ) );   
+    ) );
   }
   /**
    * Register settings notices for display

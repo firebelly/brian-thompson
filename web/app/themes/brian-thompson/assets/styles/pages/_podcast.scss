@@ -1,0 +1,351 @@
+// Podcast Landing Page
+
+.page.podcast,
+.single-podcast {
+  .page-header {
+    h1 {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .podcast-page-thumbnail {
+
+    .page-thumbnail {
+      display: none;
+    }
+
+    @include media-md {
+      top: 118px;
+      z-index: 1;
+      left: 4 * $col;
+      width: 2 * $col;
+      position: absolute;
+
+      .inline-image {
+        height: 375px;
+        width: 2 * $col;
+      }
+
+      .page-thumbnail {
+        display: block;
+        margin-bottom: 40px;
+      }
+    }
+    @include min-screen(1000px) {
+      left: 5 * $col;
+    }
+    @include min-screen(1120px) {
+      width: 3 * $col;
+
+      .inline-image {
+        width: 3 * $col;
+      }
+    }
+  }
+
+  .posts,
+  .recent-posts {
+    list-style: none;
+
+    article {
+      color: $black;
+      display: flex;
+      cursor: pointer;
+      background-color: $true-white;
+      &:hover,
+      &:focus {
+        &::before {
+          left: 0;
+          content: '';
+          height: 5px;
+          width: 100%;
+          bottom: 100%;
+          position: absolute;
+          background: $black;
+        }
+      }
+
+      .header-image {
+        min-width: $col * 1.5;
+        flex-basis: $col * 1.5;
+        img {
+          margin: 0;
+          left: auto;
+          width: 100%;
+          display: block;
+        }
+      }
+
+      .header-text {
+        display: block;
+        padding: 10px 10px 0;
+
+        .meta p {
+          margin: 0;
+        }
+      }
+    }
+
+    .title {
+      @include copy;
+      margin-bottom: 0;
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      a {
+        color: $black;
+      }
+    }
+
+    .summary::before {
+      display: none;
+    }
+  }
+}
+
+// Blue Color Scheme
+body.blue-color-scheme {
+  &.podcast,
+  &.single-podcast {
+    .posts,
+    .recent-posts {
+      article {
+        border: 1px solid $white;
+
+        &:hover,
+        &:focus {
+          &::before {
+            margin-bottom: -1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Podcast Landing Page
+.page.podcast {
+  .button-container {
+    margin: 38px 0 86px;
+    a {
+      margin-right: 20px;
+    }
+  }
+
+  h4 {
+    @include copy;
+    color: $black;
+    position: relative;
+    &::before {
+      left: -5px;
+      content: '';
+      width: $col;
+      height: 5px;
+      display: block;
+      position: relative;
+      margin-bottom: 20px;
+      background-color: $black;
+    }
+  }
+
+  .posts {
+    margin-top: 40px;
+    margin-left: -5px;
+    width: calc(100% + 10px);
+
+    article {
+      .title {
+        font-size: 15px;
+        line-height: 18px;
+      }
+
+      .summary {
+        display: none;
+
+        p {
+          margin: 0;
+          overflow : hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      }
+    }
+
+    @include media-sm {
+      article {
+        .header-image {
+          min-width: 1.75 * $col;
+          flex-basis: 1.75 * $col;
+        }
+
+        .title {
+          font-size: 18px;
+          line-height: 21px;
+        }
+
+        .summary {
+          display: block;
+
+          p {
+            -webkit-line-clamp: 3;
+          }
+        }
+      }
+    }
+
+    @include media-md {
+      width: 5 * $col;
+
+      article {
+        .header-image {
+          min-width: 1.5 * $col;
+          flex-basis: 1.5 * $col;
+        }
+
+        .title {
+          font-size: 20px;
+          line-height: 22px;
+        }
+
+        .summary p {
+          -webkit-line-clamp: 3;
+        }
+      }
+    }
+    @include min-screen(1000px) {
+      width: 6 * $col;
+    }
+  }
+}
+
+// Single Podcaset Page
+.single.single-podcast {
+  .body-wrap#primary-site-content {
+    padding-top: calc(100vw - 32px);
+
+    @include media-md {
+      padding-top: 120px;
+    }
+  }
+
+  .mobile-image {
+    height: 100vw;
+  }
+
+  .site-main > article {
+
+    h1 {
+      hyphens: auto;
+    }
+
+    aside {
+      h4 {
+        @include copy;
+        color: $black;
+        margin: 0 0 46px;
+        position: relative;
+        &::before {
+          left: 0;
+          content: '';
+          width: $col;
+          height: 5px;
+          display: block;
+          position: relative;
+          margin-bottom: 20px;
+          background-color: $black;
+        }
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    @include media-md {
+      left: -5px;
+      display: flex;
+      position: relative;
+      width: calc(100% + 10px);
+
+      .main-column {
+        padding: 0 5px;
+        max-width: 4 * $col;
+        flex-basis: 4 * $col;
+      }
+      aside {
+        margin-bottom: $col;
+        max-width: 2 * $col;
+        flex-basis: 2 * $col;
+      }
+    }
+
+    @include min-screen(1000px) {
+      aside {
+        margin-left: $col;
+        max-width: 3 * $col;
+        flex-basis: 3 * $col;
+      }
+    }
+  }
+
+  // Audio Player
+  .mejs-audio {
+    .mejs-controls {
+      // background: $true-white;
+    }
+  }
+
+  .title {
+    @include word-break;
+  }
+
+  .page-thumbnail {
+    .-portrait {
+      height: 200px;
+      border: 1px solid $white;
+
+      @include min-screen(830px) {
+        height: 300px;
+      }
+    }
+  }
+
+  .recent-posts {
+    padding: 0;
+    margin-top: 40px;
+
+    article {
+      .header-image {
+        min-width: $col;
+        flex-basis: $col;
+      }
+    }
+
+    @include min-screen(800px) {
+      width: #{$col * 3};
+    }
+  }
+
+  @include media-md {
+    .body-wrap {
+      width: $col * 8;
+    }
+
+    header {
+      display: grid;
+    }
+
+    .entry-meta .date {
+      top: 25px;
+    }
+
+    .page-thumbnail {
+      position: relative;
+    }
+  }
+}
