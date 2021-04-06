@@ -39,3 +39,6 @@ web/app/themes/brian-thompson/assets/fonts/*
 .DS_Store
 
 log/capistrano.log
+
+# Misc
+.notes
