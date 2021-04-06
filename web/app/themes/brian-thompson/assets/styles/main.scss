@@ -20,6 +20,7 @@
 
 // Components
 @import "components/base";
+@import "common/global";
 @import "components/adminbar";
 @import "components/overlay";
 @import "components/waypoints";
@@ -34,11 +35,13 @@
 @import "components/images";
 @import "components/recent";
 @import "components/arrows";
+@import "components/newsletter-card";
 @import "components/breakpoint-indicator";
 
 // Pages
 @import "pages/home";
 @import "pages/archive";
+@import "pages/podcast";
 @import "pages/single-post";
 @import "pages/other-pages";
 

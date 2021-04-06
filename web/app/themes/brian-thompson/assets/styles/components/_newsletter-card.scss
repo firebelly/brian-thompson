@@ -1,0 +1,14 @@
+// Newsletter Card
+.newsletter-card {
+  padding: $lh;
+  color: $black;
+  position: relative;
+  border-top: 5px solid $black;
+  background-color: $true-white;
+  z-index: #{$z-floater-image-lines + 1};
+
+  p {
+    @include small-mono;
+    margin: 0;
+  }
+}

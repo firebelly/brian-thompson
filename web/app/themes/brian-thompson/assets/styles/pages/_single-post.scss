@@ -1,6 +1,7 @@
 // Single Posts
 
-.single-post {
+.single-post,
+.single-podcast {
 
   // Some shifts to accomadate the wider recent-posts module
   .body-wrap {
@@ -132,7 +133,10 @@
       right: calc( 100% - (  2 * #{$col-huge} + 5px ) );
     }
   }
+}
 
+// Single Post Only
+.single-post {
   // Override defaults
   .recent-posts {
     @include min-screen(800px) {

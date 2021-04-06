@@ -5,6 +5,7 @@ RewriteCond %{REQUEST_URI} !\.well-known
 RewriteCond %{HTTP_HOST} !^btfinancial.com [NC]
 RewriteCond %{HTTP_HOST} !^stage.btfinancial.com [NC]
 RewriteCond %{HTTP_HOST} !^btf.localhost [NC]
+RewriteCond %{HTTP_HOST} !^brian-thompson.sage [NC]
 RewriteRule ^(.*)$ https://btfinancial.com/$1 [R=301,L]
 
 RewriteRule ^post/([0-9]+).*$ /posts/$1/ [R=301,L]
@@ -29,8 +30,12 @@ AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css a
 # END speedups
 
 # BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
 <IfModule mod_rewrite.c>
 RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f

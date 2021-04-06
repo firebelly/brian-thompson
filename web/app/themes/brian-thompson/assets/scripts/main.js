@@ -43,6 +43,7 @@ var FBSage = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
+    // _initBigClicky();
     _initMobileNav();
     _initSearch();
     _initLoadMore();
@@ -102,6 +103,24 @@ var FBSage = (function($) {
 
   } // end init()
 
+  // Bigclicky™ (large clickable area that pulls first a[href] as URL)
+  function _initBigClicky() {
+    $document.on('click', '.bigclicky', function (e) {
+      if (!$(e.target).is('a')) {
+        e.preventDefault();
+        var link = $(this).find('a:first');
+        var href = link[0].href;
+        if (href) {
+          if (e.metaKey || link.attr('target')) {
+            window.open(href);
+          } else {
+            location.href = href;
+          }
+        }
+      }
+    });
+  }
+
   function _scrollBody(element, duration, delay) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
@@ -154,6 +173,7 @@ var FBSage = (function($) {
           data: {
               action: 'load_more_posts',
               page: page+1,
+              post_type: post_type,
               per_page: per_page,
               category: category,
               search: search
@@ -268,12 +288,16 @@ var FBSage = (function($) {
   // Add color information to URL we are going to, handle transition effect
   function _initPageTransitionLinks() {
     // Hijack links
-    $('a:not(.fake-link)').each(function() {
+    $('a:not(.fake-link), .bigclicky').each(function() {
       $(this).click(function(e) {
         if(_isAnimating) { // Don't be able to click links while we are already transitioning to a new page
           e.preventDefault();
         } else {
-          var linkUrl = $(this)[0].href; // Get my destination url
+          if ($(this).attr('href'))  {
+            var linkUrl = $(this)[0].href; // Get my destination url
+          } else if ($(this).is('.bigclicky')) {
+            var linkUrl = $(this).find('a:first').attr('href');
+          }
           // Apply transition only if its an in-site URL (or metaKey is held down)!  Otherwise, skip this and proceed to default link behavior
           if( !e.metaKey && _get_hostname(linkUrl) === document.location.hostname ) {
             _isAnimating = true;
@@ -287,8 +311,8 @@ var FBSage = (function($) {
 
             // Trigger blinds
             _blinds( $('.blinds.-page .blind'), 'show', startingBlindNum, function() {
-              // The below timeout seems to be too quick for Safari.  
-              // So if our user agent sniffing thinks we are Safari, 
+              // The below timeout seems to be too quick for Safari.
+              // So if our user agent sniffing thinks we are Safari,
               // we'll be boy scouts and change href EXACTLY when animation ends
               if(isProbablySafari) {
                 // console.time('transition');
@@ -529,7 +553,7 @@ var FBSage = (function($) {
       complete: function() {
         $('.popup .content-holder').empty(); // Out with the old
         $content.clone(true, true).contents().appendTo('.popup .content-holder'); // In with the new
-        
+
         _fitBodyToPopup();
 
         $('.popup .body-wrap').velocity('fadeIn',{ // Fade in new content
@@ -573,7 +597,7 @@ var FBSage = (function($) {
 
     if (useHiddenClass && showOrHideTheBlinds === 'show') { $container.removeClass('-hidden'); }
 
-    var singleBlindDuration = 30; 
+    var singleBlindDuration = 30;
 
     // Animate each blind.
     $($blinds).each(function() {
@@ -668,7 +692,7 @@ var FBSage = (function($) {
     // Lines behind popups
     _makeLines(15,'.search-popup').velocity('fadeOut',0);
     // Lines in front of images
-    _makeLines(6,'.floater-image');
+    _makeLines(6,'.floater-image, .page-thumbnail .inline-image');
   }
   function _makeLines(n,container){
     html = '<div class="lines" aria-hidden="true">';

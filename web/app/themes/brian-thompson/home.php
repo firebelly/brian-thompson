@@ -15,7 +15,7 @@
     <?php while (have_posts()) : the_post(); ?>
       <li class="post columns-item">
 
-        <?php 
+        <?php
         $blog_post = $post;
         include(locate_template('templates/content.php'));
         ?>

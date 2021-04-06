@@ -7,7 +7,7 @@
   }
 }
 
-.blog, .archive, .search {
+.blog, .archive, .search, .podcast {
 
   .category-nav {
     position: relative;
@@ -26,7 +26,7 @@
       }
     }
     @include min-screen(630px) {
-      position: absolute; 
+      position: absolute;
       left: 4 * $col;
       width: 130px;
       padding: 0 $teensy-pad;
@@ -46,7 +46,7 @@
       @include double-dash(25px,10px);
       list-style: none;
 
-      li {      
+      li {
         @include small-mono;
         margin: 0;
       }
@@ -54,15 +54,15 @@
   }
 
 
-  .columns-wrap .columns-item { 
+  .columns-wrap .columns-item {
     max-width: none;
   }
 
   .archive-listing {
     width: 100%;
-    
+
     h2 {
-      margin-bottom: $lh*.5; 
+      margin-bottom: $lh*.5;
       padding-right: $lh;
     }
 
@@ -94,7 +94,7 @@
       margin-top: $lh/4;
       border-radius: 0;
     }
-  } 
+  }
 
   ul.posts {
     margin-bottom: 0;
