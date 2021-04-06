@@ -291,12 +291,13 @@ var FBSage = (function($) {
     $('a:not(.fake-link), .bigclicky').each(function() {
       $(this).click(function(e) {
         if(_isAnimating) { // Don't be able to click links while we are already transitioning to a new page
-          e.preventDefault();
-        } else {
+        e.preventDefault();
+      } else {
+          var linkUrl;
           if ($(this).attr('href'))  {
-            var linkUrl = $(this)[0].href; // Get my destination url
+            linkUrl = $(this)[0].href; // Get my destination url
           } else if ($(this).is('.bigclicky')) {
-            var linkUrl = $(this).find('a:first').attr('href');
+            linkUrl = $(this).find('a:first').attr('href');
           }
           // Apply transition only if its an in-site URL (or metaKey is held down)!  Otherwise, skip this and proceed to default link behavior
           if( !e.metaKey && _get_hostname(linkUrl) === document.location.hostname ) {
