@@ -334,6 +334,10 @@ body.blue-color-scheme {
   @include media-md {
     .body-wrap {
       width: $col * 8;
+
+      h1::after {
+        display: none;
+      }
     }
 
     header {
