@@ -1,5 +1,6 @@
 set :stage, :staging
 set :application, 'btf-staging'
+set :branch, :staging
 set :login, 'btfinancial'
 set :domain, 'stage.btfinancial.com'
 
