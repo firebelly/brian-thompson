@@ -146,6 +146,17 @@ $brand-secondary: $blue;
     }
   }
 
+  // Newsletter Card
+  .newsletter-card {
+    .arrow.-black:hover,
+    .arrow.-black:focus {
+      background: $white;
+      .arrowhead {
+        fill: $white;
+      }
+    }
+  }
+
   // Lines & Blinds
   .line {
     background: choose($gray,$lite-blue,$scheme);
@@ -195,7 +206,7 @@ $brand-secondary: $blue;
   .site-nav-bg {
     background: $bg;
   }
-  
+
   .hamburger {
     fill: $text;
   }
@@ -213,11 +224,11 @@ $brand-secondary: $blue;
   // Footer
   .site-footer {
     background: $anti-bg;
-    &, a { 
-      color: $anti-text; 
+    &, a {
+      color: $anti-text;
     }
-    a:hover { 
-      color: $anti-title; 
+    a:hover {
+      color: $anti-title;
     }
 
     // The open/close footer nipple

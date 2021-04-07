@@ -80,7 +80,7 @@
 
       .header-text {
         display: block;
-        padding: 10px 10px 0;
+        padding: 10px 16px 0;
 
         .meta p {
           margin: 0;
@@ -90,7 +90,7 @@
 
     .title {
       @include copy;
-      margin-bottom: 0;
+      margin: 2px 0;
       &::before,
       &::after {
         display: none;
@@ -136,7 +136,7 @@ body.blue-color-scheme {
     }
   }
 
-  h4 {
+  .site-main h4 {
     @include copy;
     color: $black;
     position: relative;
@@ -149,6 +149,14 @@ body.blue-color-scheme {
       position: relative;
       margin-bottom: 20px;
       background-color: $black;
+    }
+    &::after {
+      @include dot;
+      top: 30px;
+      left: -1 * $col - $teensy-pad - 2px;
+      @include media-huge {
+        left: calc( -1 * #{$col-huge} - #{$teensy-pad} - 2px );
+      }
     }
   }
 
@@ -240,6 +248,12 @@ body.blue-color-scheme {
 
   .site-main > article {
 
+    header {
+      .link-to-archive {
+        @include small-mono;
+      }
+    }
+
     h1 {
       hyphens: auto;
     }
@@ -264,6 +278,10 @@ body.blue-color-scheme {
           display: none;
         }
       }
+    }
+
+    .entry-content {
+      margin-top: 30px;
     }
 
     @include media-md {
