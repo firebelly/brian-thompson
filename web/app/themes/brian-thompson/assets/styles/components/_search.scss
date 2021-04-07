@@ -1,5 +1,5 @@
 .search-popup {
-  
+
   &:not(.showing) {
     @extend .sr-only;
   }
@@ -78,7 +78,7 @@ body.search {
   position: fixed;
   top: 10px;
   right: 55px;
-  @include media-md {
+  @include media-lg {
     display: none;
   }
   padding: 5px;

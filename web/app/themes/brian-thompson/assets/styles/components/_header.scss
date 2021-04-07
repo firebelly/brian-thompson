@@ -43,7 +43,7 @@
     border: 0;
     background: transparent;
     padding: 5px;
-    @include media-md {
+    @include media-lg {
       display: none;
     }
 
@@ -82,16 +82,17 @@
     line-height: 15px;
     letter-spacing: 0;
 
-    ul#menu-main-menu { 
+    ul#menu-main-menu {
       display: none;
       position: relative;
       top: 0;
       margin: 0;
       left: 2 * $col;
-      @include media-md {
-        display: block;
-      }
       @include media-lg {
+        display: block;
+        left: 2 * $col;
+      }
+      @include min-screen(1000px) {
         left: 3 * $col;
       }
       @include media-huge {
@@ -105,7 +106,7 @@
       width: $col;
       padding: 10px $teensy-pad 0;
       @include media-lg {
-        padding: 25px $teensy-pad 0; 
+        padding: 25px $teensy-pad 0;
       }
       @include media-huge {
         width: $col-huge;
@@ -125,7 +126,7 @@
           height: 0;
         }
       }
-      
+
       &.current-menu-item a:before, a:hover:before {
         height: 5px;
       }
@@ -152,7 +153,7 @@
 }
 
 .popup { // The nav is thrown in a popup for tablet/mobile
- 
+
   &.holding-mobile-nav .body-wrap {
     position: fixed;
   }
@@ -164,6 +165,9 @@
     @include media-tiny{
       left: auto;
       right: 0;
+    }
+    @include media-md {
+      top: 185px;
     }
 
     li.menu-item-search {

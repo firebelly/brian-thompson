@@ -125,6 +125,12 @@ body.blue-color-scheme {
       }
     }
   }
+
+  &.single-podcast {
+    .page-thumbnail .-portrait {
+      border: 1px solid $white;
+    }
+  }
 }
 
 // Podcast Landing Page
@@ -265,7 +271,7 @@ body.blue-color-scheme {
         margin: 0 0 46px;
         position: relative;
         &::before {
-          left: 0;
+          left: -5px;
           content: '';
           width: $col;
           height: 5px;
@@ -299,6 +305,10 @@ body.blue-color-scheme {
         margin-bottom: $col;
         max-width: 2 * $col;
         flex-basis: 2 * $col;
+
+        h4::before {
+          left: 0;
+        }
       }
     }
 
@@ -324,10 +334,9 @@ body.blue-color-scheme {
 
   .page-thumbnail {
     .-portrait {
-      height: 200px;
-      border: 1px solid $white;
+      height: 300px;
 
-      @include min-screen(830px) {
+      @include min-screen(1000px) {
         height: 300px;
       }
     }
@@ -337,6 +346,12 @@ body.blue-color-scheme {
     padding: 0;
     margin-top: 40px;
 
+    .posts {
+      left: -5px;
+      position: relative;
+      width: calc(100% + 10px);
+    }
+
     article {
       .header-image {
         min-width: $col;
@@ -344,9 +359,21 @@ body.blue-color-scheme {
       }
     }
 
-    @include min-screen(800px) {
+    @include media-md {
+      left: auto;
       width: #{$col * 3};
+
+      .posts {
+        left: auto;
+        width: 100%;
+      }
     }
+  }
+
+  .newsletter-card {
+    left: -5px;
+    position: relative;
+    width: calc(100% + 10px);
   }
 
   @include media-md {
@@ -368,6 +395,11 @@ body.blue-color-scheme {
 
     .page-thumbnail {
       position: relative;
+    }
+
+    .newsletter-card {
+      left: auto;
+      width: 3 * $col;
     }
   }
 }
