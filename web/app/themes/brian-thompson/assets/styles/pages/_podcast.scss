@@ -290,7 +290,7 @@ body.blue-color-scheme {
     }
 
     h1 {
-      hyphens: auto;
+      @include word-break;
     }
 
     aside {
@@ -357,10 +357,6 @@ body.blue-color-scheme {
     }
   }
 
-  .title {
-    @include word-break;
-  }
-
   .page-thumbnail {
     .-portrait {
       height: 300px;
@@ -397,8 +393,8 @@ body.blue-color-scheme {
       }
 
       .title {
-        font-size: 15px;
-        line-height: 18px;
+        font-size: 14px;
+        line-height: 19px;
       }
     }
 
