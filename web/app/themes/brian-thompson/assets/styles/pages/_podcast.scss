@@ -126,6 +126,21 @@ body.blue-color-scheme {
     }
   }
 
+  &.podcast {
+    .site-main h4 {
+      color: $white;
+    }
+
+    .posts article {
+      @include media-sm {
+        height: 1.75 * $col + 2;
+      }
+      @include media-md {
+        height: auto;
+      }
+    }
+  }
+
   &.single-podcast {
     .page-thumbnail .-portrait {
       border: 1px solid $white;
@@ -138,7 +153,11 @@ body.blue-color-scheme {
   .button-container {
     margin: 38px 0 86px;
     a {
+      @include small-mono;
       margin-right: 20px;
+      &:first-of-type {
+        margin-left: -5px;
+      }
     }
   }
 
@@ -164,6 +183,12 @@ body.blue-color-scheme {
         left: calc( -1 * #{$col-huge} - #{$teensy-pad} - 2px );
       }
     }
+  }
+
+  .newsletter-card-container.mobile-only {
+    left: -5px;
+    position: relative;
+    width: calc(100% + 10px);
   }
 
   .posts {
@@ -193,6 +218,8 @@ body.blue-color-scheme {
 
     @include media-sm {
       article {
+        height: 1.75 * $col;
+
         .header-image {
           min-width: 1.75 * $col;
           flex-basis: 1.75 * $col;
@@ -217,6 +244,8 @@ body.blue-color-scheme {
       width: 5 * $col;
 
       article {
+        height: auto;
+
         .header-image {
           min-width: 1.5 * $col;
           flex-basis: 1.5 * $col;
@@ -377,7 +406,7 @@ body.blue-color-scheme {
   }
 
   @include media-md {
-    .body-wrap {
+    .body-wrap#primary-site-content {
       width: $col * 8;
 
       h1::after {

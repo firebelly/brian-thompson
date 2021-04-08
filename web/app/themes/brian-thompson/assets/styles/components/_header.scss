@@ -25,6 +25,8 @@
       }
       @include media-lg {
         top: 25px;
+      }
+      @include min-screen(1000px) {
         left: $col;
       }
       @include media-huge {
