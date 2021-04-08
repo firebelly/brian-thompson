@@ -378,13 +378,27 @@ body.blue-color-scheme {
     .posts {
       left: -5px;
       position: relative;
+      margin-bottom: 40px;
       width: calc(100% + 10px);
+    }
+
+    .post {
+      margin-bottom: 20px;
     }
 
     article {
       .header-image {
         min-width: $col;
         flex-basis: $col;
+      }
+
+      .header-text {
+        padding-left: 11px;
+      }
+
+      .title {
+        font-size: 15px;
+        line-height: 18px;
       }
     }
 
