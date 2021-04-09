@@ -318,6 +318,16 @@ body.blue-color-scheme {
 
     .entry-content {
       margin-top: 30px;
+
+      h3 {
+        margin-bottom: 20px;
+      }
+      h4 {
+        @include font-bold;
+        font-size: 12px;
+        margin-bottom: 0;
+        line-height: 20px;
+      }
     }
 
     @include media-md {
