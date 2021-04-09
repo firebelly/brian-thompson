@@ -270,7 +270,7 @@ body.blue-color-scheme {
 // Single Podcaset Page
 .single.single-podcast {
   .body-wrap#primary-site-content {
-    padding-top: calc(100vw - 32px);
+    padding-top: calc(100vw + 18px);
 
     @include media-md {
       padding-top: 120px;
@@ -278,6 +278,7 @@ body.blue-color-scheme {
   }
 
   .mobile-image {
+    top: 50px;
     height: 100vw;
   }
 
