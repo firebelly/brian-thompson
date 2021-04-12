@@ -7,7 +7,7 @@ set :php, 'php74'
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
-set :branch, :master
+set :branch, :main
 
 set :deploy_to, -> { "/home/#{fetch(:login)}/apps/#{fetch(:application)}" }
 
