@@ -53,7 +53,7 @@
     "wpackagist-plugin/search-and-replace": ">=3.1.0",
     "wpackagist-plugin/wp-mail-smtp":">=2.5.1",
     "wpackagist-plugin/disable-gutenberg": "^2.0",
-    "wpackagist-plugin/libsyn-podcasting": "1.2.2.9"
+    "wpackagist-plugin/podcast-importer-secondline": "1.2.5"
   },
   "extra": {
     "installer-paths": {
